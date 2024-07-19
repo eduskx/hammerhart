@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 ## Value proposition
-As a <user/role>
+As a DIY enthusiast
 I want to <feature/goal>
 In order to <benefit/purpose>
 ## Description
