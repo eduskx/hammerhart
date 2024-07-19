@@ -1,19 +1,29 @@
-# New Next Project
+# DIY Hub
 
-### Local Development
+## Description
 
-To work locally, please install the dependencies using `npm i` first.
+The DIY Hub enables users to create, organise, and plan their DIY projects. It provides a platform for users to track their progress, organise materials, and store detailed information about each project.
 
-Run `npm run dev` to start a development server and open the displayed URL in a browser.
+### Main Features
 
-Use `npm run test` to run the tests.
+- **Projects List:** Browse a well-organised collection of DIY projects.
+- **Project Details:** View detailed information about each project.
+- **Create Project:** Add new projects, enriching the projects catalogue.
+- **Delete Project:** Remove outdated or unwanted projects.
+- **Update Project:** Update and modify existing projects.
+- **Bookmark Project:** Save and showcase your favourite projects.
+- **Filter Projects:** Filter projects by various criteria.
 
-### Scripts
+### Additional Features Inspiration
 
-You can use the following commands:
+These features are optional and should serve as a conversation starter for upcoming features of the app.
 
-- `npm run dev` to start a development server
-- `npm run build` to build the project
-- `npm run start` to start a production server
-- `npm run test` to run the tests
-- `npm run lint` to run the linter
+- **Upload Project Images:** Add images to projects to provide visual aids and inspiration.
+- **Add Project Notes:** Include private notes to projects to keep track of ideas, modifications, and personal insights.
+- **Track Progress:** Monitor the progress of projects with status updates (e.g., planning, in progress, completed).
+- **Search Projects:** Use a search bar to quickly find projects by name or keyword.
+- **Rate Projects:** Rate projects on a scale from 1 to 5 stars.
+
+## Notes
+
+- You can find some example data in the [assets folder](./assets/) to get you started.
