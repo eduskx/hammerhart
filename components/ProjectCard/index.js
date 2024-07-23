@@ -2,20 +2,16 @@ import Image from "next/image";
 import styled from "styled-components";
 
 export default function ProjectCard({ project }) {
+  const { imageUrl, title, complexity } = project;
   return (
     <CardContainer>
-      <Image
-        src={project.imageUrl}
-        alt={project.title}
-        width={200}
-        height={150}
-      />
+      <Image src={imageUrl} alt={title} width={200} height={150} />
       <Wrapper>
-        <h2>{project.title}</h2>
+        <h2>{title}</h2>
         <p>
           Complexity:
           <br />
-          {project.complexity}
+          {complexity}
         </p>
       </Wrapper>
     </CardContainer>
