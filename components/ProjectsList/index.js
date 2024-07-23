@@ -1,12 +1,17 @@
+import styled from "styled-components";
 import ProjectCard from "../ProjectCard";
 export default function ProjectsList({ projects }) {
   return (
     <ul>
       {projects.map((project) => (
-        <li key={project.id}>
+        <StyledListElement key={project.id}>
           <ProjectCard project={project} />
-        </li>
+        </StyledListElement>
       ))}
     </ul>
   );
 }
+
+const StyledListElement = styled.li`
+  list-style: none;
+`;
