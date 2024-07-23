@@ -1,4 +1,4 @@
-import GlobalStyle from "../styles";
+import GlobalStyle from "@/styles";
 import projects from "@/lib/projects.js";
 
 export default function App({ Component, pageProps }) {

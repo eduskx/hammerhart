@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ProjectCard from "../ProjectCard";
+import ProjectCard from "@/components/ProjectCard";
 export default function ProjectsList({ projects }) {
   return (
     <ul>
