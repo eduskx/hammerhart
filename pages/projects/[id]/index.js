@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { uid } from "uid";
 import styled from "styled-components";
 
 export default function ProjectDetailsPage({ projects }) {
@@ -32,23 +31,23 @@ export default function ProjectDetailsPage({ projects }) {
       </Link>
 
       <StyledDetailsWrapper>
-        <h2>{title}</h2>
+        <h1>{title}</h1>
         <StyledImageWrapper>
           <Image src={imageUrl} alt={title} width={300} height={200} />
-          <StyledP>{complexity}</StyledP>
+          <StyledComplexityTag>{complexity}</StyledComplexityTag>
         </StyledImageWrapper>
         <p>{description}</p>
         <StyledDuration>Duration: {duration}</StyledDuration>
 
+        <h2>Materials</h2>
         <StyledMaterialsList>
-          <h3>Materials</h3>
           {materials.map((material) => (
-            <StyledListItems key={uid()}>{material}</StyledListItems>
+            <StyledListItems key={material.index}>{material}</StyledListItems>
           ))}
         </StyledMaterialsList>
 
+        <h2>Instructions</h2>
         <StyledInstructionsList>
-          <h3>Instructions</h3>
           {steps.map((step) => (
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
@@ -63,7 +62,7 @@ const StyledImageWrapper = styled.div`
   width: fit-content;
 `;
 
-const StyledP = styled.p`
+const StyledComplexityTag = styled.p`
   position: absolute;
   bottom: 0.6rem;
   right: 0.5rem;
