@@ -41,8 +41,8 @@ export default function ProjectDetailsPage({ projects }) {
 
         <h2>Materials</h2>
         <StyledMaterialsList>
-          {materials.map((material) => (
-            <StyledListItems key={material.index}>{material}</StyledListItems>
+          {materials.map((material, index) => (
+            <StyledListItems key={index}>{material}</StyledListItems>
           ))}
         </StyledMaterialsList>
 
