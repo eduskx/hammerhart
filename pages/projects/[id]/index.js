@@ -12,7 +12,7 @@ export default function ProjectDetailsPage({ projects }) {
   const projectData = projects.find((project) => project.id === id);
 
   if (!projectData) {
-    return null;
+    return <h1>No project found</h1>;
   }
 
   const {
