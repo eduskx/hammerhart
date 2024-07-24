@@ -14,7 +14,7 @@ export default createGlobalStyle`
 
   }
 
-  h2, h1, p {
+  h1, h2, h3, p {
     margin: 0;
     padding: 0;
   }

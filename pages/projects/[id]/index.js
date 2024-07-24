@@ -31,7 +31,7 @@ export default function ProjectDetailsPage({ projects }) {
         <FaArrowLeftLong /> Back
       </Link>
 
-      <StyledCardWrapper>
+      <StyledDetailsWrapper>
         <h2>{title}</h2>
         <StyledImageWrapper>
           <Image src={imageUrl} alt={title} width={300} height={200} />
@@ -39,21 +39,21 @@ export default function ProjectDetailsPage({ projects }) {
         </StyledImageWrapper>
         <p>{description}</p>
         <StyledDuration>Duration: {duration}</StyledDuration>
-      </StyledCardWrapper>
 
-      <ul>
-        <h3>Materials</h3>
-        {materials.map((material) => (
-          <li key={uid()}>{material}</li>
-        ))}
-      </ul>
+        <StyledMaterialsList>
+          <h3>Materials</h3>
+          {materials.map((material) => (
+            <StyledListItems key={uid()}>{material}</StyledListItems>
+          ))}
+        </StyledMaterialsList>
 
-      <ol>
-        <h3>Instructions</h3>
-        {steps.map((step) => (
-          <li key={step.id}>{step.description}</li>
-        ))}
-      </ol>
+        <StyledInstructionsList>
+          <h3>Instructions</h3>
+          {steps.map((step) => (
+            <StyledListItems key={step.id}>{step.description}</StyledListItems>
+          ))}
+        </StyledInstructionsList>
+      </StyledDetailsWrapper>
     </>
   );
 }
@@ -73,7 +73,7 @@ const StyledP = styled.p`
   border-radius: 10px;
 `;
 
-const StyledCardWrapper = styled.div`
+const StyledDetailsWrapper = styled.div`
   width: 300px;
   display: flex;
   flex-direction: column;
@@ -83,4 +83,24 @@ const StyledCardWrapper = styled.div`
 
 const StyledDuration = styled.p`
   align-self: self-end;
+`;
+
+const StyledMaterialsList = styled.ul`
+  align-self: flex-start;
+  list-style-position: inside;
+  padding: 0;
+  margin: 0;
+  margin-top: 1rem;
+`;
+
+const StyledInstructionsList = styled.ol`
+  align-self: flex-start;
+  list-style-position: inside;
+  padding: 0;
+  margin-top: 1rem;
+  line-height: 1.5rem;
+`;
+
+const StyledListItems = styled.li`
+  margin-bottom: 0.3rem;
 `;
