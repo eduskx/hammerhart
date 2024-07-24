@@ -74,7 +74,7 @@ const StyledP = styled.p`
 `;
 
 const StyledCardWrapper = styled.div`
-  width: fit-content;
+  width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
