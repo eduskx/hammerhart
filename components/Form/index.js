@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import DynamicInputForm from "./DynamicInputForm";
+import { useState } from "react";
 
 export default function Form() {
   return (
@@ -19,6 +21,9 @@ export default function Form() {
         <option value="Intermediate">Intermediate</option>
         <option value="Advanced">Advanced</option>
       </select>
+
+      <DynamicInputForm listType="materials" />
+      <DynamicInputForm listType="steps" />
     </form>
   );
 }

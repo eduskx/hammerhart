@@ -1,13 +1,25 @@
 import { useState } from "react";
 
-export default function DynamicInputForm() {
-  const [inputFields, setInputFields] = useState([{ material: "", step: "" }]);
+export default function DynamicInputForm({ listType }) {
+  const [inputFields, setInputFields] = useState([listType]);
 
-  const handleAddFields = () => {};
+  const handleAddFields = () => {
+    setInputFields([...inputFields, { [listType]: "" }]);
+  };
 
-  const handleRemoveFields = (index) => {};
+  const handleRemoveFields = (index) => {
+    const newInputFields = [...inputFields];
+    newInputFields.splice(index, 1);
+    setInputFields(newInputFields);
+  };
 
-  const handleValueChange = (index, event) => {};
+  const handleValueChange = (index, event) => {
+    const values = [...inputFields];
+    values[index][listType] = event.target.value;
+    setInputFields(values);
+
+    console.log(inputFields);
+  };
 
   return (
     <>
@@ -16,11 +28,14 @@ export default function DynamicInputForm() {
           <input
             type="text"
             placeholder="Enter a value"
-            value={inputField.material}
+            value={inputField[listType]}
             onChange={(event) => handleValueChange(index, event)}
           />
+          <button onClick={() => handleRemoveFields(index)}>Delete</button>
         </div>
       ))}
+
+      <button onClick={handleAddFields}>Add {listType}</button>
     </>
   );
 }
