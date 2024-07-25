@@ -1,6 +1,6 @@
 import {StyledTitle,StyledComplexity,StyledImage,CardContainer,Wrapper} from "@/components/ProjectCard/stylesProjectCard"
 
-
+import styled from "styled-components";
 
 
 export default function ProjectCard({ project }) {
@@ -15,8 +15,20 @@ export default function ProjectCard({ project }) {
           {complexity}
         </StyledComplexity>
       </Wrapper>
+        
     </CardContainer>
   );
 }
 
 
+const StyledDiv = styled.div`
+border: solid 2px hotpink;
+position:absolute;
+width: 200px;
+height: 100px;
+bottom:-70px;
+right: -95px;
+border-radius: 15px;
+z-index:1;
+
+`;

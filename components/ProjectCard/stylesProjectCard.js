@@ -37,6 +37,10 @@ const StyledImage = styled(Image)`
 const CardContainer = styled.div`
   display: flex;
   gap: 1rem;
+  position: relative;
+  overflow:hidden;
+  margin:0.5rem;
+  
 `;
 
 const Wrapper = styled.div`

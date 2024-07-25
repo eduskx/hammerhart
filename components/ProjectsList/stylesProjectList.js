@@ -23,14 +23,15 @@ const StyledList = styled.ul`
 const StyledListElement = styled.li`
   box-shadow: 1px 1px 6px 1px #000000;
   border-radius: 20px;
-
+position: relative;
   margin: 0 1rem;
-  padding: 0.5rem;
+  overflow:hidden;
+  
   @media (min-width: 640px) {
     width: 45%;
     height: auto;
     margin: 0;
-    padding: 0.5rem;
+    
   }
 `;
 
