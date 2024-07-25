@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 
+import {StyledComplexity} from "@/components/ProjectCard/stylesProjectCard"
 export default function ProjectDetailsPage({ projects }) {
   const router = useRouter();
   const { id } = router.query;
@@ -34,7 +35,7 @@ export default function ProjectDetailsPage({ projects }) {
         <h1>{title}</h1>
         <StyledImageWrapper>
           <Image src={imageUrl} alt={title} width={300} height={200} />
-          <StyledComplexityTag>{complexity}</StyledComplexityTag>
+          <StyledComplexityTag color={complexity}>{complexity}</StyledComplexityTag>
         </StyledImageWrapper>
         <p>{description}</p>
         <StyledDuration>Duration: {duration}</StyledDuration>
@@ -62,13 +63,14 @@ const StyledImageWrapper = styled.div`
   width: fit-content;
 `;
 
-const StyledComplexityTag = styled.p`
+
+const StyledComplexityTag = styled(StyledComplexity)`
   position: absolute;
   bottom: 0.6rem;
   right: 0.5rem;
   padding: 5px;
   margin: 0;
-  background-color: white;
+  
   border-radius: 10px;
 `;
 

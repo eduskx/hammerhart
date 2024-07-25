@@ -1,18 +1,16 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
+
+
+
+
   *,
   *::before,
   *::after {
     box-sizing: border-box;
     
   }
-:root{
-  --Beginner: #3ecd5e
-  --Intermediate: #f9b234;
-  --Advanced:#e44002;
-
-}
 
   
   body {
