@@ -1,4 +1,4 @@
-import styled from "styled-components";
+/* import styled from "styled-components";
 import Link from "next/link";
 
 const StyledList = styled.ul`
@@ -21,17 +21,17 @@ const StyledList = styled.ul`
 `;
 
 const StyledListElement = styled.li`
-  box-shadow: 1px 1px 6px 1px #000000;
+  box-shadow: 1px 1px 6px 1px #00000072;
   border-radius: 20px;
-position: relative;
+  position: relative;
   margin: 0 1rem;
-  overflow:hidden;
-  
+  overflow: hidden;
+  width: 350px;
+  height: 150px;
   @media (min-width: 640px) {
-    width: 45%;
-    height: auto;
+    width: 400px;
+    height: 150px;
     margin: 0;
-    
   }
 `;
 
@@ -40,4 +40,4 @@ const StyledLink = styled(Link)`
   color: black;
 `;
 
-export {StyledList,StyledListElement,StyledLink}
+export { StyledList, StyledListElement, StyledLink }; */

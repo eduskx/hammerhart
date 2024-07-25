@@ -1,6 +1,9 @@
 import GlobalStyle from "@/styles";
 import projects from "@/lib/projects.js";
 import { useState } from "react";
+import { Saira } from 'next/font/google'
+
+const saira = Saira ({ subsets: ['latin'] })
 
 export default function App({ Component, pageProps }) {
   const [newProjects, setNewProjects] = useState(projects);
@@ -8,11 +11,13 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component
-        {...pageProps}
-        projects={newProjects}
-        setNewProjects={setNewProjects}
-      />
+      <div className={saira.className}>
+        <Component
+          {...pageProps}
+          projects={newProjects}
+          setNewProjects={setNewProjects}
+        />
+      </div>
     </>
   );
 }

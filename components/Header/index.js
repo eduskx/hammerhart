@@ -5,5 +5,9 @@ export default function Header() {
 }
 
 const StyledHeader = styled.h1`
+  display: flex;
   padding: 1rem;
+  justify-content: center;
 `;
+
+
