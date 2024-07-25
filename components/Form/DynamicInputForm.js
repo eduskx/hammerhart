@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function DynamicInputForm({ listType }) {
-  const [inputFields, setInputFields] = useState([listType]);
+  const [inputFields, setInputFields] = useState([{[listType]: ""}]);
 
   const handleAddFields = () => {
     setInputFields([...inputFields, { [listType]: "" }]);
@@ -25,10 +25,13 @@ export default function DynamicInputForm({ listType }) {
     <>
       {inputFields.map((inputField, index) => (
         <div key={index}>
+          <label htmlFor={listType}></label>
           <input
+          id={listType}
+          name={listType}
             type="text"
             placeholder="Enter a value"
-            value={inputField[listType]}
+            value={[inputField[listType]]}
             onChange={(event) => handleValueChange(index, event)}
           />
           <button onClick={() => handleRemoveFields(index)}>Delete</button>
