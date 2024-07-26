@@ -18,10 +18,6 @@ export default function DynamicStepsInput({ steps, setSteps }) {
     setSteps(newSteps);
   }
 
-  // useEffect(() => {
-  //   setSteps(steps);
-  // }, [steps, setSteps]);
-
   return (
     <>
       <label htmlFor={steps}>Add Steps</label>
@@ -33,7 +29,7 @@ export default function DynamicStepsInput({ steps, setSteps }) {
             onChange={(event) => handleChange(index, event)}
             type="text"
           />
-          <StyledButton onClick={() => handleRemoveField(object.id)}>
+          <StyledButton onClick={() => handleRemoveField(step.id)}>
             <FaRegTrashAlt />
           </StyledButton>
         </StyledStepsWrapper>

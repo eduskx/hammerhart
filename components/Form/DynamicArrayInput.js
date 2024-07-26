@@ -6,7 +6,6 @@ import { MdAdd } from "react-icons/md";
 export default function DynamicArrayInput({ label, state, setterFunction }) {
   function handleAddField() {
     setterFunction([...state, ""]);
-    console.log(state);
   }
 
   function handleRemoveField(indexToRemove) {
@@ -18,10 +17,6 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
     newListItems[index] = event.target.value;
     setterFunction(newListItems);
   }
-
-  // useEffect(() => {
-  //   setterFunction(state);
-  // }, [state, setterFunction]);
 
   return (
     <>

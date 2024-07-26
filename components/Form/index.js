@@ -3,12 +3,18 @@ import { useState } from "react";
 import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
 import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 
-export default function Form({ setNewProjects, projects }) {
-  const [materials, setMaterials] = useState([""]);
-  const [steps, setSteps] = useState([{ id: "1", description: "" }]);
-
-  // const [materials, setMaterials] = useState([]);
-  // const [steps, setSteps] = useState([]);
+export default function Form({
+  setNewProjects,
+  projects,
+  defaultData,
+  onSubmit,
+  materials: updatedMaterials,
+  steps: updatedSteps,
+}) {
+  const [materials, setMaterials] = useState(updatedMaterials || [""]);
+  const [steps, setSteps] = useState(
+    updatedSteps || [{ id: "1", description: "" }]
+  );
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -20,7 +26,6 @@ export default function Form({ setNewProjects, projects }) {
     newProject.steps = steps;
 
     setNewProjects([newProject, ...projects]);
-    console.log(newProject);
 
     event.target.reset();
     setMaterials([""]);
@@ -28,9 +33,15 @@ export default function Form({ setNewProjects, projects }) {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <StyledForm onSubmit={onSubmit || handleSubmit}>
       <label htmlFor="title">Title</label>
-      <StyledInput required id="title" name="title" type="text" />
+      <StyledInput
+        required
+        id="title"
+        name="title"
+        type="text"
+        defaultValue={defaultData?.title}
+      />
 
       <label htmlFor="imageUrl">Image</label>
       <StyledInput
@@ -41,14 +52,31 @@ export default function Form({ setNewProjects, projects }) {
       />
 
       <label htmlFor="description">Description</label>
-      <StyledTextarea id="description" name="description" rows={5} cols={30} />
+      <StyledTextarea
+        id="description"
+        name="description"
+        rows={5}
+        cols={30}
+        defaultValue={defaultData?.description}
+      />
 
       <label htmlFor="duration">Duration</label>
-      <StyledInput required id="duration" name="duration" type="test" />
+      <StyledInput
+        required
+        id="duration"
+        name="duration"
+        type="test"
+        defaultValue={defaultData?.duration}
+      />
 
       <StyledDropDownWrapper>
         <label htmlFor="complexity">Complexity: </label>
-        <StyledDropdown required id="complexity" name="complexity">
+        <StyledDropdown
+          required
+          id="complexity"
+          name="complexity"
+          defaultValue={defaultData?.complexity}
+        >
           <option value="">Please select a complexity level</option>
           <option value="Beginner">Beginner</option>
           <option value="Intermediate">Intermediate</option>
@@ -56,14 +84,11 @@ export default function Form({ setNewProjects, projects }) {
         </StyledDropdown>
       </StyledDropDownWrapper>
 
-      {/* <StyledParagraph>Add Materials</StyledParagraph> */}
       <DynamicArrayInput
         label="Add Materials"
         state={materials}
         setterFunction={setMaterials}
       />
-
-      {/* <StyledParagraph>Add Steps</StyledParagraph> */}
       <DynamicStepsInput steps={steps} setSteps={setSteps} />
 
       <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
