@@ -27,8 +27,17 @@ export default function Form({ setNewProjects, projects }) {
     setSteps([{ id: "1", description: "" }]);
   }
 
+  function handleKeyDown(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  }
+
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <StyledForm
+      onSubmit={handleSubmit}
+      onKeyDown={(event) => handleKeyDown(event)}
+    >
       <label htmlFor="title">Title</label>
       <StyledInput required id="title" name="title" type="text" />
 

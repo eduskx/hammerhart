@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 
 export default function DynamicArrayInput({ label, state, setterFunction }) {
+  const newInputRefs = useRef([""]);
+
   function handleAddField() {
     setterFunction([...state, ""]);
-    console.log(state);
+    // const newIndex = newInputRefs.current.length + 1;
+    // newInputRefs.current[newIndex].focus();
   }
 
   function handleRemoveField(indexToRemove) {
@@ -19,6 +22,12 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
     setterFunction(newListItems);
   }
 
+  function handleKeyDown(index, event) {
+    if (event.key === "Enter" && event.target.value !== "") {
+      handleAddField();
+    }
+  }
+
   // useEffect(() => {
   //   setterFunction(state);
   // }, [state, setterFunction]);
@@ -29,9 +38,11 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
       {state.map((listItem, index) => (
         <StyledMaterialsWrapper key={index}>
           <StyledInput
+            ref={(element) => (newInputRefs.current[index] = element)}
             id={label}
             value={listItem}
             onChange={(event) => handleChange(index, event)}
+            onKeyDown={(event) => handleKeyDown(index, event)}
             type="text"
           />
           <StyledButton onClick={() => handleRemoveField(index)}>

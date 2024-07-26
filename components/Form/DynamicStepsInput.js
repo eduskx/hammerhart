@@ -9,7 +9,7 @@ export default function DynamicStepsInput({ steps, setSteps }) {
   }
 
   function handleRemoveField(idToRemove) {
-    setSteps(steps.filter((object) => object.id !== idToRemove));
+    setSteps(steps.filter((steps) => steps.id !== idToRemove));
   }
 
   function handleChange(index, event) {
@@ -33,7 +33,7 @@ export default function DynamicStepsInput({ steps, setSteps }) {
             onChange={(event) => handleChange(index, event)}
             type="text"
           />
-          <StyledButton onClick={() => handleRemoveField(object.id)}>
+          <StyledButton onClick={() => handleRemoveField(steps.id)}>
             <FaRegTrashAlt />
           </StyledButton>
         </StyledStepsWrapper>
