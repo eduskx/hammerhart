@@ -3,35 +3,33 @@ import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 
-export default function DynamicArrayInput({ setterFunction }) {
-  const [listItems, setListItems] = useState([""]);
-  console.log("ListItems: ", listItems);
-
+export default function DynamicArrayInput({ label, state, setterFunction }) {
   function handleAddField() {
-    setListItems([...listItems, ""]);
+    setterFunction([...state, ""]);
+    console.log(state);
   }
 
   function handleRemoveField(indexToRemove) {
-    setListItems(listItems.filter((_, index) => index !== indexToRemove));
+    setterFunction(state.filter((_, index) => index !== indexToRemove));
   }
 
   function handleChange(index, event) {
-    const newListItems = [...listItems];
+    const newListItems = [...state];
     newListItems[index] = event.target.value;
-    setListItems(newListItems);
+    setterFunction(newListItems);
   }
 
-  useEffect(() => {
-    setterFunction(listItems);
-  }, [listItems, setterFunction]);
+  // useEffect(() => {
+  //   setterFunction(state);
+  // }, [state, setterFunction]);
 
   return (
     <>
-      {listItems.map((listItem, index) => (
+      <label htmlFor={label}>{label}</label>
+      {state.map((listItem, index) => (
         <StyledMaterialsWrapper key={index}>
-          <label htmlFor="materials"></label>
           <StyledInput
-            id="materials"
+            id={label}
             value={listItem}
             onChange={(event) => handleChange(index, event)}
             type="text"

@@ -4,8 +4,11 @@ import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
 import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 
 export default function Form({ setNewProjects, projects }) {
-  const [materials, setMaterials] = useState([]);
-  const [steps, setSteps] = useState([]);
+  const [materials, setMaterials] = useState([""]);
+  const [steps, setSteps] = useState([{ id: "1", description: "" }]);
+
+  // const [materials, setMaterials] = useState([]);
+  // const [steps, setSteps] = useState([]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -17,8 +20,11 @@ export default function Form({ setNewProjects, projects }) {
     newProject.steps = steps;
 
     setNewProjects([newProject, ...projects]);
+    console.log(newProject);
 
     event.target.reset();
+    setMaterials([""]);
+    setSteps([{ id: "1", description: "" }]);
   }
 
   return (
@@ -50,11 +56,15 @@ export default function Form({ setNewProjects, projects }) {
         </StyledDropdown>
       </StyledDropDownWrapper>
 
-      <StyledParagraph>Add Materials</StyledParagraph>
-      <DynamicArrayInput setterFunction={setMaterials} />
+      {/* <StyledParagraph>Add Materials</StyledParagraph> */}
+      <DynamicArrayInput
+        label="Add Materials"
+        state={materials}
+        setterFunction={setMaterials}
+      />
 
-      <StyledParagraph>Add Steps</StyledParagraph>
-      <DynamicStepsInput setSteps={setSteps} />
+      {/* <StyledParagraph>Add Steps</StyledParagraph> */}
+      <DynamicStepsInput steps={steps} setSteps={setSteps} />
 
       <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
     </StyledForm>

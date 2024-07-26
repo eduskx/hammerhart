@@ -2,35 +2,34 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
-export default function DynamicStepsInput({ setSteps }) {
-  const [objects, setObjects] = useState([{ id: "1", description: "" }]);
 
+export default function DynamicStepsInput({ steps, setSteps }) {
   function handleAddField() {
-    setObjects([...objects, { id: `${objects.length + 1}`, description: "" }]);
+    setSteps([...steps, { id: `${steps.length + 1}`, description: "" }]);
   }
 
   function handleRemoveField(idToRemove) {
-    setObjects(objects.filter((object) => object.id !== idToRemove));
+    setSteps(steps.filter((object) => object.id !== idToRemove));
   }
 
   function handleChange(index, event) {
-    const newObjects = [...objects];
-    newObjects[index].description = event.target.value;
-    setObjects(newObjects);
+    const newSteps = [...steps];
+    newSteps[index].description = event.target.value;
+    setSteps(newSteps);
   }
 
-  useEffect(() => {
-    setSteps(objects);
-  }, [objects, setSteps]);
+  // useEffect(() => {
+  //   setSteps(steps);
+  // }, [steps, setSteps]);
 
   return (
     <>
-      {objects.map((object, index) => (
-        <StyledStepsWrapper key={object.id}>
-          <label htmlFor={object.id}></label>
+      <label htmlFor={steps}>Add Steps</label>
+      {steps.map((step, index) => (
+        <StyledStepsWrapper key={step.id}>
           <StyledInput
-            id={object.id}
-            value={object.description}
+            id={steps}
+            value={step.description}
             onChange={(event) => handleChange(index, event)}
             type="text"
           />
