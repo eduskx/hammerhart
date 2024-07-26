@@ -42,9 +42,14 @@ const CardContainer = styled.div`
   padding: 0;
   margin: 0;
   gap: 1rem;
-  transition: all 5s ease;
+  transition: all 0.5s ease;
+  &:hover{
+
+
+transform: scale(1.1);
+}
 `;
-CardContainer;
+
 const StyledImage = styled(Image)`
   width: 50%;
   height: auto;
@@ -52,6 +57,7 @@ const StyledImage = styled(Image)`
   object-fit: cover;
   z-index: 2;
   margin: 1rem;
+ 
 `;
 const Wrapper = styled.div`
   width: 100%;
@@ -59,10 +65,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
-const FadeInAnimation = keyframes`
-  0% {transform: scale(0);}
-  100% {transform: scale(10);}
-`;
+
 const StyledDiv = styled.div`
   position: absolute;
   background-color: ${({ color }) => handleColorType(color)};
@@ -73,10 +76,11 @@ const StyledDiv = styled.div`
   border-radius: 15px;
   z-index: 1;
   border: 50px solid transparent;
+  transition: all 1s ease;
 
   ${CardContainer}:hover & {
-    animation: ${FadeInAnimation} 800ms linear;
     
+    transform: scale(10);
   }
 `;
 

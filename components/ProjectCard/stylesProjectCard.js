@@ -7,7 +7,7 @@ const handleColorType = (color) => {
       return "#f9b234";
     case "Advanced":
       return "#e44002";
-    default:
+    case "Beginner":
       return "#3ecd5e";
   }
 };
