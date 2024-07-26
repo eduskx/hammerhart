@@ -5,6 +5,7 @@ import { MdAdd } from "react-icons/md";
 
 export default function DynamicArrayInput({ setterFunction }) {
   const [listItems, setListItems] = useState([""]);
+  console.log("ListItems: ", listItems);
 
   function handleAddField() {
     setListItems([...listItems, ""]);
@@ -28,9 +29,9 @@ export default function DynamicArrayInput({ setterFunction }) {
     <>
       {listItems.map((listItem, index) => (
         <StyledMaterialsWrapper key={index}>
-          <label htmlFor={index}></label>
+          <label htmlFor="materials"></label>
           <StyledInput
-            id={index}
+            id="materials"
             value={listItem}
             onChange={(event) => handleChange(index, event)}
             type="text"
@@ -41,17 +42,15 @@ export default function DynamicArrayInput({ setterFunction }) {
         </StyledMaterialsWrapper>
       ))}
       <StyledAddButton type="button" onClick={handleAddField}>
-      <MdAdd />
+        <MdAdd />
       </StyledAddButton>
     </>
   );
 }
 const StyledMaterialsWrapper = styled.div`
-width: 100%;
-display: flex;
-transition: all 0.3s ease 0s;
-
-
+  width: 100%;
+  display: flex;
+  transition: all 0.3s ease 0s;
 `;
 const StyledButton = styled.button`
   all: unset;
@@ -59,10 +58,10 @@ const StyledButton = styled.button`
   height: 2rem;
   display: flex;
   margin: 0;
-  
+
   justify-content: center;
   align-items: center;
-cursor: pointer;
+  cursor: pointer;
   color: rgba(58, 58, 58, 1);
   margin-bottom: 0.5rem;
   background: rgba(255, 255, 255, 0.5);
@@ -71,12 +70,12 @@ cursor: pointer;
   &:hover {
     outline: 1px solid white;
 
-   &:hover {
-  background-color: #e52e2ed4;
-  box-shadow: 0px 15px 20px rgba(229, 46, 46, 0.4);
-  color: #fff;
-  transform: translateY(-3px);
-}
+    &:hover {
+      background-color: #e52e2ed4;
+      box-shadow: 0px 15px 20px rgba(229, 46, 46, 0.4);
+      color: #fff;
+      transform: translateY(-3px);
+    }
   }
 `;
 const StyledAddButton = styled.button`
@@ -85,10 +84,10 @@ const StyledAddButton = styled.button`
   height: 2rem;
   display: flex;
   margin: 0;
-  
+
   justify-content: center;
   align-items: center;
-cursor: pointer;
+  cursor: pointer;
   color: rgba(58, 58, 58, 1);
   margin-bottom: 0.5rem;
   background: rgba(255, 255, 255, 0.5);
@@ -97,21 +96,21 @@ cursor: pointer;
   &:hover {
     outline: 1px solid white;
 
-   &:hover {
-  background-color: #2e8de5d4;
-  box-shadow: 0px 15px 20px rgba(6, 45, 61, 0.4);
-  color: #fff;
-  transform: translateY(-3px);
-}
+    &:hover {
+      background-color: #2e8de5d4;
+      box-shadow: 0px 15px 20px rgba(6, 45, 61, 0.4);
+      color: #fff;
+      transform: translateY(-3px);
+    }
   }
 `;
 const StyledInput = styled.input`
   all: unset;
   width: 100%;
-  
+
   color: rgba(58, 58, 58, 1);
   margin-bottom: 0.5rem;
-  margin-right:1rem;
+  margin-right: 1rem;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 2px;
   &:focus,

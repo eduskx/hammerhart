@@ -42,9 +42,8 @@ const CardContainer = styled.div`
   padding: 0;
   margin: 0;
   gap: 1rem;
-  transition: all 5s ease;
 `;
-CardContainer;
+
 const StyledImage = styled(Image)`
   width: 50%;
   height: auto;
@@ -61,7 +60,7 @@ const Wrapper = styled.div`
 `;
 const FadeInAnimation = keyframes`
   0% {transform: scale(0);}
-  100% {transform: scale(10);}
+  100% {transform: scale(4);}
 `;
 const StyledDiv = styled.div`
   position: absolute;
@@ -76,7 +75,6 @@ const StyledDiv = styled.div`
 
   ${CardContainer}:hover & {
     animation: ${FadeInAnimation} 800ms linear;
-    
   }
 `;
 
