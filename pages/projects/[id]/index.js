@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
-
+import ModalContent from "@/components/Modal/ModalContent";
+import Modal from "@/components/Modal/Modal";
 import { StyledComplexity } from "@/components/ProjectCard/stylesProjectCard";
+
 export default function ProjectDetailsPage({ projects }) {
   const router = useRouter();
   const { id } = router.query;
@@ -55,6 +57,7 @@ export default function ProjectDetailsPage({ projects }) {
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
         </StyledInstructionsList>
+        <Modal id={id} />
       </StyledDetailsWrapper>
     </>
   );
@@ -73,8 +76,8 @@ const StyledLink = styled(Link)`
 const StyledDetailsWrapper = styled.div`
   box-shadow: 1px 1px 6px 1px #00000072;
   background: rgb(44, 150, 164);
-  background-color: #0093E9;
-background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  background-color: #0093e9;
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
 
   width: 320px;
   display: flex;
@@ -88,8 +91,8 @@ background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 
   @media screen and (min-width: 640px) {
     box-shadow: 1px 1px 6px 1px #00000072;
-    background-color: #0093E9;
-background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    background-color: #0093e9;
+    background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
 
     width: 600px;
     display: flex;
@@ -104,7 +107,7 @@ background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 `;
 
 const StyledDescription = styled.p`
-text-align: center;
+  text-align: center;
 `;
 
 const StyledImage = styled(Image)`
@@ -141,9 +144,9 @@ const StyledMaterialsList = styled.ul`
 `;
 
 const StyledInstructionsList = styled.ol`
-    list-style-position: inside;
-    padding: 0 1rem 0 1rem;
-    margin-bottom: 1rem;
+  list-style-position: inside;
+  padding: 0 1rem 0 1rem;
+  margin-bottom: 1rem;
   @media screen and (min-width: 640px) {
     list-style-position: inside;
 

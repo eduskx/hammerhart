@@ -76,7 +76,6 @@ const StyledDiv = styled.div`
 
   ${CardContainer}:hover & {
     animation: ${FadeInAnimation} 800ms linear;
-    
   }
 `;
 
