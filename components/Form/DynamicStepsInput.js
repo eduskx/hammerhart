@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 
 export default function DynamicStepsInput({ steps, setSteps }) {
+  // const newInput = useRef();
+
   function handleAddField() {
     setSteps([...steps, { id: `${steps.length + 1}`, description: "" }]);
   }
 
-  function handleRemoveField(idToRemove) {
-    setSteps(steps.filter((steps) => steps.id !== idToRemove));
+  function handleRemoveField(indexToRemove) {
+    setSteps(steps.filter((_, index) => index !== indexToRemove));
   }
 
   function handleChange(index, event) {
@@ -18,9 +20,21 @@ export default function DynamicStepsInput({ steps, setSteps }) {
     setSteps(newSteps);
   }
 
+  // function handleKeyDown(event) {
+  //   if (event.key === "Enter" && event.target.value !== "") {
+  //     handleAddField();
+  //   }
+  // }
+
   // useEffect(() => {
   //   setSteps(steps);
   // }, [steps, setSteps]);
+
+  // useEffect(() => {
+  //   if (newInput.current) {
+  //     newInput.current.focus();
+  //   }
+  // }, [steps]);
 
   return (
     <>
@@ -28,12 +42,15 @@ export default function DynamicStepsInput({ steps, setSteps }) {
       {steps.map((step, index) => (
         <StyledStepsWrapper key={step.id}>
           <StyledInput
+            required
+            // ref={newInput}
             id={steps}
             value={step.description}
             onChange={(event) => handleChange(index, event)}
+            // onKeyDown={(event) => handleKeyDown(event)}
             type="text"
           />
-          <StyledButton onClick={() => handleRemoveField(steps.id)}>
+          <StyledButton type="button" onClick={() => handleRemoveField(index)}>
             <FaRegTrashAlt />
           </StyledButton>
         </StyledStepsWrapper>

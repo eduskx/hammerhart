@@ -1,9 +1,11 @@
 import styled, { keyframes } from "styled-components";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
 import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 
 export default function Form({ setNewProjects, projects }) {
+  let formRef = useRef(null);
+
   const [materials, setMaterials] = useState([""]);
   const [steps, setSteps] = useState([{ id: "1", description: "" }]);
 
@@ -33,10 +35,17 @@ export default function Form({ setNewProjects, projects }) {
     }
   }
 
+  function handleClearForm() {
+    formRef.reset();
+    setMaterials([""]);
+    setSteps([{ id: "1", description: "" }]);
+  }
+
   return (
     <StyledForm
+      ref={(element) => (formRef = element)}
       onSubmit={handleSubmit}
-      onKeyDown={(event) => handleKeyDown(event)}
+      onKeyDown={handleKeyDown}
     >
       <label htmlFor="title">Title</label>
       <StyledInput required id="title" name="title" type="text" />
@@ -75,6 +84,9 @@ export default function Form({ setNewProjects, projects }) {
       {/* <StyledParagraph>Add Steps</StyledParagraph> */}
       <DynamicStepsInput steps={steps} setSteps={setSteps} />
 
+      <StyledSubmitButton type="button" onClick={handleClearForm}>
+        Clear
+      </StyledSubmitButton>
       <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
     </StyledForm>
   );

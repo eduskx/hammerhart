@@ -4,12 +4,10 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 
 export default function DynamicArrayInput({ label, state, setterFunction }) {
-  const newInputRefs = useRef([""]);
+  // const newInput = useRef(null);
 
   function handleAddField() {
     setterFunction([...state, ""]);
-    // const newIndex = newInputRefs.current.length + 1;
-    // newInputRefs.current[newIndex].focus();
   }
 
   function handleRemoveField(indexToRemove) {
@@ -22,30 +20,37 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
     setterFunction(newListItems);
   }
 
-  function handleKeyDown(index, event) {
-    if (event.key === "Enter" && event.target.value !== "") {
-      handleAddField();
-    }
-  }
+  // function handleKeyDown(event) {
+  //   if (event.key === "Enter" && event.target.value !== "") {
+  //     handleAddField();
+  //   }
+  // }
+
+  useEffect(() => {
+    setterFunction(state);
+  }, [state, setterFunction]);
 
   // useEffect(() => {
-  //   setterFunction(state);
-  // }, [state, setterFunction]);
+  //   if (newInput.current) {
+  //     newInput.current.focus();
+  //   }
+  // }, [state]);
 
   return (
     <>
       <label htmlFor={label}>{label}</label>
-      {state.map((listItem, index) => (
+      {state.map((element, index) => (
         <StyledMaterialsWrapper key={index}>
           <StyledInput
-            ref={(element) => (newInputRefs.current[index] = element)}
+            required
+            // ref={newInput}
             id={label}
-            value={listItem}
+            value={element}
             onChange={(event) => handleChange(index, event)}
-            onKeyDown={(event) => handleKeyDown(index, event)}
+            // onKeyDown={(event) => handleKeyDown(event)}
             type="text"
           />
-          <StyledButton onClick={() => handleRemoveField(index)}>
+          <StyledButton type="button" onClick={() => handleRemoveField(index)}>
             <FaRegTrashAlt />
           </StyledButton>
         </StyledMaterialsWrapper>

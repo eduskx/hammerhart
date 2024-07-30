@@ -7,7 +7,10 @@ import useLocalStorageState from "use-local-storage-state";
 const saira = Saira({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }) {
-  const [newProjects, setNewProjects] = useState(projects);
+  // const [newProjects, setNewProjects] = useState(projects);
+  const [newProjects, setNewProjects] = useLocalStorageState("newProjects", {
+    defaultValue: projects,
+  });
 
   return (
     <>
