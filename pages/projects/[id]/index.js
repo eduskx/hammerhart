@@ -3,15 +3,14 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
-import ModalContent from "@/components/Modal/ModalContent";
-import Modal from "@/components/Modal/Modal";
-import { StyledComplexity } from "@/components/ProjectCard/stylesProjectCard";
+import Modal from "@/components/Modal/";
 
-export default function ProjectDetailsPage({ projects }) {
+export default function ProjectDetailsPage({ newProjects, setNewProjects }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const projectData = projects.find((project) => project.id === id);
+  console.log(setNewProjects);
+  const projectData = newProjects.find((project) => project.id === id);
 
   if (!projectData) {
     return <h1>No project found</h1>;
@@ -29,138 +28,85 @@ export default function ProjectDetailsPage({ projects }) {
 
   return (
     <>
-      <StyledLink href="/">
+      <Link href="/">
         <FaArrowLeftLong /> Back
-      </StyledLink>
+      </Link>
 
       <StyledDetailsWrapper>
-        <StyledImageWrapper>
-          <StyledImage src={imageUrl} alt={title} width={600} height={200} />
-          <StyledComplexityTag color={complexity}>
-            {complexity}
-          </StyledComplexityTag>
-        </StyledImageWrapper>
         <h1>{title}</h1>
-        <StyledDescription>{description}</StyledDescription>
+        <StyledImageWrapper>
+          <Image src={imageUrl} alt={title} width={300} height={200} />
+          <StyledComplexityTag>{complexity}</StyledComplexityTag>
+        </StyledImageWrapper>
+        <p>{description}</p>
         <StyledDuration>Duration: {duration}</StyledDuration>
 
-        <StyledListTitle>Materials</StyledListTitle>
+        <h2>Materials</h2>
         <StyledMaterialsList>
           {materials.map((material, index) => (
             <StyledListItems key={index}>{material}</StyledListItems>
           ))}
         </StyledMaterialsList>
 
-        <StyledListTitle>Instructions</StyledListTitle>
+        <h2>Instructions</h2>
         <StyledInstructionsList>
           {steps.map((step) => (
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
+          <Modal
+            id={id}
+            newProjects={newProjects}
+            setNewProjects={setNewProjects}
+          />
         </StyledInstructionsList>
-        <Modal id={id} />
       </StyledDetailsWrapper>
     </>
   );
 }
 
-const StyledLink = styled(Link)`
-  font-size: larger;
-  padding-top: 1rem;
-  color: white;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: center;
+const StyledImageWrapper = styled.div`
+  position: relative;
+  width: fit-content;
 `;
-const StyledDetailsWrapper = styled.div`
-  box-shadow: 1px 1px 6px 1px #00000072;
-  background: rgb(44, 150, 164);
-  background-color: #0093e9;
-  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
 
-  width: 320px;
+const StyledComplexityTag = styled.p`
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.5rem;
+  padding: 5px;
+  margin: 0;
+  background-color: white;
+  border-radius: 10px;
+`;
+
+const StyledDetailsWrapper = styled.div`
+  width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1rem auto 1rem auto;
-  border-radius: 20px;
-  color: white;
-  padding: 0;
-  gap: 1rem;
-
-  @media screen and (min-width: 640px) {
-    box-shadow: 1px 1px 6px 1px #00000072;
-    background-color: #0093e9;
-    background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
-
-    width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 1rem auto 1rem auto;
-    border-radius: 20px;
-    color: white;
-    padding: 0;
-    gap: 1rem;
-  }
-`;
-
-const StyledDescription = styled.p`
-  text-align: center;
-`;
-
-const StyledImage = styled(Image)`
-  width: 100%;
-  border-radius: 10px 10px 0 0;
-  object-fit: cover;
-`;
-const StyledImageWrapper = styled.div`
-  position: relative;
-  width: 100%;
-`;
-
-const StyledComplexityTag = styled(StyledComplexity)`
-  position: absolute;
-  bottom: 0.4rem;
-  right: 0rem;
-  padding: 5px;
-  margin: 0;
-
-  border-radius: 10px 0px 0 0px;
+  margin: auto;
 `;
 
 const StyledDuration = styled.p`
   align-self: self-end;
-  padding-right: 2rem;
 `;
 
 const StyledMaterialsList = styled.ul`
+  align-self: flex-start;
   list-style-position: inside;
-  list-style-type: circle;
   padding: 0;
   margin: 0;
   margin-top: 1rem;
 `;
 
 const StyledInstructionsList = styled.ol`
+  align-self: flex-start;
   list-style-position: inside;
-  padding: 0 1rem 0 1rem;
-  margin-bottom: 1rem;
-  @media screen and (min-width: 640px) {
-    list-style-position: inside;
-
-    margin-bottom: 1rem;
-    padding: 0;
-  }
+  padding: 0;
+  margin-top: 1rem;
+  line-height: 1.5rem;
 `;
 
 const StyledListItems = styled.li`
-  line-height: 1.4rem;
-`;
-
-const StyledListTitle = styled.h2`
-  padding: 0;
-  margin: 0;
-  align-self: stat;
+  margin-bottom: 0.3rem;
 `;

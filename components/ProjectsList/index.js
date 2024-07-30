@@ -2,10 +2,10 @@ import ProjectCard from "@/components/ProjectCard";
 import Link from "next/link";
 import styled from "styled-components";
 
-export default function ProjectsList({ projects }) {
+export default function ProjectsList({ newProjects }) {
   return (
     <StyledUl>
-      {projects.map((project) => (
+      {newProjects.map((project) => (
         <li key={project.id}>
           <StyledLink href={`/projects/${project.id}`}>
             <ProjectCard project={project} />

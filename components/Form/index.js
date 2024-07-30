@@ -40,7 +40,7 @@ export default function Form({ setNewProjects, projects }) {
       <label htmlFor="duration">Duration</label>
       <StyledInput required id="duration" name="duration" type="test" />
 
-     <StyledDropDownWrapper>
+      <StyledDropDownWrapper>
         <label htmlFor="complexity">Complexity: </label>
         <StyledDropdown required id="complexity" name="complexity">
           <option value="">Please select a complexity level</option>
@@ -48,7 +48,7 @@ export default function Form({ setNewProjects, projects }) {
           <option value="Intermediate">Intermediate</option>
           <option value="Advanced">Advanced</option>
         </StyledDropdown>
-     </StyledDropDownWrapper>
+      </StyledDropDownWrapper>
 
       <StyledParagraph>Add Materials</StyledParagraph>
       <DynamicArrayInput setterFunction={setMaterials} />
@@ -61,11 +61,11 @@ export default function Form({ setNewProjects, projects }) {
   );
 }
 const StyledParagraph = styled.p`
-padding-top:1rem ;
+  padding-top: 1rem;
 `;
 const StyledTextarea = styled.textarea`
   all: unset;
-  color:rgba(58, 58, 58, 1);
+  color: rgba(58, 58, 58, 1);
   resize: none;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 2px;
@@ -76,23 +76,22 @@ const StyledTextarea = styled.textarea`
 `;
 
 const StyledForm = styled.form`
+  @media screen and (min-width: 640px) {
+    color: white;
+    display: table;
+    margin: 1rem auto 1rem auto;
+    width: 450px;
+    padding: 2rem;
+    background: rgb(44, 150, 164);
 
-@media screen and (min-width: 640px) {
-  color: white;
-  display: table;
-  margin: 1rem auto 1rem auto;
-  width: 450px;
-  padding: 2rem;
-  background: rgb(44, 150, 164);
+    background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
 
-  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
-
-  box-shadow: 1px 1px 6px 1px #00000072;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-}
+    box-shadow: 1px 1px 6px 1px #00000072;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+  }
   color: white;
   display: table;
   margin: 1rem auto 1rem auto;
@@ -107,11 +106,11 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-self: center;
-  `;
+`;
 
 const StyledInput = styled.input`
   all: unset;
-  color:rgba(58, 58, 58, 1);
+  color: rgba(58, 58, 58, 1);
   background: rgba(255, 255, 255, 0.5);
   border-radius: 2px;
   &:focus,
@@ -121,36 +120,34 @@ const StyledInput = styled.input`
 `;
 
 const StyledDropdown = styled.select`
-width: 100%;
-margin-left: 0.5rem;
-margin-top: 0.5rem;
-height:28px;
-  border:none;
-  color:rgba(58, 58, 58, 1);
+  width: 100%;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  height: 28px;
+  border: none;
+  color: rgba(58, 58, 58, 1);
   background: rgba(255, 255, 255, 0.5);
   border-radius: 2px;
   &:focus,
   &:hover {
     outline: 1px solid white;
-
   }
-  `
-  const StyledDropDownWrapper = styled.div`
+`;
+const StyledDropDownWrapper = styled.div`
   width: 100%;
-  display:flex;
+  display: flex;
   align-items: baseline;
-  
-  `;
-  const StyledSubmitButton = styled.button`
+`;
+const StyledSubmitButton = styled.button`
   all: unset;
   width: 100%;
   height: 2rem;
   display: flex;
-  margin-top:2rem;
-  
+  margin-top: 2rem;
+
   justify-content: center;
   align-items: center;
-cursor: pointer;
+  cursor: pointer;
   color: rgba(58, 58, 58, 1);
   margin-bottom: 0.5rem;
   background: rgba(255, 255, 255, 0.5);
@@ -159,11 +156,11 @@ cursor: pointer;
   &:hover {
     outline: 1px solid white;
 
-   &:hover {
-  background-color: #2EE59D;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-  color: #fff;
-  transform: translateY(-3px);
-}
+    &:hover {
+      background-color: #2ee59d;
+      box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+      color: #fff;
+      transform: translateY(-3px);
+    }
   }
-  `;
+`;
