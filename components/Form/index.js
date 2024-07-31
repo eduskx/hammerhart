@@ -14,9 +14,11 @@ export default function Form({ setNewProjects, projects }) {
 
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
-    newProject.id = `${projects.length + 1}`;
+    const idOfLatestProject = Number(projects[projects.length - 1].id);
+    newProject.id = `${idOfLatestProject + 1}`;
     newProject.materials = materials;
     newProject.steps = steps;
+    console.log(newProject);
 
     setNewProjects([newProject, ...projects]);
 
