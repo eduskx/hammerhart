@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
@@ -18,20 +18,28 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
     setterFunction(newListItems);
   }
 
+  useEffect(() => {
+    setterFunction(state);
+  }, [state, setterFunction]);
+
   return (
     <>
-      <label htmlFor={label}>{label}</label>
-      {state.map((listItem, index) => (
+      <StyledLabel htmlFor={label}>{label}</StyledLabel>
+      {state.map((element, index) => (
         <StyledMaterialsWrapper key={index}>
           <StyledInput
+            required
             id={label}
-            value={listItem}
+            value={element}
             onChange={(event) => handleChange(index, event)}
             type="text"
           />
-          <StyledButton onClick={() => handleRemoveField(index)}>
+          <StyledDeleteButton
+            type="button"
+            onClick={() => handleRemoveField(index)}
+          >
             <FaRegTrashAlt />
-          </StyledButton>
+          </StyledDeleteButton>
         </StyledMaterialsWrapper>
       ))}
       <StyledAddButton type="button" onClick={handleAddField}>
@@ -40,12 +48,17 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
     </>
   );
 }
+
+const StyledLabel = styled.label`
+  padding-top: 1rem;
+`;
+
 const StyledMaterialsWrapper = styled.div`
   width: 100%;
   display: flex;
   transition: all 0.3s ease 0s;
 `;
-const StyledButton = styled.button`
+const StyledDeleteButton = styled.button`
   all: unset;
   width: 3rem;
   height: 2rem;
@@ -65,7 +78,6 @@ const StyledButton = styled.button`
 
     &:hover {
       background-color: #e52e2ed4;
-      box-shadow: 0px 15px 20px rgba(229, 46, 46, 0.4);
       color: #fff;
       transform: translateY(-3px);
     }

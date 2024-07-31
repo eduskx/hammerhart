@@ -1,5 +1,5 @@
-import styled, { keyframes } from "styled-components";
-import { useState } from "react";
+import styled from "styled-components";
+import { useState, useRef } from "react";
 import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
 import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 
@@ -15,6 +15,7 @@ export default function Form({
   const [steps, setSteps] = useState(
     updatedSteps || [{ id: "1", description: "" }]
   );
+  let formRef = useRef(null);
   console.log("Formsteps: ", steps);
   console.log("Formmaterials: ", materials);
 
@@ -39,8 +40,17 @@ export default function Form({
     setSteps([{ id: "1", description: "" }]);
   }
 
+  function handleClearForm() {
+    formRef.reset();
+    setMaterials([""]);
+    setSteps([{ id: "1", description: "" }]);
+  }
+
   return (
-    <StyledForm onSubmit={onSubmit || handleSubmit}>
+    <StyledForm
+      ref={(element) => (formRef = element)}
+      onSubmit={onSubmit || handleSubmit}
+    >
       <label htmlFor="title">Title</label>
       <StyledInput
         required
@@ -98,13 +108,15 @@ export default function Form({
       />
       <DynamicStepsInput steps={steps} setSteps={setSteps} />
 
-      <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
+      <StyledButtonWrapper>
+        <StyledClearButton type="button" onClick={handleClearForm}>
+          Clear
+        </StyledClearButton>
+        <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
+      </StyledButtonWrapper>
     </StyledForm>
   );
 }
-const StyledParagraph = styled.p`
-  padding-top: 1rem;
-`;
 
 const StyledTextarea = styled.textarea`
   all: unset;
@@ -125,8 +137,7 @@ const StyledForm = styled.form`
     margin: 1rem auto 1rem auto;
     width: 450px;
     padding: 2rem;
-    background: rgb(44, 150, 164);
-    background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+    background: #a48476;
     box-shadow: 1px 1px 6px 1px #00000072;
     border-radius: 30px;
     display: flex;
@@ -138,8 +149,7 @@ const StyledForm = styled.form`
   margin: 1rem auto 1rem auto;
   width: 350px;
   padding: 2rem;
-  background: rgb(44, 150, 164);
-  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+  background: #a48476;
   box-shadow: 1px 1px 6px 1px #00000072;
   border-radius: 30px;
   display: flex;
@@ -179,9 +189,33 @@ const StyledDropDownWrapper = styled.div`
   align-items: baseline;
 `;
 
+const StyledClearButton = styled.button`
+  all: unset;
+  width: 50%;
+  height: 2rem;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: rgba(58, 58, 58, 1);
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  &:focus,
+  &:hover {
+    outline: 1px solid white;
+    &:hover {
+      background-color: #e52e2ed4;
+      color: #fff;
+      transform: translateY(-3px);
+    }
+  }
+`;
+
 const StyledSubmitButton = styled.button`
   all: unset;
-  width: 100%;
+  width: 50%;
   height: 2rem;
   display: flex;
   margin-top: 2rem;
@@ -197,9 +231,13 @@ const StyledSubmitButton = styled.button`
     outline: 1px solid white;
     &:hover {
       background-color: #2ee59d;
-      box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
       color: #fff;
       transform: translateY(-3px);
     }
   }
+`;
+
+const StyledButtonWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
 `;

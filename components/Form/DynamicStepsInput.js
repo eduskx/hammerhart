@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
@@ -9,8 +8,8 @@ export default function DynamicStepsInput({ steps, setSteps }) {
   }
   console.log("DSI", steps);
 
-  function handleRemoveField(idToRemove) {
-    setSteps(steps.filter((object) => object.id !== idToRemove));
+  function handleRemoveField(indexToRemove) {
+    setSteps(steps.filter((_, index) => index !== indexToRemove));
   }
 
   function handleChange(index, event) {
@@ -21,18 +20,22 @@ export default function DynamicStepsInput({ steps, setSteps }) {
 
   return (
     <>
-      <label htmlFor={steps}>Add Steps</label>
+      <StyledLabel htmlFor={steps}>Add Steps</StyledLabel>
       {steps.map((step, index) => (
         <StyledStepsWrapper key={step.id}>
           <StyledInput
+            required
             id={steps}
             value={step.description}
             onChange={(event) => handleChange(index, event)}
             type="text"
           />
-          <StyledButton onClick={() => handleRemoveField(step.id)}>
+          <StyledDeleteButton
+            type="button"
+            onClick={() => handleRemoveField(index)}
+          >
             <FaRegTrashAlt />
-          </StyledButton>
+          </StyledDeleteButton>
         </StyledStepsWrapper>
       ))}
       <StyledAddButton type="button" onClick={handleAddField}>
@@ -41,12 +44,17 @@ export default function DynamicStepsInput({ steps, setSteps }) {
     </>
   );
 }
+
+const StyledLabel = styled.label`
+  padding-top: 1rem;
+`;
+
 const StyledStepsWrapper = styled.div`
   width: 100%;
   display: flex;
 `;
 
-const StyledButton = styled.button`
+const StyledDeleteButton = styled.button`
   all: unset;
   width: 3rem;
   height: 2rem;
@@ -64,7 +72,6 @@ const StyledButton = styled.button`
     outline: 1px solid white;
     &:hover {
       background-color: #e52e2ed4;
-      box-shadow: 0px 15px 20px rgba(229, 46, 46, 0.4);
       color: #fff;
       transform: translateY(-3px);
     }
