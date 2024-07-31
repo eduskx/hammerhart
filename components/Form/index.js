@@ -15,6 +15,9 @@ export default function Form({
   const [steps, setSteps] = useState(
     updatedSteps || [{ id: "1", description: "" }]
   );
+
+  console.log("updatedMaterials:", updatedMaterials);
+
   let formRef = useRef(null);
   console.log("Formsteps: ", steps);
   console.log("Formmaterials: ", materials);
@@ -28,12 +31,12 @@ export default function Form({
     newProject.materials = materials;
     newProject.steps = steps;
 
-    console.log("newProjectIndex");
+    // console.log("newProjectIndex");
 
     setNewProjects([newProject, ...projects]);
 
-    console.log("Formprojects: ", projects);
-    console.log("FormsetNewProjects: ", setNewProjects);
+    // console.log("Formprojects: ", projects);
+    // console.log("FormsetNewProjects: ", setNewProjects);
 
     event.target.reset();
     setMaterials([""]);
@@ -106,7 +109,11 @@ export default function Form({
         state={materials}
         setterFunction={setMaterials}
       />
-      <DynamicStepsInput steps={steps} setSteps={setSteps} />
+      <DynamicStepsInput
+        steps={steps}
+        setSteps={setSteps}
+        defaultValue={steps}
+      />
 
       <StyledButtonWrapper>
         <StyledClearButton type="button" onClick={handleClearForm}>

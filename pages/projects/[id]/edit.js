@@ -12,31 +12,31 @@ export default function Edit({ projects, setNewProjects }) {
   }
 
   const { title, materials, steps, id: updateId } = projectData;
-  console.log("materialsEdit: ", materials);
-  console.log("stepsEdit: ", steps);
+  //   console.log("materialsEdit: ", materials);
+  //   console.log("stepsEdit: ", steps);
 
   function editProject(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
-    console.log("newProject: ", newProject);
+    // console.log("newProject: ", newProject);
     newProject.id = updateId;
     newProject.materials = materials;
     newProject.steps = steps;
 
-    console.log("UpdatedProject: ", newProject.mater);
+    // console.log("UpdatedProject: ", newProject.materials);
 
     const updatedProject = projects.map((project) =>
       project.id === id ? newProject : project
     );
 
-    console.log("updatedProjectsArray:", updatedProject);
+    // console.log("updatedProjectsArray:", updatedProject);
 
     const newProjectUpdated = setNewProjects(updatedProject);
-    console.log("newProjectUpdated: ", newProjectUpdated);
-    console.log("projects: ", projects);
-    console.log("Hello edit");
+    // console.log("newProjectUpdated: ", newProjectUpdated);
+    // console.log("projects: ", projects);
+    // console.log("Hello edit");
     router.back();
   }
 
