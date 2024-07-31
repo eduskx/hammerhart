@@ -15,6 +15,8 @@ export default function Form({
   const [steps, setSteps] = useState(
     updatedSteps || [{ id: "1", description: "" }]
   );
+  console.log("Formsteps: ", steps);
+  console.log("Formmaterials: ", materials);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -25,7 +27,12 @@ export default function Form({
     newProject.materials = materials;
     newProject.steps = steps;
 
+    console.log("newProjectIndex");
+
     setNewProjects([newProject, ...projects]);
+
+    console.log("Formprojects: ", projects);
+    console.log("FormsetNewProjects: ", setNewProjects);
 
     event.target.reset();
     setMaterials([""]);

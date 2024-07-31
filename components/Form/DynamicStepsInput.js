@@ -7,6 +7,7 @@ export default function DynamicStepsInput({ steps, setSteps }) {
   function handleAddField() {
     setSteps([...steps, { id: `${steps.length + 1}`, description: "" }]);
   }
+  console.log("DSI", steps);
 
   function handleRemoveField(idToRemove) {
     setSteps(steps.filter((object) => object.id !== idToRemove));

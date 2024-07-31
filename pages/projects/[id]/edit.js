@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import Form from "@/components/Form";
-import Link from "next/link";
 
 export default function Edit({ projects, setNewProjects }) {
   const router = useRouter();
@@ -13,27 +12,31 @@ export default function Edit({ projects, setNewProjects }) {
   }
 
   const { title, materials, steps, id: updateId } = projectData;
-  console.log("materials: ", materials);
+  console.log("materialsEdit: ", materials);
+  console.log("stepsEdit: ", steps);
 
   function editProject(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
+    console.log("newProject: ", newProject);
     newProject.id = updateId;
     newProject.materials = materials;
     newProject.steps = steps;
-    console.log("newProject: ", newProject);
 
-    const updatedProjects = projects.map((project) =>
+    console.log("UpdatedProject: ", newProject.mater);
+
+    const updatedProject = projects.map((project) =>
       project.id === id ? newProject : project
     );
 
-    console.log("updatedProjects:", updatedProjects);
+    console.log("updatedProjectsArray:", updatedProject);
 
-    const newProjectUpdated = setNewProjects(updatedProjects);
+    const newProjectUpdated = setNewProjects(updatedProject);
     console.log("newProjectUpdated: ", newProjectUpdated);
-
+    console.log("projects: ", projects);
+    console.log("Hello edit");
     router.back();
   }
 
@@ -46,6 +49,7 @@ export default function Edit({ projects, setNewProjects }) {
         defaultData={projectData}
         materials={materials}
         steps={steps}
+        projects={projects}
       />
     </>
   );
