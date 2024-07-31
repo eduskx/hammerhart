@@ -29,7 +29,6 @@ const CardContainer = styled.div`
   box-shadow: 1px 1px 6px 1px #00000072;
   background: rgb(44, 150, 164);
   background-color: #a38376;
-  /* background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%); */
   border-radius: 20px;
   position: relative;
   margin: 0 1rem;

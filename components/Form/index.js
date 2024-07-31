@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useState, useRef } from "react";
 import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
 import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
@@ -8,9 +8,6 @@ export default function Form({ setNewProjects, projects }) {
 
   const [materials, setMaterials] = useState([""]);
   const [steps, setSteps] = useState([{ id: "1", description: "" }]);
-
-  // const [materials, setMaterials] = useState([]);
-  // const [steps, setSteps] = useState([]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -22,17 +19,10 @@ export default function Form({ setNewProjects, projects }) {
     newProject.steps = steps;
 
     setNewProjects([newProject, ...projects]);
-    console.log(newProject);
 
     event.target.reset();
     setMaterials([""]);
     setSteps([{ id: "1", description: "" }]);
-  }
-
-  function handleKeyDown(event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-    }
   }
 
   function handleClearForm() {
@@ -42,11 +32,7 @@ export default function Form({ setNewProjects, projects }) {
   }
 
   return (
-    <StyledForm
-      ref={(element) => (formRef = element)}
-      onSubmit={handleSubmit}
-      onKeyDown={handleKeyDown}
-    >
+    <StyledForm ref={(element) => (formRef = element)} onSubmit={handleSubmit}>
       <label htmlFor="title">Title</label>
       <StyledInput required id="title" name="title" type="text" />
 
@@ -74,26 +60,23 @@ export default function Form({ setNewProjects, projects }) {
         </StyledDropdown>
       </StyledDropDownWrapper>
 
-      {/* <StyledParagraph>Add Materials</StyledParagraph> */}
       <DynamicArrayInput
         label="Add Materials"
         state={materials}
         setterFunction={setMaterials}
       />
 
-      {/* <StyledParagraph>Add Steps</StyledParagraph> */}
       <DynamicStepsInput steps={steps} setSteps={setSteps} />
 
-      <StyledSubmitButton type="button" onClick={handleClearForm}>
-        Clear
-      </StyledSubmitButton>
-      <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
+      <StyledButtonWrapper>
+        <StyledClearButton type="button" onClick={handleClearForm}>
+          Clear
+        </StyledClearButton>
+        <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
+      </StyledButtonWrapper>
     </StyledForm>
   );
 }
-const StyledParagraph = styled.p`
-  padding-top: 1rem;
-`;
 
 const StyledTextarea = styled.textarea`
   all: unset;
@@ -115,7 +98,6 @@ const StyledForm = styled.form`
     width: 450px;
     padding: 2rem;
     background: #a48476;
-    /* background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%); */
     box-shadow: 1px 1px 6px 1px #00000072;
     border-radius: 30px;
     display: flex;
@@ -128,7 +110,6 @@ const StyledForm = styled.form`
   width: 350px;
   padding: 2rem;
   background: #a48476;
-  /* background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%); */
   box-shadow: 1px 1px 6px 1px #00000072;
   border-radius: 30px;
   display: flex;
@@ -168,9 +149,33 @@ const StyledDropDownWrapper = styled.div`
   align-items: baseline;
 `;
 
+const StyledClearButton = styled.button`
+  all: unset;
+  width: 50%;
+  height: 2rem;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: rgba(58, 58, 58, 1);
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  &:focus,
+  &:hover {
+    outline: 1px solid white;
+    &:hover {
+      background-color: #e52e2ed4;
+      color: #fff;
+      transform: translateY(-3px);
+    }
+  }
+`;
+
 const StyledSubmitButton = styled.button`
   all: unset;
-  width: 100%;
+  width: 50%;
   height: 2rem;
   display: flex;
   margin-top: 2rem;
@@ -186,9 +191,13 @@ const StyledSubmitButton = styled.button`
     outline: 1px solid white;
     &:hover {
       background-color: #2ee59d;
-      box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
       color: #fff;
       transform: translateY(-3px);
     }
   }
+`;
+
+const StyledButtonWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
 `;

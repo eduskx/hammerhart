@@ -74,7 +74,6 @@ const StyledDetailsWrapper = styled.div`
   box-shadow: 1px 1px 6px 1px #00000072;
   background: rgb(44, 150, 164);
   background-color: #a38376;
-  /* background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); */
 
   width: 320px;
   display: flex;
@@ -89,7 +88,6 @@ const StyledDetailsWrapper = styled.div`
   @media screen and (min-width: 640px) {
     box-shadow: 1px 1px 6px 1px #00000072;
     background-color: #a38376;
-    /* background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%); */
 
     width: 600px;
     display: flex;

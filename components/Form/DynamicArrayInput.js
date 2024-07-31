@@ -1,11 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 
 export default function DynamicArrayInput({ label, state, setterFunction }) {
-  // const newInput = useRef(null);
-
   function handleAddField() {
     setterFunction([...state, ""]);
   }
@@ -20,39 +18,28 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
     setterFunction(newListItems);
   }
 
-  // function handleKeyDown(event) {
-  //   if (event.key === "Enter" && event.target.value !== "") {
-  //     handleAddField();
-  //   }
-  // }
-
   useEffect(() => {
     setterFunction(state);
   }, [state, setterFunction]);
 
-  // useEffect(() => {
-  //   if (newInput.current) {
-  //     newInput.current.focus();
-  //   }
-  // }, [state]);
-
   return (
     <>
-      <label htmlFor={label}>{label}</label>
+      <StyledLabel htmlFor={label}>{label}</StyledLabel>
       {state.map((element, index) => (
         <StyledMaterialsWrapper key={index}>
           <StyledInput
             required
-            // ref={newInput}
             id={label}
             value={element}
             onChange={(event) => handleChange(index, event)}
-            // onKeyDown={(event) => handleKeyDown(event)}
             type="text"
           />
-          <StyledButton type="button" onClick={() => handleRemoveField(index)}>
+          <StyledDeleteButton
+            type="button"
+            onClick={() => handleRemoveField(index)}
+          >
             <FaRegTrashAlt />
-          </StyledButton>
+          </StyledDeleteButton>
         </StyledMaterialsWrapper>
       ))}
       <StyledAddButton type="button" onClick={handleAddField}>
@@ -61,12 +48,17 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
     </>
   );
 }
+
+const StyledLabel = styled.label`
+  padding-top: 1rem;
+`;
+
 const StyledMaterialsWrapper = styled.div`
   width: 100%;
   display: flex;
   transition: all 0.3s ease 0s;
 `;
-const StyledButton = styled.button`
+const StyledDeleteButton = styled.button`
   all: unset;
   width: 3rem;
   height: 2rem;
@@ -86,7 +78,6 @@ const StyledButton = styled.button`
 
     &:hover {
       background-color: #e52e2ed4;
-      box-shadow: 0px 15px 20px rgba(229, 46, 46, 0.4);
       color: #fff;
       transform: translateY(-3px);
     }
