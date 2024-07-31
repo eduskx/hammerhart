@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import ModalContent from "./ModalContent.js";
 import styled from "styled-components";
 
-export default function Modal({ id, newProjects, setNewProjects }) {
+export default function Modal({ id, projects, setNewProjects }) {
   const [showModal, setShowModal] = useState(false);
   console.log("Model: ", setNewProjects);
 
@@ -15,7 +15,7 @@ export default function Modal({ id, newProjects, setNewProjects }) {
           <ModalContent
             onClose={() => setShowModal(false)}
             id={id}
-            newProjects={newProjects}
+            newProjects={projects}
             setNewProjects={setNewProjects}
           />,
           document.body

@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
       <div className={saira.className}>
         <Component
           {...pageProps}
-          newProjects={newProjects}
+          projects={newProjects}
           setNewProjects={setNewProjects}
         />
       </div>

@@ -5,12 +5,12 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 import Modal from "@/components/Modal/";
 
-export default function ProjectDetailsPage({ newProjects, setNewProjects }) {
+export default function ProjectDetailsPage({ projects, setNewProjects }) {
   const router = useRouter();
   const { id } = router.query;
 
   console.log(setNewProjects);
-  const projectData = newProjects.find((project) => project.id === id);
+  const projectData = projects.find((project) => project.id === id);
 
   if (!projectData) {
     return <h1>No project found</h1>;
@@ -53,11 +53,7 @@ export default function ProjectDetailsPage({ newProjects, setNewProjects }) {
           {steps.map((step) => (
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
-          <Modal
-            id={id}
-            newProjects={newProjects}
-            setNewProjects={setNewProjects}
-          />
+          <Modal id={id} projects={projects} setNewProjects={setNewProjects} />
         </StyledInstructionsList>
       </StyledDetailsWrapper>
     </>
