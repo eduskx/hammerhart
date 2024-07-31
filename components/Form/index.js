@@ -114,8 +114,8 @@ const StyledForm = styled.form`
     margin: 1rem auto 1rem auto;
     width: 450px;
     padding: 2rem;
-    background: rgb(44, 150, 164);
-    background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+    background: #a48476;
+    /* background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%); */
     box-shadow: 1px 1px 6px 1px #00000072;
     border-radius: 30px;
     display: flex;
@@ -127,8 +127,8 @@ const StyledForm = styled.form`
   margin: 1rem auto 1rem auto;
   width: 350px;
   padding: 2rem;
-  background: rgb(44, 150, 164);
-  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+  background: #a48476;
+  /* background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%); */
   box-shadow: 1px 1px 6px 1px #00000072;
   border-radius: 30px;
   display: flex;
