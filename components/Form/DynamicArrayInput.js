@@ -18,10 +18,6 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
     setterFunction(newListItems);
   }
 
-  useEffect(() => {
-    setterFunction(state);
-  }, [state, setterFunction]);
-
   return (
     <>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>

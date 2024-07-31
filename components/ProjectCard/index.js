@@ -31,7 +31,6 @@ const CardContainer = styled.div`
   background-color: #a38376;
   border-radius: 20px;
   position: relative;
-  margin: 0 1rem;
   overflow: hidden;
   width: 350px;
   height: 200px;
