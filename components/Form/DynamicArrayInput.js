@@ -1,57 +1,60 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 
-export default function DynamicArrayInput({ setterFunction }) {
-  const [listItems, setListItems] = useState([""]);
-
+export default function DynamicArrayInput({ label, state, setterFunction }) {
   function handleAddField() {
-    setListItems([...listItems, ""]);
+    setterFunction([...state, ""]);
   }
 
   function handleRemoveField(indexToRemove) {
-    setListItems(listItems.filter((_, index) => index !== indexToRemove));
+    setterFunction(state.filter((_, index) => index !== indexToRemove));
   }
 
   function handleChange(index, event) {
-    const newListItems = [...listItems];
+    const newListItems = [...state];
     newListItems[index] = event.target.value;
-    setListItems(newListItems);
+    setterFunction(newListItems);
   }
-
-  useEffect(() => {
-    setterFunction(listItems);
-  }, [listItems, setterFunction]);
 
   return (
     <>
-      {listItems.map((listItem, index) => (
+      <StyledLabel htmlFor={label}>{label}</StyledLabel>
+      {state.map((element, index) => (
         <StyledMaterialsWrapper key={index}>
-          <label htmlFor={index}></label>
           <StyledInput
-            id={index}
-            value={listItem}
+            required
+            id={label}
+            value={element}
             onChange={(event) => handleChange(index, event)}
             type="text"
           />
-          <StyledButton onClick={() => handleRemoveField(index)}>
+          <StyledDeleteButton
+            type="button"
+            onClick={() => handleRemoveField(index)}
+          >
             <FaRegTrashAlt />
-          </StyledButton>
+          </StyledDeleteButton>
         </StyledMaterialsWrapper>
       ))}
       <StyledAddButton type="button" onClick={handleAddField}>
+        <MdAdd />
         <MdAdd />
       </StyledAddButton>
     </>
   );
 }
+
+const StyledLabel = styled.label`
+  padding-top: 1rem;
+`;
+
 const StyledMaterialsWrapper = styled.div`
   width: 100%;
   display: flex;
   transition: all 0.3s ease 0s;
 `;
-const StyledButton = styled.button`
+const StyledDeleteButton = styled.button`
   all: unset;
   width: 3rem;
   height: 2rem;
@@ -71,7 +74,6 @@ const StyledButton = styled.button`
 
     &:hover {
       background-color: #e52e2ed4;
-      box-shadow: 0px 15px 20px rgba(229, 46, 46, 0.4);
       color: #fff;
       transform: translateY(-3px);
     }

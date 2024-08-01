@@ -28,11 +28,9 @@ export default function ProjectCard({ project }) {
 const CardContainer = styled.div`
   box-shadow: 1px 1px 6px 1px #00000072;
   background: rgb(44, 150, 164);
-  background-color: #0093e9;
-  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+  background-color: #a38376;
   border-radius: 20px;
   position: relative;
-  margin: 0 1rem;
   overflow: hidden;
   width: 350px;
   height: 200px;
@@ -65,6 +63,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
+const FadeInAnimation = keyframes`
+  0% {transform: scale(0);}
+  100% {transform: scale(4);}
+`;
 
 const StyledDiv = styled.div`
   position: absolute;
@@ -89,7 +91,10 @@ const StyledTitle = styled.h2`
   font-size: 100%;
   color: white;
   z-index: 2;
+  
+
 `;
+
 const StyledComplexity = styled.p`
   font-size: 90%;
   padding: 0 15px 5px 0;
