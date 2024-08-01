@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import ProjectsList from "../ProjectsList";
 import styled from "styled-components";
+
 export default function FilterByComplexity({ projects }) {
-  const complexities = ["All", "Beginner", "Intermediate", "Advanced"];
-  const colors = ["Blue", "#3ecd5e", "#f9b234", "#e44002"];
+  const complexities= [
+    { name: "All", color: "Blue" },
+    { name: "Beginner", color: "#3ecd5e" },
+    { name: "Intermediate", color: "#f9b234" },
+    { name: "Advanced", color: "#e44002" }
+  ];
+
   const [filteredProjects, setFilteredProjects] = useState(projects);
   const [activeFilter, setActiveFilter] = useState("All");
   
@@ -26,13 +32,14 @@ export default function FilterByComplexity({ projects }) {
   return (
     <>
       <StyledButtonWrapper>
-        {complexities.map((complexity, index) => (
+        {complexities.map((complexity) => (
           <StyledButton
-            key={complexity}
-            onClick={() => filterByComplexity(complexity)}
-            color={colors[index]}
+            key={complexity.name}
+            onClick={() => filterByComplexity(complexity.name)}
+            color={complexity.color}
+            isActive={activeFilter === complexity.name}
           >
-            {complexity}
+            {complexity.name}
           </StyledButton>
         ))}
       </StyledButtonWrapper>
@@ -40,53 +47,39 @@ export default function FilterByComplexity({ projects }) {
     </>
   );
 }
+
 const StyledButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
+
   @media screen and (min-width: 640px) {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
     gap: 2rem;
   }
 `;
 
 const StyledButton = styled.button`
-
   all: unset;
   width: fit-content;
   height: 2rem;
-  padding: 0 1rem 0 1rem;
-  margin: 0;
+  padding: 0 1rem;
   cursor: pointer;
   color: #fff;
   background-color: ${(props) => props.color};
   border-radius: 2px;
-  &:focus
-  {
-    outline: 2px solid white;
-    background-color: ${(props) => props.color};
-    color: #fff;
-    transform: translateY(-3px);
-  }
-  @media screen and (min-width: 640px) {
-    all: unset;
-  width: fit-content;
-  height: 2rem;
-  padding: 0 1rem 0 1rem;
-  margin: 0;
-  cursor: pointer;
-  color: #fff;
-  background-color: ${(props) => props.color};
-  border-radius: 2px;
+  transition: transform 0.2s ease-in-out;
+
   &:focus,
   &:hover {
     outline: 2px solid white;
-    background-color: ${(props) => props.color};
-    color: #fff;
     transform: translateY(-3px);
   }
-}
+
+  ${({ isActive }) =>
+    isActive &&
+    `
+    outline: 2px solid white;
+    transform: translateY(-3px);
+  `}
 `;
