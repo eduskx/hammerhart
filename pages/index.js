@@ -1,13 +1,13 @@
 import Form from "@/components/Form";
 import Header from "@/components/Header";
-import FilterByComplexity from "@/components/FilterButton";
+import FilterList from "@/components/FilterList";
 
 export default function HomePage({ projects, setNewProjects }) {
   return (
     <>
       <Header />
       <Form setNewProjects={setNewProjects} projects={projects} />
-      <FilterByComplexity projects={projects} />
+      <FilterList projects={projects} />
     </>
   );
 }

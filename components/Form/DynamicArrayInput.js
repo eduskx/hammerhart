@@ -39,7 +39,6 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
       ))}
       <StyledAddButton type="button" onClick={handleAddField}>
         <MdAdd />
-        <MdAdd />
       </StyledAddButton>
     </>
   );

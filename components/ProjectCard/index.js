@@ -16,7 +16,13 @@ export default function ProjectCard({ project }) {
   const { imageUrl, title, complexity } = project;
   return (
     <CardContainer>
-      <StyledImage src={imageUrl} alt={title} width={100} height={100} />
+      <StyledImage
+        src={imageUrl}
+        alt={title}
+        width={100}
+        height={100}
+        priority
+      />
       <Wrapper>
         <StyledTitle>{title}</StyledTitle>
         <StyledComplexity>{complexity}</StyledComplexity>
@@ -41,11 +47,9 @@ const CardContainer = styled.div`
   margin: 0;
   gap: 1rem;
   transition: all 0.5s ease;
-  &:hover{
-
-
-transform: scale(1.1);
-}
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const StyledImage = styled(Image)`
@@ -55,17 +59,12 @@ const StyledImage = styled(Image)`
   object-fit: cover;
   z-index: 2;
   margin: 1rem;
- 
 `;
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-const FadeInAnimation = keyframes`
-  0% {transform: scale(0);}
-  100% {transform: scale(4);}
 `;
 
 const StyledDiv = styled.div`
@@ -81,18 +80,16 @@ const StyledDiv = styled.div`
   transition: all 1s ease;
 
   ${CardContainer}:hover & {
-    
     transform: scale(10);
   }
 `;
 
 const StyledTitle = styled.h2`
   padding-top: 1rem;
+  padding-right: 0.5rem;
   font-size: 100%;
   color: white;
   z-index: 2;
-  
-
 `;
 
 const StyledComplexity = styled.p`
