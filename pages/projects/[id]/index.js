@@ -130,9 +130,10 @@ const StyledComplexityTag = styled.p`
   right: 0rem;
   padding: 5px;
   margin: 0;
-  background-color: ${({ color }) => handleColorType(color)}
+  background-color: ${({ color }) => handleColorType(color)};
   border-radius: 10px 0px 0 0px;
 `;
+
 const StyledComplexit = styled.p`
   font-size: 90%;
   border-radius: 10px;
