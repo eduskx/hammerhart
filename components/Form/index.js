@@ -6,21 +6,14 @@ import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 export default function Form({
   setNewProjects,
   projects,
+  materials,
+  setMaterials,
+  steps,
+  setSteps,
   defaultData,
   onSubmit,
-  materials: updatedMaterials,
-  steps: updatedSteps,
 }) {
-  const [materials, setMaterials] = useState(updatedMaterials || [""]);
-  const [steps, setSteps] = useState(
-    updatedSteps || [{ id: "1", description: "" }]
-  );
-
-  console.log("updatedMaterials:", updatedMaterials);
-
   let formRef = useRef(null);
-  console.log("Formsteps: ", steps);
-  console.log("Formmaterials: ", materials);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -31,12 +24,7 @@ export default function Form({
     newProject.materials = materials;
     newProject.steps = steps;
 
-    // console.log("newProjectIndex");
-
     setNewProjects([newProject, ...projects]);
-
-    // console.log("Formprojects: ", projects);
-    // console.log("FormsetNewProjects: ", setNewProjects);
 
     event.target.reset();
     setMaterials([""]);
@@ -108,11 +96,12 @@ export default function Form({
         label="Add Materials"
         state={materials}
         setterFunction={setMaterials}
+        // defaultValue={materials}
       />
       <DynamicStepsInput
         steps={steps}
         setSteps={setSteps}
-        defaultValue={steps}
+        // defaultValue={steps}
       />
 
       <StyledButtonWrapper>

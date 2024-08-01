@@ -1,7 +1,14 @@
 import { useRouter } from "next/router";
 import Form from "@/components/Form";
 
-export default function Edit({ projects, setNewProjects }) {
+export default function Edit({
+  projects,
+  setNewProjects,
+  materials,
+  setMaterials,
+  steps,
+  setSteps,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -11,7 +18,12 @@ export default function Edit({ projects, setNewProjects }) {
     return <h1>No project found</h1>;
   }
 
-  const { title, materials, steps, id: updateId } = projectData;
+  const {
+    title,
+    materials: oldMaterials,
+    steps: oldSteps,
+    id: updateId,
+  } = projectData;
   //   console.log("materialsEdit: ", materials);
   //   console.log("stepsEdit: ", steps);
 
@@ -22,8 +34,8 @@ export default function Edit({ projects, setNewProjects }) {
     const newProject = Object.fromEntries(formData);
     // console.log("newProject: ", newProject);
     newProject.id = updateId;
-    newProject.materials = materials;
-    newProject.steps = steps;
+    newProject.materials = oldMaterials;
+    newProject.steps = oldSteps;
 
     // console.log("UpdatedProject: ", newProject.materials);
 
@@ -36,7 +48,6 @@ export default function Edit({ projects, setNewProjects }) {
     const newProjectUpdated = setNewProjects(updatedProject);
     // console.log("newProjectUpdated: ", newProjectUpdated);
     // console.log("projects: ", projects);
-    // console.log("Hello edit");
     router.back();
   }
 
@@ -48,6 +59,8 @@ export default function Edit({ projects, setNewProjects }) {
         onSubmit={editProject}
         defaultData={projectData}
         materials={materials}
+        setMaterials={setMaterials}
+        setSteps={setSteps}
         steps={steps}
         projects={projects}
       />

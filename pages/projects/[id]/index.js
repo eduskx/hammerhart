@@ -106,6 +106,9 @@ const StyledDetailsWrapper = styled.div`
 
 const StyledDescription = styled.p`
   text-align: center;
+  overflow-wrap: break-word;
+  width: 100%;
+  padding: 0 1rem;
 `;
 
 const StyledImage = styled(Image)`
