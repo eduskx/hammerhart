@@ -14,6 +14,7 @@ export default function Form({
   onSubmit,
 }) {
   let formRef = useRef(null);
+  // console.log("materials: ", materials);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -96,13 +97,8 @@ export default function Form({
         label="Add Materials"
         state={materials}
         setterFunction={setMaterials}
-        // defaultValue={materials}
       />
-      <DynamicStepsInput
-        steps={steps}
-        setSteps={setSteps}
-        // defaultValue={steps}
-      />
+      <DynamicStepsInput steps={steps} setSteps={setSteps} />
 
       <StyledButtonWrapper>
         <StyledClearButton type="button" onClick={handleClearForm}>

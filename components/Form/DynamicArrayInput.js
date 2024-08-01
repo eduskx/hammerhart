@@ -7,6 +7,7 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
   function handleAddField() {
     setterFunction([...state, ""]);
   }
+  // console.log("state: ", state);
 
   function handleRemoveField(indexToRemove) {
     setterFunction(state.filter((_, index) => index !== indexToRemove));

@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Form from "@/components/Form";
+import { useEffect } from "react";
 
 export default function Edit({
   projects,
@@ -11,6 +12,7 @@ export default function Edit({
 }) {
   const router = useRouter();
   const { id } = router.query;
+  //   console.log("materials: ", materials);
 
   const projectData = projects.find((project) => project.id === id);
 
@@ -18,13 +20,15 @@ export default function Edit({
     return <h1>No project found</h1>;
   }
 
-  const {
-    title,
-    materials: oldMaterials,
-    steps: oldSteps,
-    id: updateId,
-  } = projectData;
-  //   console.log("materialsEdit: ", materials);
+  const { title, id: updateId } = projectData;
+
+  useEffect(() => {
+    if (projectData) {
+      setMaterials(projectData.materials);
+      setSteps(projectData.steps);
+    }
+  }, [projectData, setMaterials, setSteps]);
+  //   console.log("projectData: ", projectData);
   //   console.log("stepsEdit: ", steps);
 
   function editProject(event) {
@@ -47,7 +51,6 @@ export default function Edit({
 
     const newProjectUpdated = setNewProjects(updatedProject);
     // console.log("newProjectUpdated: ", newProjectUpdated);
-    // console.log("projects: ", projects);
     router.back();
   }
 

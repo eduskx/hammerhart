@@ -15,6 +15,8 @@ export default function ProjectDetailsPage({ projects }) {
     return <h1>No project found</h1>;
   }
 
+  console.log(projectData);
+
   const {
     title,
     imageUrl,
@@ -23,6 +25,7 @@ export default function ProjectDetailsPage({ projects }) {
     duration,
     materials,
     steps,
+    id: detailsId,
   } = projectData;
 
   return (
@@ -55,7 +58,7 @@ export default function ProjectDetailsPage({ projects }) {
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
         </StyledInstructionsList>
-        <Link href={`/projects/${projectData.id}/edit`}>
+        <Link href={`/projects/${detailsId}/edit`}>
           <button>Edit</button>
         </Link>
       </StyledDetailsWrapper>
