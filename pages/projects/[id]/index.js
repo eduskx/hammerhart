@@ -15,8 +15,6 @@ export default function ProjectDetailsPage({ projects }) {
     return <h1>No project found</h1>;
   }
 
-  console.log(projectData);
-
   const {
     title,
     imageUrl,

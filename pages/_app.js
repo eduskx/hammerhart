@@ -9,13 +9,6 @@ export default function App({ Component, pageProps }) {
   const [newProjects, setNewProjects] = useLocalStorageState("newProjects", {
     defaultValue: projects,
   });
-  const [materials, setMaterials] = useLocalStorageState("materials", {
-    defaultValue: [""],
-  });
-
-  const [steps, setSteps] = useLocalStorageState("steps", {
-    defaultValue: [{ id: "1", description: "" }],
-  });
 
   return (
     <>
@@ -25,10 +18,6 @@ export default function App({ Component, pageProps }) {
           {...pageProps}
           projects={newProjects}
           setNewProjects={setNewProjects}
-          materials={materials}
-          setMaterials={setMaterials}
-          steps={steps}
-          setSteps={setSteps}
         />
       </div>
     </>

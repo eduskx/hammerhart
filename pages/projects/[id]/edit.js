@@ -1,15 +1,12 @@
 import { useRouter } from "next/router";
 import Form from "@/components/Form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function Edit({
-  projects,
-  setNewProjects,
-  materials,
-  setMaterials,
-  steps,
-  setSteps,
-}) {
+export default function Edit({ projects, setNewProjects }) {
+  const [formMaterials, setFormMaterials] = useState([""]);
+
+  const [formSteps, setFormSteps] = useState([{ id: "1", description: "" }]);
+
   const router = useRouter();
   const { id } = router.query;
 
@@ -17,18 +14,18 @@ export default function Edit({
 
   useEffect(() => {
     if (projectData) {
-      setMaterials(projectData.materials);
-      setSteps(projectData.steps);
+      setFormMaterials(projectData.materials);
+      setFormSteps(projectData.steps);
     }
-  }, [projectData, setMaterials, setSteps]);
+  }, [projects]);
 
   function editProject(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
     newProject.id = id;
-    newProject.materials = materials;
-    newProject.steps = steps;
+    newProject.materials = formMaterials;
+    newProject.steps = formSteps;
     const updatedProject = projects.map((project) =>
       project.id === id ? newProject : project
     );
@@ -38,16 +35,15 @@ export default function Edit({
 
   return (
     <>
-      <h2>{`Edit ${projectData?.title}`}</h2>
+      <h2>{`Edit ${projectData.title}`}</h2>
       <button onClick={() => router.back()}>Cancel</button>
       <Form
         onSubmit={editProject}
+        formMaterials={formMaterials}
+        setFormMaterials={setFormMaterials}
+        formSteps={formSteps}
+        setFormSteps={setFormSteps}
         defaultData={projectData}
-        materials={materials}
-        setMaterials={setMaterials}
-        setSteps={setSteps}
-        steps={steps}
-        projects={projects}
       />
     </>
   );

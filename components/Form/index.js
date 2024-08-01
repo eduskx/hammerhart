@@ -6,12 +6,12 @@ import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 export default function Form({
   setNewProjects,
   projects,
-  materials,
-  setMaterials,
-  steps,
-  setSteps,
   defaultData,
   onSubmit,
+  formMaterials,
+  setFormMaterials,
+  formSteps,
+  setFormSteps,
 }) {
   let formRef = useRef(null);
 
@@ -21,20 +21,20 @@ export default function Form({
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
     newProject.id = `${projects.length + 1}`;
-    newProject.materials = materials;
-    newProject.steps = steps;
+    newProject.materials = formMaterials;
+    newProject.steps = formSteps;
 
     setNewProjects([newProject, ...projects]);
 
     event.target.reset();
-    setMaterials([""]);
-    setSteps([{ id: "1", description: "" }]);
+    setFormMaterials([""]);
+    setFormSteps([{ id: "1", description: "" }]);
   }
 
   function handleClearForm() {
     formRef.reset();
-    setMaterials([""]);
-    setSteps([{ id: "1", description: "" }]);
+    setFormMaterials([""]);
+    setFormSteps([{ id: "1", description: "" }]);
   }
 
   return (
@@ -94,10 +94,10 @@ export default function Form({
 
       <DynamicArrayInput
         label="Add Materials"
-        state={materials}
-        setterFunction={setMaterials}
+        state={formMaterials}
+        setterFunction={setFormMaterials}
       />
-      <DynamicStepsInput steps={steps} setSteps={setSteps} />
+      <DynamicStepsInput steps={formSteps} setSteps={setFormSteps} />
 
       <StyledButtonWrapper>
         <StyledClearButton type="button" onClick={handleClearForm}>
