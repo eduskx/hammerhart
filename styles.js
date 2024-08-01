@@ -19,6 +19,6 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     max-width: 100%;
-    overflow-wrap: break-word;
+    word-break: break-all;
   }
 `;
