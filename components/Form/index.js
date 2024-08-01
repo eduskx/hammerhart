@@ -14,13 +14,17 @@ export default function Form({ setNewProjects, projects }) {
 
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
-    const idOfLatestProject = Number(projects[projects.length - 1].id);
-    newProject.id = `${idOfLatestProject + 1}`;
+
+    const highestProjectId = projects.reduce((prev, current) =>
+      prev.id > current.id ? prev.id : current.id
+    );
+
+    newProject.id = `${Number(highestProjectId) + 1}`;
     newProject.materials = materials;
     newProject.steps = steps;
-    console.log(newProject);
 
-    setNewProjects([newProject, ...projects]);
+    // swapped ...projects and newProject because we added toReversed() in list mapping
+    setNewProjects([...projects, newProject]);
 
     event.target.reset();
     setMaterials([""]);
@@ -31,12 +35,19 @@ export default function Form({ setNewProjects, projects }) {
     formRef.reset();
     setMaterials([""]);
     setSteps([{ id: "1", description: "" }]);
+    console.log(projects);
   }
 
   return (
     <StyledForm ref={(element) => (formRef = element)} onSubmit={handleSubmit}>
       <label htmlFor="title">Title</label>
-      <StyledInput required id="title" name="title" type="text" />
+      <StyledInput
+        required
+        id="title"
+        name="title"
+        type="text"
+        maxLength={50}
+      />
 
       <label htmlFor="imageUrl">Image</label>
       <StyledInput
@@ -81,7 +92,7 @@ export default function Form({ setNewProjects, projects }) {
 }
 
 const StyledTextarea = styled.textarea`
-  all: unset;
+  /* all: unset; */
   color: rgba(58, 58, 58, 1);
   resize: none;
   background: rgba(255, 255, 255, 0.5);

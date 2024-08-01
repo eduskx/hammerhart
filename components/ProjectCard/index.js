@@ -81,7 +81,9 @@ const StyledTitle = styled.h2`
   font-size: 100%;
   color: white;
   z-index: 2;
+  border: 1px solid red;
 `;
+
 const StyledComplexity = styled.p`
   font-size: 90%;
   padding: 0 15px 5px 0;
