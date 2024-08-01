@@ -2,7 +2,6 @@ import GlobalStyle from "@/styles";
 import projects from "@/lib/projects.js";
 import { Saira } from "next/font/google";
 import useLocalStorageState from "use-local-storage-state";
-import { useState } from "react";
 
 const saira = Saira({ subsets: ["latin"] });
 
@@ -10,8 +9,13 @@ export default function App({ Component, pageProps }) {
   const [newProjects, setNewProjects] = useLocalStorageState("newProjects", {
     defaultValue: projects,
   });
-  const [materials, setMaterials] = useState([""]);
-  const [steps, setSteps] = useState([{ id: "1", description: "" }]);
+  const [materials, setMaterials] = useLocalStorageState("materials", {
+    defaultValue: [""],
+  });
+
+  const [steps, setSteps] = useLocalStorageState("steps", {
+    defaultValue: [{ id: "1", description: "" }],
+  });
 
   return (
     <>

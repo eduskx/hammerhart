@@ -14,7 +14,6 @@ export default function Form({
   onSubmit,
 }) {
   let formRef = useRef(null);
-  // console.log("materials: ", materials);
 
   function handleSubmit(event) {
     event.preventDefault();
