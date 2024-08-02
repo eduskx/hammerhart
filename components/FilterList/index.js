@@ -3,16 +3,16 @@ import ProjectsList from "../ProjectsList";
 import styled from "styled-components";
 
 export default function FilterList({ projects }) {
-  const complexities= [
+  const complexities = [
     { name: "All", color: "#070ff7" },
     { name: "Beginner", color: "#3ecd5e" },
     { name: "Intermediate", color: "#f9b234" },
-    { name: "Advanced", color: "#e44002" }
+    { name: "Advanced", color: "#e44002" },
   ];
 
   const [filteredProjects, setFilteredProjects] = useState(projects);
   const [activeFilter, setActiveFilter] = useState("All");
-  
+
   useEffect(() => {
     setFilteredProjects(projects);
   }, [projects]);
@@ -44,7 +44,9 @@ export default function FilterList({ projects }) {
         ))}
       </StyledButtonWrapper>
       {filteredProjects.length === 0 ? (
-        <styledEmptyMessage>No projects with current complexity available!</styledEmptyMessage>
+        <StyledEmptyMessage>
+          "No {activeFilter} projects available!"
+        </StyledEmptyMessage>
       ) : (
         <ProjectsList projects={filteredProjects} />
       )}
@@ -72,7 +74,7 @@ const StyledButton = styled.button`
   color: #fff;
   background-color: ${(props) => props.color};
   border-radius: 2px;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in;
 
   &:focus,
   &:hover {
@@ -85,7 +87,7 @@ const StyledButton = styled.button`
     transform: translateY(-3px);
   }
 `;
-const styledEmptyMessage = styled.h1`
+const StyledEmptyMessage = styled.h1`
   text-align: center;
   color: #fff;
   margin-top: 2rem;
