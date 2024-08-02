@@ -10,25 +10,16 @@ export default function FilterList({ projects }) {
     { name: "Advanced", color: "#e44002" },
   ];
 
-  const [filteredProjects, setFilteredProjects] = useState(projects);
   const [activeFilter, setActiveFilter] = useState("All");
 
-  useEffect(() => {
-    setFilteredProjects(projects);
-  }, [projects]);
+  const filteredProjects =
+    activeFilter === "All"
+      ? projects
+      : projects.filter((project) => project.complexity === activeFilter);
 
-  const filterByComplexity = (complexity) => {
+  function filterByComplexity(complexity) {
     setActiveFilter(complexity);
-    if (complexity === "All") {
-      setFilteredProjects(projects);
-    } else {
-      const filtered = projects.filter(
-        (project) => project.complexity === complexity
-      );
-      setFilteredProjects(filtered);
-    }
-  };
-
+  }
   return (
     <>
       <StyledButtonWrapper>
@@ -37,7 +28,7 @@ export default function FilterList({ projects }) {
             key={complexity.name}
             onClick={() => filterByComplexity(complexity.name)}
             color={complexity.color}
-            className={activeFilter === complexity.name}
+            isActive={activeFilter === complexity.name}
           >
             {complexity.name}
           </StyledButton>
@@ -82,11 +73,14 @@ const StyledButton = styled.button`
     transform: translateY(-3px);
   }
 
-  &.active {
+  ${(props) =>
+    props.isActive &&
+    `
     outline: 2px solid white;
     transform: translateY(-3px);
-  }
+  `}
 `;
+
 const StyledEmptyMessage = styled.h1`
   text-align: center;
   color: #fff;
