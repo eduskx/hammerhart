@@ -13,6 +13,7 @@ export default function Form({
   setFormMaterials,
   formSteps,
   setFormSteps,
+  isEditMode,
   id,
 }) {
   let formRef = useRef(null);
@@ -109,20 +110,24 @@ export default function Form({
       <DynamicStepsInput steps={formSteps} setSteps={setFormSteps} />
 
       <StyledButtonWrapper>
-        <StyledClearButton type="button" onClick={handleClearForm}>
-          Clear
-        </StyledClearButton>
+        {!isEditMode && (
+          <StyledClearButton type="button" onClick={handleClearForm}>
+            Clear
+          </StyledClearButton>
+        )}
         <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
-        <StyledCancelLink href={`/projects/${id}/`}>
-          <StyledCancelButton>Cancel</StyledCancelButton>
-        </StyledCancelLink>
+        {isEditMode && (
+          <StyledCancelLink href={`/projects/${id}/`}>
+            <StyledCancelButton>Cancel</StyledCancelButton>
+          </StyledCancelLink>
+        )}
       </StyledButtonWrapper>
     </StyledForm>
   );
 }
 
 const StyledTextarea = styled.textarea`
-  /* all: unset; */
+  all: unset;
   color: rgba(58, 58, 58, 1);
   resize: none;
   background: rgba(255, 255, 255, 0.5);
@@ -261,6 +266,11 @@ const StyledCancelButton = styled.button`
   &:focus,
   &:hover {
     outline: 1px solid white;
+    &:hover {
+      background-color: #e52e2ed4;
+      color: #fff;
+      transform: translateY(-3px);
+    }
   }
 `;
 
