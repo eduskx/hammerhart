@@ -1,6 +1,7 @@
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import Form from "@/components/Form";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 export default function Edit({ projects, setNewProjects }) {
   const [formMaterials, setFormMaterials] = useState([""]);
@@ -35,8 +36,7 @@ export default function Edit({ projects, setNewProjects }) {
 
   return (
     <>
-      <h2>{`Edit ${projectData.title}`}</h2>
-      <button onClick={() => router.back()}>Cancel</button>
+      <StyledHeader>{`Edit "${projectData?.title}"`}</StyledHeader>
       <Form
         onSubmit={editProject}
         formMaterials={formMaterials}
@@ -44,7 +44,15 @@ export default function Edit({ projects, setNewProjects }) {
         formSteps={formSteps}
         setFormSteps={setFormSteps}
         defaultData={projectData}
+        isEditMode={true}
+        id={id}
       />
     </>
   );
 }
+
+const StyledHeader = styled.h2`
+  text-align: center;
+  margin-top: 1rem;
+  color: white;
+`;

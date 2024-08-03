@@ -56,9 +56,9 @@ export default function ProjectDetailsPage({ projects }) {
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
         </StyledInstructionsList>
-        <Link href={`/projects/${detailsId}/edit`}>
-          <button>Edit</button>
-        </Link>
+        <StyledEditLink href={`/projects/${detailsId}/edit`}>
+          <StyledEditButton>Edit</StyledEditButton>
+        </StyledEditLink>
       </StyledDetailsWrapper>
     </>
   );
@@ -165,4 +165,27 @@ const StyledListTitle = styled.h2`
   padding: 0;
   margin: 0;
   align-self: stat;
+`;
+
+const StyledEditButton = styled.button`
+  all: unset;
+  width: 4rem;
+  height: 2rem;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: rgba(58, 58, 58, 1);
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  &:focus,
+  &:hover {
+    outline: 1px solid white;
+  }
+`;
+
+const StyledEditLink = styled(Link)`
+  text-decoration: none;
 `;
