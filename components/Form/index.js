@@ -22,11 +22,17 @@ export default function Form({
 
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
-    newProject.id = `${projects.length + 1}`;
+
+    const highestProjectId = projects.reduce((prev, current) =>
+      prev.id > current.id ? prev.id : current.id
+    );
+
+    newProject.id = `${Number(highestProjectId) + 1}`;
     newProject.materials = formMaterials;
     newProject.steps = formSteps;
 
-    setNewProjects([newProject, ...projects]);
+    // swapped ...projects and newProject because we added toReversed() in list mapping
+    setNewProjects([...projects, newProject]);
 
     event.target.reset();
     setFormMaterials([""]);
@@ -51,6 +57,7 @@ export default function Form({
         name="title"
         type="text"
         defaultValue={defaultData?.title}
+        maxLength={50}
       />
 
       <label htmlFor="imageUrl">Image</label>
@@ -115,7 +122,7 @@ export default function Form({
 }
 
 const StyledTextarea = styled.textarea`
-  all: unset;
+  /* all: unset; */
   color: rgba(58, 58, 58, 1);
   resize: none;
   background: rgba(255, 255, 255, 0.5);

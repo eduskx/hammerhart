@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
@@ -17,10 +16,6 @@ export default function DynamicArrayInput({ label, state, setterFunction }) {
     newListItems[index] = event.target.value;
     setterFunction(newListItems);
   }
-
-  useEffect(() => {
-    setterFunction(state);
-  }, [state, setterFunction]);
 
   return (
     <>

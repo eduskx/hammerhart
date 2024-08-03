@@ -4,7 +4,16 @@ import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 
-import { StyledComplexity } from "@/components/ProjectCard/stylesProjectCard";
+const handleColorType = (color) => {
+  switch (color) {
+    case "Intermediate":
+      return "#f9b234";
+    case "Advanced":
+      return "#e44002";
+    default:
+      return "#3ecd5e";
+  }
+};
 export default function ProjectDetailsPage({ projects }) {
   const router = useRouter();
   const { id } = router.query;
@@ -122,14 +131,23 @@ const StyledImageWrapper = styled.div`
   width: 100%;
 `;
 
-const StyledComplexityTag = styled(StyledComplexity)`
+const StyledComplexityTag = styled.p`
   position: absolute;
   bottom: 0.4rem;
   right: 0rem;
   padding: 5px;
   margin: 0;
-
+  background-color: ${({ color }) => handleColorType(color)};
   border-radius: 10px 0px 0 0px;
+`;
+
+const StyledComplexit = styled.p`
+  font-size: 90%;
+  border-radius: 10px;
+
+  width: fit-content;
+  padding: 5px;
+  background-color: ${({ color }) => handleColorType(color)};
 `;
 
 const StyledDuration = styled.p`

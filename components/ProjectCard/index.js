@@ -31,7 +31,6 @@ const CardContainer = styled.div`
   background-color: #a38376;
   border-radius: 20px;
   position: relative;
-  margin: 0 1rem;
   overflow: hidden;
   width: 350px;
   height: 200px;
@@ -82,7 +81,10 @@ const StyledTitle = styled.h2`
   font-size: 100%;
   color: white;
   z-index: 2;
+  
+
 `;
+
 const StyledComplexity = styled.p`
   font-size: 90%;
   padding: 0 15px 5px 0;
