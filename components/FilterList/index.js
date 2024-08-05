@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProjectsList from "../ProjectsList";
 import styled from "styled-components";
 
@@ -28,7 +28,7 @@ export default function FilterList({ projects }) {
             key={complexity.name}
             onClick={() => filterByComplexity(complexity.name)}
             color={complexity.color}
-            isActive={activeFilter === complexity.name}
+            $isActive={activeFilter === complexity.name}
           >
             {complexity.name}
           </StyledButton>
@@ -74,7 +74,7 @@ const StyledButton = styled.button`
   }
 
   ${(props) =>
-    props.isActive &&
+    props.$isActive &&
     `
     outline: 2px solid white;
     transform: translateY(-3px);
