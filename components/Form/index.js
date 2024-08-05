@@ -115,12 +115,12 @@ export default function Form({
             Clear
           </StyledClearButton>
         )}
-        <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
         {isEditMode && (
           <StyledCancelLink href={`/projects/${id}/`}>
             <StyledCancelButton>Cancel</StyledCancelButton>
           </StyledCancelLink>
         )}
+        <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
       </StyledButtonWrapper>
     </StyledForm>
   );

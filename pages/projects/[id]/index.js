@@ -87,7 +87,6 @@ const StyledDetailsWrapper = styled.div`
   box-shadow: 1px 1px 6px 1px #00000072;
   background: rgb(44, 150, 164);
   background-color: #a38376;
-
   width: 320px;
   display: flex;
   flex-direction: column;
@@ -97,7 +96,7 @@ const StyledDetailsWrapper = styled.div`
   color: white;
   padding: 0;
   gap: 1rem;
-
+  position: relative;
   @media screen and (min-width: 640px) {
     box-shadow: 1px 1px 6px 1px #00000072;
     background-color: #a38376;
@@ -191,6 +190,9 @@ const StyledEditButton = styled.button`
   margin-bottom: 0.5rem;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 2px;
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
   &:focus,
   &:hover {
     outline: 1px solid white;

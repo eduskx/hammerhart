@@ -1,6 +1,5 @@
 import Form from "@/components/Form";
 import Header from "@/components/Header";
-import ProjectsList from "@/components/ProjectsList";
 import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 
@@ -23,7 +22,6 @@ export default function HomePage({ projects, setNewProjects }) {
         formSteps={formSteps}
         setFormSteps={setFormSteps}
       />
-      <ProjectsList projects={projects} />
       <FilterList projects={projects} />
     </>
   );
