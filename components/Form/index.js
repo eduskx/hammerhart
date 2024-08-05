@@ -83,7 +83,7 @@ export default function Form({
         required
         id="duration"
         name="duration"
-        type="test"
+        type="text"
         defaultValue={defaultData?.duration}
       />
 
@@ -116,9 +116,7 @@ export default function Form({
           </StyledClearButton>
         )}
         {isEditMode && (
-          <StyledCancelLink href={`/projects/${id}/`}>
-            <StyledCancelButton>Cancel</StyledCancelButton>
-          </StyledCancelLink>
+          <StyledCancelLink href={`/projects/${id}/`}>Cancel</StyledCancelLink>
         )}
         <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
       </StyledButtonWrapper>
@@ -252,9 +250,10 @@ const StyledButtonWrapper = styled.div`
   gap: 1rem;
 `;
 
-const StyledCancelButton = styled.button`
+const StyledCancelLink = styled(Link)`
+  text-decoration: none;
   all: unset;
-  width: 100%;
+  width: 50%;
   height: 2rem;
   display: flex;
   margin-top: 2rem;
@@ -274,9 +273,4 @@ const StyledCancelButton = styled.button`
       transform: translateY(-3px);
     }
   }
-`;
-
-const StyledCancelLink = styled(Link)`
-  text-decoration: none;
-  width: 50%;
 `;
