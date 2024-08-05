@@ -32,6 +32,7 @@ export default function ProjectDetailsPage({ projects }) {
     duration,
     materials,
     steps,
+    id: detailsId,
   } = projectData;
 
   return (
@@ -64,6 +65,9 @@ export default function ProjectDetailsPage({ projects }) {
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
         </StyledInstructionsList>
+        <StyledEditLink href={`/projects/${detailsId}/edit`}>
+          Edit
+        </StyledEditLink>
       </StyledDetailsWrapper>
     </>
   );
@@ -83,7 +87,6 @@ const StyledDetailsWrapper = styled.div`
   box-shadow: 1px 1px 6px 1px #00000072;
   background: rgb(44, 150, 164);
   background-color: #a38376;
-
   width: 320px;
   display: flex;
   flex-direction: column;
@@ -93,11 +96,9 @@ const StyledDetailsWrapper = styled.div`
   color: white;
   padding: 0;
   gap: 1rem;
-
   @media screen and (min-width: 640px) {
     box-shadow: 1px 1px 6px 1px #00000072;
     background-color: #a38376;
-
     width: 600px;
     display: flex;
     flex-direction: column;
@@ -157,7 +158,6 @@ const StyledInstructionsList = styled.ol`
   margin-bottom: 1rem;
   @media screen and (min-width: 640px) {
     list-style-position: inside;
-
     margin-bottom: 1rem;
     padding: 0;
   }
@@ -172,4 +172,24 @@ const StyledListTitle = styled.h2`
   padding: 0;
   margin: 0;
   align-self: center;
+`;
+
+const StyledEditLink = styled(Link)`
+  text-decoration: none;
+  all: unset;
+  width: 4rem;
+  height: 2rem;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: rgba(58, 58, 58, 1);
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  &:focus,
+  &:hover {
+    outline: 1px solid white;
+  }
 `;
