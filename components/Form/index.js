@@ -128,6 +128,8 @@ export default function Form({
 
 const StyledTextarea = styled.textarea`
   all: unset;
+  width: 100%;
+  word-wrap: break-word;
   color: rgba(58, 58, 58, 1);
   resize: none;
   background: rgba(255, 255, 255, 0.5);

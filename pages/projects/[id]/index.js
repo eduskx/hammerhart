@@ -116,9 +116,7 @@ const StyledDetailsWrapper = styled.div`
 
 const StyledDescription = styled.p`
   text-align: center;
-  overflow-wrap: break-word;
-  width: 100%;
-  padding: 0 1rem;
+  text-align: center;
 `;
 
 const StyledImage = styled(Image)`
@@ -141,15 +139,6 @@ const StyledComplexityTag = styled.p`
   border-radius: 10px 0px 0 0px;
 `;
 
-const StyledComplexit = styled.p`
-  font-size: 90%;
-  border-radius: 10px;
-
-  width: fit-content;
-  padding: 5px;
-  background-color: ${({ color }) => handleColorType(color)};
-`;
-
 const StyledDuration = styled.p`
   align-self: self-end;
   padding-right: 2rem;
@@ -165,6 +154,9 @@ const StyledMaterialsList = styled.ul`
 
 const StyledInstructionsList = styled.ol`
   list-style-position: inside;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  list-style-position: inside;
   padding: 0 1rem 0 1rem;
   margin-bottom: 1rem;
   @media screen and (min-width: 640px) {
@@ -177,12 +169,13 @@ const StyledInstructionsList = styled.ol`
 
 const StyledListItems = styled.li`
   line-height: 1.4rem;
+  padding: 0rem 1rem;
 `;
 
 const StyledListTitle = styled.h2`
   padding: 0;
   margin: 0;
-  align-self: stat;
+  align-self: center;
 `;
 
 const StyledEditButton = styled.button`

@@ -2,6 +2,7 @@ import Form from "@/components/Form";
 import Header from "@/components/Header";
 import ProjectsList from "@/components/ProjectsList";
 import useLocalStorageState from "use-local-storage-state";
+import FilterList from "@/components/FilterList";
 
 export default function HomePage({ projects, setNewProjects }) {
   const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
@@ -23,6 +24,7 @@ export default function HomePage({ projects, setNewProjects }) {
         setFormSteps={setFormSteps}
       />
       <ProjectsList projects={projects} />
+      <FilterList projects={projects} />
     </>
   );
 }
