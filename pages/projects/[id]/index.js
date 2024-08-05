@@ -5,9 +5,6 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 import Modal from "@/components/Modal/";
 
-<<<<<<< HEAD
-export default function ProjectDetailsPage({ projects, setNewProjects }) {
-=======
 const handleColorType = (color) => {
   switch (color) {
     case "Intermediate":
@@ -18,8 +15,7 @@ const handleColorType = (color) => {
       return "#3ecd5e";
   }
 };
-export default function ProjectDetailsPage({ projects }) {
->>>>>>> main
+export default function ProjectDetailsPage({ projects, setNewProjects }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -74,36 +70,11 @@ export default function ProjectDetailsPage({ projects }) {
   );
 }
 
-const StyledImageWrapper = styled.div`
-  position: relative;
-  width: fit-content;
-`;
-<<<<<<< HEAD
-=======
-const StyledDetailsWrapper = styled.div`
-  box-shadow: 1px 1px 6px 1px #00000072;
-  background: rgb(44, 150, 164);
-  background-color: #a38376;
->>>>>>> main
-
-const StyledComplexityTag = styled.p`
-  position: absolute;
-  bottom: 0.6rem;
-  right: 0.5rem;
-  padding: 5px;
-  margin: 0;
-  background-color: white;
-  border-radius: 10px;
-`;
-
 const StyledDetailsWrapper = styled.div`
   width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
-<<<<<<< HEAD
-  margin: auto;
-=======
   margin: 1rem auto 1rem auto;
   border-radius: 20px;
   color: white;
@@ -149,7 +120,6 @@ const StyledComplexityTag = styled.p`
   margin: 0;
   background-color: ${({ color }) => handleColorType(color)};
   border-radius: 10px 0px 0 0px;
->>>>>>> main
 `;
 
 const StyledDuration = styled.p`
@@ -165,17 +135,6 @@ const StyledMaterialsList = styled.ul`
 `;
 
 const StyledInstructionsList = styled.ol`
-<<<<<<< HEAD
-  align-self: flex-start;
-  list-style-position: inside;
-  padding: 0;
-  margin-top: 1rem;
-  line-height: 1.5rem;
-`;
-
-const StyledListItems = styled.li`
-  margin-bottom: 0.3rem;
-=======
   list-style-position: inside;
   padding: 0 1rem;
   margin-bottom: 1rem;
@@ -199,5 +158,4 @@ const StyledListTitle = styled.h2`
   padding: 0;
   margin: 0;
   align-self: center;
->>>>>>> main
 `;

@@ -80,11 +80,7 @@ const StyledDiv = styled.div`
   transition: all 1s ease;
 
   ${CardContainer}:hover & {
-<<<<<<< HEAD
-    animation: ${FadeInAnimation} 800ms linear;
-=======
     transform: scale(10);
->>>>>>> main
   }
 `;
 
