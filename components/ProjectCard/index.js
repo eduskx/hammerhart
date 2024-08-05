@@ -16,7 +16,13 @@ export default function ProjectCard({ project }) {
   const { imageUrl, title, complexity } = project;
   return (
     <CardContainer>
-      <StyledImage src={imageUrl} alt={title} width={100} height={100} />
+      <StyledImage
+        src={imageUrl}
+        alt={title}
+        width={100}
+        height={100}
+        priority
+      />
       <Wrapper>
         <StyledTitle>{title}</StyledTitle>
         <StyledComplexity>{complexity}</StyledComplexity>
@@ -28,11 +34,9 @@ export default function ProjectCard({ project }) {
 const CardContainer = styled.div`
   box-shadow: 1px 1px 6px 1px #00000072;
   background: rgb(44, 150, 164);
-  background-color: #0093e9;
-  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+  background-color: #a38376;
   border-radius: 20px;
   position: relative;
-  margin: 0 1rem;
   overflow: hidden;
   width: 350px;
   height: 200px;
@@ -42,9 +46,12 @@ const CardContainer = styled.div`
   padding: 0;
   margin: 0;
   gap: 1rem;
-  transition: all 5s ease;
+  transition: all 0.5s ease;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
-CardContainer;
+
 const StyledImage = styled(Image)`
   width: 50%;
   height: auto;
@@ -59,10 +66,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
-const FadeInAnimation = keyframes`
-  0% {transform: scale(0);}
-  100% {transform: scale(10);}
-`;
+
 const StyledDiv = styled.div`
   position: absolute;
   background-color: ${({ color }) => handleColorType(color)};
@@ -73,18 +77,25 @@ const StyledDiv = styled.div`
   border-radius: 15px;
   z-index: 1;
   border: 50px solid transparent;
+  transition: all 1s ease;
 
   ${CardContainer}:hover & {
+<<<<<<< HEAD
     animation: ${FadeInAnimation} 800ms linear;
+=======
+    transform: scale(10);
+>>>>>>> main
   }
 `;
 
 const StyledTitle = styled.h2`
   padding-top: 1rem;
+  padding-right: 0.5rem;
   font-size: 100%;
   color: white;
   z-index: 2;
 `;
+
 const StyledComplexity = styled.p`
   font-size: 90%;
   padding: 0 15px 5px 0;

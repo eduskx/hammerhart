@@ -9,7 +9,8 @@ export default function ProjectsList({ projects }) {
 
   return (
     <StyledUl>
-      {projects.map((project) => (
+      {/* added toReversed() to be able to save projects in correct order and prevent giving wrong id's to new projects*/}
+      {projects.toReversed().map((project) => (
         <li key={project.id}>
           <StyledLink href={`/projects/${project.id}`}>
             <ProjectCard project={project} />
