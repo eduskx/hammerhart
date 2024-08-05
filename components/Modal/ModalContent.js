@@ -16,44 +16,61 @@ export default function ModalContent({
   };
 
   return (
-    <div>
+    <ModalContainer>
       <ModalContentContainer>
-        <ModalText>Are you sure you want to delete this project?</ModalText>
+        <TextContainer>
+          <ModalText>Are you sure you want to delete this project?</ModalText>
+        </TextContainer>
         <ButtonContainer>
           <ModalButton onClick={() => onDelete(id)}>Delete</ModalButton>
           <ModalButton onClick={onClose}>Close</ModalButton>
         </ButtonContainer>
       </ModalContentContainer>
-    </div>
+    </ModalContainer>
   );
 }
 
-const ModalContentContainer = styled.div`
-  background-color: yellow;
+const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: absolute;
-  top: 32rem;
-  justify-self: center;
-  margin: 2rem 2rem;
+`;
+
+const ModalContentContainer = styled.div`
+  position: absolute;
+  margin-top: 0rem;
+  margin-bottom: 12rem;
+  margin-left: 8rem;
+  margin-right: 3rem;
   border: 0.15rem solid black;
   border-radius: 1rem;
   background-color: lightgray;
-  width: fit-content;
-  padding: 4rem;
+  padding: 1rem;
+  width: 25rem;
+`;
+
+const TextContainer = styled.div`
+  display: flex;
 `;
 
 const ModalText = styled.p`
+  display: flex;
   padding: 1rem;
 `;
 
 const ModalButton = styled.button`
+  display: flex;
   border-radius: 0.5rem;
   border-radius: 0.3rem;
   border: 0.1rem solid black;
+  width: fit-content;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  margin: 1.5rem;
+  gap: 1rem;
   :hover {
     background-color: gray;
   }

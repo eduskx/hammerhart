@@ -27,6 +27,10 @@ export default function Modal({ id, projects, setNewProjects }) {
 const ModalContainer = styled.div`
   display: flex;
   justify-content: center;
+  position: absolute;
+  :hover {
+    background-color: gray;
+  }
 `;
 
 const ModalButton = styled.button`
