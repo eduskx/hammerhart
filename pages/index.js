@@ -1,13 +1,13 @@
 import Form from "@/components/Form";
 import Header from "@/components/Header";
-import ProjectsList from "@/components/ProjectsList";
+import FilterList from "@/components/FilterList";
 
 export default function HomePage({ projects, setNewProjects }) {
   return (
     <>
       <Header />
       <Form setNewProjects={setNewProjects} projects={projects} />
-      <ProjectsList projects={projects} />
+      <FilterList projects={projects} />
     </>
   );
 }
