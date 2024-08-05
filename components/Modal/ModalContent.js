@@ -40,7 +40,7 @@ const ModalContainer = styled.div`
 const ModalContentContainer = styled.div`
   position: absolute;
   margin-top: 0rem;
-  margin-bottom: 12rem;
+  margin-bottom: 20rem;
   margin-left: 8rem;
   margin-right: 3rem;
   border: 0.15rem solid black;
@@ -52,11 +52,22 @@ const ModalContentContainer = styled.div`
 
 const TextContainer = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 const ModalText = styled.p`
   display: flex;
   padding: 1rem;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  margin: 1.5rem;
+  gap: 1rem;
+  justify-content: center;
+  :hover {
+    background-color: gray;
+  }
 `;
 
 const ModalButton = styled.button`
@@ -65,13 +76,4 @@ const ModalButton = styled.button`
   border-radius: 0.3rem;
   border: 0.1rem solid black;
   width: fit-content;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  margin: 1.5rem;
-  gap: 1rem;
-  :hover {
-    background-color: gray;
-  }
 `;

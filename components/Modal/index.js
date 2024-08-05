@@ -9,25 +9,31 @@ export default function Modal({ id, projects, setNewProjects }) {
 
   return (
     <ModalContainer>
-      <ModalButton onClick={() => setShowModal(true)}>Delete</ModalButton>
-      {showModal &&
-        createPortal(
-          <ModalContent
-            onClose={() => setShowModal(false)}
-            id={id}
-            newProjects={projects}
-            setNewProjects={setNewProjects}
-          />,
-          document.body
-        )}
+      <ButtonContainer>
+        <ModalButton onClick={() => setShowModal(true)}>Delete</ModalButton>
+        {showModal &&
+          createPortal(
+            <ModalContent
+              onClose={() => setShowModal(false)}
+              id={id}
+              newProjects={projects}
+              setNewProjects={setNewProjects}
+            />,
+            document.body
+          )}
+      </ButtonContainer>
     </ModalContainer>
   );
 }
 
 const ModalContainer = styled.div`
   display: flex;
-  justify-content: center;
   position: absolute;
+`;
+
+const ButtonContainer = styled.div`
+  width: 20rem;
+  text-align: right;
   :hover {
     background-color: gray;
   }
