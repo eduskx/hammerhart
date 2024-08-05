@@ -10,6 +10,13 @@ export default function App({ Component, pageProps }) {
     defaultValue: projects,
   });
 
+  function handleUpdateProject(updatedProject) {
+    setNewProjects(
+      newProjects.map((project) =>
+        project.id === updatedProject.id ? updatedProject : project
+      )
+    );
+  }
   return (
     <>
       <GlobalStyle />
@@ -17,7 +24,7 @@ export default function App({ Component, pageProps }) {
         <Component
           {...pageProps}
           projects={newProjects}
-          setNewProjects={setNewProjects}
+          onUpdateProject={handleUpdateProject}
         />
       </div>
     </>

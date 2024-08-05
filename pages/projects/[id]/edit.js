@@ -3,7 +3,7 @@ import Form from "@/components/Form";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function Edit({ projects, setNewProjects }) {
+export default function Edit({ projects, onUpdateProject }) {
   const [formMaterials, setFormMaterials] = useState([""]);
 
   const [formSteps, setFormSteps] = useState([{ id: "1", description: "" }]);
@@ -27,11 +27,8 @@ export default function Edit({ projects, setNewProjects }) {
     newProject.id = id;
     newProject.materials = formMaterials;
     newProject.steps = formSteps;
-    const updatedProject = projects.map((project) =>
-      project.id === id ? newProject : project
-    );
-    setNewProjects(updatedProject);
-    router.back();
+    onUpdateProject(newProject);
+    router.push(`/projects/${id}`);
   }
 
   return (
