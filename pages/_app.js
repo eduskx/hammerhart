@@ -25,6 +25,7 @@ export default function App({ Component, pageProps }) {
           {...pageProps}
           projects={newProjects}
           onUpdateProject={handleUpdateProject}
+          setNewProjects={setNewProjects}
         />
       </div>
     </>
