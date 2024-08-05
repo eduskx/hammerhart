@@ -23,7 +23,7 @@ export default function ModalContent({
         </TextContainer>
         <ButtonContainer>
           <ModalButton onClick={() => onDelete(id)}>Delete</ModalButton>
-          <ModalButton onClick={onClose}>Close</ModalButton>
+          <ModalButton onClick={onClose}>Cancel</ModalButton>
         </ButtonContainer>
       </ModalContentContainer>
     </ModalContainer>
