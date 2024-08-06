@@ -2,12 +2,10 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import ModalContent from "@/components/Modal/ModalContent";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 
-export default function Modal({ projects, setNewProjects }) {
+export default function Modal({ onDelete }) {
   const [showModal, setShowModal] = useState(false);
 
-  console.log("ID", id);
   return (
     <ModalContainer>
       <ButtonContainer>
@@ -16,9 +14,7 @@ export default function Modal({ projects, setNewProjects }) {
           createPortal(
             <ModalContent
               onClose={() => setShowModal(false)}
-              id={id}
-              setNewProjects={setNewProjects}
-              projects={projects}
+              onDelete={onDelete}
             />,
             document.body
           )}

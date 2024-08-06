@@ -36,6 +36,11 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
     id: detailsId,
   } = projectData;
 
+  function handleDelete(id) {
+    setNewProjects(projects.filter((project) => project.id !== id));
+    router.push("/");
+  }
+
   return (
     <>
       <StyledLink href="/">
@@ -69,7 +74,7 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
         <StyledEditLink href={`/projects/${detailsId}/edit`}>
           Edit
         </StyledEditLink>
-        <Modal projects={projects} setNewProjects={setNewProjects} />
+        <Modal onDelete={() => handleDelete(id)} />
       </StyledDetailsWrapper>
     </>
   );

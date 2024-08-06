@@ -1,21 +1,6 @@
 import styled from "styled-components";
-import { useRouter } from "next/router";
 
-export default function ModalContent({
-  onClose,
-  id,
-  projects,
-  setNewProjects,
-}) {
-  const router = useRouter();
-
-  const onDelete = (idToRemove) => {
-    setNewProjects(projects.filter((project) => project.id !== idToRemove));
-
-    router.push("/");
-  };
-
-  console.log("ID_ModalContent", id);
+export default function ModalContent({ onClose, onDelete }) {
   return (
     <ModalContainer>
       <ModalContentContainer>
@@ -23,8 +8,12 @@ export default function ModalContent({
           <ModalText>Are you sure you want to delete this project?</ModalText>
         </TextContainer>
         <ButtonContainer>
-          <ModalButton onClick={() => onDelete(id)}>Delete</ModalButton>
-          <ModalButton onClick={onClose}>Cancel</ModalButton>
+          <ModalButton type="button" onClick={onDelete}>
+            Delete
+          </ModalButton>
+          <ModalButton type="button" onClick={onClose}>
+            Cancel
+          </ModalButton>
         </ButtonContainer>
       </ModalContentContainer>
     </ModalContainer>
