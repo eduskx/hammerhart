@@ -36,8 +36,6 @@ export default function Form({
     // swapped ...projects and newProject because we added toReversed() in list mapping
     setNewProjects([...projects, newProject]);
 
-    console.log(newProject);
-
     event.target.reset();
     setFormMaterials([""]);
     setFormSteps([{ id: "1", description: "" }]);
