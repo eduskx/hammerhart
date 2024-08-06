@@ -24,8 +24,9 @@ export default function Form({
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
 
-    const highestProjectId = projects.reduce((prev, current) =>
-      prev.id > current.id ? prev.id : current.id
+    const highestProjectId = projects.reduce(
+      (prev, current) => (prev.id > current.id ? prev.id : current.id),
+      "0"
     );
 
     newProject.id = `${Number(highestProjectId) + 1}`;

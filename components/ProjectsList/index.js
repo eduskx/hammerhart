@@ -3,6 +3,10 @@ import Link from "next/link";
 import styled from "styled-components";
 
 export default function ProjectsList({ projects }) {
+  if (!projects || projects.length === 0) {
+    return <h1>No projects found. Please create new ones.</h1>;
+  }
+
   return (
     <StyledUl>
       {/* added toReversed() to be able to save projects in correct order and prevent giving wrong id's to new projects*/}

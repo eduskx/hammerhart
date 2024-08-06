@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
+import Modal from "@/components/Modal";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -14,7 +15,7 @@ const handleColorType = (color) => {
       return "#3ecd5e";
   }
 };
-export default function ProjectDetailsPage({ projects }) {
+export default function ProjectDetailsPage({ projects, setNewProjects }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -34,6 +35,11 @@ export default function ProjectDetailsPage({ projects }) {
     steps,
     id: detailsId,
   } = projectData;
+
+  function handleDelete(id) {
+    setNewProjects(projects.filter((project) => project.id !== id));
+    router.push("/");
+  }
 
   return (
     <>
@@ -65,13 +71,22 @@ export default function ProjectDetailsPage({ projects }) {
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
         </StyledInstructionsList>
-        <StyledEditLink href={`/projects/${detailsId}/edit`}>
-          Edit
-        </StyledEditLink>
+        <StyledButtonsWrapper>
+          <Modal onDelete={() => handleDelete(id)} />
+          <StyledEditLink href={`/projects/${detailsId}/edit`}>
+            Edit
+          </StyledEditLink>
+        </StyledButtonsWrapper>
       </StyledDetailsWrapper>
     </>
   );
 }
+
+const StyledButtonsWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1rem;
+`;
 
 const StyledLink = styled(Link)`
   font-size: larger;
@@ -180,7 +195,6 @@ const StyledEditLink = styled(Link)`
   width: 4rem;
   height: 2rem;
   display: flex;
-  margin-top: 2rem;
   justify-content: center;
   align-items: center;
   cursor: pointer;
