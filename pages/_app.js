@@ -12,16 +12,23 @@ export default function App({ Component, pageProps }) {
   const [newProjects, setNewProjects] = useLocalStorageState("newProjects", {
     defaultValue: projects,
   });
-  console.log(projects);
 
+  function handleUpdateProject(updatedProject) {
+    setNewProjects(
+      newProjects.map((project) =>
+        project.id === updatedProject.id ? updatedProject : project
+      )
+    );
+  }
   return (
     <>
       <GlobalStyle />
       <div className={saira.className}>
         <Component
           {...pageProps}
-          setNewProjects={setNewProjects}
           projects={newProjects}
+          onUpdateProject={handleUpdateProject}
+          setNewProjects={setNewProjects}
         />
       </div>
     </>
