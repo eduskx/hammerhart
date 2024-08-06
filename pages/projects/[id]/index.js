@@ -38,50 +38,62 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
 
   return (
     <>
-      <Link href="/">
+      <StyledLink href="/">
         <FaArrowLeftLong /> Back
-      </Link>
+      </StyledLink>
 
       <StyledDetailsWrapper>
-        <h1>{title}</h1>
         <StyledImageWrapper>
-          <Image src={imageUrl} alt={title} width={300} height={200} />
-          <StyledComplexityTag>{complexity}</StyledComplexityTag>
+          <StyledImage src={imageUrl} alt={title} width={600} height={200} />
+          <StyledComplexityTag color={complexity}>
+            {complexity}
+          </StyledComplexityTag>
         </StyledImageWrapper>
-        <p>{description}</p>
+        <h1>{title}</h1>
+        <StyledDescription>{description}</StyledDescription>
         <StyledDuration>Duration: {duration}</StyledDuration>
 
-        <h2>Materials</h2>
+        <StyledListTitle>Materials</StyledListTitle>
         <StyledMaterialsList>
           {materials.map((material, index) => (
             <StyledListItems key={index}>{material}</StyledListItems>
           ))}
         </StyledMaterialsList>
 
-        <h2>Instructions</h2>
+        <StyledListTitle>Instructions</StyledListTitle>
         <StyledInstructionsList>
           {steps.map((step) => (
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
-          <Modal id={id} projects={projects} setNewProjects={setNewProjects} />
         </StyledInstructionsList>
         <StyledEditLink href={`/projects/${detailsId}/edit`}>
           Edit
         </StyledEditLink>
+        <Modal
+          projects={projects}
+          id={detailsId}
+          setNewProjects={setNewProjects}
+        />
       </StyledDetailsWrapper>
     </>
   );
 }
 
+const StyledLink = styled(Link)`
+  font-size: larger;
+  padding-top: 1rem;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+`;
 const StyledDetailsWrapper = styled.div`
-<<<<<<< HEAD
-  width: 300px;
-=======
   box-shadow: 1px 1px 6px 1px #00000072;
   background: rgb(44, 150, 164);
   background-color: #a38376;
   width: 320px;
->>>>>>> main
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -132,11 +144,12 @@ const StyledComplexityTag = styled.p`
 
 const StyledDuration = styled.p`
   align-self: self-end;
+  padding-right: 2rem;
 `;
 
 const StyledMaterialsList = styled.ul`
-  align-self: flex-start;
   list-style-position: inside;
+  list-style-type: circle;
   padding: 0;
   margin: 0;
   margin-top: 1rem;
