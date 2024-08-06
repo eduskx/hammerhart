@@ -2,68 +2,57 @@ import styled from "styled-components";
 
 export default function ModalContent({ onClose, onDelete }) {
   return (
-    <ModalContainer>
-      <ModalContentContainer>
-        <TextContainer>
-          <ModalText>Are you sure you want to delete this project?</ModalText>
-        </TextContainer>
-        <ButtonContainer>
-          <ModalButton type="button" onClick={onDelete}>
-            Delete
-          </ModalButton>
-          <ModalButton type="button" onClick={onClose}>
-            Cancel
-          </ModalButton>
-        </ButtonContainer>
-      </ModalContentContainer>
-    </ModalContainer>
+    <StyledModalContentContainer>
+      <StyledConformationText>
+        Are you sure you want to delete this project?
+      </StyledConformationText>
+      <StyledButtonsContainer>
+        <StyledButton type="button" onClick={onDelete}>
+          Delete
+        </StyledButton>
+        <StyledButton type="button" onClick={onClose}>
+          Cancel
+        </StyledButton>
+      </StyledButtonsContainer>
+    </StyledModalContentContainer>
   );
 }
 
-const ModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: absolute;
-`;
-
-const ModalContentContainer = styled.div`
-  position: absolute;
-  margin-top: 0rem;
-  margin-bottom: 20rem;
-  margin-left: 8rem;
-  margin-right: 3rem;
-  border: 0.15rem solid black;
-  border-radius: 1rem;
-  background-color: lightgray;
-  padding: 1rem;
-  width: 25rem;
-`;
-
-const TextContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const ModalText = styled.p`
-  display: flex;
-  padding: 1rem;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  margin: 1.5rem;
-  gap: 1rem;
-  justify-content: center;
-  :hover {
-    background-color: gray;
-  }
-`;
-
-const ModalButton = styled.button`
-  display: flex;
-  border-radius: 0.5rem;
-  border-radius: 0.3rem;
-  border: 0.1rem solid black;
+const StyledModalContentContainer = styled.div`
+  border-radius: 10px;
   width: fit-content;
+  text-align: center;
+  background-color: #564647;
+  padding: 2rem 4rem;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+`;
+
+const StyledConformationText = styled.p`
+  color: white;
+  font-size: 18px;
+  padding-bottom: 1rem;
+`;
+
+const StyledButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+`;
+
+const StyledButton = styled.button`
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  width: 4rem;
+  height: 2rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  &:focus,
+  &:hover {
+    outline: 1px solid white;
+  }
 `;

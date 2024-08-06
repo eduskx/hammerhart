@@ -71,14 +71,22 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
         </StyledInstructionsList>
-        <StyledEditLink href={`/projects/${detailsId}/edit`}>
-          Edit
-        </StyledEditLink>
-        <Modal onDelete={() => handleDelete(id)} />
+        <StyledButtonsWrapper>
+          <Modal onDelete={() => handleDelete(id)} />
+          <StyledEditLink href={`/projects/${detailsId}/edit`}>
+            Edit
+          </StyledEditLink>
+        </StyledButtonsWrapper>
       </StyledDetailsWrapper>
     </>
   );
 }
+
+const StyledButtonsWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1rem;
+`;
 
 const StyledLink = styled(Link)`
   font-size: larger;
@@ -187,7 +195,6 @@ const StyledEditLink = styled(Link)`
   width: 4rem;
   height: 2rem;
   display: flex;
-  margin-top: 2rem;
   justify-content: center;
   align-items: center;
   cursor: pointer;
