@@ -7,13 +7,7 @@ import { useRouter } from "next/router";
 export default function Modal({ id, projects, setNewProjects }) {
   const [showModal, setShowModal] = useState(false);
 
-  const router = useRouter();
-
-  function handleDelete(id) {
-    setNewProjects(projects.filter((project) => project.id !== id));
-    router.push("/");
-  }
-
+  console.log("ID", id);
   return (
     <ModalContainer>
       <ButtonContainer>
@@ -24,7 +18,7 @@ export default function Modal({ id, projects, setNewProjects }) {
               onClose={() => setShowModal(false)}
               id={id}
               setNewProjects={setNewProjects}
-              onDelete={handleDelete}
+              projects={projects}
             />,
             document.body
           )}
