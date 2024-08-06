@@ -1,12 +1,10 @@
 import Form from "@/components/Form";
 import Header from "@/components/Header";
 import useLocalStorageState from "use-local-storage-state";
+import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 
 export default function HomePage({ projects, setNewProjects }) {
-<<<<<<< HEAD
-  console.log("HomePage", projects);
-=======
   const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
     defaultValue: [""],
   });
@@ -14,7 +12,6 @@ export default function HomePage({ projects, setNewProjects }) {
   const [formSteps, setFormSteps] = useLocalStorageState("steps", {
     defaultValue: [{ id: "1", description: "" }],
   });
->>>>>>> main
   return (
     <>
       <Header />
