@@ -6,7 +6,7 @@ export default function ProjectsList({ projects }) {
   if (!projects || projects.length === 0) {
     return <h1>No projects found. Please create new ones.</h1>;
   }
-
+  console.log("ProjectsList", projects);
   return (
     <StyledUl>
       {/* added toReversed() to be able to save projects in correct order and prevent giving wrong id's to new projects*/}

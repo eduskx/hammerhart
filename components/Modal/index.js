@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import ModalContent from "./ModalContent.js";
+import ModalContent from "@/components/Modal/ModalContent";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { newProjects } from "@/pages/_app.js";
 
-export default function Modal({ id, projects, newProjects, setNewProjects }) {
+export default function Modal({ id, projects, setNewProjects }) {
   const [showModal, setShowModal] = useState(false);
 
   const router = useRouter();
 
   function handleDelete(id) {
-    setNewProjects(newProjects.filter((project) => project.id !== id));
+    setNewProjects(projects.filter((project) => project.id !== id));
     router.push("/");
   }
 
@@ -24,7 +23,6 @@ export default function Modal({ id, projects, newProjects, setNewProjects }) {
             <ModalContent
               onClose={() => setShowModal(false)}
               id={id}
-              newProjects={projects}
               setNewProjects={setNewProjects}
               onDelete={handleDelete}
             />,

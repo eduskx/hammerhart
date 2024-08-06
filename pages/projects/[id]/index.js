@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
-import Modal from "@/components/Modal/";
+import Modal from "@/components/Modal";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -15,11 +15,7 @@ const handleColorType = (color) => {
       return "#3ecd5e";
   }
 };
-export default function ProjectDetailsPage({
-  projects,
-  setNewProjects,
-  newProjects,
-}) {
+export default function ProjectDetailsPage({ projects, setNewProjects }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -66,12 +62,7 @@ export default function ProjectDetailsPage({
           {steps.map((step) => (
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
-          <Modal
-            id={id}
-            projects={projects}
-            setNewProjects={setNewProjects}
-            newProjects={newProjects}
-          />
+          <Modal id={id} projects={projects} setNewProjects={setNewProjects} />
         </StyledInstructionsList>
       </StyledDetailsWrapper>
     </>
