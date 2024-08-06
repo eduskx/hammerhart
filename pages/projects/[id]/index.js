@@ -69,11 +69,7 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
         <StyledEditLink href={`/projects/${detailsId}/edit`}>
           Edit
         </StyledEditLink>
-        <Modal
-          projects={projects}
-          id={detailsId}
-          setNewProjects={setNewProjects}
-        />
+        <Modal projects={projects} setNewProjects={setNewProjects} />
       </StyledDetailsWrapper>
     </>
   );

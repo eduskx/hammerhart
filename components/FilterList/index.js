@@ -9,7 +9,7 @@ export default function FilterList({ projects }) {
     { name: "Intermediate", color: "#f9b234" },
     { name: "Advanced", color: "#e44002" },
   ];
-  console.log("FilterList", projects);
+
   const [activeFilter, setActiveFilter] = useState("All");
 
   const filteredProjects =
