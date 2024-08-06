@@ -24,29 +24,6 @@ export default function Modal({ onDelete }) {
   );
 }
 
-// const ModalContainer = styled.div`
-//   display: flex;
-//   position: absolute;
-//   border: 1px solid red;
-// `;
-
-// const ButtonContainer = styled.div`
-//   width: 20rem;
-//   text-align: right;
-//   :hover {
-//     background-color: gray;
-//   }
-//   border: 1px solid red;
-// `;
-
-// const StyledModalButton = styled.button`
-//   border-radius: 0.3rem;
-//   border: 0.1rem solid black;
-//   background-color: lightgray;
-//   padding: 0.3rem;
-//   margin: 1rem;
-// `;
-
 const StyledDeleteButton = styled.button`
   all: unset;
   width: 3rem;
