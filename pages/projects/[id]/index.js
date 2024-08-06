@@ -15,11 +15,14 @@ const handleColorType = (color) => {
       return "#3ecd5e";
   }
 };
-export default function ProjectDetailsPage({ projects, setNewProjects }) {
+export default function ProjectDetailsPage({
+  projects,
+  setNewProjects,
+  newProjects,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
-  console.log(setNewProjects);
   const projectData = projects.find((project) => project.id === id);
 
   if (!projectData) {
@@ -63,7 +66,12 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
           {steps.map((step) => (
             <StyledListItems key={step.id}>{step.description}</StyledListItems>
           ))}
-          <Modal id={id} projects={projects} setNewProjects={setNewProjects} />
+          <Modal
+            id={id}
+            projects={projects}
+            setNewProjects={setNewProjects}
+            newProjects={newProjects}
+          />
         </StyledInstructionsList>
       </StyledDetailsWrapper>
     </>

@@ -2,6 +2,7 @@ import GlobalStyle from "@/styles";
 import projects from "@/lib/projects.js";
 import { Saira } from "next/font/google";
 import useLocalStorageState from "use-local-storage-state";
+projects;
 const saira = Saira({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }) {
@@ -18,8 +19,8 @@ export default function App({ Component, pageProps }) {
       <div className={saira.className}>
         <Component
           {...pageProps}
-          projects={newProjects}
           setNewProjects={setNewProjects}
+          projects={newProjects}
         />
       </div>
     </>
