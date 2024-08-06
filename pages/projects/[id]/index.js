@@ -46,7 +46,9 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
         <h1>{title}</h1>
         <StyledImageWrapper>
           <Image src={imageUrl} alt={title} width={300} height={200} />
-          <StyledComplexityTag>{complexity}</StyledComplexityTag>
+          <StyledComplexityTag color={complexity}>
+            {complexity}
+          </StyledComplexityTag>
         </StyledImageWrapper>
         <p>{description}</p>
         <StyledDuration>Duration: {duration}</StyledDuration>
@@ -74,14 +76,10 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
 }
 
 const StyledDetailsWrapper = styled.div`
-<<<<<<< HEAD
-  width: 300px;
-=======
   box-shadow: 1px 1px 6px 1px #00000072;
   background: rgb(44, 150, 164);
   background-color: #a38376;
   width: 320px;
->>>>>>> main
   display: flex;
   flex-direction: column;
   align-items: center;

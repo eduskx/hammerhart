@@ -1,7 +1,6 @@
 import Form from "@/components/Form";
 import Header from "@/components/Header";
 import useLocalStorageState from "use-local-storage-state";
-import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 
 export default function HomePage({ projects, setNewProjects }) {
