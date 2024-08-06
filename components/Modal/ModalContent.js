@@ -3,9 +3,9 @@ import styled from "styled-components";
 export default function ModalContent({ onClose, onDelete }) {
   return (
     <StyledModalContentContainer>
-      <StyledConformationText>
+      <StyledConfirmationText>
         Are you sure you want to delete this project?
-      </StyledConformationText>
+      </StyledConfirmationText>
       <StyledButtonsContainer>
         <StyledButton type="button" onClick={onDelete}>
           Delete
@@ -31,7 +31,7 @@ const StyledModalContentContainer = styled.div`
   top: 50%;
 `;
 
-const StyledConformationText = styled.p`
+const StyledConfirmationText = styled.p`
   color: white;
   font-size: 18px;
   padding-bottom: 1rem;
