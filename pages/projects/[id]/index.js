@@ -201,17 +201,18 @@ const StyledMaterialsList = styled.ul`
   padding: 0;
   margin: 0;
   color: #ffffff;
+  cursor: default;
 `;
 
 const StyledInstructionsList = styled.ol`
   list-style-position: inside;
   text-align: start;
   color: #ffffff;
+  cursor: default;
   @media screen and (min-width: 640px) {
     list-style-position: inside;
     padding: 0;
     text-align: start;
-    color: #ffffff;
   }
 `;
 
@@ -243,7 +244,7 @@ const StyledCollapsibleWrapper = styled.div`
   color: rgba(58, 58, 58, 1);
   background: rgba(255, 255, 255, 0.5);
   border: 1px solid #ccc;
-  cursor: pointer;
+  /* cursor: pointer; */
   width: 90%;
   &:focus,
   &:hover {
