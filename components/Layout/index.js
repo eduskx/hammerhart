@@ -4,8 +4,8 @@ import Navigation from "../Navigation/index.js";
 
 const Wrapper = styled.div`
   height: 100vh;
-  display: grid;
-  grid-template-rows: 5rem auto 4rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Heading = styled.h1`

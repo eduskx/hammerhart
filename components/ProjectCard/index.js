@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import Image from "next/image";
+import BookmarkButton from "../BookmarkButton";
+import Details from "./details.svg";
+import Link from "next/link";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -12,7 +15,7 @@ const handleColorType = (color) => {
   }
 };
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, onBookmark }) {
   const { imageUrl, title, complexity } = project;
   return (
     <CardContainer>
@@ -23,10 +26,19 @@ export default function ProjectCard({ project }) {
         height={100}
         priority
       />
+
       <Wrapper>
-        <StyledTitle>{title}</StyledTitle>
+        <StyledLink href={`/projects/${project.id}`}>
+          <StyledTitle>{title}</StyledTitle>
+        </StyledLink>
+        <BookmarkButton
+          onBookmark={onBookmark}
+          isFavorite={project.isFavorite}
+        />
+
         <StyledComplexity>{complexity}</StyledComplexity>
       </Wrapper>
+
       <StyledDiv color={complexity}></StyledDiv>
     </CardContainer>
   );
@@ -80,9 +92,9 @@ const StyledDiv = styled.div`
   border: 50px solid transparent;
   transition: all 1s ease;
 
-  ${CardContainer}:hover & {
+  /* ${CardContainer}:hover & {
     transform: scale(10);
-  }
+  } */
 `;
 
 const StyledTitle = styled.h2`
@@ -92,6 +104,18 @@ const StyledTitle = styled.h2`
   color: white;
   z-index: 2;
 `;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+
+  // const DetailsButton = styled.button
+`;
+//   width: min-content;
+//   margin-left: 5rem;
+//   margin-top: 0.4rem;
+//   background-color: #584849;
+//   border-radius: 30%;
+// `;
 
 const StyledComplexity = styled.p`
   font-size: 90%;

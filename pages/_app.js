@@ -19,8 +19,19 @@ export default function App({ Component, pageProps }) {
     );
   }
 
+  function handleOnBookmark(id) {
+    setNewProjects(
+      projects.map((project) =>
+        project.id === id
+          ? { ...project, isFavorite: !project.isFavorite }
+          : project
+      )
+    );
+    console.log(projects);
+  }
+
   return (
-    <>
+    <Layout>
       <GlobalStyle />
       <div className={saira.className}>
         <Component
@@ -28,8 +39,9 @@ export default function App({ Component, pageProps }) {
           projects={newProjects}
           onUpdateProject={handleUpdateProject}
           setNewProjects={setNewProjects}
+          onBookmark={handleOnBookmark}
         />
       </div>
-    </>
+    </Layout>
   );
 }

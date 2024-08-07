@@ -1,7 +1,6 @@
 import ProjectCard from "@/components/ProjectCard";
 import Link from "next/link";
 import styled from "styled-components";
-import HeartFilled from "../../components/BookmarkButton/HeartFilled.svg";
 
 export default function BookmarkPage({ projects }) {
   const bookmarkedProjects = projects.filter(
@@ -9,9 +8,7 @@ export default function BookmarkPage({ projects }) {
   );
 
   return bookmarkedProjects.map((bookmarkedProject) => (
-    <StyledLink href={`/projects/${bookmarkedProject.id}`}>
-      <ProjectCard key={bookmarkedProject.id} project={bookmarkedProject} />
-    </StyledLink>
+    <ProjectCard key={bookmarkedProject.id} project={bookmarkedProject} />
   ));
 }
 
