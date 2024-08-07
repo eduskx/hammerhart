@@ -44,9 +44,10 @@ const CardContainer = styled.div`
   flex-direction: row;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 1rem;
   gap: 1rem;
   transition: all 0.5s ease;
+  y-index: 0;
   &:hover {
     transform: scale(1.1);
   }
