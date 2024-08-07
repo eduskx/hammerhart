@@ -17,7 +17,6 @@ export default function Form({
   id,
 }) {
   let formRef = useRef(null);
-  console.log(projects);
 
   async function handleSubmit(event) {
     event.preventDefault();

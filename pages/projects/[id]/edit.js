@@ -20,13 +20,23 @@ export default function Edit({ projects, onUpdateProject }) {
     }
   }, [projects]);
 
-  function editProject(event) {
+  async function editProject(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
+
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const { url } = await response.json();
+
     newProject.id = id;
     newProject.materials = formMaterials;
     newProject.steps = formSteps;
+    newProject.imageUrl = url;
+
     onUpdateProject(newProject);
     router.push(`/projects/${id}`);
   }
