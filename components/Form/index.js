@@ -18,11 +18,16 @@ export default function Form({
 }) {
   let formRef = useRef(null);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
+
+    const response = await fetch("api/upload", {
+      method: "POST",
+      body: formData,
+    });
 
     const highestProjectId = projects.reduce(
       (prev, current) => (prev.id > current.id ? prev.id : current.id),
@@ -63,6 +68,10 @@ export default function Form({
       />
 
       <label htmlFor="imageUrl">Image</label>
+      <StyledInput id="imageUrl" name="imageUrl" type="file" />
+      <button>Image</button>
+      {/* 
+      <label htmlFor="imageUrl">Image</label>
       <StyledInput
         id="imageUrl"
         name="imageUrl"
@@ -71,7 +80,7 @@ export default function Form({
           defaultData?.imageUrl ||
           "https://images.unsplash.com/photo-1657434743747-07cbb4ddd5ba?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         }
-      />
+      /> */}
 
       <label htmlFor="description">Description</label>
       <StyledTextarea
