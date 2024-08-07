@@ -1,10 +1,22 @@
 import ProjectCard from "@/components/ProjectCard";
 import Link from "next/link";
 import styled from "styled-components";
+import BookmarkButton from "../BookmarkButton";
 
-export default function ProjectsList({ projects }) {
+export default function ProjectsList({ projects, setNewProjects }) {
   if (!projects || projects.length === 0) {
     return <h1>No projects found. Please create new ones.</h1>;
+  }
+
+  function handleOnBookmark(id) {
+    setNewProjects(
+      projects.map((project) =>
+        project.id === id
+          ? { ...project, isFavorite: !project.isFavorite }
+          : project
+      )
+    );
+    console.log(projects);
   }
 
   return (
@@ -15,6 +27,10 @@ export default function ProjectsList({ projects }) {
           <StyledLink href={`/projects/${project.id}`}>
             <ProjectCard project={project} />
           </StyledLink>
+          <BookmarkButton
+            $onBookmark={() => handleOnBookmark(project.id)}
+            isFavorite={project.isFavorite}
+          />
         </li>
       ))}
     </StyledUl>
