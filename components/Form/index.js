@@ -17,6 +17,7 @@ export default function Form({
   id,
 }) {
   let formRef = useRef(null);
+  console.log(projects);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -29,6 +30,8 @@ export default function Form({
       body: formData,
     });
 
+    const { url } = await response.json();
+
     const highestProjectId = projects.reduce(
       (prev, current) => (prev.id > current.id ? prev.id : current.id),
       "0"
@@ -37,6 +40,7 @@ export default function Form({
     newProject.id = `${Number(highestProjectId) + 1}`;
     newProject.materials = formMaterials;
     newProject.steps = formSteps;
+    newProject.imageUrl = url;
 
     // swapped ...projects and newProject because we added toReversed() in list mapping
     setNewProjects([...projects, newProject]);
@@ -68,8 +72,8 @@ export default function Form({
       />
 
       <label htmlFor="imageUrl">Image</label>
-      <StyledInput id="imageUrl" name="imageUrl" type="file" />
-      <button>Image</button>
+      <StyledInput id="imageUrl" name="imageUrl" type="file" accept="image/*" />
+
       {/* 
       <label htmlFor="imageUrl">Image</label>
       <StyledInput
