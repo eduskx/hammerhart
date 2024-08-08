@@ -13,6 +13,7 @@ export default function ModalContent({
   return (
     <StyledContainer>
       <Form
+        onClose={onClose}
         projects={projects}
         setNewProjects={setNewProjects}
         formMaterials={formMaterials}

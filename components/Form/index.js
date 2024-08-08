@@ -3,8 +3,10 @@ import { useRef } from "react";
 import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
 import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 import Link from "next/link";
+import { IoMdClose } from "react-icons/io";
 
 export default function Form({
+  onClose,
   setNewProjects,
   projects,
   defaultData,
@@ -52,6 +54,10 @@ export default function Form({
       ref={(element) => (formRef = element)}
       onSubmit={onSubmit || handleSubmit}
     >
+      <StyledCloseButton type="button" onClick={onClose}>
+        <IoMdClose color="darkred" size={28} />
+      </StyledCloseButton>
+
       <label htmlFor="title">Title</label>
       <StyledInput
         required
@@ -277,4 +283,12 @@ const StyledCancelLink = styled(Link)`
       transform: translateY(-3px);
     }
   }
+`;
+
+const StyledCloseButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: right;
 `;
