@@ -27,7 +27,6 @@ export default function App({ Component, pageProps }) {
           : project
       )
     );
-    console.log(projects);
   }
 
   return (

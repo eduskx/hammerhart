@@ -59,7 +59,7 @@ const CardContainer = styled.div`
   margin: 1rem;
   gap: 1rem;
   transition: all 0.5s ease;
-  y-index: 0;
+  z-index: 0;
   &:hover {
     transform: scale(1.1);
   }

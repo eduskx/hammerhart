@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 
-export default function HomePage({ projects, setNewProjects }) {
+export default function HomePage({ projects, setNewProjects, onBookmark }) {
   const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
     defaultValue: [""],
   });
@@ -11,8 +11,6 @@ export default function HomePage({ projects, setNewProjects }) {
   const [formSteps, setFormSteps] = useLocalStorageState("steps", {
     defaultValue: [{ id: "1", description: "" }],
   });
-
-  console.log("Homepage: ", projects);
 
   return (
     <>
@@ -25,7 +23,11 @@ export default function HomePage({ projects, setNewProjects }) {
         formSteps={formSteps}
         setFormSteps={setFormSteps}
       />
-      <FilterList projects={projects} setNewProjects={setNewProjects} />
+      <FilterList
+        projects={projects}
+        setNewProjects={setNewProjects}
+        onBookmark={onBookmark}
+      />
     </>
   );
 }

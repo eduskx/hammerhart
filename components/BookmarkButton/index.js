@@ -21,4 +21,5 @@ const StyledButton = styled.button`
   z-index: 10;
   margin-top: 5rem;
   position: absolute;
+  cursor: pointer;
 `;

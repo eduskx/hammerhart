@@ -22,8 +22,6 @@ export default function FilterList({ projects, setNewProjects, onBookmark }) {
     setActiveFilter(complexity);
   }
 
-  console.log(filteredProjects);
-
   return (
     <>
       <StyledButtonWrapper>
