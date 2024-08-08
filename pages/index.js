@@ -24,14 +24,14 @@ export default function HomePage({ projects, setNewProjects }) {
   return (
     <>
       <Header />
-      <Form
+      {/* <Form
         setNewProjects={setNewProjects}
         projects={projects}
         formMaterials={formMaterials}
         setFormMaterials={setFormMaterials}
         formSteps={formSteps}
         setFormSteps={setFormSteps}
-      />
+      /> */}
       <SearchBar onSearch={handleSearch} />
       <AddButton
         projects={projects}

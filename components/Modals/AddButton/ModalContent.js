@@ -1,4 +1,5 @@
 import Form from "@/components/Form";
+import styled from "styled-components";
 
 export default function ModalContent({
   onClose,
@@ -10,13 +11,25 @@ export default function ModalContent({
   setFormSteps,
 }) {
   return (
-    <Form
-      projects={projects}
-      setNewProjects={setNewProjects}
-      formMaterials={formMaterials}
-      setFormMaterials={setFormMaterials}
-      formSteps={formSteps}
-      setFormSteps={setFormSteps}
-    />
+    <StyledContainer>
+      <Form
+        projects={projects}
+        setNewProjects={setNewProjects}
+        formMaterials={formMaterials}
+        setFormMaterials={setFormMaterials}
+        formSteps={formSteps}
+        setFormSteps={setFormSteps}
+      />
+    </StyledContainer>
   );
 }
+
+const StyledContainer = styled.div`
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 100;
+  background-color: hsl(0, 0%, 0%, 60%);
+`;
