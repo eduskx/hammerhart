@@ -1,23 +1,17 @@
+import { useRouter } from "next/router";
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import useLocalStorageState from "use-local-storage-state";
+import { SlNote } from "react-icons/sl";
+import { TfiCheck } from "react-icons/tfi";
 
 const Note = ({ project }) => {
-  const [currentNote, setCurrentNote] = useState("");
+  const router = useRouter();
+  const { id } = router.query;
+
+  const [currentNote, setCurrentNote] = useLocalStorageState(`note-${id}`, "");
   const [isEditing, setIsEditing] = useState(false);
   const textareaFocus = useRef(null);
-
-  if (!project.notes) {
-    project.notes = [];
-  }
-
-  function handleInputChange(event) {
-    setCurrentNote(event.target.value);
-    project.notes[0] = event.target.value;
-  }
-
-  function toggleEdit() {
-    setIsEditing(!isEditing);
-  }
 
   useEffect(() => {
     if (isEditing && textareaFocus.current) {
@@ -25,14 +19,24 @@ const Note = ({ project }) => {
     }
   }, [isEditing]);
 
+  const handleInputChange = (event) => {
+    setCurrentNote(event.target.value);
+  };
+
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);
+  };
+
   return (
     <StyledNotesWrapper>
       <StyledTitleButtonWrapper>
-        <h2>Notes</h2>
-        <button onClick={toggleEdit}>{isEditing ? "Save" : "Edit"}</button>
+        <StyledNotesTitle>Notes</StyledNotesTitle>
+        <StyledButton onClick={toggleEdit}>
+          {isEditing ? <TfiCheck /> : <SlNote />}
+        </StyledButton>
       </StyledTitleButtonWrapper>
       {isEditing ? (
-        <textarea
+        <StyledTextarea
           ref={textareaFocus}
           value={currentNote}
           onChange={handleInputChange}
@@ -40,38 +44,70 @@ const Note = ({ project }) => {
           cols="50"
         />
       ) : (
-        <div>
-          {project.notes[0] &&
-            project.notes[0]
+        <StyledNotesTextField>
+          {currentNote ||
+            ((project.notes && project.notes[0]) || "")
               .split("\n")
               .map((line, index) => (
                 <StyledNotesText key={index}>{line}</StyledNotesText>
               ))}
-        </div>
+        </StyledNotesTextField>
       )}
     </StyledNotesWrapper>
   );
 };
 
 export default Note;
-
-const StyledNotesWrapper = styled.div`
-width: 90%;
+const StyledTextarea = styled.textarea`
+  all: unset;
+  margin-top: 1rem;
+  width: 100%;
+  color: rgba(58, 58, 58, 1);
+  resize: none;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  &:focus,
+  &:hover {
+    outline: 1px solid white;
+  }
 `;
 
-const StyledTitleButtonWrapper = styled.div`
-  display: flex;
+const StyledNotesWrapper = styled.div`
   width: 90%;
+`;
+const StyledTitleButtonWrapper = styled.div`
+  border-radius: 2px;
+  display: flex;
+  padding-left: 0.5rem;
+  align-items: center;
+  height: 25px;
+  width: 100%;
+  color: rgba(58, 58, 58, 1);
+  background: rgba(255, 255, 255, 0.5);
+`;
+const StyledNotesTitle = styled.p`
+  padding-right: 1rem;
+`;
+
+const StyledButton = styled.button`
+  text-decoration: none;
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.5s ease;
+  &:hover {
+    transform: scale(1.5);
+  }
 `;
 
 const StyledNotesText = styled.p`
   text-align: start;
-  min-width: 90%;
-
-  color: #ffffff;
-  @media screen and (min-width: 640px) {
-    list-style-position: inside;
-    padding: 0;
-    text-align: start;
-  }
+  width: 90%;
+`;
+const StyledNotesTextField = styled.div`
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  white-space: pre-wrap;
 `;
