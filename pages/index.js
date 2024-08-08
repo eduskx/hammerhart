@@ -4,7 +4,6 @@ import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
 
-
 export default function HomePage({ projects, setNewProjects, $onBookmark }) {
   const [searchInput, setSearchInput] = useState("");
 
@@ -12,7 +11,6 @@ export default function HomePage({ projects, setNewProjects, $onBookmark }) {
     const lowerCasedInput = event.target.value.toLowerCase();
     setSearchInput(lowerCasedInput);
   }
-
 
   const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
     defaultValue: [""],
@@ -34,9 +32,12 @@ export default function HomePage({ projects, setNewProjects, $onBookmark }) {
       />
 
       <SearchBar onSearch={handleSearch} />
-      <FilterList projects={projects} setNewProjects={setNewProjects}
-        $onBookmark={$onBookmark} searchInput={searchInput} />
-
+      <FilterList
+        projects={projects}
+        setNewProjects={setNewProjects}
+        $onBookmark={$onBookmark}
+        searchInput={searchInput}
+      />
     </>
   );
 }
