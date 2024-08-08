@@ -41,6 +41,11 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
     setNewProjects(projects.filter((project) => project.id !== id));
     router.push("/");
   }
+  const StyledCollapsible = ({ children, ...props }) => (
+    <StyledCollapsibleWrapper>
+      <Collapsible {...props}>{children}</Collapsible>
+    </StyledCollapsibleWrapper>
+  );
 
   return (
     <>
@@ -201,14 +206,13 @@ const StyledMaterialsList = styled.ul`
   padding: 0;
   margin: 0;
   color: #ffffff;
-  cursor: default;
+ 
 `;
 
 const StyledInstructionsList = styled.ol`
   list-style-position: inside;
   text-align: start;
   color: #ffffff;
-  cursor: default;
   @media screen and (min-width: 640px) {
     list-style-position: inside;
     padding: 0;
@@ -244,9 +248,8 @@ const StyledCollapsibleWrapper = styled.div`
   color: rgba(58, 58, 58, 1);
   background: rgba(255, 255, 255, 0.5);
   border: 1px solid #ccc;
-  /* cursor: pointer; */
   width: 90%;
-  &:focus,
+  
   &:hover {
     outline: 1px solid white;
   }
@@ -256,6 +259,7 @@ const StyledCollapsibleWrapper = styled.div`
     cursor: pointer;
     padding-left: 0.5rem;
     padding-right: 90%;
+    -webkit-tap-highlight-color: transparent;
   }
   .Collapsible__contentOuter {
     background-color: #a38376;
@@ -264,8 +268,3 @@ const StyledCollapsibleWrapper = styled.div`
     padding: 0.5rem;
   }
 `;
-const StyledCollapsible = ({ children, ...props }) => (
-  <StyledCollapsibleWrapper>
-    <Collapsible {...props}>{children}</Collapsible>
-  </StyledCollapsibleWrapper>
-);
