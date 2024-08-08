@@ -1,11 +1,6 @@
 import styled from "styled-components";
 
-export default function SearchBar({ setSearchInput }) {
-  function inputHandler(event) {
-    const lowerCasedInput = event.target.value.toLowerCase();
-    setSearchInput(lowerCasedInput);
-  }
-
+export default function SearchBar({ onSearch }) {
   return (
     <StyledContainer>
       <label htmlFor="searchbar"></label>
@@ -14,7 +9,7 @@ export default function SearchBar({ setSearchInput }) {
         id="searchbar"
         name="searchbar"
         placeholder="🔎 Search projects"
-        onChange={inputHandler}
+        onChange={onSearch}
       />
     </StyledContainer>
   );
