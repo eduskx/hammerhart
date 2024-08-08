@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modals/DeleteButton";
 import Collapsible from "react-collapsible";
 
 const handleColorType = (color) => {
@@ -206,7 +206,6 @@ const StyledMaterialsList = styled.ul`
   padding: 0;
   margin: 0;
   color: #ffffff;
- 
 `;
 
 const StyledInstructionsList = styled.ol`
@@ -249,7 +248,7 @@ const StyledCollapsibleWrapper = styled.div`
   background: rgba(255, 255, 255, 0.5);
   border: 1px solid #ccc;
   width: 90%;
-  
+
   &:hover {
     outline: 1px solid white;
   }
