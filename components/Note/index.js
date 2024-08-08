@@ -10,32 +10,32 @@ const Note = ({ project }) => {
   const { id } = router.query;
 
   const [currentNote, setCurrentNote] = useLocalStorageState(`note-${id}`, "");
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
   const textareaFocus = useRef(null);
 
   useEffect(() => {
-    if (isEditing && textareaFocus.current) {
+    if (isEditMode && textareaFocus.current) {
       textareaFocus.current.focus();
     }
-  }, [isEditing]);
+  }, [isEditMode]);
 
   const handleInputChange = (event) => {
     setCurrentNote(event.target.value);
   };
 
-  const toggleEdit = () => {
-    setIsEditing(!isEditing);
+  const toggleEditMode = () => {
+    setIsEditMode(!isEditMode);
   };
 
   return (
     <StyledNotesWrapper>
       <StyledTitleButtonWrapper>
         <StyledNotesTitle>Notes</StyledNotesTitle>
-        <StyledButton onClick={toggleEdit}>
-          {isEditing ? <TfiCheck /> : <SlNote />}
+        <StyledButton onClick={toggleEditMode}>
+          {isEditMode ? <TfiCheck /> : <SlNote />}
         </StyledButton>
       </StyledTitleButtonWrapper>
-      {isEditing ? (
+      {isEditMode ? (
         <StyledTextarea
           ref={textareaFocus}
           value={currentNote}
