@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 import Modal from "@/components/Modal";
+import Collapsible from "react-collapsible";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -40,6 +41,11 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
     setNewProjects(projects.filter((project) => project.id !== id));
     router.push("/");
   }
+  const StyledCollapsible = ({ children, ...props }) => (
+    <StyledCollapsibleWrapper>
+      <Collapsible {...props}>{children}</Collapsible>
+    </StyledCollapsibleWrapper>
+  );
 
   return (
     <>
@@ -49,28 +55,57 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
 
       <StyledDetailsWrapper>
         <StyledImageWrapper>
-          <StyledImage src={imageUrl} alt={title} width={600} height={200} />
+          <StyledImage
+            src={imageUrl}
+            alt={title}
+            width={600}
+            height={200}
+            priority
+          />
           <StyledComplexityTag color={complexity}>
             {complexity}
           </StyledComplexityTag>
         </StyledImageWrapper>
-        <h1>{title}</h1>
+        <Styledtitle>{title}</Styledtitle>
         <StyledDescription>{description}</StyledDescription>
         <StyledDuration>Duration: {duration}</StyledDuration>
 
-        <StyledListTitle>Materials</StyledListTitle>
-        <StyledMaterialsList>
-          {materials.map((material, index) => (
-            <StyledListItems key={index}>{material}</StyledListItems>
-          ))}
-        </StyledMaterialsList>
+        <StyledCollapsible
+          trigger="Materials"
+          transitionTime={100}
+          easing="ease-in-out"
+          open={true}
+        >
+          {materials.length === 0 ? (
+            <h2>No Materials found. Please add new ones.</h2>
+          ) : (
+            <StyledMaterialsList>
+              {materials.map((material, index) => (
+                <StyledListItems key={index}>{material}</StyledListItems>
+              ))}
+            </StyledMaterialsList>
+          )}
+        </StyledCollapsible>
 
-        <StyledListTitle>Instructions</StyledListTitle>
-        <StyledInstructionsList>
-          {steps.map((step) => (
-            <StyledListItems key={step.id}>{step.description}</StyledListItems>
-          ))}
-        </StyledInstructionsList>
+        <StyledCollapsible
+          trigger="Instructions"
+          transitionTime={100}
+          easing="ease-in-out"
+          open={true}
+        >
+          {steps.length === 0 ? (
+            <h2>No Instructions found. Please add new ones.</h2>
+          ) : (
+            <StyledInstructionsList>
+              {steps.map((step) => (
+                <StyledListItems key={step.id}>
+                  {step.description}
+                </StyledListItems>
+              ))}
+            </StyledInstructionsList>
+          )}
+        </StyledCollapsible>
+
         <StyledButtonsWrapper>
           <Modal onDelete={() => handleDelete(id)} />
           <StyledEditLink href={`/projects/${detailsId}/edit`}>
@@ -81,6 +116,14 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
     </>
   );
 }
+
+const Styledtitle = styled.h1`
+  font-size: 1.5rem;
+
+  @media screen and (min-width: 640px) {
+    font-size: 2rem;
+  }
+`;
 
 const StyledButtonsWrapper = styled.div`
   display: flex;
@@ -128,7 +171,7 @@ const StyledDetailsWrapper = styled.div`
 
 const StyledDescription = styled.p`
   text-align: center;
-  text-align: center;
+  width: 90%;
 `;
 
 const StyledImage = styled(Image)`
@@ -159,34 +202,26 @@ const StyledDuration = styled.p`
 const StyledMaterialsList = styled.ul`
   list-style-position: inside;
   list-style-type: circle;
+  text-align: start;
   padding: 0;
   margin: 0;
-  margin-top: 1rem;
+  color: #ffffff;
+ 
 `;
 
 const StyledInstructionsList = styled.ol`
   list-style-position: inside;
-  padding: 0 1rem;
-  margin-bottom: 1rem;
-  list-style-position: inside;
-  padding: 0 1rem 0 1rem;
-  margin-bottom: 1rem;
+  text-align: start;
+  color: #ffffff;
   @media screen and (min-width: 640px) {
     list-style-position: inside;
-    margin-bottom: 1rem;
     padding: 0;
+    text-align: start;
   }
 `;
 
 const StyledListItems = styled.li`
   line-height: 1.4rem;
-  padding: 0rem 1rem;
-`;
-
-const StyledListTitle = styled.h2`
-  padding: 0;
-  margin: 0;
-  align-self: center;
 `;
 
 const StyledEditLink = styled(Link)`
@@ -205,5 +240,31 @@ const StyledEditLink = styled(Link)`
   &:focus,
   &:hover {
     outline: 1px solid white;
+  }
+`;
+const StyledCollapsibleWrapper = styled.div`
+  background-size: 100%;
+  border-radius: 2px;
+  color: rgba(58, 58, 58, 1);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #ccc;
+  width: 90%;
+  
+  &:hover {
+    outline: 1px solid white;
+  }
+  .Collapsible__trigger {
+    color: rgba(58, 58, 58, 1);
+    width: 90%;
+    cursor: pointer;
+    padding-left: 0.5rem;
+    padding-right: 90%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .Collapsible__contentOuter {
+    background-color: #a38376;
+  }
+  .Collapsible__contentInner {
+    padding: 0.5rem;
   }
 `;
