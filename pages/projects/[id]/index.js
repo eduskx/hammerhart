@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 import Modal from "@/components/Modal";
+import BookmarkButton from "@/components/BookmarkButton";
 import Collapsible from "react-collapsible";
 
 const handleColorType = (color) => {
@@ -16,7 +17,12 @@ const handleColorType = (color) => {
       return "#3ecd5e";
   }
 };
-export default function ProjectDetailsPage({ projects, setNewProjects }) {
+
+export default function ProjectDetailsPage({
+  projects,
+  setNewProjects,
+  $onBookmark,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -41,6 +47,7 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
     setNewProjects(projects.filter((project) => project.id !== id));
     router.push("/");
   }
+
   const StyledCollapsible = ({ children, ...props }) => (
     <StyledCollapsibleWrapper>
       <Collapsible {...props}>{children}</Collapsible>
@@ -55,6 +62,10 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
 
       <StyledDetailsWrapper>
         <StyledImageWrapper>
+          <BookmarkButton
+            $onBookmark={() => $onBookmark(projectData.id)}
+            isFavorite={projectData.isFavorite}
+          />
           <StyledImage
             src={imageUrl}
             alt={title}
@@ -119,7 +130,6 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
 
 const Styledtitle = styled.h1`
   font-size: 1.5rem;
-
   @media screen and (min-width: 640px) {
     font-size: 2rem;
   }
@@ -154,6 +164,7 @@ const StyledDetailsWrapper = styled.div`
   color: white;
   padding: 0;
   gap: 1rem;
+
   @media screen and (min-width: 640px) {
     box-shadow: 1px 1px 6px 1px #00000072;
     background-color: #a38376;
@@ -206,15 +217,21 @@ const StyledMaterialsList = styled.ul`
   padding: 0;
   margin: 0;
   color: #ffffff;
- 
 `;
 
 const StyledInstructionsList = styled.ol`
   list-style-position: inside;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  list-style-position: inside;
+  padding: 0 1rem 0 1rem;
+  margin-bottom: 1rem;
   text-align: start;
   color: #ffffff;
+
   @media screen and (min-width: 640px) {
     list-style-position: inside;
+    padding: 0;
     padding: 0;
     text-align: start;
   }
@@ -242,6 +259,7 @@ const StyledEditLink = styled(Link)`
     outline: 1px solid white;
   }
 `;
+
 const StyledCollapsibleWrapper = styled.div`
   background-size: 100%;
   border-radius: 2px;
@@ -249,7 +267,7 @@ const StyledCollapsibleWrapper = styled.div`
   background: rgba(255, 255, 255, 0.5);
   border: 1px solid #ccc;
   width: 90%;
-  
+
   &:hover {
     outline: 1px solid white;
   }

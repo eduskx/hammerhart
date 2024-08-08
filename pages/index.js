@@ -1,11 +1,10 @@
 import Form from "@/components/Form";
-import Header from "@/components/Header";
 import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
 
-export default function HomePage({ projects, setNewProjects }) {
+export default function HomePage({ projects, setNewProjects, $onBookmark }) {
   const [searchInput, setSearchInput] = useState("");
 
   function handleSearch(event) {
@@ -20,9 +19,9 @@ export default function HomePage({ projects, setNewProjects }) {
   const [formSteps, setFormSteps] = useLocalStorageState("steps", {
     defaultValue: [{ id: "1", description: "" }],
   });
+
   return (
     <>
-      <Header />
       <Form
         setNewProjects={setNewProjects}
         projects={projects}
@@ -31,8 +30,14 @@ export default function HomePage({ projects, setNewProjects }) {
         formSteps={formSteps}
         setFormSteps={setFormSteps}
       />
+
       <SearchBar onSearch={handleSearch} />
-      <FilterList projects={projects} searchInput={searchInput} />
+      <FilterList
+        projects={projects}
+        setNewProjects={setNewProjects}
+        $onBookmark={$onBookmark}
+        searchInput={searchInput}
+      />
     </>
   );
 }
