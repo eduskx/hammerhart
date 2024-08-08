@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 import Modal from "@/components/Modal";
+import BookmarkButton from "@/components/BookmarkButton";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -15,7 +16,12 @@ const handleColorType = (color) => {
       return "#3ecd5e";
   }
 };
-export default function ProjectDetailsPage({ projects, setNewProjects }) {
+
+export default function ProjectDetailsPage({
+  projects,
+  setNewProjects,
+  $onBookmark,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -49,6 +55,10 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
 
       <StyledDetailsWrapper>
         <StyledImageWrapper>
+          <BookmarkButton
+            $onBookmark={() => $onBookmark(projectData.id)}
+            isFavorite={projectData.isFavorite}
+          />
           <StyledImage src={imageUrl} alt={title} width={600} height={200} />
           <StyledComplexityTag color={complexity}>
             {complexity}
@@ -111,6 +121,7 @@ const StyledDetailsWrapper = styled.div`
   color: white;
   padding: 0;
   gap: 1rem;
+
   @media screen and (min-width: 640px) {
     box-shadow: 1px 1px 6px 1px #00000072;
     background-color: #a38376;
@@ -171,6 +182,7 @@ const StyledInstructionsList = styled.ol`
   list-style-position: inside;
   padding: 0 1rem 0 1rem;
   margin-bottom: 1rem;
+
   @media screen and (min-width: 640px) {
     list-style-position: inside;
     margin-bottom: 1rem;

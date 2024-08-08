@@ -1,19 +1,16 @@
 import ProjectCard from "@/components/ProjectCard";
-
 import styled from "styled-components";
-import BookmarkButton from "../BookmarkButton";
 
-export default function ProjectsList({ projects, onBookmark }) {
+export default function ProjectsList({ projects, $onBookmark }) {
   if (!projects || projects.length === 0) {
     return <h1>No projects found. Please create new ones.</h1>;
   }
 
   return (
     <StyledUl>
-      {/* added toReversed() to be able to save projects in correct order and prevent giving wrong id's to new projects*/}
       {projects.toReversed().map((project) => (
         <li key={project.id}>
-          <ProjectCard project={project} onBookmark={onBookmark} />
+          <ProjectCard project={project} $onBookmark={$onBookmark} />
         </li>
       ))}
     </StyledUl>

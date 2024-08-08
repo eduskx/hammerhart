@@ -21,13 +21,12 @@ export default function App({ Component, pageProps }) {
 
   function handleOnBookmark(id) {
     setNewProjects(
-      projects.map((project) =>
+      newProjects.map((project) =>
         project.id === id
           ? { ...project, isFavorite: !project.isFavorite }
           : project
       )
     );
-    console.log(projects);
   }
 
   return (
@@ -39,7 +38,7 @@ export default function App({ Component, pageProps }) {
           projects={newProjects}
           onUpdateProject={handleUpdateProject}
           setNewProjects={setNewProjects}
-          onBookmark={handleOnBookmark}
+          $onBookmark={handleOnBookmark}
         />
       </div>
     </Layout>

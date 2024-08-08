@@ -1,18 +1,29 @@
 import ProjectCard from "@/components/ProjectCard";
-import Link from "next/link";
 import styled from "styled-components";
 
-export default function BookmarkPage({ projects }) {
+export default function BookmarkPage({ projects, $onBookmark }) {
   const bookmarkedProjects = projects.filter(
     (project) => project.isFavorite === true
   );
 
-  return bookmarkedProjects.map((bookmarkedProject) => (
-    <ProjectCard key={bookmarkedProject.id} project={bookmarkedProject} />
-  ));
+  return (
+    <BookmarkWrapper>
+      {bookmarkedProjects.map((bookmarkedProject) => (
+        <ProjectCard
+          key={bookmarkedProject.id}
+          project={bookmarkedProject}
+          $onBookmark={$onBookmark}
+        />
+      ))}
+      ;
+    </BookmarkWrapper>
+  );
 }
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: black;
+const BookmarkWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  padding: 2rem;
 `;
