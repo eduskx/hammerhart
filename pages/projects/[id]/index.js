@@ -5,6 +5,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 import Modal from "@/components/Modal";
 import Collapsible from "react-collapsible";
+import Note from "@/components/Note";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -105,6 +106,7 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
             </StyledInstructionsList>
           )}
         </StyledCollapsible>
+        <Note project={projectData}/>
 
         <StyledButtonsWrapper>
           <Modal onDelete={() => handleDelete(id)} />
