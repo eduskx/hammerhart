@@ -22,8 +22,12 @@ export default function Edit({ projects, onUpdateProject }) {
 
   async function editProject(event) {
     event.preventDefault();
+
     const formData = new FormData(event.target);
+    console.log(formData);
+
     const newProject = Object.fromEntries(formData);
+    console.log(newProject);
 
     const response = await fetch("/api/upload", {
       method: "POST",

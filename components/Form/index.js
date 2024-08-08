@@ -22,7 +22,13 @@ export default function Form({
     event.preventDefault();
 
     const formData = new FormData(event.target);
+
     const newProject = Object.fromEntries(formData);
+
+    // Füge das aktuelle Bild zur FormData hinzu, wenn im Edit-Modus
+    if (isEditMode && defaultData?.imageUrl) {
+      formData.append("currentImageUrl", defaultData.imageUrl);
+    }
 
     const response = await fetch("api/upload", {
       method: "POST",
@@ -72,18 +78,6 @@ export default function Form({
 
       <label htmlFor="imageUrl">Image</label>
       <StyledInput id="imageUrl" name="imageUrl" type="file" accept="image/*" />
-
-      {/* 
-      <label htmlFor="imageUrl">Image</label>
-      <StyledInput
-        id="imageUrl"
-        name="imageUrl"
-        type="text"
-        defaultValue={
-          defaultData?.imageUrl ||
-          "https://images.unsplash.com/photo-1657434743747-07cbb4ddd5ba?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        }
-      /> */}
 
       <label htmlFor="description">Description</label>
       <StyledTextarea
