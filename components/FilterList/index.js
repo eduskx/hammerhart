@@ -2,9 +2,12 @@ import { useState } from "react";
 import ProjectsList from "../ProjectsList";
 import styled from "styled-components";
 
-
-export default function FilterList({ projects, setNewProjects, $onBookmark, searchInput }) {
-
+export default function FilterList({
+  projects,
+  setNewProjects,
+  $onBookmark,
+  searchInput,
+}) {
   const complexities = [
     { name: "All", color: "#070ff7" },
     { name: "Beginner", color: "#3ecd5e" },
@@ -42,14 +45,12 @@ export default function FilterList({ projects, setNewProjects, $onBookmark, sear
           "No {activeFilter} projects available!"
         </StyledEmptyMessage>
       ) : (
-
         <ProjectsList
           projects={filteredProjects}
           setNewProjects={setNewProjects}
           $onBookmark={$onBookmark}
           searchInput={searchInput}
         />
-
       )}
     </>
   );
