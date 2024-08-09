@@ -1,9 +1,13 @@
 import { useState } from "react";
 import ProjectsList from "../ProjectsList";
 import styled from "styled-components";
-import ProjectCard from "../ProjectCard";
 
-export default function FilterList({ projects, setNewProjects, onBookmark }) {
+export default function FilterList({
+  projects,
+  setNewProjects,
+  $onBookmark,
+  searchInput,
+}) {
   const complexities = [
     { name: "All", color: "#070ff7" },
     { name: "Beginner", color: "#3ecd5e" },
@@ -44,7 +48,8 @@ export default function FilterList({ projects, setNewProjects, onBookmark }) {
         <ProjectsList
           projects={filteredProjects}
           setNewProjects={setNewProjects}
-          onBookmark={onBookmark}
+          $onBookmark={$onBookmark}
+          searchInput={searchInput}
         />
       )}
     </>

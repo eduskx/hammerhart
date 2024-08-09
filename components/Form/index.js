@@ -33,7 +33,6 @@ export default function Form({
     newProject.materials = formMaterials;
     newProject.steps = formSteps;
 
-    // swapped ...projects and newProject because we added toReversed() in list mapping
     setNewProjects([...projects, newProject]);
 
     event.target.reset();
