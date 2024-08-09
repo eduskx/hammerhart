@@ -2,7 +2,7 @@ import { useState } from "react";
 import ProjectsList from "../ProjectsList";
 import styled from "styled-components";
 
-export default function FilterList({ projects }) {
+export default function FilterList({ projects, searchInput }) {
   const complexities = [
     { name: "All", color: "#070ff7" },
     { name: "Beginner", color: "#3ecd5e" },
@@ -39,7 +39,7 @@ export default function FilterList({ projects }) {
           "No {activeFilter} projects available!"
         </StyledEmptyMessage>
       ) : (
-        <ProjectsList projects={filteredProjects} />
+        <ProjectsList projects={filteredProjects} searchInput={searchInput} />
       )}
     </>
   );

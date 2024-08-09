@@ -2,8 +2,17 @@ import Form from "@/components/Form";
 import Header from "@/components/Header";
 import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
+import SearchBar from "@/components/SearchBar";
+import { useState } from "react";
 
 export default function HomePage({ projects, setNewProjects }) {
+  const [searchInput, setSearchInput] = useState("");
+
+  function handleSearch(event) {
+    const lowerCasedInput = event.target.value.toLowerCase();
+    setSearchInput(lowerCasedInput);
+  }
+
   const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
     defaultValue: [""],
   });
@@ -22,7 +31,8 @@ export default function HomePage({ projects, setNewProjects }) {
         formSteps={formSteps}
         setFormSteps={setFormSteps}
       />
-      <FilterList projects={projects} />
+      <SearchBar onSearch={handleSearch} />
+      <FilterList projects={projects} searchInput={searchInput} />
     </>
   );
 }
