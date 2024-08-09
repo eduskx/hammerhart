@@ -73,8 +73,8 @@ export default function Form({
       />
 
       <StyledImageUploadLabel htmlFor="imageUrl">
-        <Image src="/upload.svg" alt="upload_icon" width={30} height={30} />
-        Upload Image
+        <Image src="/upload.svg" alt="upload_icon" width={20} height={20} />
+        <span>Upload Image</span>
       </StyledImageUploadLabel>
       <StyledImageUploadInput
         id="imageUrl"
@@ -184,14 +184,16 @@ const StyledImageUploadInput = styled.input`
 `;
 
 const StyledImageUploadLabel = styled.label`
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
   color: #000;
   background: rgba(255, 255, 255, 0.5);
   text-align: center;
   padding: 15px 40px;
   user-select: none;
   cursor: pointer;
-  box-shadow: 1px 1px 6px 1px #00000072;
   border-radius: 2px;
   margin: 1rem 0;
 `;
