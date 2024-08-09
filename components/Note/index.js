@@ -52,8 +52,8 @@ const Note = ({ project }) => {
 export default Note;
 const StyledTextarea = styled.textarea`
   all: unset;
-width: 90%;
-   color: rgba(58, 58, 58, 1);
+  width: 90%;
+  color: rgba(58, 58, 58, 1);
   resize: none;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 2px;
@@ -65,7 +65,6 @@ width: 90%;
 
 const StyledNotesWrapper = styled.div`
   display: flex;
-  width: 100%;
   word-break: break-all;
   position: relative;
 `;
@@ -78,7 +77,7 @@ const StyledButton = styled.button`
   bottom: 0;
   right: 0.3rem;
   transition: all 0.5s ease;
-  &:hover {
+  S &:hover {
     transform: scale(1.5);
   }
 `;
