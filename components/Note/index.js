@@ -29,40 +29,31 @@ const Note = ({ project }) => {
 
   return (
     <StyledNotesWrapper>
-      <StyledTitleButtonWrapper>
-        <StyledNotesTitle>Notes</StyledNotesTitle>
-        <StyledButton onClick={toggleEditMode}>
-          {isEditMode ? <TfiCheck /> : <SlNote />}
-        </StyledButton>
-      </StyledTitleButtonWrapper>
       {isEditMode ? (
         <StyledTextarea
           ref={textareaFocus}
           value={currentNote}
           onChange={handleInputChange}
-          rows="4"
+          rows="5"
           cols="50"
+          placeholder="Enter your notes here..."
         />
       ) : (
         <StyledNotesTextField>
-          {currentNote ||
-            ((project.notes && project.notes[0]) || "")
-              .split("\n")
-              .map((line, index) => (
-                <StyledNotesText key={index}>{line}</StyledNotesText>
-              ))}
+          {currentNote || "Enter your notes here..."}
         </StyledNotesTextField>
       )}
+      <StyledButton onClick={toggleEditMode}>
+        {isEditMode ? <TfiCheck /> : <SlNote />}
+      </StyledButton>
     </StyledNotesWrapper>
   );
 };
-
 export default Note;
 const StyledTextarea = styled.textarea`
   all: unset;
-  margin-top: 1rem;
-  width: 100%;
-  color: rgba(58, 58, 58, 1);
+width: 90%;
+   color: rgba(58, 58, 58, 1);
   resize: none;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 2px;
@@ -73,42 +64,27 @@ const StyledTextarea = styled.textarea`
 `;
 
 const StyledNotesWrapper = styled.div`
-  width: 90%;
-  word-break: break-all;
-`;
-const StyledTitleButtonWrapper = styled.div`
-  border-radius: 2px;
   display: flex;
-  padding-left: 0.5rem;
-  align-items: center;
-  height: 25px;
   width: 100%;
-  color: rgba(58, 58, 58, 1);
-  background: rgba(255, 255, 255, 0.5);
-`;
-const StyledNotesTitle = styled.p`
-  padding-right: 1rem;
+  word-break: break-all;
+  position: relative;
 `;
 
 const StyledButton = styled.button`
   all: unset;
+  color: white;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0.3rem;
   transition: all 0.5s ease;
   &:hover {
     transform: scale(1.5);
   }
 `;
 
-const StyledNotesText = styled.p`
-  text-align: start;
-  width: 90%;
-  white-space: pre-wrap;
-`;
 const StyledNotesTextField = styled.div`
-  padding: 0.5rem 0 0.5rem 0.5rem;
   white-space: pre-wrap;
   width: 100%;
+  color: white;
 `;
