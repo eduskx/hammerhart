@@ -26,9 +26,9 @@ export default function Form({
     const newProject = Object.fromEntries(formData);
 
     // Füge das aktuelle Bild zur FormData hinzu, wenn im Edit-Modus
-    if (isEditMode && defaultData?.imageUrl) {
-      formData.append("currentImageUrl", defaultData.imageUrl);
-    }
+    // if (isEditMode && defaultData?.imageUrl) {
+    //   formData.append("currentImageUrl", defaultData.imageUrl);
+    // }
 
     const response = await fetch("api/upload", {
       method: "POST",
