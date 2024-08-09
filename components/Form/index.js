@@ -41,6 +41,8 @@ export default function Form({
     event.target.reset();
     setFormMaterials([""]);
     setFormSteps([{ id: "1", description: "" }]);
+
+    onClose();
   }
 
   function handleClearForm() {
