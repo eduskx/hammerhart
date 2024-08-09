@@ -74,6 +74,7 @@ const StyledTextarea = styled.textarea`
 
 const StyledNotesWrapper = styled.div`
   width: 90%;
+  word-break: break-all;
 `;
 const StyledTitleButtonWrapper = styled.div`
   border-radius: 2px;
@@ -90,13 +91,11 @@ const StyledNotesTitle = styled.p`
 `;
 
 const StyledButton = styled.button`
-  text-decoration: none;
   all: unset;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-
   transition: all 0.5s ease;
   &:hover {
     transform: scale(1.5);
@@ -106,8 +105,10 @@ const StyledButton = styled.button`
 const StyledNotesText = styled.p`
   text-align: start;
   width: 90%;
+  white-space: pre-wrap;
 `;
 const StyledNotesTextField = styled.div`
   padding: 0.5rem 0 0.5rem 0.5rem;
   white-space: pre-wrap;
+  width: 100%;
 `;
