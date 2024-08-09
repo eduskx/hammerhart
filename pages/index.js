@@ -4,7 +4,7 @@ import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
 
-export default function HomePage({ projects, setNewProjects, $onBookmark }) {
+export default function HomePage({ projects, onAddProject, onBookmark }) {
   const [searchInput, setSearchInput] = useState("");
 
   function handleSearch(event) {
@@ -20,22 +20,26 @@ export default function HomePage({ projects, setNewProjects, $onBookmark }) {
     defaultValue: [{ id: "1", description: "" }],
   });
 
+  function handleClearMaterialsAndSteps() {
+    setFormMaterials([""]);
+    setFormSteps([{ id: "1", description: "" }]);
+  }
+
   return (
     <>
       <Form
-        setNewProjects={setNewProjects}
+        onAddProject={onAddProject}
         projects={projects}
         formMaterials={formMaterials}
-        setFormMaterials={setFormMaterials}
         formSteps={formSteps}
-        setFormSteps={setFormSteps}
+        onClearMaterialsAndSteps={handleClearMaterialsAndSteps}
       />
 
       <SearchBar onSearch={handleSearch} />
       <FilterList
         projects={projects}
-        setNewProjects={setNewProjects}
-        $onBookmark={$onBookmark}
+        onAddProject={onAddProject}
+        onBookmark={onBookmark}
         searchInput={searchInput}
       />
     </>

@@ -3,20 +3,26 @@ import { useRef } from "react";
 import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
 import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 import Link from "next/link";
+import useLocalStorageState from "use-local-storage-state";
 
 export default function Form({
-  setNewProjects,
+  onAddProject,
   projects,
   defaultData,
   onSubmit,
   formMaterials,
-  setFormMaterials,
   formSteps,
-  setFormSteps,
+  onClearMaterialsAndSteps,
   isEditMode,
   id,
 }) {
   let formRef = useRef(null);
+
+  // FUNCTIONS FOR MATERIALS INPUT
+
+  // FUNCTIONS FOR STEPS INPUT
+
+  // OTHER LOGIC
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -24,26 +30,21 @@ export default function Form({
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
 
-    const highestProjectId = projects.reduce(
-      (prev, current) => (prev.id > current.id ? prev.id : current.id),
-      "0"
-    );
+    const highestProjectId = projects.length > 0 ? projects[0].id : "0";
 
     newProject.id = `${Number(highestProjectId) + 1}`;
     newProject.materials = formMaterials;
     newProject.steps = formSteps;
 
-    setNewProjects([...projects, newProject]);
+    onAddProject(newProject);
 
     event.target.reset();
-    setFormMaterials([""]);
-    setFormSteps([{ id: "1", description: "" }]);
+    onClearMaterialsAndSteps();
   }
 
   function handleClearForm() {
     formRef.reset();
-    setFormMaterials([""]);
-    setFormSteps([{ id: "1", description: "" }]);
+    onClearMaterialsAndSteps();
   }
 
   return (

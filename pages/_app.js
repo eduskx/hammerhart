@@ -1,28 +1,33 @@
 import GlobalStyle from "@/styles";
-import projects from "@/lib/projects.js";
-import { Saira } from "next/font/google";
+import initialProjects from "@/lib/projects.js";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
-import { useState } from "react";
-
-const saira = Saira({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }) {
-  const [newProjects, setNewProjects] = useLocalStorageState("newProjects", {
-    defaultValue: projects,
+  const [projects, setProjects] = useLocalStorageState("projects", {
+    defaultValue: initialProjects,
   });
 
+  function handleAddProject(newProject) {
+    setProjects([newProject, ...projects]);
+  }
+
+  function handleDeleteProject(id, router) {
+    setProjects(projects.filter((project) => project.id !== id));
+    router.push("/");
+  }
+
   function handleUpdateProject(updatedProject) {
-    setNewProjects(
-      newProjects.map((project) =>
+    setProjects(
+      projects.map((project) =>
         project.id === updatedProject.id ? updatedProject : project
       )
     );
   }
 
-  function handleOnBookmark(id) {
-    setNewProjects(
-      newProjects.map((project) =>
+  function handleToggleBookmark(id) {
+    setProjects(
+      projects.map((project) =>
         project.id === id
           ? { ...project, isFavorite: !project.isFavorite }
           : project
@@ -33,15 +38,14 @@ export default function App({ Component, pageProps }) {
   return (
     <Layout>
       <GlobalStyle />
-      <div className={saira.className}>
-        <Component
-          {...pageProps}
-          projects={newProjects}
-          onUpdateProject={handleUpdateProject}
-          setNewProjects={setNewProjects}
-          $onBookmark={handleOnBookmark}
-        />
-      </div>
+      <Component
+        {...pageProps}
+        projects={projects}
+        onUpdateProject={handleUpdateProject}
+        onAddProject={handleAddProject}
+        onBookmark={handleToggleBookmark}
+        onDeleteProject={handleDeleteProject}
+      />
     </Layout>
   );
 }

@@ -9,7 +9,7 @@ export default function Navigation() {
           <StyledNavLink href="/">Home</StyledNavLink>
         </li>
         <li>
-          <StyledNavLink href="/bookmarks">Bookmark</StyledNavLink>
+          <StyledNavLink href="/bookmarks">Bookmarks</StyledNavLink>
         </li>
       </StyledNavList>
     </StyledNavContainer>

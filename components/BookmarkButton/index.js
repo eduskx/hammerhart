@@ -2,9 +2,9 @@ import HeartFilled from "./HeartFilled.svg";
 import Heart from "./Heart.svg";
 import styled from "styled-components";
 
-export default function BookmarkButton({ isFavorite, $onBookmark }) {
+export default function BookmarkButton({ isFavorite, onBookmark }) {
   return (
-    <StyledButton onClick={$onBookmark}>
+    <StyledButton onClick={onBookmark}>
       {isFavorite ? <HeartFilled width={50} /> : <Heart width={50} />}
     </StyledButton>
   );

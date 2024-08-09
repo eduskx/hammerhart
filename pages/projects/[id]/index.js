@@ -20,8 +20,8 @@ const handleColorType = (color) => {
 
 export default function ProjectDetailsPage({
   projects,
-  setNewProjects,
-  $onBookmark,
+  onDeleteProject,
+  onBookmark,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -43,11 +43,6 @@ export default function ProjectDetailsPage({
     id: detailsId,
   } = projectData;
 
-  function handleDelete(id) {
-    setNewProjects(projects.filter((project) => project.id !== id));
-    router.push("/");
-  }
-
   const StyledCollapsible = ({ children, ...props }) => (
     <StyledCollapsibleWrapper>
       <Collapsible {...props}>{children}</Collapsible>
@@ -63,7 +58,7 @@ export default function ProjectDetailsPage({
       <StyledDetailsWrapper>
         <StyledImageWrapper>
           <BookmarkButton
-            $onBookmark={() => $onBookmark(projectData.id)}
+            onBookmark={() => onBookmark(projectData.id)}
             isFavorite={projectData.isFavorite}
           />
           <StyledImage
@@ -118,7 +113,7 @@ export default function ProjectDetailsPage({
         </StyledCollapsible>
 
         <StyledButtonsWrapper>
-          <Modal onDelete={() => handleDelete(id)} />
+          <Modal onDelete={() => onDeleteProject(id, router)} />
           <StyledEditLink href={`/projects/${detailsId}/edit`}>
             Edit
           </StyledEditLink>
