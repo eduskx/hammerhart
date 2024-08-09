@@ -196,6 +196,9 @@ const StyledImageUploadLabel = styled.label`
   cursor: pointer;
   border-radius: 2px;
   margin: 1rem 0;
+  &:hover {
+    outline: 1px solid white;
+  }
 `;
 
 const StyledInput = styled.input`
