@@ -6,6 +6,10 @@ export default function BookmarkPage({ projects, $onBookmark }) {
     (project) => project.isFavorite === true
   );
 
+  if (!bookmarkedProjects || bookmarkedProjects.length === 0) {
+    return <h1>You don't have any bookmarked projects</h1>;
+  }
+
   return (
     <BookmarkWrapper>
       {bookmarkedProjects.map((bookmarkedProject) => (
