@@ -13,8 +13,6 @@ export default function Edit({ projects, onUpdateProject }) {
 
   const projectData = projects.find((project) => project.id === id);
 
-  console.log(projectData.imageUrl);
-
   useEffect(() => {
     if (projectData) {
       setFormMaterials(projectData.materials);
@@ -33,8 +31,6 @@ export default function Edit({ projects, onUpdateProject }) {
       formData.append("currentImageUrl", projectData.imageUrl);
     }
 
-    console.log("currentimageUrl", formData.get("currentImageUrl"));
-
     const response = await fetch("/api/upload", {
       method: "POST",
       body: formData,
@@ -46,8 +42,6 @@ export default function Edit({ projects, onUpdateProject }) {
     newProject.materials = formMaterials;
     newProject.steps = formSteps;
     newProject.imageUrl = url;
-
-    console.log(newProject);
 
     onUpdateProject(newProject);
     router.push(`/projects/${id}`);
