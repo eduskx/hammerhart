@@ -6,7 +6,7 @@ import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 
 export default function Form({
-  onClose,
+  onToggleForm,
   setNewProjects,
   projects,
   defaultData,
@@ -42,7 +42,7 @@ export default function Form({
     setFormMaterials([""]);
     setFormSteps([{ id: "1", description: "" }]);
 
-    onClose();
+    onToggleForm();
   }
 
   function handleClearForm() {
@@ -56,7 +56,7 @@ export default function Form({
       ref={(element) => (formRef = element)}
       onSubmit={onSubmit || handleSubmit}
     >
-      <StyledCloseButton type="button" onClick={onClose}>
+      <StyledCloseButton type="button" onClick={onToggleForm}>
         <IoMdClose color="darkred" size={28} />
       </StyledCloseButton>
 

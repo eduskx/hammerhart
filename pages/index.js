@@ -6,7 +6,12 @@ import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
 import AddButton from "@/components/Modals/AddButton";
 
-export default function HomePage({ projects, setNewProjects }) {
+export default function HomePage({
+  projects,
+  setNewProjects,
+  onToggleForm,
+  toggleFormModal,
+}) {
   const [searchInput, setSearchInput] = useState("");
 
   function handleSearch(event) {
@@ -34,6 +39,8 @@ export default function HomePage({ projects, setNewProjects }) {
       /> */}
       <SearchBar onSearch={handleSearch} />
       <AddButton
+        onToggleForm={onToggleForm}
+        toggleFormModal={toggleFormModal}
         projects={projects}
         setNewProjects={setNewProjects}
         formMaterials={formMaterials}

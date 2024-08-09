@@ -3,7 +3,7 @@ import Form from "@/components/Form";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function Edit({ projects, onUpdateProject }) {
+export default function Edit({ projects, onUpdateProject, onToggleForm }) {
   const [formMaterials, setFormMaterials] = useState([""]);
 
   const [formSteps, setFormSteps] = useState([{ id: "1", description: "" }]);
@@ -35,6 +35,7 @@ export default function Edit({ projects, onUpdateProject }) {
     <>
       <StyledHeader>{`Edit "${projectData?.title}"`}</StyledHeader>
       <Form
+        onToggleForm={onToggleForm}
         onSubmit={editProject}
         formMaterials={formMaterials}
         setFormMaterials={setFormMaterials}

@@ -5,6 +5,8 @@ import { createPortal } from "react-dom";
 import ModalContent from "@/components/Modals/AddButton/ModalContent";
 
 export default function AddButton({
+  onToggleForm,
+  toggleFormModal,
   projects,
   setNewProjects,
   formMaterials,
@@ -12,17 +14,17 @@ export default function AddButton({
   formSteps,
   setFormSteps,
 }) {
-  const [showAddModal, setShowAddModal] = useState(false);
+  // const [showFormModal, setShowFormModal] = useState(false);
 
   return (
     <>
-      <StyledAddButton type="button" onClick={() => setShowAddModal(true)}>
+      <StyledAddButton type="button" onClick={onToggleForm}>
         <IoMdAdd size={32} />
       </StyledAddButton>
-      {showAddModal &&
+      {toggleFormModal &&
         createPortal(
           <ModalContent
-            onClose={() => setShowAddModal(false)}
+            onToggleForm={onToggleForm}
             projects={projects}
             setNewProjects={setNewProjects}
             formMaterials={formMaterials}

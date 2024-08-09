@@ -2,7 +2,7 @@ import Form from "@/components/Form";
 import styled from "styled-components";
 
 export default function ModalContent({
-  onClose,
+  onToggleForm,
   projects,
   setNewProjects,
   formMaterials,
@@ -13,7 +13,7 @@ export default function ModalContent({
   return (
     <StyledContainer>
       <Form
-        onClose={onClose}
+        onToggleForm={onToggleForm}
         projects={projects}
         setNewProjects={setNewProjects}
         formMaterials={formMaterials}
