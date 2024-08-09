@@ -3,6 +3,7 @@ import { useRef } from "react";
 import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
 import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Form({
   setNewProjects,
@@ -71,8 +72,16 @@ export default function Form({
         maxLength={50}
       />
 
-      <label htmlFor="imageUrl">Image</label>
-      <StyledInput id="imageUrl" name="imageUrl" type="file" accept="image/*" />
+      <StyledImageUploadLabel htmlFor="imageUrl">
+        <Image src="/upload.svg" alt="upload_icon" width={30} height={30} />
+        Upload Image
+      </StyledImageUploadLabel>
+      <StyledImageUploadInput
+        id="imageUrl"
+        name="imageUrl"
+        type="file"
+        accept="image/*"
+      />
 
       <label htmlFor="description">Description</label>
       <StyledTextarea
@@ -168,6 +177,23 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-self: center;
+`;
+
+const StyledImageUploadInput = styled.input`
+  display: none;
+`;
+
+const StyledImageUploadLabel = styled.label`
+  display: inline-block;
+  color: #000;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  padding: 15px 40px;
+  user-select: none;
+  cursor: pointer;
+  box-shadow: 1px 1px 6px 1px #00000072;
+  border-radius: 2px;
+  margin: 1rem 0;
 `;
 
 const StyledInput = styled.input`
