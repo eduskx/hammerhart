@@ -3,7 +3,16 @@ import Form from "@/components/Form";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function Edit({ projects, onUpdateProject }) {
+export default function Edit({
+  projects,
+  onUpdateProject,
+  onAddMaterialField,
+  onRemoveMaterialField,
+  onMaterialChange,
+  onAddStepField,
+  onRemoveStepField,
+  onStepChange,
+}) {
   const [formMaterials, setFormMaterials] = useState([""]);
 
   const [formSteps, setFormSteps] = useState([{ id: "1", description: "" }]);
@@ -43,6 +52,12 @@ export default function Edit({ projects, onUpdateProject }) {
         defaultData={projectData}
         isEditMode={true}
         id={id}
+        onAddMaterialField={onAddMaterialField}
+        onRemoveMaterialField={onRemoveMaterialField}
+        onMaterialChange={onMaterialChange}
+        onAddStepField={onAddStepField}
+        onRemoveStepField={onRemoveStepField}
+        onStepChange={onStepChange}
       />
     </>
   );

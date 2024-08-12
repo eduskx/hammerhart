@@ -28,15 +28,17 @@ export default function HomePage({ projects, onAddProject, onBookmark }) {
   // functions for materials list
 
   function handleAddMaterialField() {
-    setFormMaterials([...state, ""]);
+    setFormMaterials([...formMaterials, ""]);
   }
 
   function handleRemoveMaterialField(indexToRemove) {
-    setFormMaterials(state.filter((_, index) => index !== indexToRemove));
+    setFormMaterials(
+      formMaterials.filter((_, index) => index !== indexToRemove)
+    );
   }
 
   function handleMaterialChange(index, event) {
-    const newMaterials = [...state];
+    const newMaterials = [...formMaterials];
     newMaterials[index] = event.target.value;
     setFormMaterials(newMaterials);
   }
@@ -44,12 +46,15 @@ export default function HomePage({ projects, onAddProject, onBookmark }) {
   // functions for dynamic steps input fields
 
   function handleAddStepField() {
-    setSteps([...steps, { id: `${steps.length + 1}`, description: "" }]);
+    setFormSteps([
+      ...formSteps,
+      { id: `${formSteps.length + 1}`, description: "" },
+    ]);
   }
 
   function handleRemoveStepField(indexToRemove) {
-    setSteps(
-      steps
+    setFormSteps(
+      formSteps
         .filter((_, index) => index !== indexToRemove)
         .map((step, index) => {
           return { ...step, id: `${index + 1}` };
@@ -58,9 +63,9 @@ export default function HomePage({ projects, onAddProject, onBookmark }) {
   }
 
   function handleStepChange(index, event) {
-    const newSteps = [...steps];
+    const newSteps = [...formSteps];
     newSteps[index].description = event.target.value;
-    setSteps(newSteps);
+    setFormSteps(newSteps);
   }
 
   return (
