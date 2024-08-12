@@ -31,18 +31,18 @@ export default function Form({
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
 
+    console.log(formData);
+
     const highestProjectId = projects.length > 0 ? projects[0].id : "1";
 
     newProject.id = `${Number(highestProjectId) + 1}`;
     newProject.materials = formMaterials;
     newProject.steps = formSteps;
 
-    onAddProject();
+    onAddProject(newProject);
 
     event.target.reset();
     onClearMaterialsAndSteps();
-
-    onToggleForm();
   }
 
   function handleClearForm() {
