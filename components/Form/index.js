@@ -3,26 +3,22 @@ import { useRef } from "react";
 import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
 import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 import Link from "next/link";
-import useLocalStorageState from "use-local-storage-state";
+import { IoMdClose } from "react-icons/io";
 
 export default function Form({
+  onToggleForm,
   onAddProject,
   projects,
   defaultData,
   onSubmit,
   formMaterials,
+  setFormMaterials,
   formSteps,
-  onClearMaterialsAndSteps,
+  setFormSteps,
   isEditMode,
   id,
 }) {
   let formRef = useRef(null);
-
-  // FUNCTIONS FOR MATERIALS INPUT
-
-  // FUNCTIONS FOR STEPS INPUT
-
-  // OTHER LOGIC
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -30,21 +26,29 @@ export default function Form({
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
 
-    const highestProjectId = projects.length > 0 ? projects[0].id : "0";
+    const highestProjectId = projects.reduce(
+      (prev, current) => (prev.id > current.id ? prev.id : current.id),
+      "0"
+    );
 
     newProject.id = `${Number(highestProjectId) + 1}`;
     newProject.materials = formMaterials;
     newProject.steps = formSteps;
 
-    onAddProject(newProject);
+    // setNewProjects([...projects, newProject]);
+    onAddProject();
 
     event.target.reset();
-    onClearMaterialsAndSteps();
+    setFormMaterials([""]);
+    setFormSteps([{ id: "1", description: "" }]);
+
+    onToggleForm();
   }
 
   function handleClearForm() {
     formRef.reset();
-    onClearMaterialsAndSteps();
+    setFormMaterials([""]);
+    setFormSteps([{ id: "1", description: "" }]);
   }
 
   return (
@@ -52,6 +56,10 @@ export default function Form({
       ref={(element) => (formRef = element)}
       onSubmit={onSubmit || handleSubmit}
     >
+      <StyledCloseButton type="button" onClick={onToggleForm}>
+        <IoMdClose color="darkred" size={28} />
+      </StyledCloseButton>
+
       <label htmlFor="title">Title</label>
       <StyledInput
         required
@@ -277,4 +285,12 @@ const StyledCancelLink = styled(Link)`
       transform: translateY(-3px);
     }
   }
+`;
+
+const StyledCloseButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: right;
 `;
