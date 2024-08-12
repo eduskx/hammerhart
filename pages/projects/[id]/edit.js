@@ -58,13 +58,11 @@ export default function Edit({
 
   return (
     <>
-      <StyledHeader>{`Edit "${projectData?.title}"`}</StyledHeader>
+      <StyledHeader>{`Edit project`}</StyledHeader>
       <Form
         onSubmit={editProject}
         formMaterials={formMaterials}
-        setFormMaterials={setFormMaterials}
         formSteps={formSteps}
-        setFormSteps={setFormSteps}
         defaultData={projectData}
         isEditMode={true}
         id={id}
