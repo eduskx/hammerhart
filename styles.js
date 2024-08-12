@@ -23,5 +23,6 @@ export default createGlobalStyle`
     padding: 0;
     max-width: 100%;
     word-break: break-all;
+    line-height: 1.4rem;
   }
 `;

@@ -4,6 +4,7 @@ import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
 import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
+import Image from "next/image";
 
 export default function Form({
   projects,
@@ -25,19 +26,26 @@ export default function Form({
 }) {
   let formRef = useRef(null);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
+
     const newProject = Object.fromEntries(formData);
 
-    console.log(formData);
+    const response = await fetch("api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const { url } = await response.json();
 
     const highestProjectId = projects.length > 0 ? projects[0].id : "1";
 
     newProject.id = `${Number(highestProjectId) + 1}`;
     newProject.materials = formMaterials;
     newProject.steps = formSteps;
+    newProject.imageUrl = url;
 
     onAddProject(newProject);
 
@@ -69,15 +77,15 @@ export default function Form({
         maxLength={50}
       />
 
-      <label htmlFor="imageUrl">Image</label>
-      <StyledInput
+      <StyledImageUploadLabel htmlFor="imageUrl">
+        <Image src="/upload.svg" alt="upload_icon" width={20} height={20} />
+        <span>Upload Image</span>
+      </StyledImageUploadLabel>
+      <StyledImageUploadInput
         id="imageUrl"
         name="imageUrl"
-        type="text"
-        defaultValue={
-          defaultData?.imageUrl ||
-          "https://images.unsplash.com/photo-1657434743747-07cbb4ddd5ba?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        }
+        type="file"
+        accept="image/*"
       />
 
       <label htmlFor="description">Description</label>
@@ -181,6 +189,28 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-self: center;
+`;
+
+const StyledImageUploadInput = styled.input`
+  display: none;
+`;
+
+const StyledImageUploadLabel = styled.label`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+  color: #000;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  padding: 15px 40px;
+  user-select: none;
+  cursor: pointer;
+  border-radius: 2px;
+  margin: 1rem 0;
+  &:hover {
+    outline: 1px solid white;
+  }
 `;
 
 const StyledInput = styled.input`

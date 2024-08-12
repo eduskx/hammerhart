@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Modal from "@/components/Modal";
 import BookmarkButton from "@/components/BookmarkButton";
 import Collapsible from "react-collapsible";
+import Note from "@/components/Note";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -77,7 +78,8 @@ export default function ProjectDetailsPage({
         <StyledDuration>Duration: {duration}</StyledDuration>
 
         <StyledCollapsible
-          trigger="Materials"
+          trigger="Materials ▼"
+          triggerWhenOpen="Materials ▲"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
@@ -94,7 +96,8 @@ export default function ProjectDetailsPage({
         </StyledCollapsible>
 
         <StyledCollapsible
-          trigger="Instructions"
+          trigger="Instructions ▼"
+          triggerWhenOpen="Instructions ▲"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
@@ -112,6 +115,15 @@ export default function ProjectDetailsPage({
           )}
         </StyledCollapsible>
 
+        <StyledCollapsible
+          trigger="Notes ▼"
+          triggerWhenOpen="Notes ▲"
+          transitionTime={100}
+          easing="ease-in-out"
+          open={true}
+        >
+          <Note project={projectData} />
+        </StyledCollapsible>
         <StyledButtonsWrapper>
           <Modal onDelete={() => onDeleteProject(id, router)} />
           <StyledEditLink href={`/projects/${detailsId}/edit`}>
@@ -256,22 +268,23 @@ const StyledEditLink = styled(Link)`
 `;
 
 const StyledCollapsibleWrapper = styled.div`
-  background-size: 100%;
   border-radius: 2px;
   color: rgba(58, 58, 58, 1);
   background: rgba(255, 255, 255, 0.5);
   border: 1px solid #ccc;
-  width: 90%;
+  width: 95%;
 
   &:hover {
     outline: 1px solid white;
   }
   .Collapsible__trigger {
+    display: flex;
+
     color: rgba(58, 58, 58, 1);
-    width: 90%;
+    width: 100%;
     cursor: pointer;
     padding-left: 0.5rem;
-    padding-right: 90%;
+
     -webkit-tap-highlight-color: transparent;
   }
   .Collapsible__contentOuter {
