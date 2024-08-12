@@ -21,7 +21,7 @@ const StyledNavContainer = styled.nav`
   position: fixed;
   width: 100%;
   bottom: 0;
-  padding: 2rem 0;
+  padding: 1.5rem 0;
   z-index: 999;
   border-radius: 20px 20px 0 0;
 `;

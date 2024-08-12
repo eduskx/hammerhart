@@ -2,42 +2,34 @@ import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 
-export default function DynamicArrayInput({ label, state, setterFunction }) {
-  function handleAddField() {
-    setterFunction([...state, ""]);
-  }
-
-  function handleRemoveField(indexToRemove) {
-    setterFunction(state.filter((_, index) => index !== indexToRemove));
-  }
-
-  function handleChange(index, event) {
-    const newListItems = [...state];
-    newListItems[index] = event.target.value;
-    setterFunction(newListItems);
-  }
-
+export default function DynamicArrayInput({
+  label,
+  materials,
+  onAddMaterialField,
+  onRemoveMaterialField,
+  onMaterialChange,
+}) {
   return (
     <>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
-      {state.map((element, index) => (
+      {materials.map((element, index) => (
         <StyledMaterialsWrapper key={index}>
           <StyledInput
             required
             id={label}
             value={element}
-            onChange={(event) => handleChange(index, event)}
+            onChange={(event) => onMaterialChange(index, event)}
             type="text"
           />
           <StyledDeleteButton
             type="button"
-            onClick={() => handleRemoveField(index)}
+            onClick={() => onRemoveMaterialField(index)}
           >
             <FaRegTrashAlt />
           </StyledDeleteButton>
         </StyledMaterialsWrapper>
       ))}
-      <StyledAddButton type="button" onClick={handleAddField}>
+      <StyledAddButton type="button" onClick={onAddMaterialField}>
         <MdAdd />
       </StyledAddButton>
     </>

@@ -25,6 +25,44 @@ export default function HomePage({ projects, onAddProject, onBookmark }) {
     setFormSteps([{ id: "1", description: "" }]);
   }
 
+  // functions for materials list
+
+  function handleAddMaterialField() {
+    setFormMaterials([...state, ""]);
+  }
+
+  function handleRemoveMaterialField(indexToRemove) {
+    setFormMaterials(state.filter((_, index) => index !== indexToRemove));
+  }
+
+  function handleMaterialChange(index, event) {
+    const newMaterials = [...state];
+    newMaterials[index] = event.target.value;
+    setFormMaterials(newMaterials);
+  }
+
+  // functions for dynamic steps input fields
+
+  function handleAddStepField() {
+    setSteps([...steps, { id: `${steps.length + 1}`, description: "" }]);
+  }
+
+  function handleRemoveStepField(indexToRemove) {
+    setSteps(
+      steps
+        .filter((_, index) => index !== indexToRemove)
+        .map((step, index) => {
+          return { ...step, id: `${index + 1}` };
+        })
+    );
+  }
+
+  function handleStepChange(index, event) {
+    const newSteps = [...steps];
+    newSteps[index].description = event.target.value;
+    setSteps(newSteps);
+  }
+
   return (
     <>
       <Form
@@ -33,6 +71,12 @@ export default function HomePage({ projects, onAddProject, onBookmark }) {
         formMaterials={formMaterials}
         formSteps={formSteps}
         onClearMaterialsAndSteps={handleClearMaterialsAndSteps}
+        onAddMaterialField={handleAddMaterialField}
+        onRemoveMaterialField={handleRemoveMaterialField}
+        onMaterialChange={handleMaterialChange}
+        onAddStepField={handleAddStepField}
+        onRemoveStepField={handleRemoveStepField}
+        onStepChange={handleStepChange}
       />
 
       <SearchBar onSearch={handleSearch} />

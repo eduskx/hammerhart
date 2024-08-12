@@ -6,17 +6,22 @@ import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 
 export default function Form({
+  projects,
   onToggleForm,
   onAddProject,
-  projects,
   defaultData,
   onSubmit,
   formMaterials,
-  setFormMaterials,
   formSteps,
-  setFormSteps,
   isEditMode,
   id,
+  onClearMaterialsAndSteps,
+  onAddMaterialField,
+  onRemoveMaterialField,
+  onMaterialChange,
+  onAddStepField,
+  onRemoveStepField,
+  onStepChange,
 }) {
   let formRef = useRef(null);
 
@@ -26,29 +31,23 @@ export default function Form({
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
 
-    const highestProjectId = projects.reduce(
-      (prev, current) => (prev.id > current.id ? prev.id : current.id),
-      "0"
-    );
+    const highestProjectId = projects.length > 0 ? projects[0].id : "1";
 
     newProject.id = `${Number(highestProjectId) + 1}`;
     newProject.materials = formMaterials;
     newProject.steps = formSteps;
 
-    // setNewProjects([...projects, newProject]);
     onAddProject();
 
     event.target.reset();
-    setFormMaterials([""]);
-    setFormSteps([{ id: "1", description: "" }]);
+    onClearMaterialsAndSteps();
 
     onToggleForm();
   }
 
   function handleClearForm() {
     formRef.reset();
-    setFormMaterials([""]);
-    setFormSteps([{ id: "1", description: "" }]);
+    onClearMaterialsAndSteps();
   }
 
   return (
@@ -116,10 +115,17 @@ export default function Form({
 
       <DynamicArrayInput
         label="Add Materials"
-        state={formMaterials}
-        setterFunction={setFormMaterials}
+        materials={formMaterials}
+        onAddMaterialField={onAddMaterialField}
+        onRemoveMaterialField={onRemoveMaterialField}
+        onMaterialChange={onMaterialChange}
       />
-      <DynamicStepsInput steps={formSteps} setSteps={setFormSteps} />
+      <DynamicStepsInput
+        steps={formSteps}
+        onAddStepField={onAddStepField}
+        onRemoveStepField={onRemoveStepField}
+        onStepChange={onStepChange}
+      />
 
       <StyledButtonWrapper>
         {!isEditMode && (
