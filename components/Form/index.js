@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
 import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 import Link from "next/link";
@@ -16,7 +16,10 @@ export default function Form({
   setFormSteps,
   isEditMode,
   id,
+  // onChangeImage,
+  // imagePreview,
 }) {
+  const [imagePreview, setImagePreview] = useState(null);
   let formRef = useRef(null);
 
   async function handleSubmit(event) {
@@ -51,6 +54,10 @@ export default function Form({
     setFormSteps([{ id: "1", description: "" }]);
   }
 
+  function handleChangeImage(event) {
+    setImagePreview(event.target.files[0]);
+  }
+
   function handleClearForm() {
     formRef.reset();
     setFormMaterials([""]);
@@ -81,7 +88,16 @@ export default function Form({
         name="imageUrl"
         type="file"
         accept="image/*"
+        onChange={handleChangeImage}
       />
+      {imagePreview && (
+        <Image
+          src={URL.createObjectURL(imagePreview)}
+          alt="Preview of uploaded image"
+          width={200}
+          height={200}
+        ></Image>
+      )}
 
       <label htmlFor="description">Description</label>
       <StyledTextarea
