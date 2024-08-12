@@ -3,7 +3,7 @@ import Form from "@/components/Form";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function Edit({
+export default function EditPage({
   projects,
   onUpdateProject,
   onAddMaterialField,
@@ -12,22 +12,17 @@ export default function Edit({
   onAddStepField,
   onRemoveStepField,
   onStepChange,
+  formMaterials,
+  formSteps,
+  onUpdateDynamicFields,
+  onClearDynamicFields,
 }) {
-  const [formMaterials, setFormMaterials] = useState([""]);
-
-  const [formSteps, setFormSteps] = useState([{ id: "1", description: "" }]);
-
   const router = useRouter();
   const { id } = router.query;
 
   const projectData = projects.find((project) => project.id === id);
 
-  useEffect(() => {
-    if (projectData) {
-      setFormMaterials(projectData.materials);
-      setFormSteps(projectData.steps);
-    }
-  }, [projects]);
+  onUpdateDynamicFields(projectData);
 
   async function editProject(event) {
     event.preventDefault();
@@ -53,6 +48,7 @@ export default function Edit({
     newProject.imageUrl = url;
 
     onUpdateProject(newProject);
+
     router.push(`/projects/${id}`);
   }
 
@@ -72,6 +68,7 @@ export default function Edit({
         onAddStepField={onAddStepField}
         onRemoveStepField={onRemoveStepField}
         onStepChange={onStepChange}
+        onClearDynamicFields={onClearDynamicFields}
       />
     </>
   );

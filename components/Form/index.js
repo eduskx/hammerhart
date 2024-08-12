@@ -16,7 +16,7 @@ export default function Form({
   formSteps,
   isEditMode,
   id,
-  onClearMaterialsAndSteps,
+  onClearDynamicFields,
   onAddMaterialField,
   onRemoveMaterialField,
   onMaterialChange,
@@ -50,12 +50,12 @@ export default function Form({
     onAddProject(newProject);
 
     event.target.reset();
-    onClearMaterialsAndSteps();
+    onClearDynamicFields();
   }
 
   function handleClearForm() {
     formRef.reset();
-    onClearMaterialsAndSteps();
+    onClearDynamicFields();
   }
 
   return (
