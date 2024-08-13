@@ -7,13 +7,17 @@ export default function EditPage({ projects, onUpdateProject }) {
   const { id } = router.query;
 
   const projectData = projects.find((project) => project.id === id);
+  console.log(projectData);
+
+  // display materials and steps
 
   // async function editProject(event) {
   //   event.preventDefault();
 
   //   const formData = new FormData(event.target);
-
   //   const newProject = Object.fromEntries(formData);
+
+  //   console.log(formData, newProject);
 
   //   if (projectData.imageUrl) {
   //     formData.append("currentImageUrl", projectData.imageUrl);
@@ -39,7 +43,7 @@ export default function EditPage({ projects, onUpdateProject }) {
   return (
     <>
       <StyledHeader>{`Edit project`}</StyledHeader>
-      <Form onSubmit defaultData={projectData} />
+      <Form defaultData={projectData} />
     </>
   );
 }
