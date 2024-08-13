@@ -10,10 +10,10 @@ export default function Form({
   onToggleForm,
   onAddProject,
   defaultData,
-  onSubmit,
-  isEditMode,
-  id,
+  onEditSubmit,
 }) {
+  let formRef = useRef(null);
+
   const [materialFields, setMaterialFields] = useState([{ id: nanoid() }]);
   const [stepFields, setStepFields] = useState([{ id: nanoid() }]);
 
@@ -30,18 +30,23 @@ export default function Form({
 
   function handleClearForm() {
     formRef.reset();
+    // we need this extra logic to clear all defaultValues in the EditPage
+    const formInputs = formRef.elements;
+    formInputs.title.value = "";
+    formInputs.imageUrl.value = "";
+    formInputs.description.value = "";
+    formInputs.duration.value = "";
+    formInputs.complexity.value = "";
+
     setMaterialFields([{ id: nanoid() }]);
     setStepFields([{ id: nanoid() }]);
   }
-
-  let formRef = useRef(null);
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
-    console.log(formData);
 
     // convert materials to ["", "", "", ...]
     newProject.materials = formData.getAll("Materials");
@@ -75,7 +80,7 @@ export default function Form({
   return (
     <StyledForm
       ref={(element) => (formRef = element)}
-      onSubmit={onSubmit || handleSubmit}
+      onSubmit={onEditSubmit || handleSubmit}
     >
       <StyledCloseButton type="button" onClick={onToggleForm}>
         <IoMdClose color="darkred" size={28} />
@@ -153,14 +158,9 @@ export default function Form({
       />
 
       <StyledButtonWrapper>
-        {!isEditMode && (
-          <StyledClearButton type="button" onClick={handleClearForm}>
-            Clear
-          </StyledClearButton>
-        )}
-        {isEditMode && (
-          <StyledCancelLink href={`/projects/${id}/`}>Cancel</StyledCancelLink>
-        )}
+        <StyledClearButton type="button" onClick={handleClearForm}>
+          Clear
+        </StyledClearButton>
         <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
       </StyledButtonWrapper>
     </StyledForm>

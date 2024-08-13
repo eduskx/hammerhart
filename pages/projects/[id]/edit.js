@@ -1,65 +1,45 @@
 import { useRouter } from "next/router";
 import Form from "@/components/Form";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function EditPage({
-  projects,
-  onUpdateProject,
-  formMaterials,
-  formSteps,
-  onUpdateDynamicFields,
-  onClearDynamicFields,
-}) {
+export default function EditPage({ projects, onUpdateProject }) {
   const router = useRouter();
   const { id } = router.query;
 
   const projectData = projects.find((project) => project.id === id);
 
-  useEffect(() => {
-    onUpdateDynamicFields(projectData);
-  }, projects);
+  // async function editProject(event) {
+  //   event.preventDefault();
 
-  async function editProject(event) {
-    event.preventDefault();
+  //   const formData = new FormData(event.target);
 
-    const formData = new FormData(event.target);
+  //   const newProject = Object.fromEntries(formData);
 
-    const newProject = Object.fromEntries(formData);
+  //   if (projectData.imageUrl) {
+  //     formData.append("currentImageUrl", projectData.imageUrl);
+  //   }
 
-    if (projectData.imageUrl) {
-      formData.append("currentImageUrl", projectData.imageUrl);
-    }
+  //   const response = await fetch("/api/upload", {
+  //     method: "POST",
+  //     body: formData,
+  //   });
 
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
+  //   const { url } = await response.json();
 
-    const { url } = await response.json();
+  //   newProject.id = id;
+  //   newProject.materials = formMaterials;
+  //   newProject.steps = formSteps;
+  //   newProject.imageUrl = url;
 
-    newProject.id = id;
-    newProject.materials = formMaterials;
-    newProject.steps = formSteps;
-    newProject.imageUrl = url;
+  //   onUpdateProject(newProject);
 
-    onUpdateProject(newProject);
-
-    router.push(`/projects/${id}`);
-  }
+  //   router.push(`/projects/${id}`);
+  // }
 
   return (
     <>
       <StyledHeader>{`Edit project`}</StyledHeader>
-      <Form
-        onSubmit={editProject}
-        formMaterials={formMaterials}
-        formSteps={formSteps}
-        defaultData={projectData}
-        isEditMode={true}
-        id={id}
-        onClearDynamicFields={onClearDynamicFields}
-      />
+      <Form onSubmit defaultData={projectData} />
     </>
   );
 }

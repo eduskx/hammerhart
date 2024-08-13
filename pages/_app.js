@@ -2,7 +2,6 @@ import GlobalStyle from "@/styles";
 import initialProjects from "@/lib/projects.js";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
-import { useEffect } from "react";
 
 export default function App({ Component, pageProps }) {
   const [projects, setProjects] = useLocalStorageState("projects", {
@@ -34,8 +33,6 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-
-  // other functions
 
   return (
     <Layout>
