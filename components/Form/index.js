@@ -1,14 +1,12 @@
 import styled from "styled-components";
-import { useRef } from "react";
-import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
-import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
+import { useState, useRef } from "react";
+import DynamicInputFields from "./DynamicInputFields";
 import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
-import useLocalStorageState from "use-local-storage-state";
+import { nanoid } from "nanoid";
 
 export default function Form({
-  projects,
   onToggleForm,
   onAddProject,
   defaultData,
@@ -16,101 +14,62 @@ export default function Form({
   isEditMode,
   id,
 }) {
+  const [materialFields, setMaterialFields] = useState([{ id: nanoid() }]);
+  const [stepFields, setStepFields] = useState([{ id: nanoid() }]);
+
+  function handleAddField(setFields) {
+    const newField = { id: nanoid() };
+    setFields((prevFields) => [...prevFields, newField]);
+  }
+
+  function handleRemoveField(setFields, idToRemove) {
+    setFields((prevFields) =>
+      prevFields.filter((field) => field.id !== idToRemove)
+    );
+  }
+
+  function handleClearForm() {
+    formRef.reset();
+    setMaterialFields([{ id: nanoid() }]);
+    setStepFields([{ id: nanoid() }]);
+  }
+
   let formRef = useRef(null);
-
-  const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
-    defaultValue: [""],
-  });
-
-  const [formSteps, setFormSteps] = useLocalStorageState("steps", {
-    defaultValue: [{ id: "1", description: "" }],
-  });
-
-  function handleClearDynamicFields() {
-    setFormMaterials([""]);
-    setFormSteps([{ id: "1", description: "" }]);
-  }
-
-  function handleUpdateDynamicFields(projectData) {
-    if (projectData) {
-      setFormMaterials(projectData.materials);
-      setFormSteps(projectData.steps);
-    }
-  }
-
-  // functions for materials list
-
-  function handleAddMaterialField() {
-    setFormMaterials([...formMaterials, ""]);
-  }
-
-  function handleRemoveMaterialField(indexToRemove) {
-    setFormMaterials(
-      formMaterials.filter((_, index) => index !== indexToRemove)
-    );
-  }
-
-  function handleMaterialChange(index, event) {
-    const newMaterials = [...formMaterials];
-    newMaterials[index] = event.target.value;
-    setFormMaterials(newMaterials);
-  }
-
-  // functions for dynamic steps input fields
-
-  function handleAddStepField() {
-    setFormSteps([
-      ...formSteps,
-      { id: `${formSteps.length + 1}`, description: "" },
-    ]);
-  }
-
-  function handleRemoveStepField(indexToRemove) {
-    setFormSteps(
-      formSteps
-        .filter((_, index) => index !== indexToRemove)
-        .map((step, index) => {
-          return { ...step, id: `${index + 1}` };
-        })
-    );
-  }
-
-  function handleStepChange(index, event) {
-    const newSteps = [...formSteps];
-    newSteps[index].description = event.target.value;
-    setFormSteps(newSteps);
-  }
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
-
     const newProject = Object.fromEntries(formData);
+    console.log(formData);
 
+    // convert materials to ["", "", "", ...]
+    newProject.materials = formData.getAll("Materials");
+    delete newProject.Materials;
+
+    // convert steps to [{id: "1", description: ""}, ...]
+    const stepsArray = formData.getAll("Steps");
+    const steps = stepsArray.map((step, index) => ({
+      id: (index + 1).toString(),
+      description: step,
+    }));
+    newProject.steps = steps;
+    delete newProject.Steps;
+
+    // for image
     const response = await fetch("api/upload", {
       method: "POST",
       body: formData,
     });
-
     const { url } = await response.json();
 
-    const highestProjectId = projects.length > 0 ? projects[0].id : "1";
-
-    newProject.id = `${Number(highestProjectId) + 1}`;
-    newProject.materials = formMaterials;
-    newProject.steps = formSteps;
+    newProject.id = nanoid();
     newProject.imageUrl = url;
 
     onAddProject(newProject);
+    console.log(newProject);
 
-    event.target.reset();
-    handleClearDynamicFields();
-  }
-
-  function handleClearForm() {
-    formRef.reset();
-    handleClearDynamicFields();
+    handleClearForm();
   }
 
   return (
@@ -176,18 +135,21 @@ export default function Form({
         </StyledDropdown>
       </StyledDropDownWrapper>
 
-      <DynamicArrayInput
-        label="Add Materials"
-        materials={formMaterials}
-        onAddMaterialField={handleAddMaterialField}
-        onRemoveMaterialField={handleRemoveMaterialField}
-        onMaterialChange={handleMaterialChange}
+      <DynamicInputFields
+        label="Materials"
+        inputFields={materialFields}
+        onAddField={() => handleAddField(setMaterialFields)}
+        onRemoveField={(idToRemove) =>
+          handleRemoveField(setMaterialFields, idToRemove)
+        }
       />
-      <DynamicStepsInput
-        steps={formSteps}
-        onAddStepField={handleAddStepField}
-        onRemoveStepField={handleRemoveStepField}
-        onStepChange={handleStepChange}
+      <DynamicInputFields
+        label="Steps"
+        inputFields={stepFields}
+        onAddField={() => handleAddField(setStepFields)}
+        onRemoveField={(idToRemove) =>
+          handleRemoveField(setStepFields, idToRemove)
+        }
       />
 
       <StyledButtonWrapper>
