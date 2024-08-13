@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
+import BookmarkButton from "../BookmarkButton";
+import Link from "next/link";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -12,23 +14,35 @@ const handleColorType = (color) => {
   }
 };
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, onBookmark }) {
   const { imageUrl, title, complexity } = project;
+
   return (
-    <CardContainer>
-      <StyledImage
-        src={imageUrl}
-        alt={title}
-        width={100}
-        height={100}
-        priority
+    <CardWrapper>
+      <BookmarkButton
+        onBookmark={() => onBookmark(project.id)}
+        isFavorite={project.isFavorite}
       />
-      <Wrapper>
-        <StyledTitle>{title}</StyledTitle>
-        <StyledComplexity>{complexity}</StyledComplexity>
-      </Wrapper>
-      <StyledDiv color={complexity}></StyledDiv>
-    </CardContainer>
+      <StyledLink href={`/projects/${project.id}`}>
+        <CardContainer>
+          <StyledImage
+            src={imageUrl}
+            alt={title}
+            width={100}
+            height={100}
+            priority
+          />
+
+          <Wrapper>
+            <StyledTitle>{title}</StyledTitle>
+
+            <StyledComplexity>{complexity}</StyledComplexity>
+          </Wrapper>
+
+          <StyledDiv color={complexity}></StyledDiv>
+        </CardContainer>
+      </StyledLink>
+    </CardWrapper>
   );
 }
 const CardContainer = styled.div`
@@ -38,18 +52,24 @@ const CardContainer = styled.div`
   border-radius: 20px;
   position: relative;
   overflow: hidden;
-  width: 350px;
-  height: 200px;
   display: flex;
   flex-direction: row;
   list-style: none;
   padding: 0;
-  margin: 0;
   gap: 1rem;
   transition: all 0.5s ease;
+  z-index: 0;
+  height: 100%;
   &:hover {
     transform: scale(1.1);
   }
+`;
+
+const CardWrapper = styled.div`
+  width: 350px;
+  height: 200px;
+  position: relative;
+  padding: 0;
 `;
 
 const StyledImage = styled(Image)`
@@ -57,7 +77,6 @@ const StyledImage = styled(Image)`
   height: auto;
   border-radius: 10px 0 0 13px;
   object-fit: cover;
-  z-index: 2;
   margin: 1rem;
 `;
 const Wrapper = styled.div`
@@ -75,7 +94,7 @@ const StyledDiv = styled.div`
   bottom: -170px;
   right: -88px;
   border-radius: 15px;
-  z-index: 1;
+  z-index: -1;
   border: 50px solid transparent;
   transition: all 1s ease;
 
@@ -98,4 +117,8 @@ const StyledComplexity = styled.p`
   text-align: end;
   color: white;
   z-index: 2;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;

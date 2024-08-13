@@ -2,27 +2,12 @@ import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 
-export default function DynamicStepsInput({ steps, setSteps }) {
-  function handleAddField() {
-    setSteps([...steps, { id: `${steps.length + 1}`, description: "" }]);
-  }
-
-  function handleRemoveField(indexToRemove) {
-    setSteps(
-      steps
-        .filter((_, index) => index !== indexToRemove)
-        .map((step, index) => {
-          return { ...step, id: `${index + 1}` };
-        })
-    );
-  }
-
-  function handleChange(index, event) {
-    const newSteps = [...steps];
-    newSteps[index].description = event.target.value;
-    setSteps(newSteps);
-  }
-
+export default function DynamicStepsInput({
+  steps,
+  onAddStepField,
+  onRemoveStepField,
+  onStepChange,
+}) {
   return (
     <>
       <StyledLabel htmlFor={steps}>Add Steps</StyledLabel>
@@ -32,18 +17,18 @@ export default function DynamicStepsInput({ steps, setSteps }) {
             required
             id={steps}
             value={step.description}
-            onChange={(event) => handleChange(index, event)}
+            onChange={(event) => onStepChange(index, event)}
             type="text"
           />
           <StyledDeleteButton
             type="button"
-            onClick={() => handleRemoveField(index)}
+            onClick={() => onRemoveStepField(index)}
           >
             <FaRegTrashAlt />
           </StyledDeleteButton>
         </StyledStepsWrapper>
       ))}
-      <StyledAddButton type="button" onClick={handleAddField}>
+      <StyledAddButton type="button" onClick={onAddStepField}>
         <MdAdd />
       </StyledAddButton>
     </>

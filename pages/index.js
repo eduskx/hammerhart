@@ -1,5 +1,4 @@
 import Form from "@/components/Form";
-import Header from "@/components/Header";
 import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
@@ -8,7 +7,17 @@ import AddButton from "@/components/Modals/AddButton";
 
 export default function HomePage({
   projects,
-  setNewProjects,
+  onAddProject,
+  onBookmark,
+  onAddMaterialField,
+  onRemoveMaterialField,
+  onMaterialChange,
+  onAddStepField,
+  onRemoveStepField,
+  onStepChange,
+  formMaterials,
+  formSteps,
+  onClearDynamicFields,
   onToggleForm,
   toggleFormModal,
 }) {
@@ -19,24 +28,22 @@ export default function HomePage({
     setSearchInput(lowerCasedInput);
   }
 
-  const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
-    defaultValue: [""],
-  });
-
-  const [formSteps, setFormSteps] = useLocalStorageState("steps", {
-    defaultValue: [{ id: "1", description: "" }],
-  });
   return (
     <>
-      <Header />
-      {/* <Form
-        setNewProjects={setNewProjects}
+      <Form
+        onAddProject={onAddProject}
         projects={projects}
         formMaterials={formMaterials}
-        setFormMaterials={setFormMaterials}
         formSteps={formSteps}
-        setFormSteps={setFormSteps}
-      /> */}
+        onClearDynamicFields={onClearDynamicFields}
+        onAddMaterialField={onAddMaterialField}
+        onRemoveMaterialField={onRemoveMaterialField}
+        onMaterialChange={onMaterialChange}
+        onAddStepField={onAddStepField}
+        onRemoveStepField={onRemoveStepField}
+        onStepChange={onStepChange}
+      />
+
       <SearchBar onSearch={handleSearch} />
       <AddButton
         onToggleForm={onToggleForm}
@@ -48,7 +55,12 @@ export default function HomePage({
         formSteps={formSteps}
         setFormSteps={setFormSteps}
       />
-      <FilterList projects={projects} searchInput={searchInput} />
+      <FilterList
+        projects={projects}
+        onAddProject={onAddProject}
+        onBookmark={onBookmark}
+        searchInput={searchInput}
+      />
     </>
   );
 }

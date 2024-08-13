@@ -4,7 +4,9 @@ import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 import Modal from "@/components/Modals/DeleteButton";
+import BookmarkButton from "@/components/BookmarkButton";
 import Collapsible from "react-collapsible";
+import Note from "@/components/Note";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -16,7 +18,12 @@ const handleColorType = (color) => {
       return "#3ecd5e";
   }
 };
-export default function ProjectDetailsPage({ projects, setNewProjects }) {
+
+export default function ProjectDetailsPage({
+  projects,
+  onDeleteProject,
+  onBookmark,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -37,10 +44,6 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
     id: detailsId,
   } = projectData;
 
-  function handleDelete(id) {
-    setNewProjects(projects.filter((project) => project.id !== id));
-    router.push("/");
-  }
   const StyledCollapsible = ({ children, ...props }) => (
     <StyledCollapsibleWrapper>
       <Collapsible {...props}>{children}</Collapsible>
@@ -55,6 +58,10 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
 
       <StyledDetailsWrapper>
         <StyledImageWrapper>
+          <BookmarkButton
+            onBookmark={() => onBookmark(projectData.id)}
+            isFavorite={projectData.isFavorite}
+          />
           <StyledImage
             src={imageUrl}
             alt={title}
@@ -71,7 +78,8 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
         <StyledDuration>Duration: {duration}</StyledDuration>
 
         <StyledCollapsible
-          trigger="Materials"
+          trigger="Materials ▼"
+          triggerWhenOpen="Materials ▲"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
@@ -88,7 +96,8 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
         </StyledCollapsible>
 
         <StyledCollapsible
-          trigger="Instructions"
+          trigger="Instructions ▼"
+          triggerWhenOpen="Instructions ▲"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
@@ -106,8 +115,17 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
           )}
         </StyledCollapsible>
 
+        <StyledCollapsible
+          trigger="Notes ▼"
+          triggerWhenOpen="Notes ▲"
+          transitionTime={100}
+          easing="ease-in-out"
+          open={true}
+        >
+          <Note project={projectData} />
+        </StyledCollapsible>
         <StyledButtonsWrapper>
-          <Modal onDelete={() => handleDelete(id)} />
+          <Modal onDelete={() => onDeleteProject(id, router)} />
           <StyledEditLink href={`/projects/${detailsId}/edit`}>
             Edit
           </StyledEditLink>
@@ -119,7 +137,6 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
 
 const Styledtitle = styled.h1`
   font-size: 1.5rem;
-
   @media screen and (min-width: 640px) {
     font-size: 2rem;
   }
@@ -154,6 +171,7 @@ const StyledDetailsWrapper = styled.div`
   color: white;
   padding: 0;
   gap: 1rem;
+
   @media screen and (min-width: 640px) {
     box-shadow: 1px 1px 6px 1px #00000072;
     background-color: #a38376;
@@ -210,10 +228,17 @@ const StyledMaterialsList = styled.ul`
 
 const StyledInstructionsList = styled.ol`
   list-style-position: inside;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  list-style-position: inside;
+  padding: 0 1rem 0 1rem;
+  margin-bottom: 1rem;
   text-align: start;
   color: #ffffff;
+
   @media screen and (min-width: 640px) {
     list-style-position: inside;
+    padding: 0;
     padding: 0;
     text-align: start;
   }
@@ -241,23 +266,25 @@ const StyledEditLink = styled(Link)`
     outline: 1px solid white;
   }
 `;
+
 const StyledCollapsibleWrapper = styled.div`
-  background-size: 100%;
   border-radius: 2px;
   color: rgba(58, 58, 58, 1);
   background: rgba(255, 255, 255, 0.5);
   border: 1px solid #ccc;
-  width: 90%;
+  width: 95%;
 
   &:hover {
     outline: 1px solid white;
   }
   .Collapsible__trigger {
+    display: flex;
+
     color: rgba(58, 58, 58, 1);
-    width: 90%;
+    width: 100%;
     cursor: pointer;
     padding-left: 0.5rem;
-    padding-right: 90%;
+
     -webkit-tap-highlight-color: transparent;
   }
   .Collapsible__contentOuter {

@@ -1,8 +1,7 @@
 import ProjectCard from "@/components/ProjectCard";
-import Link from "next/link";
 import styled from "styled-components";
 
-export default function ProjectsList({ projects, searchInput }) {
+export default function ProjectsList({ projects, onBookmark, searchInput }) {
   if (!projects || projects.length === 0) {
     return <h1>No projects found. Please create new ones.</h1>;
   }
@@ -24,22 +23,15 @@ export default function ProjectsList({ projects, searchInput }) {
 
   return (
     <StyledUl>
-      {/* added toReversed() to be able to save projects in correct order and prevent assigning wrong id's to new projects*/}
-      {searchedProjects.toReversed().map((project) => (
+      {searchedProjects.map((project) => (
         <li key={project.id}>
-          <StyledLink href={`/projects/${project.id}`}>
-            <ProjectCard project={project} />
-          </StyledLink>
+          <ProjectCard project={project} onBookmark={onBookmark} />
         </li>
       ))}
     </StyledUl>
   );
 }
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: black;
-`;
 const StyledUl = styled.ul`
   display: flex;
   flex-wrap: wrap;
