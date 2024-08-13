@@ -78,27 +78,27 @@ export default function Form({
         maxLength={50}
       />
 
-      <StyledImageUploadLabel htmlFor="imageUrl">
-        <Image src="/upload.svg" alt="upload_icon" width={20} height={20} />
-        <span>Upload Image</span>
-      </StyledImageUploadLabel>
-      <StyledImageUploadInput
-        id="imageUrl"
-        name="imageUrl"
-        type="file"
-        accept="image/*"
-        onChange={handleChangeImage}
-      />
-      {imagePreview && (
-        <div>
-          <Image
+      <StyledImagePreviewWrapper>
+        <StyledImageUploadLabel htmlFor="imageUrl">
+          <Image src="/upload.svg" alt="upload_icon" width={20} height={20} />
+          <span>Upload Image</span>
+        </StyledImageUploadLabel>
+        <StyledImageUploadInput
+          id="imageUrl"
+          name="imageUrl"
+          type="file"
+          accept="image/*"
+          onChange={handleChangeImage}
+        />
+        {imagePreview && (
+          <StyledImagePreview
             src={URL.createObjectURL(imagePreview)}
             alt="Preview of uploaded image"
-            width={200}
-            height={200}
-          ></Image>
-        </div>
-      )}
+            width={100}
+            height={150}
+          ></StyledImagePreview>
+        )}
+      </StyledImagePreviewWrapper>
 
       <label htmlFor="description">Description</label>
       <StyledTextarea
@@ -196,23 +196,35 @@ const StyledForm = styled.form`
   align-self: center;
 `;
 
+const StyledImagePreviewWrapper = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: stretch;
+  justify-content: space-between;
+  margin: 1rem 0;
+`;
+
+const StyledImagePreview = styled(Image)`
+  border-radius: 3px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  width: 50%;
+`;
+
 const StyledImageUploadInput = styled.input`
   display: none;
 `;
 
 const StyledImageUploadLabel = styled.label`
+  align-self: flex-end;
   display: flex;
-  justify-content: center;
-  text-align: center;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.1rem;
   color: #000;
   background: rgba(255, 255, 255, 0.5);
-  text-align: center;
-  padding: 15px 40px;
   user-select: none;
   cursor: pointer;
   border-radius: 2px;
-  margin: 1rem 0;
   &:hover {
     outline: 1px solid white;
   }
