@@ -16,8 +16,6 @@ export default function Form({
   setFormSteps,
   isEditMode,
   id,
-  // onChangeImage,
-  // imagePreview,
 }) {
   const [imagePreview, setImagePreview] = useState(null);
   let formRef = useRef(null);
