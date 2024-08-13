@@ -52,6 +52,7 @@ export default function Form({
     event.target.reset();
     setFormMaterials([""]);
     setFormSteps([{ id: "1", description: "" }]);
+    setImagePreview(null);
   }
 
   function handleChangeImage(event) {
@@ -91,12 +92,14 @@ export default function Form({
         onChange={handleChangeImage}
       />
       {imagePreview && (
-        <Image
-          src={URL.createObjectURL(imagePreview)}
-          alt="Preview of uploaded image"
-          width={200}
-          height={200}
-        ></Image>
+        <div>
+          <Image
+            src={URL.createObjectURL(imagePreview)}
+            alt="Preview of uploaded image"
+            width={200}
+            height={200}
+          ></Image>
+        </div>
       )}
 
       <label htmlFor="description">Description</label>
