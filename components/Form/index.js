@@ -63,6 +63,10 @@ export default function Form({
     setFormSteps([{ id: "1", description: "" }]);
   }
 
+  function handleChangeLimitCharacter() {
+    console.log("Hello");
+  }
+
   return (
     <StyledForm
       ref={(element) => (formRef = element)}
@@ -106,8 +110,12 @@ export default function Form({
         name="description"
         rows={5}
         cols={30}
+        maxLength={250}
+        onChange={handleChangeLimitCharacter}
         defaultValue={defaultData?.description}
-      />
+      >
+        HEALALSDLLLSLSDDS
+      </StyledTextarea>
 
       <label htmlFor="duration">Duration</label>
       <StyledInput
