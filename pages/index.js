@@ -4,6 +4,7 @@ import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
+import RandomProject from "@/components/RandomProject";
 
 export default function HomePage({ projects, setNewProjects }) {
   const [searchInput, setSearchInput] = useState("");
@@ -31,6 +32,7 @@ export default function HomePage({ projects, setNewProjects }) {
         formSteps={formSteps}
         setFormSteps={setFormSteps}
       />
+      <RandomProject projects={projects} />
       <SearchBar onSearch={handleSearch} />
       <FilterList projects={projects} searchInput={searchInput} />
     </>

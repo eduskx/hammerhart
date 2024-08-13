@@ -14,6 +14,7 @@ const handleColorType = (color) => {
 
 export default function ProjectCard({ project }) {
   const { imageUrl, title, complexity } = project;
+
   return (
     <CardContainer>
       <StyledImage
@@ -31,6 +32,7 @@ export default function ProjectCard({ project }) {
     </CardContainer>
   );
 }
+
 const CardContainer = styled.div`
   box-shadow: 1px 1px 6px 1px #00000072;
   background: rgb(44, 150, 164);
