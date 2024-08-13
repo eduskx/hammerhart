@@ -9,14 +9,6 @@ export default function App({ Component, pageProps }) {
     defaultValue: initialProjects,
   });
 
-  const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
-    defaultValue: [""],
-  });
-
-  const [formSteps, setFormSteps] = useLocalStorageState("steps", {
-    defaultValue: [{ id: "1", description: "" }],
-  });
-
   function handleAddProject(newProject) {
     setProjects([newProject, ...projects]);
   }
@@ -43,62 +35,7 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-  // functions for materials list
-
-  function handleAddMaterialField() {
-    setFormMaterials([...formMaterials, ""]);
-  }
-
-  function handleRemoveMaterialField(indexToRemove) {
-    setFormMaterials(
-      formMaterials.filter((_, index) => index !== indexToRemove)
-    );
-  }
-
-  function handleMaterialChange(index, event) {
-    const newMaterials = [...formMaterials];
-    newMaterials[index] = event.target.value;
-    setFormMaterials(newMaterials);
-  }
-
-  // functions for dynamic steps input fields
-
-  function handleAddStepField() {
-    setFormSteps([
-      ...formSteps,
-      { id: `${formSteps.length + 1}`, description: "" },
-    ]);
-  }
-
-  function handleRemoveStepField(indexToRemove) {
-    setFormSteps(
-      formSteps
-        .filter((_, index) => index !== indexToRemove)
-        .map((step, index) => {
-          return { ...step, id: `${index + 1}` };
-        })
-    );
-  }
-
-  function handleStepChange(index, event) {
-    const newSteps = [...formSteps];
-    newSteps[index].description = event.target.value;
-    setFormSteps(newSteps);
-  }
-
   // other functions
-
-  function handleClearDynamicFields() {
-    setFormMaterials([""]);
-    setFormSteps([{ id: "1", description: "" }]);
-  }
-
-  function handleUpdateDynamicFields(projectData) {
-    if (projectData) {
-      setFormMaterials(projectData.materials);
-      setFormSteps(projectData.steps);
-    }
-  }
 
   return (
     <Layout>
@@ -110,16 +47,6 @@ export default function App({ Component, pageProps }) {
         onAddProject={handleAddProject}
         onToggleBookmark={handleToggleBookmark}
         onDeleteProject={handleDeleteProject}
-        onAddMaterialField={handleAddMaterialField}
-        onRemoveMaterialField={handleRemoveMaterialField}
-        onMaterialChange={handleMaterialChange}
-        onAddStepField={handleAddStepField}
-        onRemoveStepField={handleRemoveStepField}
-        onStepChange={handleStepChange}
-        formMaterials={formMaterials}
-        formSteps={formSteps}
-        onClearDynamicFields={handleClearDynamicFields}
-        onUpdateDynamicFields={handleUpdateDynamicFields}
       />
     </Layout>
   );

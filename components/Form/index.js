@@ -5,6 +5,7 @@ import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
 import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
+import useLocalStorageState from "use-local-storage-state";
 
 export default function Form({
   projects,
@@ -12,19 +13,73 @@ export default function Form({
   onAddProject,
   defaultData,
   onSubmit,
-  formMaterials,
-  formSteps,
   isEditMode,
   id,
-  onClearDynamicFields,
-  onAddMaterialField,
-  onRemoveMaterialField,
-  onMaterialChange,
-  onAddStepField,
-  onRemoveStepField,
-  onStepChange,
 }) {
   let formRef = useRef(null);
+
+  const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
+    defaultValue: [""],
+  });
+
+  const [formSteps, setFormSteps] = useLocalStorageState("steps", {
+    defaultValue: [{ id: "1", description: "" }],
+  });
+
+  function handleClearDynamicFields() {
+    setFormMaterials([""]);
+    setFormSteps([{ id: "1", description: "" }]);
+  }
+
+  function handleUpdateDynamicFields(projectData) {
+    if (projectData) {
+      setFormMaterials(projectData.materials);
+      setFormSteps(projectData.steps);
+    }
+  }
+
+  // functions for materials list
+
+  function handleAddMaterialField() {
+    setFormMaterials([...formMaterials, ""]);
+  }
+
+  function handleRemoveMaterialField(indexToRemove) {
+    setFormMaterials(
+      formMaterials.filter((_, index) => index !== indexToRemove)
+    );
+  }
+
+  function handleMaterialChange(index, event) {
+    const newMaterials = [...formMaterials];
+    newMaterials[index] = event.target.value;
+    setFormMaterials(newMaterials);
+  }
+
+  // functions for dynamic steps input fields
+
+  function handleAddStepField() {
+    setFormSteps([
+      ...formSteps,
+      { id: `${formSteps.length + 1}`, description: "" },
+    ]);
+  }
+
+  function handleRemoveStepField(indexToRemove) {
+    setFormSteps(
+      formSteps
+        .filter((_, index) => index !== indexToRemove)
+        .map((step, index) => {
+          return { ...step, id: `${index + 1}` };
+        })
+    );
+  }
+
+  function handleStepChange(index, event) {
+    const newSteps = [...formSteps];
+    newSteps[index].description = event.target.value;
+    setFormSteps(newSteps);
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -50,12 +105,12 @@ export default function Form({
     onAddProject(newProject);
 
     event.target.reset();
-    onClearDynamicFields();
+    handleClearDynamicFields();
   }
 
   function handleClearForm() {
     formRef.reset();
-    onClearDynamicFields();
+    handleClearDynamicFields();
   }
 
   return (
@@ -124,15 +179,15 @@ export default function Form({
       <DynamicArrayInput
         label="Add Materials"
         materials={formMaterials}
-        onAddMaterialField={onAddMaterialField}
-        onRemoveMaterialField={onRemoveMaterialField}
-        onMaterialChange={onMaterialChange}
+        onAddMaterialField={handleAddMaterialField}
+        onRemoveMaterialField={handleRemoveMaterialField}
+        onMaterialChange={handleMaterialChange}
       />
       <DynamicStepsInput
         steps={formSteps}
-        onAddStepField={onAddStepField}
-        onRemoveStepField={onRemoveStepField}
-        onStepChange={onStepChange}
+        onAddStepField={handleAddStepField}
+        onRemoveStepField={handleRemoveStepField}
+        onStepChange={handleStepChange}
       />
 
       <StyledButtonWrapper>

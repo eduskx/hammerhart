@@ -6,12 +6,6 @@ import styled from "styled-components";
 export default function EditPage({
   projects,
   onUpdateProject,
-  onAddMaterialField,
-  onRemoveMaterialField,
-  onMaterialChange,
-  onAddStepField,
-  onRemoveStepField,
-  onStepChange,
   formMaterials,
   formSteps,
   onUpdateDynamicFields,
@@ -64,12 +58,6 @@ export default function EditPage({
         defaultData={projectData}
         isEditMode={true}
         id={id}
-        onAddMaterialField={onAddMaterialField}
-        onRemoveMaterialField={onRemoveMaterialField}
-        onMaterialChange={onMaterialChange}
-        onAddStepField={onAddStepField}
-        onRemoveStepField={onRemoveStepField}
-        onStepChange={onStepChange}
         onClearDynamicFields={onClearDynamicFields}
       />
     </>
