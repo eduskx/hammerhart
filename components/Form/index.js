@@ -105,9 +105,10 @@ export default function Form({
         )}
       </StyledImagePreviewWrapper>
 
-      <label htmlFor="description">
-        Description {`${limitCharacter} Characters left`}
-      </label>
+      <TextCounterWrapper htmlFor="description">
+        Description{" "}
+        <TextCounter>{`${limitCharacter} Characters left`}</TextCounter>
+      </TextCounterWrapper>
       <StyledTextarea
         id="description"
         name="description"
@@ -163,6 +164,13 @@ export default function Form({
     </StyledForm>
   );
 }
+
+const TextCounterWrapper = styled.label`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const TextCounter = styled.span``;
 
 const StyledTextarea = styled.textarea`
   all: unset;
