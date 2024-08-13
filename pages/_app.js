@@ -108,11 +108,16 @@ export default function App({ Component, pageProps }) {
   function handleToggleForm() {
     setToggleFormModal(!toggleFormModal);
     handleClearDynamicFields();
+    if (!toggleFormModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
   }
 
   return (
     <Layout>
-      <GlobalStyle />
+      <GlobalStyle toggleFormModal />
       <Component
         {...pageProps}
         projects={projects}

@@ -41,7 +41,7 @@ const StyledContainer = styled.div`
   right: 0;
   bottom: 0;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   background-color: hsl(0, 0%, 0%, 60%);
   overflow-y: auto;
   padding: 4rem 0;

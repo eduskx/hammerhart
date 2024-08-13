@@ -11,12 +11,13 @@ export default function DynamicArrayInput({
 }) {
   return (
     <>
-      <StyledLabel htmlFor={label}>{label}</StyledLabel>
+      <StyledLegend>{label}</StyledLegend>
       {materials.map((element, index) => (
         <StyledMaterialsWrapper key={index}>
+          <label htmlFor={index}></label>
           <StyledInput
             required
-            id={label}
+            id={index}
             value={element}
             onChange={(event) => onMaterialChange(index, event)}
             type="text"
@@ -36,7 +37,7 @@ export default function DynamicArrayInput({
   );
 }
 
-const StyledLabel = styled.label`
+const StyledLegend = styled.legend`
   padding-top: 1rem;
 `;
 

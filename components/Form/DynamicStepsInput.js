@@ -10,12 +10,13 @@ export default function DynamicStepsInput({
 }) {
   return (
     <>
-      <StyledLabel htmlFor={steps}>Add Steps</StyledLabel>
+      <StyledLegend>Add Steps</StyledLegend>
       {steps.map((step, index) => (
         <StyledStepsWrapper key={step.id}>
+          <label htmlFor={step.id}></label>
           <StyledInput
             required
-            id={steps}
+            id={step.id}
             value={step.description}
             onChange={(event) => onStepChange(index, event)}
             type="text"
@@ -35,7 +36,7 @@ export default function DynamicStepsInput({
   );
 }
 
-const StyledLabel = styled.label`
+const StyledLegend = styled.label`
   padding-top: 1rem;
 `;
 

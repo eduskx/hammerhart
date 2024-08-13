@@ -48,7 +48,7 @@ export default function AddButton({
 
 const StyledAddButton = styled.button`
   position: fixed;
-  bottom: 5%;
+  bottom: 10%;
   right: 10%;
   z-index: 10;
   padding: 0.5rem;
