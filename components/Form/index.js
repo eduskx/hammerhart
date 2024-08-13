@@ -17,6 +17,8 @@ export default function Form({
   isEditMode,
   id,
 }) {
+  console.log(onSubmit);
+
   const [imagePreview, setImagePreview] = useState(null);
   const [limitCharacter, setLimitCharachter] = useState(250);
   let formRef = useRef(null);
@@ -105,9 +107,11 @@ export default function Form({
         )}
       </StyledImagePreviewWrapper>
 
-      <TextCounterWrapper htmlFor="description">
-        Description{" "}
-        <TextCounter>{`${limitCharacter} Characters left`}</TextCounter>
+      <TextCounterWrapper>
+        <label htmlFor="description">Description</label>
+        <p>
+          <TextCounter>{limitCharacter}</TextCounter> Characters left
+        </p>
       </TextCounterWrapper>
       <StyledTextarea
         id="description"
@@ -165,7 +169,7 @@ export default function Form({
   );
 }
 
-const TextCounterWrapper = styled.label`
+const TextCounterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
