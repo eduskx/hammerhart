@@ -18,6 +18,7 @@ export default function Form({
   id,
 }) {
   const [imagePreview, setImagePreview] = useState(null);
+  const [limitCharacter, setLimitCharachter] = useState(250);
   let formRef = useRef(null);
 
   async function handleSubmit(event) {
@@ -63,8 +64,8 @@ export default function Form({
     setFormSteps([{ id: "1", description: "" }]);
   }
 
-  function handleChangeLimitCharacter() {
-    console.log("Hello");
+  function handleChangeLimitCharacter(event) {
+    setLimitCharachter(event.target.maxLength - event.target.value.length);
   }
 
   return (
@@ -104,7 +105,9 @@ export default function Form({
         )}
       </StyledImagePreviewWrapper>
 
-      <label htmlFor="description">Description</label>
+      <label htmlFor="description">
+        Description {`${limitCharacter} Characters left`}
+      </label>
       <StyledTextarea
         id="description"
         name="description"
@@ -113,9 +116,7 @@ export default function Form({
         maxLength={250}
         onChange={handleChangeLimitCharacter}
         defaultValue={defaultData?.description}
-      >
-        HEALALSDLLLSLSDDS
-      </StyledTextarea>
+      />
 
       <label htmlFor="duration">Duration</label>
       <StyledInput
