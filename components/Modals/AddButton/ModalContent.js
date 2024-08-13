@@ -4,22 +4,32 @@ import styled from "styled-components";
 export default function ModalContent({
   onToggleForm,
   projects,
-  setNewProjects,
+  onAddProject,
+  onAddMaterialField,
+  onRemoveMaterialField,
+  onMaterialChange,
+  onAddStepField,
+  onRemoveStepField,
+  onStepChange,
   formMaterials,
-  setFormMaterials,
   formSteps,
-  setFormSteps,
+  onClearDynamicFields,
 }) {
   return (
     <StyledContainer>
       <Form
         onToggleForm={onToggleForm}
+        onAddProject={onAddProject}
         projects={projects}
-        setNewProjects={setNewProjects}
         formMaterials={formMaterials}
-        setFormMaterials={setFormMaterials}
         formSteps={formSteps}
-        setFormSteps={setFormSteps}
+        onClearDynamicFields={onClearDynamicFields}
+        onAddMaterialField={onAddMaterialField}
+        onRemoveMaterialField={onRemoveMaterialField}
+        onMaterialChange={onMaterialChange}
+        onAddStepField={onAddStepField}
+        onRemoveStepField={onRemoveStepField}
+        onStepChange={onStepChange}
       />
     </StyledContainer>
   );
@@ -33,4 +43,6 @@ const StyledContainer = styled.div`
   top: 0;
   z-index: 100;
   background-color: hsl(0, 0%, 0%, 60%);
+  overflow-y: auto;
+  padding: 4rem 0;
 `;

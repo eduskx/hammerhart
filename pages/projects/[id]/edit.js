@@ -57,7 +57,7 @@ export default function EditPage({
     <>
       <StyledHeader>{`Edit project`}</StyledHeader>
       <Form
-        onToggleForm={onToggleForm}
+        // onToggleForm={onToggleForm}
         onSubmit={editProject}
         formMaterials={formMaterials}
         formSteps={formSteps}

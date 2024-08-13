@@ -8,11 +8,16 @@ export default function AddButton({
   onToggleForm,
   toggleFormModal,
   projects,
-  setNewProjects,
+  onAddProject,
+  onAddMaterialField,
+  onRemoveMaterialField,
+  onMaterialChange,
+  onAddStepField,
+  onRemoveStepField,
+  onStepChange,
   formMaterials,
-  setFormMaterials,
   formSteps,
-  setFormSteps,
+  onClearDynamicFields,
 }) {
   // const [showFormModal, setShowFormModal] = useState(false);
 
@@ -21,19 +26,22 @@ export default function AddButton({
       <StyledAddButton type="button" onClick={onToggleForm}>
         <IoMdAdd size={32} />
       </StyledAddButton>
-      {toggleFormModal &&
-        createPortal(
-          <ModalContent
-            onToggleForm={onToggleForm}
-            projects={projects}
-            setNewProjects={setNewProjects}
-            formMaterials={formMaterials}
-            setFormMaterials={setFormMaterials}
-            formSteps={formSteps}
-            setFormSteps={setFormSteps}
-          />,
-          document.body
-        )}
+      {toggleFormModal && (
+        <ModalContent
+          onToggleForm={onToggleForm}
+          onAddProject={onAddProject}
+          projects={projects}
+          formMaterials={formMaterials}
+          formSteps={formSteps}
+          onClearDynamicFields={onClearDynamicFields}
+          onAddMaterialField={onAddMaterialField}
+          onRemoveMaterialField={onRemoveMaterialField}
+          onMaterialChange={onMaterialChange}
+          onAddStepField={onAddStepField}
+          onRemoveStepField={onRemoveStepField}
+          onStepChange={onStepChange}
+        />
+      )}
     </>
   );
 }

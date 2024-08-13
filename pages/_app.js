@@ -1,7 +1,6 @@
 import GlobalStyle from "@/styles";
 import initialProjects from "@/lib/projects.js";
 import useLocalStorageState from "use-local-storage-state";
-import { useState } from "react";
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 
@@ -18,6 +17,8 @@ export default function App({ Component, pageProps }) {
     defaultValue: [{ id: "1", description: "" }],
   });
 
+  const [toggleFormModal, setToggleFormModal] = useState(false);
+
   function handleAddProject(newProject) {
     setProjects([newProject, ...projects]);
   }
@@ -26,8 +27,6 @@ export default function App({ Component, pageProps }) {
     setProjects(projects.filter((project) => project.id !== id));
     router.push("/");
   }
-
-  const [toggleFormModal, setToggleFormModal] = useState(false);
 
   function handleUpdateProject(updatedProject) {
     setProjects(
@@ -108,6 +107,7 @@ export default function App({ Component, pageProps }) {
 
   function handleToggleForm() {
     setToggleFormModal(!toggleFormModal);
+    handleClearDynamicFields();
   }
 
   return (

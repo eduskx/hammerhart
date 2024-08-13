@@ -30,7 +30,7 @@ export default function HomePage({
 
   return (
     <>
-      <Form
+      {/* <Form
         onAddProject={onAddProject}
         projects={projects}
         formMaterials={formMaterials}
@@ -42,18 +42,23 @@ export default function HomePage({
         onAddStepField={onAddStepField}
         onRemoveStepField={onRemoveStepField}
         onStepChange={onStepChange}
-      />
+      /> */}
 
       <SearchBar onSearch={handleSearch} />
       <AddButton
         onToggleForm={onToggleForm}
         toggleFormModal={toggleFormModal}
+        onAddProject={onAddProject}
         projects={projects}
-        setNewProjects={setNewProjects}
         formMaterials={formMaterials}
-        setFormMaterials={setFormMaterials}
         formSteps={formSteps}
-        setFormSteps={setFormSteps}
+        onClearDynamicFields={onClearDynamicFields}
+        onAddMaterialField={onAddMaterialField}
+        onRemoveMaterialField={onRemoveMaterialField}
+        onMaterialChange={onMaterialChange}
+        onAddStepField={onAddStepField}
+        onRemoveStepField={onRemoveStepField}
+        onStepChange={onStepChange}
       />
       <FilterList
         projects={projects}
