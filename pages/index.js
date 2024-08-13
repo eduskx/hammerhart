@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function HomePage({
   projects,
   onAddProject,
-  onBookmark,
+  onToggleBookmark,
   onAddMaterialField,
   onRemoveMaterialField,
   onMaterialChange,
@@ -45,7 +45,7 @@ export default function HomePage({
       <FilterList
         projects={projects}
         onAddProject={onAddProject}
-        onBookmark={onBookmark}
+        onToggleBookmark={onToggleBookmark}
         searchInput={searchInput}
       />
     </>

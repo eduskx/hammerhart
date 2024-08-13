@@ -2,7 +2,7 @@ import GlobalStyle from "@/styles";
 import initialProjects from "@/lib/projects.js";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function App({ Component, pageProps }) {
   const [projects, setProjects] = useLocalStorageState("projects", {
@@ -21,9 +21,8 @@ export default function App({ Component, pageProps }) {
     setProjects([newProject, ...projects]);
   }
 
-  function handleDeleteProject(id, router) {
+  function handleDeleteProject(id) {
     setProjects(projects.filter((project) => project.id !== id));
-    router.push("/");
   }
 
   function handleUpdateProject(updatedProject) {
@@ -95,12 +94,10 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleUpdateDynamicFields(projectData) {
-    useEffect(() => {
-      if (projectData) {
-        setFormMaterials(projectData.materials);
-        setFormSteps(projectData.steps);
-      }
-    }, projects);
+    if (projectData) {
+      setFormMaterials(projectData.materials);
+      setFormSteps(projectData.steps);
+    }
   }
 
   return (
@@ -111,7 +108,7 @@ export default function App({ Component, pageProps }) {
         projects={projects}
         onUpdateProject={handleUpdateProject}
         onAddProject={handleAddProject}
-        onBookmark={handleToggleBookmark}
+        onToggleBookmark={handleToggleBookmark}
         onDeleteProject={handleDeleteProject}
         onAddMaterialField={handleAddMaterialField}
         onRemoveMaterialField={handleRemoveMaterialField}

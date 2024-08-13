@@ -22,7 +22,9 @@ export default function EditPage({
 
   const projectData = projects.find((project) => project.id === id);
 
-  onUpdateDynamicFields(projectData);
+  useEffect(() => {
+    onUpdateDynamicFields(projectData);
+  }, projects);
 
   async function editProject(event) {
     event.preventDefault();

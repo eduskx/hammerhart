@@ -14,13 +14,13 @@ const handleColorType = (color) => {
   }
 };
 
-export default function ProjectCard({ project, onBookmark }) {
+export default function ProjectCard({ project, onToggleBookmark }) {
   const { imageUrl, title, complexity } = project;
 
   return (
     <CardWrapper>
       <BookmarkButton
-        onBookmark={() => onBookmark(project.id)}
+        onToggleBookmark={() => onToggleBookmark(project.id)}
         isFavorite={project.isFavorite}
       />
       <StyledLink href={`/projects/${project.id}`}>

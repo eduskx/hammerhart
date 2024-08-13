@@ -125,7 +125,12 @@ export default function ProjectDetailsPage({
           <Note project={projectData} />
         </StyledCollapsible>
         <StyledButtonsWrapper>
-          <Modal onDelete={() => onDeleteProject(id, router)} />
+          <Modal
+            onDelete={() => {
+              onDeleteProject(id);
+              router.push("/");
+            }}
+          />
           <StyledEditLink href={`/projects/${detailsId}/edit`}>
             Edit
           </StyledEditLink>
