@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import DynamicInputFields from "./DynamicInputFields";
 import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
@@ -8,14 +8,19 @@ import { nanoid } from "nanoid";
 
 export default function Form({
   onToggleForm,
-  onAddProject,
   defaultData,
   onEditSubmit,
+  onAddProject,
+  onProcessFormData,
 }) {
   let formRef = useRef(null);
 
-  const [materialFields, setMaterialFields] = useState([{ id: nanoid() }]);
-  const [stepFields, setStepFields] = useState([{ id: nanoid() }]);
+  const [materialFields, setMaterialFields] = useState(
+    defaultData?.materials || [{ id: nanoid() }]
+  );
+  const [stepFields, setStepFields] = useState(
+    defaultData?.steps || [{ id: nanoid() }]
+  );
 
   function handleAddField(setFields) {
     const newField = { id: nanoid() };
@@ -28,73 +33,30 @@ export default function Form({
     );
   }
 
-  useEffect(() => {
-    setStepFields((prevFields) => {
-      return defaultData?.steps || prevFields;
-    });
-    setMaterialFields((prevFields) => {
-      return defaultData?.materials || prevFields;
-    });
-  }, [defaultData]);
-
   function handleClearForm() {
-    formRef.reset();
-    // we need this extra logic to clear all defaultValues in the EditPage
-    const formInputs = formRef.elements;
-    formInputs.title.value = "";
-    formInputs.imageUrl.value = "";
-    formInputs.description.value = "";
-    formInputs.duration.value = "";
-    formInputs.complexity.value = "";
+    if (formRef.current) {
+      formRef.current.reset();
+
+      // we need this extra logic to clear all defaultValues in the EditPage
+      const formInputs = formRef.current.elements;
+      formInputs.title.value = "";
+      formInputs.imageUrl.value = "";
+      formInputs.description.value = "";
+      formInputs.duration.value = "";
+      formInputs.complexity.value = "";
+    }
 
     setMaterialFields([{ id: nanoid() }]);
     setStepFields([{ id: nanoid() }]);
   }
 
   async function handleSubmit(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const newProject = Object.fromEntries(formData);
-
-    // convert materials to ["", "", "", ...]
-    const materialsArray = formData.getAll("Materials");
-    const materials = materialsArray.map((material, index) => ({
-      id: (index + 1).toString(),
-      description: material,
-    }));
-    newProject.materials = materials;
-    delete newProject.Material;
-
-    // convert steps to [{id: "1", description: ""}, ...]
-    const stepsArray = formData.getAll("Steps");
-    const steps = stepsArray.map((step, index) => ({
-      id: (index + 1).toString(),
-      description: step,
-    }));
-    newProject.steps = steps;
-    delete newProject.Steps;
-
-    // for image
-    const response = await fetch("api/upload", {
-      method: "POST",
-      body: formData,
-    });
-    const { url } = await response.json();
-
-    newProject.id = nanoid();
-    newProject.imageUrl = url;
-
-    onAddProject(newProject);
-
+    await onProcessFormData(event, null, null, onAddProject);
     handleClearForm();
   }
 
   return (
-    <StyledForm
-      ref={(element) => (formRef = element)}
-      onSubmit={onEditSubmit || handleSubmit}
-    >
+    <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
       <StyledCloseButton type="button" onClick={onToggleForm}>
         <IoMdClose color="darkred" size={28} />
       </StyledCloseButton>

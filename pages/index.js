@@ -3,7 +3,12 @@ import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
 
-export default function HomePage({ projects, onAddProject, onToggleBookmark }) {
+export default function HomePage({
+  projects,
+  onAddProject,
+  onToggleBookmark,
+  onProcessFormData,
+}) {
   const [searchInput, setSearchInput] = useState("");
 
   function handleSearch(event) {
@@ -13,7 +18,11 @@ export default function HomePage({ projects, onAddProject, onToggleBookmark }) {
 
   return (
     <>
-      <Form onAddProject={onAddProject} projects={projects} />
+      <Form
+        onAddProject={onAddProject}
+        projects={projects}
+        onProcessFormData={onProcessFormData}
+      />
       <SearchBar onSearch={handleSearch} />
       <FilterList
         projects={projects}

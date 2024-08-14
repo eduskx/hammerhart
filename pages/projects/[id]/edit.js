@@ -2,48 +2,27 @@ import { useRouter } from "next/router";
 import Form from "@/components/Form";
 import styled from "styled-components";
 
-export default function EditPage({ projects, onUpdateProject }) {
+export default function EditPage({
+  projects,
+  onUpdateProject,
+  onProcessFormData,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
   const projectData = projects.find((project) => project.id === id);
-  console.log(projectData);
 
-  // display materials and steps
-
-  // async function editProject(event) {
-  //   event.preventDefault();
-
-  //   const formData = new FormData(event.target);
-  //   const newProject = Object.fromEntries(formData);
-
-  //   console.log(formData, newProject);
-
-  //   if (projectData.imageUrl) {
-  //     formData.append("currentImageUrl", projectData.imageUrl);
-  //   }
-
-  //   const response = await fetch("/api/upload", {
-  //     method: "POST",
-  //     body: formData,
-  //   });
-
-  //   const { url } = await response.json();
-
-  //   newProject.id = id;
-  //   newProject.materials = formMaterials;
-  //   newProject.steps = formSteps;
-  //   newProject.imageUrl = url;
-
-  //   onUpdateProject(newProject);
-
-  //   router.push(`/projects/${id}`);
-  // }
+  async function handleEditSubmit(event) {
+    await onProcessFormData(event, projectData, id, onUpdateProject);
+    router.push(`/projects/${id}`);
+  }
 
   return (
     <>
       <StyledHeader>{`Edit project`}</StyledHeader>
-      <Form defaultData={projectData} />
+      {projectData && (
+        <Form defaultData={projectData} onEditSubmit={handleEditSubmit} />
+      )}
     </>
   );
 }

@@ -2,6 +2,7 @@ import GlobalStyle from "@/styles";
 import initialProjects from "@/lib/projects.js";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
+import { nanoid } from "nanoid";
 
 export default function App({ Component, pageProps }) {
   const [projects, setProjects] = useLocalStorageState("projects", {
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleUpdateProject(updatedProject) {
+    console.log("handleUpdate wird ausgeführt", updatedProject);
     setProjects(
       projects.map((project) =>
         project.id === updatedProject.id ? updatedProject : project
@@ -34,6 +36,51 @@ export default function App({ Component, pageProps }) {
     );
   }
 
+  async function handleProcessFormData(
+    event,
+    projectData,
+    id,
+    onProjectAction
+  ) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const newProject = Object.fromEntries(formData);
+
+    // convert materials to ["", "", "", ...]
+    const materialsArray = formData.getAll("Materials");
+    const materials = materialsArray.map((material, index) => ({
+      id: (index + 1).toString(),
+      description: material,
+    }));
+    newProject.materials = materials;
+    delete newProject.Materials;
+
+    // convert steps to [{id: "1", description: ""}, ...]
+    const stepsArray = formData.getAll("Steps");
+    const steps = stepsArray.map((step, index) => ({
+      id: (index + 1).toString(),
+      description: step,
+    }));
+    newProject.steps = steps;
+    delete newProject.Steps;
+
+    // for image upload
+    if (projectData?.imageUrl) {
+      formData.append("currentImageUrl", projectData.imageUrl);
+    }
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+    const { url } = await response.json();
+
+    newProject.id = id || nanoid();
+    newProject.imageUrl = url;
+
+    onProjectAction(newProject);
+  }
+
   return (
     <Layout>
       <GlobalStyle />
@@ -44,6 +91,7 @@ export default function App({ Component, pageProps }) {
         onAddProject={handleAddProject}
         onToggleBookmark={handleToggleBookmark}
         onDeleteProject={handleDeleteProject}
+        onProcessFormData={handleProcessFormData}
       />
     </Layout>
   );
