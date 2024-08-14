@@ -8,7 +8,6 @@ export default function DynamicInputFields({
   onAddField,
   onRemoveField,
 }) {
-  console.log(inputFields);
   return (
     <>
       <StyledTitle>{label}</StyledTitle>

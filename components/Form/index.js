@@ -14,12 +14,8 @@ export default function Form({
 }) {
   let formRef = useRef(null);
 
-  const [materialFields, setMaterialFields] = useState([
-    { id: nanoid(), description: "" },
-  ]);
-  const [stepFields, setStepFields] = useState([
-    { id: nanoid(), description: "" },
-  ]);
+  const [materialFields, setMaterialFields] = useState([{ id: nanoid() }]);
+  const [stepFields, setStepFields] = useState([{ id: nanoid() }]);
 
   function handleAddField(setFields) {
     console.log("add ich wurde ausgeführt");
@@ -57,10 +53,6 @@ export default function Form({
     // convert materials to ["", "", "", ...]
     newProject.materials = formData.getAll("Materials");
     delete newProject.Materials;
-    // newProject.materials = Object.keys(newProject)
-    //   .filter((key) => key.startsWith("Materials"))
-    //   .map((key) => newProject[key]);
-    // setDefaultDataTest(newProject);
 
     // convert steps to [{id: "1", description: ""}, ...]
     const stepsArray = formData.getAll("Steps");
@@ -69,7 +61,7 @@ export default function Form({
       description: step,
     }));
     newProject.steps = steps;
-    // delete newProject.Steps;
+    delete newProject.Steps;
 
     // for image
     const response = await fetch("api/upload", {
@@ -151,11 +143,7 @@ export default function Form({
 
       <DynamicInputFields
         label="Materials"
-        inputFields={
-          defaultData?.materials.length > 0
-            ? defaultData.materials
-            : materialFields
-        }
+        inputFields={defaultData?.materials || materialFields}
         onAddField={() => handleAddField(setMaterialFields)}
         onRemoveField={(idToRemove) =>
           handleRemoveField(setMaterialFields, idToRemove)
@@ -163,9 +151,7 @@ export default function Form({
       />
       <DynamicInputFields
         label="Steps"
-        inputFields={
-          defaultData?.steps.length > 0 ? defaultData.steps : stepFields
-        }
+        inputFields={defaultData?.steps || stepFields}
         onAddField={() => handleAddField(setStepFields)}
         onRemoveField={(idToRemove) =>
           handleRemoveField(setStepFields, idToRemove)
