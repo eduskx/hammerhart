@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import DynamicInputFields from "./DynamicInputFields";
 import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
@@ -18,17 +18,24 @@ export default function Form({
   const [stepFields, setStepFields] = useState([{ id: nanoid() }]);
 
   function handleAddField(setFields) {
-    console.log("add ich wurde ausgeführt");
     const newField = { id: nanoid() };
     setFields((prevFields) => [...prevFields, newField]);
   }
 
   function handleRemoveField(setFields, idToRemove) {
-    console.log("delete ich wurde ausgeführt");
     setFields((prevFields) =>
       prevFields.filter((field) => field.id !== idToRemove)
     );
   }
+
+  useEffect(() => {
+    setStepFields((prevFields) => {
+      return defaultData?.steps || prevFields;
+    });
+    setMaterialFields((prevFields) => {
+      return defaultData?.materials || prevFields;
+    });
+  }, [defaultData]);
 
   function handleClearForm() {
     formRef.reset();
@@ -51,8 +58,13 @@ export default function Form({
     const newProject = Object.fromEntries(formData);
 
     // convert materials to ["", "", "", ...]
-    newProject.materials = formData.getAll("Materials");
-    delete newProject.Materials;
+    const materialsArray = formData.getAll("Materials");
+    const materials = materialsArray.map((material, index) => ({
+      id: (index + 1).toString(),
+      description: material,
+    }));
+    newProject.materials = materials;
+    delete newProject.Material;
 
     // convert steps to [{id: "1", description: ""}, ...]
     const stepsArray = formData.getAll("Steps");
@@ -143,7 +155,7 @@ export default function Form({
 
       <DynamicInputFields
         label="Materials"
-        inputFields={defaultData?.materials || materialFields}
+        inputFields={materialFields}
         onAddField={() => handleAddField(setMaterialFields)}
         onRemoveField={(idToRemove) =>
           handleRemoveField(setMaterialFields, idToRemove)
@@ -151,7 +163,7 @@ export default function Form({
       />
       <DynamicInputFields
         label="Steps"
-        inputFields={defaultData?.steps || stepFields}
+        inputFields={stepFields}
         onAddField={() => handleAddField(setStepFields)}
         onRemoveField={(idToRemove) =>
           handleRemoveField(setStepFields, idToRemove)

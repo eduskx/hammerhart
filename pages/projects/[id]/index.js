@@ -88,8 +88,10 @@ export default function ProjectDetailsPage({
             <h2>No Materials found. Please add new ones.</h2>
           ) : (
             <StyledMaterialsList>
-              {materials.map((material, index) => (
-                <StyledListItems key={index}>{material}</StyledListItems>
+              {materials.map((material) => (
+                <StyledListItems key={material.id}>
+                  {material.description}
+                </StyledListItems>
               ))}
             </StyledMaterialsList>
           )}

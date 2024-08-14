@@ -11,7 +11,7 @@ export default function DynamicInputFields({
   return (
     <>
       <StyledTitle>{label}</StyledTitle>
-      {inputFields.map((field) => (
+      {inputFields.map((field, index) => (
         <StyledMaterialsWrapper key={field.id}>
           <label htmlFor={field.id}></label>
           <StyledInput
@@ -19,11 +19,11 @@ export default function DynamicInputFields({
             id={field.id}
             type="text"
             name={`${label}`}
-            defaultValue={field?.description || field}
+            defaultValue={field?.description || ""}
           />
           <StyledDeleteButton
             type="button"
-            onClick={() => onRemoveField(field.id)}
+            onClick={() => onRemoveField(field.id || index)}
           >
             <FaRegTrashAlt />
           </StyledDeleteButton>
