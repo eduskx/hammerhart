@@ -2,26 +2,9 @@ import { useEffect, useState } from "react";
 import ProjectCard from "../ProjectCard";
 import Link from "next/link";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 
 export default function RandomProject({ projects }) {
   const [randomProject, setRandomProject] = useState(null);
-
-  // const router = useRouter();
-  // const { id } = router.query;
-
-  // const randomData = projects.find((project) => project.id === id);
-
-  // const {
-  //   title,
-  //   imageUrl,
-  //   complexity,
-  //   description,
-  //   duration,
-  //   materials,
-  //   steps,
-  //   id: detailsId,
-  // } = randomData;
 
   useEffect(() => {
     if (projects && projects.length > 0) {
@@ -37,13 +20,10 @@ export default function RandomProject({ projects }) {
         }
       };
 
-      // Initial setting
       setRandomProject(getRandomProject(projects));
 
-      // Check every minute
-      const interval = setInterval(updateRandomProject, 60000); // 60000ms = 1 minute
+      const interval = setInterval(updateRandomProject, 60000);
 
-      // Cleanup interval on component unmount
       return () => clearInterval(interval);
     }
   }, [projects]);
@@ -63,14 +43,6 @@ export default function RandomProject({ projects }) {
         )}
       </Container>
     </RandomContainer>
-
-    // <RandomContainer>
-    //   <StyledHeader>The Project of the day</StyledHeader>;
-    //   <Container>
-    //     const randomId= projects.filter((project) => project.id ===
-    //     getRandomProject.id)
-    //   </Container>
-    // </RandomContainer>
   );
 }
 
