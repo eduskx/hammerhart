@@ -17,10 +17,8 @@ export default function Form({
   isEditMode,
   id,
 }) {
-  console.log(onSubmit);
-
   const [imagePreview, setImagePreview] = useState(null);
-  const [limitCharacter, setLimitCharachter] = useState(250);
+  const [descriptionCounter, setDescriptionCounter] = useState(250);
   let formRef = useRef(null);
 
   async function handleSubmit(event) {
@@ -67,7 +65,7 @@ export default function Form({
   }
 
   function handleChangeLimitCharacter(event) {
-    setLimitCharachter(event.target.maxLength - event.target.value.length);
+    setDescriptionCounter(event.target.maxLength - event.target.value.length);
   }
 
   return (
@@ -107,12 +105,10 @@ export default function Form({
         )}
       </StyledImagePreviewWrapper>
 
-      <TextCounterWrapper>
+      <DescriptionCounterWrapper>
         <label htmlFor="description">Description</label>
-        <p>
-          <TextCounter>{limitCharacter}</TextCounter> Characters left
-        </p>
-      </TextCounterWrapper>
+        <DescriptionCounter>{`${descriptionCounter} Characters left`}</DescriptionCounter>
+      </DescriptionCounterWrapper>
       <StyledTextarea
         id="description"
         name="description"
@@ -169,13 +165,39 @@ export default function Form({
   );
 }
 
-const TextCounterWrapper = styled.div`
+const DescriptionCounterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const TextCounter = styled.span`
-  color: ${(props) => (props.children === 0 ? "red" : "white")};
+const DescriptionCounter = styled.span`
+  display: inline-block;
+  color: ${(prop) => (prop.children === "0 Characters left" ? "red" : "white")};
+  animation: ${(props) =>
+    props.children === "0 Characters left" ? "shake 0.5s" : null};
+
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
 `;
 
 const StyledTextarea = styled.textarea`
