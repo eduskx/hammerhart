@@ -18,7 +18,10 @@ export default function Form({
   id,
 }) {
   const [imagePreview, setImagePreview] = useState(null);
-  const [descriptionCounter, setDescriptionCounter] = useState(250);
+  const [descriptionCounter, setDescriptionCounter] = useState(
+    250 - defaultData?.description.length || 250
+  );
+
   let formRef = useRef(null);
 
   async function handleSubmit(event) {
