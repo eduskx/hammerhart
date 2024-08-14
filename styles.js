@@ -9,6 +9,7 @@ export default createGlobalStyle`
 
   body {
     margin: 0;
+    margin-top: 6rem;
     background: rgb(44, 150, 164);
     background-attachment: fixed;
     background-color: #584849;

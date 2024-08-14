@@ -1,5 +1,4 @@
 import Form from "@/components/Form";
-import Header from "@/components/Header";
 import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
@@ -22,7 +21,6 @@ export default function HomePage({ projects, setNewProjects }) {
   });
   return (
     <>
-      <Header />
       <Form
         setNewProjects={setNewProjects}
         projects={projects}

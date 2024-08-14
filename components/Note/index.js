@@ -77,7 +77,7 @@ const StyledButton = styled.button`
   bottom: 0;
   right: 0.3rem;
   transition: all 0.5s ease;
-  S &:hover {
+  &:hover {
     transform: scale(1.5);
   }
 `;

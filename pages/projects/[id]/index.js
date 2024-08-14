@@ -254,7 +254,6 @@ const StyledEditLink = styled(Link)`
   }
 `;
 const StyledCollapsibleWrapper = styled.div`
-  
   border-radius: 2px;
   color: rgba(58, 58, 58, 1);
   background: rgba(255, 255, 255, 0.5);
@@ -266,20 +265,17 @@ const StyledCollapsibleWrapper = styled.div`
   }
   .Collapsible__trigger {
     display: flex;
-    
+
     color: rgba(58, 58, 58, 1);
     width: 100%;
     cursor: pointer;
     padding-left: 0.5rem;
-    
     -webkit-tap-highlight-color: transparent;
   }
   .Collapsible__contentOuter {
-    
     background-color: #a38376;
   }
   .Collapsible__contentInner {
-    
     padding: 0.5rem;
   }
 `;
