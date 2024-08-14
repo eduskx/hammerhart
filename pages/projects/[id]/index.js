@@ -83,7 +83,10 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
           ) : (
             <StyledMaterialsList>
               {materials.map((material, index) => (
-                <StyledListItems key={index}>{material}</StyledListItems>
+                <StyledListItems key={index}>
+                  <input type="checkbox" />
+                  {material}
+                </StyledListItems>
               ))}
             </StyledMaterialsList>
           )}
@@ -102,6 +105,7 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
             <StyledInstructionsList>
               {steps.map((step) => (
                 <StyledListItems key={step.id}>
+                  <input type="checkbox" />
                   {step.description}
                 </StyledListItems>
               ))}
@@ -213,7 +217,7 @@ const StyledDuration = styled.p`
 
 const StyledMaterialsList = styled.ul`
   list-style-position: inside;
-  list-style-type: circle;
+  list-style-type: none;
   text-align: start;
   padding: 0;
   margin: 0;
@@ -222,6 +226,7 @@ const StyledMaterialsList = styled.ul`
 
 const StyledInstructionsList = styled.ol`
   list-style-position: inside;
+  list-style-type: none;
   text-align: start;
   color: #ffffff;
   @media screen and (min-width: 640px) {
@@ -254,7 +259,6 @@ const StyledEditLink = styled(Link)`
   }
 `;
 const StyledCollapsibleWrapper = styled.div`
-  
   border-radius: 2px;
   color: rgba(58, 58, 58, 1);
   background: rgba(255, 255, 255, 0.5);
@@ -266,20 +270,18 @@ const StyledCollapsibleWrapper = styled.div`
   }
   .Collapsible__trigger {
     display: flex;
-    
+
     color: rgba(58, 58, 58, 1);
     width: 100%;
     cursor: pointer;
     padding-left: 0.5rem;
-    
+
     -webkit-tap-highlight-color: transparent;
   }
   .Collapsible__contentOuter {
-    
     background-color: #a38376;
   }
   .Collapsible__contentInner {
-    
     padding: 0.5rem;
   }
 `;
