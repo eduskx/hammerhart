@@ -23,15 +23,15 @@ export default function ProjectsList({ projects, searchInput }) {
   }
 
   return (
-    <div>
-      <StyledUl>
-        {searchedProjects.toReversed().map((project) => (
-          <li key={project.id}>
+    <StyledUl>
+      {searchedProjects.toReversed().map((project) => (
+        <li key={project.id}>
+          <StyledLink href={`/projects/${project.id}`}>
             <ProjectCard project={project} />
-          </li>
-        ))}
-      </StyledUl>
-    </div>
+          </StyledLink>
+        </li>
+      ))}
+    </StyledUl>
   );
 }
 
