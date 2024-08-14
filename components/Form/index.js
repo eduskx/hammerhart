@@ -174,7 +174,7 @@ const DescriptionCounter = styled.span`
   display: inline-block;
   color: ${(prop) => (prop.children === "0 Characters left" ? "red" : "white")};
   animation: ${(props) =>
-    props.children === "0 Characters left" ? "shake 0.5s" : null};
+    props.children === "0 Characters left" ? "shake 0.5s 2" : null};
 
   @keyframes shake {
     10%,
