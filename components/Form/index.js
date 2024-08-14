@@ -174,7 +174,9 @@ const TextCounterWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const TextCounter = styled.span``;
+const TextCounter = styled.span`
+  color: ${(props) => (props.children === 0 ? "red" : "white")};
+`;
 
 const StyledTextarea = styled.textarea`
   all: unset;
