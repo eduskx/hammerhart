@@ -22,7 +22,7 @@ const handleColorType = (color) => {
 export default function ProjectDetailsPage({
   projects,
   onDeleteProject,
-  onBookmark,
+  onToggleBookmark,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -59,7 +59,7 @@ export default function ProjectDetailsPage({
       <StyledDetailsWrapper>
         <StyledImageWrapper>
           <BookmarkButton
-            onBookmark={() => onBookmark(projectData.id)}
+            onToggleBookmark={() => onToggleBookmark(projectData.id)}
             isFavorite={projectData.isFavorite}
           />
           <StyledImage
