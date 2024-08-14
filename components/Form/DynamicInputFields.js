@@ -8,13 +8,20 @@ export default function DynamicInputFields({
   onAddField,
   onRemoveField,
 }) {
+  console.log(inputFields);
   return (
     <>
       <StyledTitle>{label}</StyledTitle>
       {inputFields.map((field) => (
         <StyledMaterialsWrapper key={field.id}>
           <label htmlFor={field.id}></label>
-          <StyledInput required id={field.id} type="text" name={label} />
+          <StyledInput
+            required
+            id={field.id}
+            type="text"
+            name={`${label}`}
+            defaultValue={field?.description || field}
+          />
           <StyledDeleteButton
             type="button"
             onClick={() => onRemoveField(field.id)}
