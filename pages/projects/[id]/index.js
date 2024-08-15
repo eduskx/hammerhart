@@ -60,10 +60,6 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
     setcompletedSteps([...completedSteps, event.target.value]);
   }
 
-  if (!completedSteps) {
-    return null;
-  }
-
   console.log("Check", isChecked);
   console.log("Steps", completedSteps);
 
