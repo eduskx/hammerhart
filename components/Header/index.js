@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import MenuIcon from "./MenuIcon.svg";
-import MenuIconOpen from "./MenuIconOpen.svg";
-import Facebook from "./facebook.svg";
-import Instagram from "./instagram.svg";
-import X from "./vector.svg";
-import Youtube from "./youtube.svg";
-import HammerhartLogo from "./hammerhart_logo.svg";
+import MenuIcon from "@/public/image/menuIcon.svg";
+import MenuIconOpen from "@/public/image/menuIconOpen.svg";
+import Facebook from "@/public/image/facebook.svg";
+import Instagram from "@/public/image/instagram.svg";
+import X from "@/public/image/vector.svg";
+import Youtube from "@/public/image/youtube.svg";
+import HammerhartLogo from "@/public/image/hammerhart_logo.svg";
 import { useState } from "react";
 
 export default function Header() {
