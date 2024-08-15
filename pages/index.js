@@ -2,6 +2,7 @@ import Form from "@/components/Form";
 import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
+import RandomProject from "@/components/RandomProject";
 
 export default function HomePage({
   projects,
@@ -23,6 +24,7 @@ export default function HomePage({
         projects={projects}
         onProcessFormData={onProcessFormData}
       />
+      <RandomProject projects={projects} />
       <SearchBar onSearch={handleSearch} />
       <FilterList
         projects={projects}

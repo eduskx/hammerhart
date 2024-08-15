@@ -45,6 +45,7 @@ export default function ProjectCard({ project, onToggleBookmark }) {
     </CardWrapper>
   );
 }
+
 const CardContainer = styled.div`
   box-shadow: 1px 1px 6px 1px #00000072;
   background: rgb(44, 150, 164);

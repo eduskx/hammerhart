@@ -13,6 +13,11 @@ export default function Form({
   onAddProject,
   onProcessFormData,
 }) {
+  const [imagePreview, setImagePreview] = useState(null);
+  const [descriptionCounter, setDescriptionCounter] = useState(
+    250 - defaultData?.description.length || 250
+  );
+
   let formRef = useRef(null);
 
   const [materialFields, setMaterialFields] = useState(
@@ -31,6 +36,11 @@ export default function Form({
     setFields((prevFields) =>
       prevFields.filter((field) => field.id !== idToRemove)
     );
+    setImagePreview(null);
+  }
+
+  function handleChangeImage(event) {
+    setImagePreview(event.target.files[0]);
   }
 
   function handleClearForm() {
@@ -55,6 +65,10 @@ export default function Form({
     handleClearForm();
   }
 
+  function handleChangeLimitCharacter(event) {
+    setDescriptionCounter(event.target.maxLength - event.target.value.length);
+  }
+
   return (
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
       <StyledCloseButton type="button" onClick={onToggleForm}>
@@ -71,23 +85,39 @@ export default function Form({
         maxLength={50}
       />
 
-      <StyledImageUploadLabel htmlFor="imageUrl">
-        <Image src="/upload.svg" alt="upload_icon" width={20} height={20} />
-        <span>Upload Image</span>
-      </StyledImageUploadLabel>
-      <StyledImageUploadInput
-        id="imageUrl"
-        name="imageUrl"
-        type="file"
-        accept="image/*"
-      />
+      <StyledImagePreviewWrapper>
+        <StyledImageUploadLabel htmlFor="imageUrl">
+          <Image src="/upload.svg" alt="upload_icon" width={20} height={20} />
+          <span>Upload Image</span>
+        </StyledImageUploadLabel>
+        <StyledImageUploadInput
+          id="imageUrl"
+          name="imageUrl"
+          type="file"
+          accept="image/*"
+          onChange={handleChangeImage}
+        />
+        {imagePreview && (
+          <StyledImagePreview
+            src={URL.createObjectURL(imagePreview)}
+            alt="Preview of uploaded image"
+            width={100}
+            height={150}
+          ></StyledImagePreview>
+        )}
+      </StyledImagePreviewWrapper>
 
-      <label htmlFor="description">Description</label>
+      <DescriptionCounterWrapper>
+        <label htmlFor="description">Description</label>
+        <DescriptionCounter>{`${descriptionCounter} Characters left`}</DescriptionCounter>
+      </DescriptionCounterWrapper>
       <StyledTextarea
         id="description"
         name="description"
         rows={5}
         cols={30}
+        maxLength={250}
+        onChange={handleChangeLimitCharacter}
         defaultValue={defaultData?.description}
       />
 
@@ -142,6 +172,41 @@ export default function Form({
   );
 }
 
+const DescriptionCounterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const DescriptionCounter = styled.span`
+  display: inline-block;
+  color: ${(prop) => (prop.children === "0 Characters left" ? "red" : "white")};
+  animation: ${(props) =>
+    props.children === "0 Characters left" ? "shake 0.5s 2" : null};
+
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+`;
+
 const StyledTextarea = styled.textarea`
   all: unset;
   width: 100%;
@@ -183,23 +248,35 @@ const StyledForm = styled.form`
   align-self: center;
 `;
 
+const StyledImagePreviewWrapper = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: stretch;
+  justify-content: space-between;
+  margin: 1rem 0;
+`;
+
+const StyledImagePreview = styled(Image)`
+  border-radius: 3px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  width: 50%;
+`;
+
 const StyledImageUploadInput = styled.input`
   display: none;
 `;
 
 const StyledImageUploadLabel = styled.label`
+  align-self: flex-end;
   display: flex;
-  justify-content: center;
-  text-align: center;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.1rem;
   color: #000;
   background: rgba(255, 255, 255, 0.5);
-  text-align: center;
-  padding: 15px 40px;
   user-select: none;
   cursor: pointer;
   border-radius: 2px;
-  margin: 1rem 0;
   &:hover {
     outline: 1px solid white;
   }
