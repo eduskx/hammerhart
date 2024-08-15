@@ -18,6 +18,10 @@ export default function Form({
   id,
 }) {
   const [imagePreview, setImagePreview] = useState(null);
+  const [descriptionCounter, setDescriptionCounter] = useState(
+    250 - defaultData?.description.length || 250
+  );
+
   let formRef = useRef(null);
 
   async function handleSubmit(event) {
@@ -63,6 +67,10 @@ export default function Form({
     setFormSteps([{ id: "1", description: "" }]);
   }
 
+  function handleChangeLimitCharacter(event) {
+    setDescriptionCounter(event.target.maxLength - event.target.value.length);
+  }
+
   return (
     <StyledForm
       ref={(element) => (formRef = element)}
@@ -100,12 +108,17 @@ export default function Form({
         )}
       </StyledImagePreviewWrapper>
 
-      <label htmlFor="description">Description</label>
+      <DescriptionCounterWrapper>
+        <label htmlFor="description">Description</label>
+        <DescriptionCounter>{`${descriptionCounter} Characters left`}</DescriptionCounter>
+      </DescriptionCounterWrapper>
       <StyledTextarea
         id="description"
         name="description"
         rows={5}
         cols={30}
+        maxLength={250}
+        onChange={handleChangeLimitCharacter}
         defaultValue={defaultData?.description}
       />
 
@@ -154,6 +167,41 @@ export default function Form({
     </StyledForm>
   );
 }
+
+const DescriptionCounterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const DescriptionCounter = styled.span`
+  display: inline-block;
+  color: ${(prop) => (prop.children === "0 Characters left" ? "red" : "white")};
+  animation: ${(props) =>
+    props.children === "0 Characters left" ? "shake 0.5s 2" : null};
+
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+`;
 
 const StyledTextarea = styled.textarea`
   all: unset;
