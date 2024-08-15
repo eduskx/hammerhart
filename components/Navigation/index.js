@@ -26,7 +26,7 @@ const StyledNavContainer = styled.nav`
   border-radius: 20px 20px 0 0;
 `;
 
-const StyledNavList = styled.nav`
+const StyledNavList = styled.ul`
   display: flex;
   list-style: none;
   justify-content: space-around;

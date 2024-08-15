@@ -18,7 +18,6 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleUpdateProject(updatedProject) {
-    console.log("handleUpdate wird ausgeführt", updatedProject);
     setProjects(
       projects.map((project) =>
         project.id === updatedProject.id ? updatedProject : project

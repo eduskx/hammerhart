@@ -237,15 +237,11 @@ const StyledInstructionsList = styled.ol`
   list-style-position: inside;
   padding: 0 1rem;
   margin-bottom: 1rem;
-  list-style-position: inside;
-  padding: 0 1rem 0 1rem;
-  margin-bottom: 1rem;
   text-align: start;
   color: #ffffff;
 
   @media screen and (min-width: 640px) {
     list-style-position: inside;
-    padding: 0;
     padding: 0;
     text-align: start;
   }

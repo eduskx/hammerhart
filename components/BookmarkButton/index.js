@@ -14,12 +14,12 @@ const StyledButton = styled.button`
   background: rgba(255, 255, 255, 0.8);
   border-radius: 25%;
   fill: red;
-  border-color: transparent;
+  border: none;
   position: absolute;
   z-index: 10;
-  top: 0rem;
-  left: 0%;
-  right: 0%;
+  top: 0;
+  left: 0;
+  right: 0;
   width: fit-content;
   cursor: pointer;
 `;
