@@ -47,7 +47,7 @@ export default function App({ Component, pageProps }) {
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
 
-    // convert materials to ["", "", "", ...]
+    // convert materials and steps to [{id: "1", description: ""}, ...]
     const materialsArray = formData.getAll("Materials");
     const materials = materialsArray.map((material, index) => ({
       id: (index + 1).toString(),
@@ -56,7 +56,6 @@ export default function App({ Component, pageProps }) {
     newProject.materials = materials;
     delete newProject.Materials;
 
-    // convert steps to [{id: "1", description: ""}, ...]
     const stepsArray = formData.getAll("Steps");
     const steps = stepsArray.map((step, index) => ({
       id: (index + 1).toString(),
