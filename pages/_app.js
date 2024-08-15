@@ -3,6 +3,7 @@ import projects from "@/lib/projects.js";
 import { Saira } from "next/font/google";
 import useLocalStorageState from "use-local-storage-state";
 
+
 const saira = Saira({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }) {
