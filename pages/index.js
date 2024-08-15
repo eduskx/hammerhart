@@ -24,7 +24,7 @@ export default function HomePage({
         projects={projects}
         onProcessFormData={onProcessFormData}
       />
-      <RandomProject projects={projects} />
+      <RandomProject projects={projects} onToggleBookmark={onToggleBookmark} />
       <SearchBar onSearch={handleSearch} />
       <FilterList
         projects={projects}

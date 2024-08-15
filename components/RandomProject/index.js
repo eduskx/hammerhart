@@ -3,7 +3,7 @@ import ProjectCard from "../ProjectCard";
 import Link from "next/link";
 import styled from "styled-components";
 
-export default function RandomProject({ projects }) {
+export default function RandomProject({ projects, onToggleBookmark }) {
   const [randomProject, setRandomProject] = useState(null);
 
   useEffect(() => {
@@ -26,7 +26,11 @@ export default function RandomProject({ projects }) {
 
       return () => clearInterval(interval);
     }
-  }, [projects]);
+  }, []);
+
+  if (!randomProject) {
+    return <StyledError>Project of the day is not available</StyledError>;
+  }
 
   if (!projects) {
     return null;
@@ -34,14 +38,15 @@ export default function RandomProject({ projects }) {
 
   return (
     <RandomContainer>
-      <StyledHeader>The Project of the day</StyledHeader>;
-      <Container>
-        {randomProject && (
-          <StyledLink href={`/projects/${randomProject.id}`}>
-            <ProjectCard project={randomProject} />
-          </StyledLink>
-        )}
-      </Container>
+      <StyledHeader>Project of the day</StyledHeader>
+      {randomProject && (
+        <Container>
+          <ProjectCard
+            project={randomProject}
+            onToggleBookmark={onToggleBookmark}
+          />
+        </Container>
+      )}
     </RandomContainer>
   );
 }
@@ -73,4 +78,11 @@ const Container = styled.div`
 
 const StyledHeader = styled.h2`
   text-align: center;
+  color: white;
+`;
+
+const StyledError = styled.p`
+  text-align: center;
+  color: white;
+  font-size: 20px;
 `;

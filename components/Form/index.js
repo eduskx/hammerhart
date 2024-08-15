@@ -13,12 +13,12 @@ export default function Form({
   onAddProject,
   onProcessFormData,
 }) {
+  let formRef = useRef(null);
+
   const [imagePreview, setImagePreview] = useState(null);
-  const [descriptionCounter, setDescriptionCounter] = useState(
+  const [characterCounter, setCharacterCounter] = useState(
     250 - defaultData?.description.length || 250
   );
-
-  let formRef = useRef(null);
 
   const [materialFields, setMaterialFields] = useState(
     defaultData?.materials || [{ id: nanoid() }]
@@ -36,7 +36,6 @@ export default function Form({
     setFields((prevFields) =>
       prevFields.filter((field) => field.id !== idToRemove)
     );
-    setImagePreview(null);
   }
 
   function handleChangeImage(event) {
@@ -58,6 +57,8 @@ export default function Form({
 
     setMaterialFields([{ id: nanoid() }]);
     setStepFields([{ id: nanoid() }]);
+    setImagePreview(null);
+    setCharacterCounter(250);
   }
 
   async function handleSubmit(event) {
@@ -65,8 +66,8 @@ export default function Form({
     handleClearForm();
   }
 
-  function handleChangeLimitCharacter(event) {
-    setDescriptionCounter(event.target.maxLength - event.target.value.length);
+  function handleChangeCharactersLeft(event) {
+    setCharacterCounter(event.target.maxLength - event.target.value.length);
   }
 
   return (
@@ -109,7 +110,7 @@ export default function Form({
 
       <DescriptionCounterWrapper>
         <label htmlFor="description">Description</label>
-        <DescriptionCounter>{`${descriptionCounter} Characters left`}</DescriptionCounter>
+        <DescriptionCounter>{`${characterCounter} characters left`}</DescriptionCounter>
       </DescriptionCounterWrapper>
       <StyledTextarea
         id="description"
@@ -117,7 +118,7 @@ export default function Form({
         rows={5}
         cols={30}
         maxLength={250}
-        onChange={handleChangeLimitCharacter}
+        onChange={handleChangeCharactersLeft}
         defaultValue={defaultData?.description}
       />
 
@@ -179,9 +180,9 @@ const DescriptionCounterWrapper = styled.div`
 
 const DescriptionCounter = styled.span`
   display: inline-block;
-  color: ${(prop) => (prop.children === "0 Characters left" ? "red" : "white")};
+  color: ${(prop) => (prop.children === "0 characters left" ? "red" : "white")};
   animation: ${(props) =>
-    props.children === "0 Characters left" ? "shake 0.5s 2" : null};
+    props.children === "0 characters left" ? "shake 0.5s 2" : null};
 
   @keyframes shake {
     10%,
