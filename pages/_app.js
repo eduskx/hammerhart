@@ -2,7 +2,7 @@ import GlobalStyle from "@/styles";
 import projects from "@/lib/projects.js";
 import { Saira } from "next/font/google";
 import useLocalStorageState from "use-local-storage-state";
-import ProjectCard from "@/components/ProjectCard";
+
 
 const saira = Saira({ subsets: ["latin"] });
 
