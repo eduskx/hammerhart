@@ -6,7 +6,6 @@ import styled from "styled-components";
 import Modal from "@/components/Modal";
 import Collapsible from "react-collapsible";
 import Note from "@/components/Note";
-import { useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
 const handleColorType = (color) => {
@@ -20,10 +19,9 @@ const handleColorType = (color) => {
   }
 };
 export default function ProjectDetailsPage({ projects, setNewProjects }) {
-  const [isChecked, setIsChecked] = useState(false);
   const [completedSteps, setcompletedSteps] = useLocalStorageState(
     "completedSteps",
-    []
+    { defaultValue: [] }
   );
   const router = useRouter();
   const { id } = router.query;
@@ -56,12 +54,17 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
   );
 
   function handleCheckboxChange(event) {
-    setIsChecked(event.target.checked);
-    setcompletedSteps([...completedSteps, event.target.value]);
+    const newStep = event.target.value;
+    console.log("newStep", newStep);
+
+    if (completedSteps.includes(newStep)) {
+      setcompletedSteps(completedSteps.filter((step) => step !== newStep));
+    } else {
+      setcompletedSteps([...completedSteps, newStep]);
+    }
   }
 
-  console.log("Check", isChecked);
-  console.log("Steps", completedSteps);
+  console.log(completedSteps);
 
   return (
     <>
@@ -120,11 +123,14 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
             <StyledInstructionsList>
               {steps.map((step) => (
                 <StyledListItems key={step.id}>
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}
-                  />
+                  {completedSteps && (
+                    <input
+                      type="checkbox"
+                      checked={completedSteps.includes(step.id)}
+                      onChange={handleCheckboxChange}
+                      value={step.id}
+                    />
+                  )}
                   {step.description}
                 </StyledListItems>
               ))}
