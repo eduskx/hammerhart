@@ -3,7 +3,7 @@ import MenuIcon from "@/public/image/menuIcon.svg";
 import MenuIconOpen from "@/public/image/menuIconOpen.svg";
 import Facebook from "@/public/image/facebook.svg";
 import Instagram from "@/public/image/instagram.svg";
-import X from "@/public/image/vector.svg";
+import X from "@/public/image/x-icon.svg";
 import Youtube from "@/public/image/youtube.svg";
 import HammerhartLogo from "@/public/image/hammerhart_logo.svg";
 import { useState } from "react";
