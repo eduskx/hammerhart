@@ -6,6 +6,8 @@ import styled from "styled-components";
 import Modal from "@/components/Modal";
 import Collapsible from "react-collapsible";
 import Note from "@/components/Note";
+import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -18,6 +20,11 @@ const handleColorType = (color) => {
   }
 };
 export default function ProjectDetailsPage({ projects, setNewProjects }) {
+  const [isChecked, setIsChecked] = useState(false);
+  const [completedSteps, setcompletedSteps] = useLocalStorageState(
+    "completedSteps",
+    []
+  );
   const router = useRouter();
   const { id } = router.query;
 
@@ -47,6 +54,18 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
       <Collapsible {...props}>{children}</Collapsible>
     </StyledCollapsibleWrapper>
   );
+
+  function handleCheckboxChange(event) {
+    setIsChecked(event.target.checked);
+    setcompletedSteps([...completedSteps, event.target.value]);
+  }
+
+  if (!completedSteps) {
+    return null;
+  }
+
+  console.log("Check", isChecked);
+  console.log("Steps", completedSteps);
 
   return (
     <>
@@ -105,7 +124,11 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
             <StyledInstructionsList>
               {steps.map((step) => (
                 <StyledListItems key={step.id}>
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                  />
                   {step.description}
                 </StyledListItems>
               ))}
