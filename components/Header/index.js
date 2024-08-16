@@ -32,7 +32,7 @@ export default function Header() {
           <StyledDiv onClick={(event) => event.stopPropagation()}>
             <StyledNavList>
               <li>
-                <StyledListElements href="#">My Projects</StyledListElements>
+                <StyledListElements href="/bookmarks">My Projects</StyledListElements>
               </li>
               <li>
                 <StyledListElements href="#">Contacts</StyledListElements>
