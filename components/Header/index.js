@@ -34,9 +34,6 @@ export default function Header() {
               <li>
                 <StyledListElements href="/bookmarks">My Projects</StyledListElements>
               </li>
-              <li>
-                <StyledListElements href="#">Contacts</StyledListElements>
-              </li>
             </StyledNavList>
             <StyledSocalList>
               <li>
@@ -123,8 +120,7 @@ const StyledNavBar = styled.div`
   height: 5rem;
   padding: 1rem 1.563rem 1rem 1.563rem;
   justify-content: space-between;
-  border-radius: 0 0 10px 10px;
-  background-color: #536f5f;
+ background-color: #536f5f;
   filter: drop-shadow(0px 4px 4px #00000049);
   z-index: 110;
 `;
