@@ -22,7 +22,7 @@ const handleColorType = (color) => {
 export default function ProjectDetailsPage({
   projects,
   onDeleteProject,
-  onBookmark,
+  onToggleBookmark,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -59,7 +59,7 @@ export default function ProjectDetailsPage({
       <StyledDetailsWrapper>
         <StyledImageWrapper>
           <BookmarkButton
-            onBookmark={() => onBookmark(projectData.id)}
+            onToggleBookmark={() => onToggleBookmark(projectData.id)}
             isFavorite={projectData.isFavorite}
           />
           <StyledImage
@@ -88,8 +88,10 @@ export default function ProjectDetailsPage({
             <h2>No Materials found. Please add new ones.</h2>
           ) : (
             <StyledMaterialsList>
-              {materials.map((material, index) => (
-                <StyledListItems key={index}>{material}</StyledListItems>
+              {materials.map((material) => (
+                <StyledListItems key={material.id}>
+                  {material.description}
+                </StyledListItems>
               ))}
             </StyledMaterialsList>
           )}
@@ -125,7 +127,12 @@ export default function ProjectDetailsPage({
           <Note project={projectData} />
         </StyledCollapsible>
         <StyledButtonsWrapper>
-          <Modal onDelete={() => onDeleteProject(id, router)} />
+          <Modal
+            onDelete={() => {
+              onDeleteProject(id);
+              router.push("/");
+            }}
+          />
           <StyledEditLink href={`/projects/${detailsId}/edit`}>
             Edit
           </StyledEditLink>
@@ -230,15 +237,11 @@ const StyledInstructionsList = styled.ol`
   list-style-position: inside;
   padding: 0 1rem;
   margin-bottom: 1rem;
-  list-style-position: inside;
-  padding: 0 1rem 0 1rem;
-  margin-bottom: 1rem;
   text-align: start;
   color: #ffffff;
 
   @media screen and (min-width: 640px) {
     list-style-position: inside;
-    padding: 0;
     padding: 0;
     text-align: start;
   }

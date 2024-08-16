@@ -5,7 +5,7 @@ import styled from "styled-components";
 export default function FilterList({
   projects,
   onAddProject,
-  onBookmark,
+  onToggleBookmark,
   searchInput,
 }) {
   const complexities = [
@@ -48,7 +48,7 @@ export default function FilterList({
         <ProjectsList
           projects={filteredProjects}
           onAddProject={onAddProject}
-          onBookmark={onBookmark}
+          onToggleBookmark={onToggleBookmark}
           searchInput={searchInput}
         />
       )}

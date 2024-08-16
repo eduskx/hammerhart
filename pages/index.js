@@ -1,23 +1,15 @@
 import Form from "@/components/Form";
-import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
+import HighlightedProject from "@/components/HighlitedProject";
 import AddButton from "@/components/Modals/AddButton";
 
 export default function HomePage({
   projects,
   onAddProject,
-  onBookmark,
-  onAddMaterialField,
-  onRemoveMaterialField,
-  onMaterialChange,
-  onAddStepField,
-  onRemoveStepField,
-  onStepChange,
-  formMaterials,
-  formSteps,
-  onClearDynamicFields,
+  onToggleBookmark,
+  onProcessFormData,
   onToggleForm,
   toggleFormModal,
 }) {
@@ -30,40 +22,16 @@ export default function HomePage({
 
   return (
     <>
-      {/* <Form
+      <Form
         onAddProject={onAddProject}
         projects={projects}
-        formMaterials={formMaterials}
-        formSteps={formSteps}
-        onClearDynamicFields={onClearDynamicFields}
-        onAddMaterialField={onAddMaterialField}
-        onRemoveMaterialField={onRemoveMaterialField}
-        onMaterialChange={onMaterialChange}
-        onAddStepField={onAddStepField}
-        onRemoveStepField={onRemoveStepField}
-        onStepChange={onStepChange}
-      /> */}
-
-      <SearchBar onSearch={handleSearch} />
-      <AddButton
-        onToggleForm={onToggleForm}
-        toggleFormModal={toggleFormModal}
-        onAddProject={onAddProject}
-        projects={projects}
-        formMaterials={formMaterials}
-        formSteps={formSteps}
-        onClearDynamicFields={onClearDynamicFields}
-        onAddMaterialField={onAddMaterialField}
-        onRemoveMaterialField={onRemoveMaterialField}
-        onMaterialChange={onMaterialChange}
-        onAddStepField={onAddStepField}
-        onRemoveStepField={onRemoveStepField}
-        onStepChange={onStepChange}
+        onProcessFormData={onProcessFormData}
       />
+      <SearchBar onSearch={handleSearch} />
       <FilterList
         projects={projects}
         onAddProject={onAddProject}
-        onBookmark={onBookmark}
+        onToggleBookmark={onToggleBookmark}
         searchInput={searchInput}
       />
     </>

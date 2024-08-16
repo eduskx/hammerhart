@@ -1,7 +1,11 @@
 import ProjectCard from "@/components/ProjectCard";
 import styled from "styled-components";
 
-export default function ProjectsList({ projects, onBookmark, searchInput }) {
+export default function ProjectsList({
+  projects,
+  onToggleBookmark,
+  searchInput,
+}) {
   if (!projects || projects.length === 0) {
     return <h1>No projects found. Please create new ones.</h1>;
   }
@@ -25,7 +29,7 @@ export default function ProjectsList({ projects, onBookmark, searchInput }) {
     <StyledUl>
       {searchedProjects.map((project) => (
         <li key={project.id}>
-          <ProjectCard project={project} onBookmark={onBookmark} />
+          <ProjectCard project={project} onToggleBookmark={onToggleBookmark} />
         </li>
       ))}
     </StyledUl>

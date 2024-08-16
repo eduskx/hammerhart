@@ -2,55 +2,56 @@ import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 
-export default function DynamicStepsInput({
-  steps,
-  onAddStepField,
-  onRemoveStepField,
-  onStepChange,
+export default function DynamicInputFields({
+  label,
+  inputFields,
+  onAddField,
+  onRemoveField,
 }) {
   return (
     <>
-      <StyledLegend>Add Steps</StyledLegend>
-      {steps.map((step, index) => (
-        <StyledStepsWrapper key={step.id}>
-          <label htmlFor={step.id}></label>
+      <StyledTitle>{label}</StyledTitle>
+      {inputFields.map((field, index) => (
+        <StyledMaterialsWrapper key={field.id}>
+          <label htmlFor={field.id}></label>
           <StyledInput
             required
-            id={step.id}
-            value={step.description}
-            onChange={(event) => onStepChange(index, event)}
+            id={field.id}
             type="text"
+            name={`${label}`}
+            defaultValue={field?.description || ""}
           />
           <StyledDeleteButton
             type="button"
-            onClick={() => onRemoveStepField(index)}
+            onClick={() => onRemoveField(field.id || index)}
           >
             <FaRegTrashAlt />
           </StyledDeleteButton>
-        </StyledStepsWrapper>
+        </StyledMaterialsWrapper>
       ))}
-      <StyledAddButton type="button" onClick={onAddStepField}>
+      <StyledAddButton type="button" onClick={onAddField}>
         <MdAdd />
       </StyledAddButton>
     </>
   );
 }
 
-const StyledLegend = styled.label`
+const StyledTitle = styled.p`
   padding-top: 1rem;
 `;
 
-const StyledStepsWrapper = styled.div`
+const StyledMaterialsWrapper = styled.div`
   width: 100%;
   display: flex;
+  transition: all 0.3s ease 0s;
 `;
-
 const StyledDeleteButton = styled.button`
   all: unset;
   width: 3rem;
   height: 2rem;
   display: flex;
   margin: 0;
+
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -61,6 +62,7 @@ const StyledDeleteButton = styled.button`
   &:focus,
   &:hover {
     outline: 1px solid white;
+
     &:hover {
       background-color: #e52e2ed4;
       color: #fff;
@@ -68,13 +70,13 @@ const StyledDeleteButton = styled.button`
     }
   }
 `;
-
 const StyledAddButton = styled.button`
   all: unset;
   width: 100%;
   height: 2rem;
   display: flex;
   margin: 0;
+
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -85,6 +87,7 @@ const StyledAddButton = styled.button`
   &:focus,
   &:hover {
     outline: 1px solid white;
+
     &:hover {
       background-color: #2e8de5d4;
       box-shadow: 0px 15px 20px rgba(6, 45, 61, 0.4);
@@ -93,10 +96,10 @@ const StyledAddButton = styled.button`
     }
   }
 `;
-
 const StyledInput = styled.input`
   all: unset;
   width: 100%;
+
   color: rgba(58, 58, 58, 1);
   margin-bottom: 0.5rem;
   margin-right: 1rem;

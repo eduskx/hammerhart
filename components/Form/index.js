@@ -1,70 +1,77 @@
 import styled from "styled-components";
-import { useRef } from "react";
-import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
-import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
+import { useState, useRef } from "react";
+import DynamicInputFields from "./DynamicInputFields";
 import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
+import { nanoid } from "nanoid";
 
 export default function Form({
-  projects,
   onToggleForm,
-  onAddProject,
   defaultData,
-  onSubmit,
-  formMaterials,
-  formSteps,
-  isEditMode,
-  id,
-  onClearDynamicFields,
-  onAddMaterialField,
-  onRemoveMaterialField,
-  onMaterialChange,
-  onAddStepField,
-  onRemoveStepField,
-  onStepChange,
+  onEditSubmit,
+  onAddProject,
+  onProcessFormData,
 }) {
   let formRef = useRef(null);
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  const [imagePreview, setImagePreview] = useState(null);
+  const [characterCounter, setCharacterCounter] = useState(
+    250 - defaultData?.description.length || 250
+  );
 
-    const formData = new FormData(event.target);
+  const [materialFields, setMaterialFields] = useState(
+    defaultData?.materials || [{ id: nanoid() }]
+  );
+  const [stepFields, setStepFields] = useState(
+    defaultData?.steps || [{ id: nanoid() }]
+  );
 
-    const newProject = Object.fromEntries(formData);
+  function handleAddField(setFields) {
+    const newField = { id: nanoid() };
+    setFields((prevFields) => [...prevFields, newField]);
+  }
 
-    const response = await fetch("api/upload", {
-      method: "POST",
-      body: formData,
-    });
+  function handleRemoveField(setFields, idToRemove) {
+    setFields((prevFields) =>
+      prevFields.filter((field) => field.id !== idToRemove)
+    );
+  }
 
-    const { url } = await response.json();
-
-    const highestProjectId = projects.length > 0 ? projects[0].id : "1";
-
-    newProject.id = `${Number(highestProjectId) + 1}`;
-    newProject.materials = formMaterials;
-    newProject.steps = formSteps;
-    newProject.imageUrl = url;
-
-    onAddProject(newProject);
-
-    event.target.reset();
-    onClearDynamicFields();
-
-    onToggleForm();
+  function handleChangeImage(event) {
+    setImagePreview(event.target.files[0]);
   }
 
   function handleClearForm() {
-    formRef.reset();
-    onClearDynamicFields();
+    if (formRef.current) {
+      formRef.current.reset();
+
+      // we need this extra logic to clear all defaultValues in the EditPage
+      const formInputs = formRef.current.elements;
+      formInputs.title.value = "";
+      formInputs.imageUrl.value = "";
+      formInputs.description.value = "";
+      formInputs.duration.value = "";
+      formInputs.complexity.value = "";
+    }
+
+    setMaterialFields([{ id: nanoid() }]);
+    setStepFields([{ id: nanoid() }]);
+    setImagePreview(null);
+    setCharacterCounter(250);
+  }
+
+  async function handleSubmit(event) {
+    await onProcessFormData(event, null, null, onAddProject);
+    handleClearForm();
+  }
+
+  function handleChangeCharactersLeft(event) {
+    setCharacterCounter(event.target.maxLength - event.target.value.length);
   }
 
   return (
-    <StyledForm
-      ref={(element) => (formRef = element)}
-      onSubmit={onSubmit || handleSubmit}
-    >
+    <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
       <StyledCloseButton type="button" onClick={onToggleForm}>
         <IoMdClose color="darkred" size={28} />
       </StyledCloseButton>
@@ -79,23 +86,39 @@ export default function Form({
         maxLength={50}
       />
 
-      <StyledImageUploadLabel htmlFor="imageUrl">
-        <Image src="/upload.svg" alt="upload_icon" width={20} height={20} />
-        <span>Upload Image</span>
-      </StyledImageUploadLabel>
-      <StyledImageUploadInput
-        id="imageUrl"
-        name="imageUrl"
-        type="file"
-        accept="image/*"
-      />
+      <StyledImagePreviewWrapper>
+        <StyledImageUploadLabel htmlFor="imageUrl">
+          <Image src="/upload.svg" alt="upload_icon" width={20} height={20} />
+          <span>Upload Image</span>
+        </StyledImageUploadLabel>
+        <StyledImageUploadInput
+          id="imageUrl"
+          name="imageUrl"
+          type="file"
+          accept="image/*"
+          onChange={handleChangeImage}
+        />
+        {imagePreview && (
+          <StyledImagePreview
+            src={URL.createObjectURL(imagePreview)}
+            alt="Preview of uploaded image"
+            width={100}
+            height={150}
+          ></StyledImagePreview>
+        )}
+      </StyledImagePreviewWrapper>
 
-      <label htmlFor="description">Description</label>
+      <DescriptionCounterWrapper>
+        <label htmlFor="description">Description</label>
+        <DescriptionCounter>{`${characterCounter} characters left`}</DescriptionCounter>
+      </DescriptionCounterWrapper>
       <StyledTextarea
         id="description"
         name="description"
         rows={5}
         cols={30}
+        maxLength={250}
+        onChange={handleChangeCharactersLeft}
         defaultValue={defaultData?.description}
       />
 
@@ -123,34 +146,67 @@ export default function Form({
         </StyledDropdown>
       </StyledDropDownWrapper>
 
-      <DynamicArrayInput
-        label="Add Materials"
-        materials={formMaterials}
-        onAddMaterialField={onAddMaterialField}
-        onRemoveMaterialField={onRemoveMaterialField}
-        onMaterialChange={onMaterialChange}
+      <DynamicInputFields
+        label="Materials"
+        inputFields={materialFields}
+        onAddField={() => handleAddField(setMaterialFields)}
+        onRemoveField={(idToRemove) =>
+          handleRemoveField(setMaterialFields, idToRemove)
+        }
       />
-      <DynamicStepsInput
-        steps={formSteps}
-        onAddStepField={onAddStepField}
-        onRemoveStepField={onRemoveStepField}
-        onStepChange={onStepChange}
+      <DynamicInputFields
+        label="Steps"
+        inputFields={stepFields}
+        onAddField={() => handleAddField(setStepFields)}
+        onRemoveField={(idToRemove) =>
+          handleRemoveField(setStepFields, idToRemove)
+        }
       />
 
       <StyledButtonWrapper>
-        {!isEditMode && (
-          <StyledClearButton type="button" onClick={handleClearForm}>
-            Clear
-          </StyledClearButton>
-        )}
-        {isEditMode && (
-          <StyledCancelLink href={`/projects/${id}/`}>Cancel</StyledCancelLink>
-        )}
+        <StyledClearButton type="button" onClick={handleClearForm}>
+          Clear
+        </StyledClearButton>
         <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
       </StyledButtonWrapper>
     </StyledForm>
   );
 }
+
+const DescriptionCounterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const DescriptionCounter = styled.span`
+  display: inline-block;
+  color: ${(prop) => (prop.children === "0 characters left" ? "red" : "white")};
+  animation: ${(props) =>
+    props.children === "0 characters left" ? "shake 0.5s 2" : null};
+
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+`;
 
 const StyledTextarea = styled.textarea`
   all: unset;
@@ -193,23 +249,35 @@ const StyledForm = styled.form`
   align-self: center;
 `;
 
+const StyledImagePreviewWrapper = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: stretch;
+  justify-content: space-between;
+  margin: 1rem 0;
+`;
+
+const StyledImagePreview = styled(Image)`
+  border-radius: 3px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  width: 50%;
+`;
+
 const StyledImageUploadInput = styled.input`
   display: none;
 `;
 
 const StyledImageUploadLabel = styled.label`
+  align-self: flex-end;
   display: flex;
-  justify-content: center;
-  text-align: center;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.1rem;
   color: #000;
   background: rgba(255, 255, 255, 0.5);
-  text-align: center;
-  padding: 15px 40px;
   user-select: none;
   cursor: pointer;
   border-radius: 2px;
-  margin: 1rem 0;
   &:hover {
     outline: 1px solid white;
   }

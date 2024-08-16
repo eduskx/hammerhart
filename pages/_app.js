@@ -2,19 +2,11 @@ import GlobalStyle from "@/styles";
 import initialProjects from "@/lib/projects.js";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
-import { useEffect, useState } from "react";
+import { nanoid } from "nanoid";
 
 export default function App({ Component, pageProps }) {
   const [projects, setProjects] = useLocalStorageState("projects", {
     defaultValue: initialProjects,
-  });
-
-  const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
-    defaultValue: [""],
-  });
-
-  const [formSteps, setFormSteps] = useLocalStorageState("steps", {
-    defaultValue: [{ id: "1", description: "" }],
   });
 
   const [toggleFormModal, setToggleFormModal] = useState(false);
@@ -23,9 +15,8 @@ export default function App({ Component, pageProps }) {
     setProjects([newProject, ...projects]);
   }
 
-  function handleDeleteProject(id, router) {
+  function handleDeleteProject(id) {
     setProjects(projects.filter((project) => project.id !== id));
-    router.push("/");
   }
 
   function handleUpdateProject(updatedProject) {
@@ -46,63 +37,49 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-  // functions for materials list
+  async function handleProcessFormData(
+    event,
+    projectData,
+    id,
+    onProjectAction
+  ) {
+    event.preventDefault();
 
-  function handleAddMaterialField() {
-    setFormMaterials([...formMaterials, ""]);
-  }
+    const formData = new FormData(event.target);
+    const newProject = Object.fromEntries(formData);
 
-  function handleRemoveMaterialField(indexToRemove) {
-    setFormMaterials(
-      formMaterials.filter((_, index) => index !== indexToRemove)
-    );
-  }
+    // convert materials and steps to [{id: "1", description: ""}, ...]
+    const materialsArray = formData.getAll("Materials");
+    const materials = materialsArray.map((material, index) => ({
+      id: (index + 1).toString(),
+      description: material,
+    }));
+    newProject.materials = materials;
+    delete newProject.Materials;
 
-  function handleMaterialChange(index, event) {
-    const newMaterials = [...formMaterials];
-    newMaterials[index] = event.target.value;
-    setFormMaterials(newMaterials);
-  }
+    const stepsArray = formData.getAll("Steps");
+    const steps = stepsArray.map((step, index) => ({
+      id: (index + 1).toString(),
+      description: step,
+    }));
+    newProject.steps = steps;
+    delete newProject.Steps;
 
-  // functions for dynamic steps input fields
+    // for image upload
+    if (projectData?.imageUrl) {
+      formData.append("currentImageUrl", projectData.imageUrl);
+    }
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+    const { url } = await response.json();
 
-  function handleAddStepField() {
-    setFormSteps([
-      ...formSteps,
-      { id: `${formSteps.length + 1}`, description: "" },
-    ]);
-  }
+    newProject.id = id || nanoid();
+    newProject.imageUrl = url;
+    newProject.isFavorite = false;
 
-  function handleRemoveStepField(indexToRemove) {
-    setFormSteps(
-      formSteps
-        .filter((_, index) => index !== indexToRemove)
-        .map((step, index) => {
-          return { ...step, id: `${index + 1}` };
-        })
-    );
-  }
-
-  function handleStepChange(index, event) {
-    const newSteps = [...formSteps];
-    newSteps[index].description = event.target.value;
-    setFormSteps(newSteps);
-  }
-
-  // other functions
-
-  function handleClearDynamicFields() {
-    setFormMaterials([""]);
-    setFormSteps([{ id: "1", description: "" }]);
-  }
-
-  function handleUpdateDynamicFields(projectData) {
-    useEffect(() => {
-      if (projectData) {
-        setFormMaterials(projectData.materials);
-        setFormSteps(projectData.steps);
-      }
-    }, projects);
+    onProjectAction(newProject);
   }
 
   function handleToggleForm() {
@@ -123,20 +100,11 @@ export default function App({ Component, pageProps }) {
         projects={projects}
         onUpdateProject={handleUpdateProject}
         onAddProject={handleAddProject}
-        onBookmark={handleToggleBookmark}
+        onToggleBookmark={handleToggleBookmark}
         onDeleteProject={handleDeleteProject}
         toggleFormModal={toggleFormModal}
         onToggleForm={handleToggleForm}
-        onAddMaterialField={handleAddMaterialField}
-        onRemoveMaterialField={handleRemoveMaterialField}
-        onMaterialChange={handleMaterialChange}
-        onAddStepField={handleAddStepField}
-        onRemoveStepField={handleRemoveStepField}
-        onStepChange={handleStepChange}
-        formMaterials={formMaterials}
-        formSteps={formSteps}
-        onClearDynamicFields={handleClearDynamicFields}
-        onUpdateDynamicFields={handleUpdateDynamicFields}
+        onProcessFormData={handleProcessFormData}
       />
     </Layout>
   );

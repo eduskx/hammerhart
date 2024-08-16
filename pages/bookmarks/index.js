@@ -1,7 +1,7 @@
 import ProjectCard from "@/components/ProjectCard";
 import styled from "styled-components";
 
-export default function BookmarkPage({ projects, onBookmark }) {
+export default function BookmarkPage({ projects, onToggleBookmark }) {
   const bookmarkedProjects = projects.filter(
     (project) => project.isFavorite === true
   );
@@ -16,10 +16,9 @@ export default function BookmarkPage({ projects, onBookmark }) {
         <ProjectCard
           key={bookmarkedProject.id}
           project={bookmarkedProject}
-          onBookmark={onBookmark}
+          onToggleBookmark={onToggleBookmark}
         />
       ))}
-      ;
     </BookmarkWrapper>
   );
 }
