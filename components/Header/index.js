@@ -77,7 +77,8 @@ export default function Header() {
 const StyledA = styled.a`
   display: block;
   font-size: 0;
-`;
+  z-index: 2;
+  `;
 const StyledBackground = styled.div`
   position: fixed;
   top: 0;
@@ -99,10 +100,11 @@ const StyledNavList = styled.ul`
 const StyledSocalList = styled(StyledNavList)`
   flex-direction: row;
   width: 100%;
-  padding-right: 0;
+  padding-right: 1.563rem;
+  gap: 2rem;
   -webkit-tap-highlight-color: transparent;
   list-style: none;
-  justify-content: space-evenly;
+  justify-content: end;
   align-items: center;
 `;
 const StyledSocialMediaIcon = styled.div`
@@ -129,8 +131,8 @@ const StyledNavBar = styled.div`
 
 const StyledLogo = styled(HammerhartLogo)`
   width: 5rem;
-  z-index: 2;
   -webkit-tap-highlight-color: transparent;
+  z-index: 2;
   &:hover {
     transition: all 0.5s ease;
     transform: scale(1.1);
@@ -158,11 +160,11 @@ const StyledDiv = styled.div`
   padding-bottom: 1rem;
   top: 0;
   right: 0;
-  width: 15.625rem;
+  width: 100%;
   height: 18.125rem;
   background-color: #536f5f;
   border-radius: 0 0 10px 10px;
-  z-index: 2;
+  z-index: 1;
   animation: fadeInNav 0.4s ease 0s 1 normal forwards;
   @keyframes fadeInNav {
     0% {
