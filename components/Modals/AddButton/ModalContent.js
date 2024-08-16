@@ -3,17 +3,9 @@ import styled from "styled-components";
 
 export default function ModalContent({
   onToggleForm,
-  projects,
   onAddProject,
-  onAddMaterialField,
-  onRemoveMaterialField,
-  onMaterialChange,
-  onAddStepField,
-  onRemoveStepField,
-  onStepChange,
-  formMaterials,
-  formSteps,
-  onClearDynamicFields,
+  projects,
+  onProcessFormData,
 }) {
   return (
     <StyledContainer>
@@ -21,15 +13,7 @@ export default function ModalContent({
         onToggleForm={onToggleForm}
         onAddProject={onAddProject}
         projects={projects}
-        formMaterials={formMaterials}
-        formSteps={formSteps}
-        onClearDynamicFields={onClearDynamicFields}
-        onAddMaterialField={onAddMaterialField}
-        onRemoveMaterialField={onRemoveMaterialField}
-        onMaterialChange={onMaterialChange}
-        onAddStepField={onAddStepField}
-        onRemoveStepField={onRemoveStepField}
-        onStepChange={onStepChange}
+        onProcessFormData={onProcessFormData}
       />
     </StyledContainer>
   );

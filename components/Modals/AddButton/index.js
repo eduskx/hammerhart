@@ -1,45 +1,34 @@
 import styled from "styled-components";
 import { IoMdAdd } from "react-icons/io";
 import { useState } from "react";
-import { createPortal } from "react-dom";
 import ModalContent from "@/components/Modals/AddButton/ModalContent";
 
 export default function AddButton({
-  onToggleForm,
-  toggleFormModal,
-  projects,
   onAddProject,
-  onAddMaterialField,
-  onRemoveMaterialField,
-  onMaterialChange,
-  onAddStepField,
-  onRemoveStepField,
-  onStepChange,
-  formMaterials,
-  formSteps,
-  onClearDynamicFields,
+  projects,
+  onProcessFormData,
 }) {
-  // const [showFormModal, setShowFormModal] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
+  function handleToggleForm() {
+    setIsFormOpen(!isFormOpen);
+    if (!isFormOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }
   return (
     <>
-      <StyledAddButton type="button" onClick={onToggleForm}>
+      <StyledAddButton type="button" onClick={handleToggleForm}>
         <IoMdAdd size={32} />
       </StyledAddButton>
-      {toggleFormModal && (
+      {isFormOpen && (
         <ModalContent
-          onToggleForm={onToggleForm}
+          onToggleForm={handleToggleForm}
           onAddProject={onAddProject}
           projects={projects}
-          formMaterials={formMaterials}
-          formSteps={formSteps}
-          onClearDynamicFields={onClearDynamicFields}
-          onAddMaterialField={onAddMaterialField}
-          onRemoveMaterialField={onRemoveMaterialField}
-          onMaterialChange={onMaterialChange}
-          onAddStepField={onAddStepField}
-          onRemoveStepField={onRemoveStepField}
-          onStepChange={onStepChange}
+          onProcessFormData={onProcessFormData}
         />
       )}
     </>
@@ -50,7 +39,7 @@ const StyledAddButton = styled.button`
   position: fixed;
   bottom: 10%;
   right: 10%;
-  z-index: 10;
+  z-index: 100000;
   padding: 0.5rem;
   border: 2px solid white;
   border-radius: 50%;

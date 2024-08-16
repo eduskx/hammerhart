@@ -57,6 +57,7 @@ const StyledContainer = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 1rem;
+  padding-bottom: 2rem;
 `;
 
 const StyledTitle = styled.p`
