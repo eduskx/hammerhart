@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProjectCard from "../ProjectCard";
-import Link from "next/link";
-import styled from "styled-components";
+
+import {StyledLink,RandomContainer,Container,StyledHeader} from "./styles.RandomProject"
 
 export default function RandomProject({ projects }) {
   const [randomProject, setRandomProject] = useState(null);
@@ -46,31 +46,4 @@ export default function RandomProject({ projects }) {
   );
 }
 
-const StyledUl = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  list-style: none;
-  padding: 2rem;
-  margin: 0;
-`;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: black;
-`;
-
-const RandomContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const StyledHeader = styled.h2`
-  text-align: center;
-`;

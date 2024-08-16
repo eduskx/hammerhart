@@ -20,8 +20,8 @@ const CardContainer = styled.div`
   border-radius: 10px;
   position: relative;
   overflow: hidden;
-  width: 350px;
-  height: 200px;
+  width: 145px;
+  height: 125px;
   display: flex;
   flex-direction: row;
   list-style: none;
@@ -30,8 +30,9 @@ const CardContainer = styled.div`
   gap: 1rem;
   transition: all 0.5s ease;
  
-  @media screen {
-    
+  @media screen and (min-width: 640px) {
+    width: 350px;
+  height: 200px;
   }
 `;
 

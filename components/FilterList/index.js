@@ -49,7 +49,7 @@ const StyledButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 8px;
 
   @media screen and (min-width: 640px) {
     gap: 2rem;

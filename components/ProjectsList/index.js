@@ -1,6 +1,5 @@
 import ProjectCard from "@/components/ProjectCard";
-import Link from "next/link";
-import styled from "styled-components";
+import {StyledLink,StyledUl,StyledNoSearchResults} from "./styles.ProjectsList.js"
 
 export default function ProjectsList({ projects, searchInput }) {
   if (!projects || projects.length === 0) {
@@ -34,23 +33,3 @@ export default function ProjectsList({ projects, searchInput }) {
     </StyledUl>
   );
 }
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: black;
-`;
-const StyledUl = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  list-style: none;
-  padding: 2rem;
-  margin: 0;
-`;
-
-const StyledNoSearchResults = styled.p`
-  color: white;
-  padding: 1rem;
-  text-align: center;
-`;
