@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import ProjectCard from "../ProjectCard";
 import useLocalStorageState from "use-local-storage-state";
 import styled from "styled-components";
