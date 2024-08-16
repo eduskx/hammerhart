@@ -55,7 +55,6 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
 
   function handleCheckboxChange(event) {
     const newStep = event.target.value;
-    console.log("newStep", newStep);
 
     if (completedSteps.includes(newStep)) {
       setcompletedSteps(completedSteps.filter((step) => step !== newStep));
@@ -63,8 +62,6 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
       setcompletedSteps([...completedSteps, newStep, detailsId]);
     }
   }
-
-  console.log(completedSteps);
 
   return (
     <>
