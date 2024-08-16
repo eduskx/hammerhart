@@ -1,11 +1,15 @@
 import Form from "@/components/Form";
-import Header from "@/components/Header";
-import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
+import HighlightedProject from "@/components/HighlitedProject";
 
-export default function HomePage({ projects, setNewProjects }) {
+export default function HomePage({
+  projects,
+  onAddProject,
+  onToggleBookmark,
+  onProcessFormData,
+}) {
   const [searchInput, setSearchInput] = useState("");
 
   function handleSearch(event) {
@@ -13,26 +17,24 @@ export default function HomePage({ projects, setNewProjects }) {
     setSearchInput(lowerCasedInput);
   }
 
-  const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
-    defaultValue: [""],
-  });
-
-  const [formSteps, setFormSteps] = useLocalStorageState("steps", {
-    defaultValue: [{ id: "1", description: "" }],
-  });
   return (
     <>
-      <Header />
       <Form
-        setNewProjects={setNewProjects}
+        onAddProject={onAddProject}
         projects={projects}
-        formMaterials={formMaterials}
-        setFormMaterials={setFormMaterials}
-        formSteps={formSteps}
-        setFormSteps={setFormSteps}
+        onProcessFormData={onProcessFormData}
+      />
+      <HighlightedProject
+        projects={projects}
+        onToggleBookmark={onToggleBookmark}
       />
       <SearchBar onSearch={handleSearch} />
-      <FilterList projects={projects} searchInput={searchInput} />
+      <FilterList
+        projects={projects}
+        onAddProject={onAddProject}
+        onToggleBookmark={onToggleBookmark}
+        searchInput={searchInput}
+      />
     </>
   );
 }

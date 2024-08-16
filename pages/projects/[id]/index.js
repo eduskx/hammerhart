@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 import Modal from "@/components/Modal";
+import BookmarkButton from "@/components/BookmarkButton";
 import Collapsible from "react-collapsible";
 import Note from "@/components/Note";
 import useLocalStorageState from "use-local-storage-state";
@@ -18,7 +19,12 @@ const handleColorType = (color) => {
       return "#3ecd5e";
   }
 };
-export default function ProjectDetailsPage({ projects, setNewProjects }) {
+
+export default function ProjectDetailsPage({
+  projects,
+  onDeleteProject,
+  onToggleBookmark,
+}) {
   const router = useRouter();
   const { id } = router.query;
   const [completedSteps, setcompletedSteps] = useLocalStorageState(
@@ -43,10 +49,6 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
     id: detailsId,
   } = projectData;
 
-  function handleDelete(id) {
-    setNewProjects(projects.filter((project) => project.id !== id));
-    router.push("/");
-  }
   const StyledCollapsible = ({ children, ...props }) => (
     <StyledCollapsibleWrapper>
       <Collapsible {...props}>{children}</Collapsible>
@@ -71,6 +73,10 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
 
       <StyledDetailsWrapper>
         <StyledImageWrapper>
+          <BookmarkButton
+            onToggleBookmark={() => onToggleBookmark(projectData.id)}
+            isFavorite={projectData.isFavorite}
+          />
           <StyledImage
             src={imageUrl}
             alt={title}
@@ -97,10 +103,9 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
             <h2>No Materials found. Please add new ones.</h2>
           ) : (
             <StyledMaterialsList>
-              {materials.map((material, index) => (
-                <StyledListItems key={index}>
-                  <input type="checkbox" />
-                  {material}
+              {materials.map((material) => (
+                <StyledListItems key={material.id}>
+                  {material.description}
                 </StyledListItems>
               ))}
             </StyledMaterialsList>
@@ -145,7 +150,12 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
           <Note project={projectData} />
         </StyledCollapsible>
         <StyledButtonsWrapper>
-          <Modal onDelete={() => handleDelete(id)} />
+          <Modal
+            onDelete={() => {
+              onDeleteProject(id);
+              router.push("/");
+            }}
+          />
           <StyledEditLink href={`/projects/${detailsId}/edit`}>
             Edit
           </StyledEditLink>
@@ -157,7 +167,6 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
 
 const Styledtitle = styled.h1`
   font-size: 1.5rem;
-
   @media screen and (min-width: 640px) {
     font-size: 2rem;
   }
@@ -192,6 +201,7 @@ const StyledDetailsWrapper = styled.div`
   color: white;
   padding: 0;
   gap: 1rem;
+
   @media screen and (min-width: 640px) {
     box-shadow: 1px 1px 6px 1px #00000072;
     background-color: #a38376;
@@ -249,8 +259,11 @@ const StyledMaterialsList = styled.ul`
 const StyledInstructionsList = styled.ol`
   list-style-position: inside;
   list-style-type: none;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
   text-align: start;
   color: #ffffff;
+
   @media screen and (min-width: 640px) {
     list-style-position: inside;
     padding: 0;
@@ -280,6 +293,7 @@ const StyledEditLink = styled(Link)`
     outline: 1px solid white;
   }
 `;
+
 const StyledCollapsibleWrapper = styled.div`
   border-radius: 2px;
   color: rgba(58, 58, 58, 1);
