@@ -75,6 +75,7 @@ export default function App({ Component, pageProps }) {
 
     newProject.id = id || nanoid();
     newProject.imageUrl = url;
+    newProject.isFavorite = false;
 
     onProjectAction(newProject);
   }

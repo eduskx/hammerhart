@@ -19,7 +19,6 @@ export default function BookmarkPage({ projects, onToggleBookmark }) {
           onToggleBookmark={onToggleBookmark}
         />
       ))}
-      ;
     </BookmarkWrapper>
   );
 }
