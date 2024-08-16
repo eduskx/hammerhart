@@ -24,22 +24,17 @@ export default function HighlightedProject({ projects, onToggleBookmark }) {
     }
   });
 
-  // Update randomProject when it is bookmarked
+  // Update randomProject when it is modified
   useEffect(() => {
-    const bookmarkedProject = projects.find(
+    const updatedProject = projects.find(
       (project) => project.id === randomProjectRef.current?.id
     );
-    if (
-      bookmarkedProject &&
-      bookmarkedProject.isFavorite !== randomProjectRef.current.isFavorite
-    ) {
-      setRandomProject(bookmarkedProject);
-      randomProjectRef.current = bookmarkedProject;
-    }
+    setRandomProject(updatedProject);
+    randomProjectRef.current = updatedProject;
   }, [projects]);
 
   if (!randomProject) {
-    return <StyledTitle>Project of the day is not available</StyledTitle>;
+    return <StyledTitle>Highlighted Project is not available</StyledTitle>;
   }
 
   if (!projects) {
