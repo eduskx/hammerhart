@@ -19,12 +19,12 @@ const handleColorType = (color) => {
   }
 };
 export default function ProjectDetailsPage({ projects, setNewProjects }) {
-  const [completedSteps, setcompletedSteps] = useLocalStorageState(
-    "completedSteps",
-    { defaultValue: [] }
-  );
   const router = useRouter();
   const { id } = router.query;
+  const [completedSteps, setcompletedSteps] = useLocalStorageState(
+    `completedSteps-${id}`,
+    { defaultValue: [] }
+  );
 
   const projectData = projects.find((project) => project.id === id);
 
@@ -60,7 +60,7 @@ export default function ProjectDetailsPage({ projects, setNewProjects }) {
     if (completedSteps.includes(newStep)) {
       setcompletedSteps(completedSteps.filter((step) => step !== newStep));
     } else {
-      setcompletedSteps([...completedSteps, newStep]);
+      setcompletedSteps([...completedSteps, newStep, detailsId]);
     }
   }
 
