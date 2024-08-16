@@ -21,9 +21,9 @@ export default function Header() {
 
   return (
     <StyledNavBar>
-      <StyledA href="/">
+      <StyledAnchor href="/">
         <StyledLogo />
-      </StyledA>
+      </StyledAnchor>
       <StyledMenuIcon onClick={toggleMenu}>
         {isMenuOpen ? <MenuIconOpen /> : <MenuIcon />}
       </StyledMenuIcon>
@@ -71,7 +71,7 @@ export default function Header() {
     </StyledNavBar>
   );
 }
-const StyledA = styled.a`
+const StyledAnchor = styled.a`
   display: block;
   font-size: 0;
   z-index: 2;
