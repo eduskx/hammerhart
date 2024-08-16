@@ -1,24 +1,55 @@
 import { createGlobalStyle } from "styled-components";
+import { Grandstander, Rubik } from "next/font/google";
+
+const grandstander = Grandstander({
+  subsets: ["latin"],
+});
+const rubik = Rubik({
+  subsets: ["latin"],
+});
 
 export default createGlobalStyle`
   *,
   *::before,
   *::after {
     box-sizing: border-box;
+    font-family: ${rubik.style.fontFamily};
   }
 
   body {
-    margin: 0;
-    background: rgb(44, 150, 164);
-    background-attachment: fixed;
-    background-color: #584849;
-  }
-
-  h1, h2, h3, h4, h5, h6, p, ul, ol {
+    font-family: ${rubik.style.fontFamily};
     margin: 0;
     padding: 0;
-    max-width: 100%;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: ${grandstander.style.fontFamily};
     word-break: break-all;
     line-height: 1.4rem;
   }
+ p, ul, ol {
+    margin: 0;
+    padding: 0;
+    word-break: break-all;
+    line-height: 1.4rem;
+  }
+  
+  :root{
+
+    /* Colors */
+    --color-primary-1: #F9F5EB;
+    --color-primary-2: #536F5F;
+
+    --color-secondary-1: #A6B2A5;
+    
+    --color-beginner: #338D39;
+    --color-intermediate: #E3D44B;
+    --color-advanced: #D85757;
+
+    /* Shadows */
+    --box-shadow-1: 2px -2px 4px 0px rgba(0,0,0,0.4);
+    --box-shadow-2: 0px 4px 4px 0px rgba(0,0,0,0.4)
+    --inner-Shadow-1: inset 0px 2px 2px 0px rgba(0,0,0,0.4);
+    --inner-shadow-2: inset 0px 4px 4px 0px rgba(0,0,0,0.4);
+    }
 `;
