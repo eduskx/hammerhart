@@ -12,12 +12,12 @@ export default createGlobalStyle`
 
 
   body {
-    margin-top: 6rem;
+    padding-top: 80px;
     background: rgb(44, 150, 164);
-    background-attachment: fixed;
     background-color: #584849;
     font-family: ${grandstander.style.fontFamily};
   }
+
 
   h1, h2, h3, h4, h5, h6, p, ul, ol {
     margin: 0;

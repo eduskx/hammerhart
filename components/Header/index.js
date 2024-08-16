@@ -96,7 +96,7 @@ const StyledNavList = styled.ul`
 
 const StyledSocalList = styled(StyledNavList)`
   flex-direction: row;
-  width: 100%;
+  width: 100100%;
   padding-right: 1.563rem;
   gap: 2rem;
   -webkit-tap-highlight-color: transparent;
@@ -114,11 +114,12 @@ const StyledSocialMediaIcon = styled.div`
 const StyledNavBar = styled.div`
   display: flex;
   position: fixed;
+  right: 0;
   top: 0;
   width: 100%;
   align-items: center;
-  height: 5rem;
-  padding: 1rem 1.563rem 1rem 1.563rem;
+  height: 80px;
+  padding: 16px 25px;
   justify-content: space-between;
  background-color: #536f5f;
   filter: drop-shadow(0px 4px 4px #00000049);
@@ -157,7 +158,7 @@ const StyledDiv = styled.div`
   top: 0;
   right: 0;
   width: 100%;
-  height: 18.125rem;
+  height: 290px;
   background-color: #536f5f;
   border-radius: 0 0 10px 10px;
   z-index: 1;

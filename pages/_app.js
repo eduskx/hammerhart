@@ -1,7 +1,6 @@
 import GlobalStyle from "@/styles";
 import initialProjects from "@/lib/projects.js";
 import useLocalStorageState from "use-local-storage-state";
-import RootLayout from "@/components/Layout";
 import Layout from "@/components/Layout";
 import { nanoid } from "nanoid";
 
@@ -82,19 +81,19 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <Layout>
+    <>
       <GlobalStyle />
-       <RootLayout>
+      <Layout>
         <Component
           {...pageProps}
           projects={projects}
           onUpdateProject={handleUpdateProject}
           onAddProject={handleAddProject}
-        onToggleBookmark={handleToggleBookmark}
-        onDeleteProject={handleDeleteProject}
-        onProcessFormData={handleProcessFormData}
+          onToggleBookmark={handleToggleBookmark}
+          onDeleteProject={handleDeleteProject}
+          onProcessFormData={handleProcessFormData}
         />
-       </RootLayout>
-    </Layout>
+      </Layout>
+    </>
   );
 }
