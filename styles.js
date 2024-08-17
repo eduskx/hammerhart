@@ -25,14 +25,14 @@ export default createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
     font-family: ${grandstander.style.fontFamily};
-    word-break: break-all;
+    word-break: break-word;
     line-height: 1.4rem;
     -webkit-tap-highlight-color: transparent;
   }
  p, ul, ol, a {
     margin: 0;
     padding: 0;
-    word-break: break-all;
+    word-break: break-word;
     line-height: 1.4rem;
     -webkit-tap-highlight-color: transparent;
   }
@@ -43,7 +43,8 @@ export default createGlobalStyle`
     --color-primary-1: #F9F5EB;
     --color-primary-2: #536F5F;
 
-    --color-secondary-1: #A6B2A5;
+    --color-secondary-1: #F9F5EBCC;
+    --color-secondary-2: #A6B2A5;
     
     --color-beginner: #338D39;
     --color-intermediate: #E3D44B;
