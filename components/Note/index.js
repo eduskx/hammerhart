@@ -5,7 +5,7 @@ import useLocalStorageState from "use-local-storage-state";
 import { SlNote } from "react-icons/sl";
 import { TfiCheck } from "react-icons/tfi";
 
-const Note = ({ project }) => {
+export default function Note ({ project }){
   const router = useRouter();
   const { id } = router.query;
 
@@ -49,7 +49,7 @@ const Note = ({ project }) => {
     </StyledNotesWrapper>
   );
 };
-export default Note;
+
 const StyledTextarea = styled.textarea`
   all: unset;
   width: 90%;

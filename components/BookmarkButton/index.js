@@ -1,5 +1,5 @@
-import HeartFilled from "./HeartFilled.svg";
-import Heart from "./Heart.svg";
+import HeartFilled from "@/public/svg/HeartFilled.svg";
+import Heart from "@/public/svg/Heart.svg";
 import styled from "styled-components";
 
 export default function BookmarkButton({ isFavorite, onToggleBookmark }) {

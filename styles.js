@@ -20,19 +20,21 @@ export default createGlobalStyle`
   body {
     font-family: ${rubik.style.fontFamily};
     margin: 0;
-    padding: 0;
+    padding-top: 80px;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: ${grandstander.style.fontFamily};
     word-break: break-all;
     line-height: 1.4rem;
+    -webkit-tap-highlight-color: transparent;
   }
- p, ul, ol {
+ p, ul, ol, a {
     margin: 0;
     padding: 0;
     word-break: break-all;
     line-height: 1.4rem;
+    -webkit-tap-highlight-color: transparent;
   }
   
   :root{
