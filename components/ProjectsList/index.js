@@ -1,5 +1,5 @@
 import ProjectCard from "@/components/ProjectCard";
-import {StyledLink,StyledUl,StyledNoSearchResults} from "./styles.ProjectsList.js"
+import {StyledUl,StyledNoSearchResults} from "./styles.ProjectsList.js"
 
 export default function ProjectsList({
   projects,

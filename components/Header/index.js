@@ -42,7 +42,7 @@ export default function Header() {
       {isMenuOpen && <StyledBackground onClick={closeMenu}></StyledBackground>}
       <StyledDropDownDiv
         $isMenuOpen={isMenuOpen}
-        onClick={(event) => event.stopPropagation()}
+       
       >
         <StyledNavList>
           <li>
