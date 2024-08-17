@@ -16,6 +16,7 @@ export default createGlobalStyle`
     font-family: ${rubik.style.fontFamily};
   }
 
+
   body {
     font-family: ${rubik.style.fontFamily};
     margin: 0;

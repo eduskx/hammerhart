@@ -2,49 +2,41 @@ import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
 
-export default function DynamicArrayInput({ label, state, setterFunction }) {
-  function handleAddField() {
-    setterFunction([...state, ""]);
-  }
-
-  function handleRemoveField(indexToRemove) {
-    setterFunction(state.filter((_, index) => index !== indexToRemove));
-  }
-
-  function handleChange(index, event) {
-    const newListItems = [...state];
-    newListItems[index] = event.target.value;
-    setterFunction(newListItems);
-  }
-
+export default function DynamicInputFields({
+  label,
+  inputFields,
+  onAddField,
+  onRemoveField,
+}) {
   return (
     <>
-      <StyledLabel htmlFor={label}>{label}</StyledLabel>
-      {state.map((element, index) => (
-        <StyledMaterialsWrapper key={index}>
+      <StyledTitle>{label}</StyledTitle>
+      {inputFields.map((field, index) => (
+        <StyledMaterialsWrapper key={field.id}>
+          <label htmlFor={field.id}></label>
           <StyledInput
             required
-            id={label}
-            value={element}
-            onChange={(event) => handleChange(index, event)}
+            id={field.id}
             type="text"
+            name={`${label}`}
+            defaultValue={field?.description || ""}
           />
           <StyledDeleteButton
             type="button"
-            onClick={() => handleRemoveField(index)}
+            onClick={() => onRemoveField(field.id || index)}
           >
             <FaRegTrashAlt />
           </StyledDeleteButton>
         </StyledMaterialsWrapper>
       ))}
-      <StyledAddButton type="button" onClick={handleAddField}>
+      <StyledAddButton type="button" onClick={onAddField}>
         <MdAdd />
       </StyledAddButton>
     </>
   );
 }
 
-const StyledLabel = styled.label`
+const StyledTitle = styled.p`
   padding-top: 1rem;
 `;
 

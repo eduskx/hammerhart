@@ -2,7 +2,12 @@ import { useState } from "react";
 import ProjectsList from "../ProjectsList";
 import styled from "styled-components";
 
-export default function FilterList({ projects, searchInput }) {
+export default function FilterList({
+  projects,
+  onAddProject,
+  onToggleBookmark,
+  searchInput,
+}) {
   const complexities = [
     { name: "All", color: "#070ff7" },
     { name: "Beginner", color: "#3ecd5e" },
@@ -20,6 +25,7 @@ export default function FilterList({ projects, searchInput }) {
   function filterByComplexity(complexity) {
     setActiveFilter(complexity);
   }
+
   return (
     <>
       <StyledButtonWrapper>
@@ -39,7 +45,12 @@ export default function FilterList({ projects, searchInput }) {
           "No {activeFilter} projects available!"
         </StyledEmptyMessage>
       ) : (
-        <ProjectsList projects={filteredProjects} searchInput={searchInput} />
+        <ProjectsList
+          projects={filteredProjects}
+          onAddProject={onAddProject}
+          onToggleBookmark={onToggleBookmark}
+          searchInput={searchInput}
+        />
       )}
     </>
   );

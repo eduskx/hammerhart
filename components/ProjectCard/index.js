@@ -1,6 +1,6 @@
 import {CardContainer, StyledImage, Wrapper, StyledTitle, StyledComplexity} from "./styles.ProjectCard"
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, onToggleBookmark }) {
   const { imageUrl, title, complexity } = project;
 
   return (
