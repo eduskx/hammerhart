@@ -80,6 +80,32 @@ export default function App({ Component, pageProps }) {
     onProjectAction(newProject);
   }
 
+  console.log(projects);
+
+  function handleMaterialCheckbox(materialId, projectId) {
+    setProjects(
+      projects.map((project) => {
+        if (project.id === projectId) {
+          return {
+            ...project,
+            materials: project.materials.map((material) => {
+              if (material.id === materialId) {
+                return {
+                  ...material,
+                  isChecked: !material.isChecked,
+                };
+              } else {
+                return material;
+              }
+            }),
+          };
+        } else {
+          return project;
+        }
+      })
+    );
+  }
+
   return (
     <Layout>
       <GlobalStyle />
@@ -91,6 +117,7 @@ export default function App({ Component, pageProps }) {
         onToggleBookmark={handleToggleBookmark}
         onDeleteProject={handleDeleteProject}
         onProcessFormData={handleProcessFormData}
+        onMaterialCheckbox={handleMaterialCheckbox}
       />
     </Layout>
   );

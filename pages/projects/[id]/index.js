@@ -24,13 +24,8 @@ export default function ProjectDetailsPage({
   projects,
   onDeleteProject,
   onToggleBookmark,
+  onMaterialCheckbox,
 }) {
-  const [checkedItems, setCheckedItems] = useLocalStorageState(
-    "checkedItems",
-    {}
-  );
-  console.log(checkedItems);
-
   const router = useRouter();
   const { id } = router.query;
 
@@ -56,21 +51,6 @@ export default function ProjectDetailsPage({
       <Collapsible {...props}>{children}</Collapsible>
     </StyledCollapsibleWrapper>
   );
-
-  function handleCheckboxChange(event) {
-    const newStep = event.target.value;
-    if (projectData) {
-      setCheckedItems(
-        [...projectData].map((material) =>
-          material.id === newStep
-            ? { ...material, isChecked: !material.isChecked }
-            : material
-        )
-      );
-    } else {
-      setCheckedItems([...projectData, { id, isChecked: true }]);
-    }
-  }
 
   return (
     <>
@@ -112,14 +92,11 @@ export default function ProjectDetailsPage({
             <StyledMaterialsList>
               {materials.map((material) => (
                 <StyledListItems key={material.id}>
-                  {projectData && (
-                    <input
-                      type="checkbox"
-                      checked={checkedItems?.[material.id] || false}
-                      onChange={() => handleCheckboxChange(material.id)}
-                      value={material.id}
-                    />
-                  )}
+                  <input
+                    type="checkbox"
+                    checked={material.isChecked}
+                    onChange={() => onMaterialCheckbox(material.id, detailsId)}
+                  />
                   {material.description}
                 </StyledListItems>
               ))}
@@ -140,13 +117,13 @@ export default function ProjectDetailsPage({
             <StyledInstructionsList>
               {steps.map((step) => (
                 <StyledListItems key={step.id}>
-                  {projectData && (
+                  {/* {projectData && (
                     <input
                       type="checkbox"
                       checked={checkedItems?.[step.id] || false}
                       onChange={() => handleCheckboxChange(step.id)}
                     />
-                  )}
+                  )} */}
                   {step.description}
                 </StyledListItems>
               ))}
