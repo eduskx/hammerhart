@@ -80,8 +80,6 @@ export default function App({ Component, pageProps }) {
     onProjectAction(newProject);
   }
 
-  console.log(projects);
-
   function handleMaterialCheckbox(materialId, projectId) {
     setProjects(
       projects.map((project) => {
@@ -106,6 +104,30 @@ export default function App({ Component, pageProps }) {
     );
   }
 
+  function handleStepCheckbox(stepId, projectId) {
+    setProjects(
+      projects.map((project) => {
+        if (project.id === projectId) {
+          return {
+            ...project,
+            steps: project.steps.map((step) => {
+              if (step.id === stepId) {
+                return {
+                  ...step,
+                  isChecked: !step.isChecked,
+                };
+              } else {
+                return step;
+              }
+            }),
+          };
+        } else {
+          return project;
+        }
+      })
+    );
+  }
+
   return (
     <Layout>
       <GlobalStyle />
@@ -118,6 +140,7 @@ export default function App({ Component, pageProps }) {
         onDeleteProject={handleDeleteProject}
         onProcessFormData={handleProcessFormData}
         onMaterialCheckbox={handleMaterialCheckbox}
+        onStepCheckbox={handleStepCheckbox}
       />
     </Layout>
   );

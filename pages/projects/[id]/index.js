@@ -25,11 +25,14 @@ export default function ProjectDetailsPage({
   onDeleteProject,
   onToggleBookmark,
   onMaterialCheckbox,
+  onStepCheckbox,
 }) {
   const router = useRouter();
   const { id } = router.query;
 
   const projectData = projects.find((project) => project.id === id);
+
+  console.log(projectData);
 
   if (!projectData) {
     return <h1>No project found</h1>;
@@ -117,13 +120,11 @@ export default function ProjectDetailsPage({
             <StyledInstructionsList>
               {steps.map((step) => (
                 <StyledListItems key={step.id}>
-                  {/* {projectData && (
-                    <input
-                      type="checkbox"
-                      checked={checkedItems?.[step.id] || false}
-                      onChange={() => handleCheckboxChange(step.id)}
-                    />
-                  )} */}
+                  <input
+                    type="checkbox"
+                    checked={step.isChecked}
+                    onChange={() => onStepCheckbox(step.id, detailsId)}
+                  />
                   {step.description}
                 </StyledListItems>
               ))}
