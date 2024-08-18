@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import HammerhartLogo from "@/public/svg/hammerhart_logo.svg";
 
-
-
 const StyledAnchor = styled.a`
   line-height: 0;
   z-index: 2;
@@ -13,22 +11,22 @@ const StyledDivBlocker = styled.div`
   top: 0;
   width: 100%;
   height: 80px;
-  background-color: var(--color-primary-2);
+  background-color: var(--color-primary-1);
   border-radius: 0 0 10px 10px;
   z-index: 1;
 `;
 
 const StyledLogo = styled(HammerhartLogo)`
-  width: 5rem;
+  fill: var(--color-primary-2);
+  width: 80px;
   -webkit-tap-highlight-color: transparent;
-  z-index: 2;
   &:hover {
     transition: all 0.5s ease;
     transform: scale(1.1);
   }
 `;
 
-const StyledBackground = styled.div`
+const StyledCancelBackground = styled.div`
   position: fixed;
   top: 0;
   right: 0;
@@ -44,60 +42,54 @@ const StyledNavList = styled.ul`
   align-items: end;
   gap: 1rem;
   list-style: none;
-  padding-right: 1.563rem;
+  padding-right: 25px;
   z-index: 3;
 `;
 
-const StyledSocalList = styled(StyledNavList)`
-  flex-direction: row;
-  width: 100%;
-  padding-right: 1.563rem;
-  gap: 2rem;
-  -webkit-tap-highlight-color: transparent;
-  list-style: none;
-  justify-content: end;
+const StyledSocalBlock = styled.div`
+  display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 20px;
+  -webkit-tap-highlight-color: transparent;
+  padding-right: 25px;
+  z-index: 3;
 `;
 
-const StyledSocialMediaIcon = styled.div`
-  color: var(--primary-color-2) svg {
-    fill: currentColor;
-  }
+const StyledSocialMediaIcon = styled.a`
+  fill: var(--color-primary-2);
+  display: flex;
+  height: 22px;
   &:hover {
     transition: all 0.5s ease;
-    transform: scale(1.3);
+    transform: scale(1.1);
   }
 `;
 
 const StyledNavBar = styled.div`
   display: flex;
   position: fixed;
+  align-items: center;
+  justify-content: space-between;
   right: 0;
   top: 0;
   width: 100%;
   height: 80px;
   background-color: var(--color-primary-1);
   border-radius: 0 0 10px 10px;
-  align-items: center;
-  padding: 16px 25px;
-  justify-content: space-between;
-  filter: drop-shadow(0px 4px 4px #00000049);
-  z-index: 110;
+  padding: 0 25px;
+  box-shadow: var(--box-shadow-2);
+  z-index: 2;
 `;
 
 const StyledMenuIcon = styled.div`
-  display: block;
-  font-size: 0;
+  fill: var(--color-primary-2);
+  width: 30px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   z-index: 2;
-  transition: opacity 0.3s ease-in-out;
   &:hover {
     transform: scale(1.1);
-  }
-  & > svg {
-    transition: ${({ isMenuOpen }) =>
-      isMenuOpen ? "0.3s ease-in-out" : "0.3s ease-in-out"};
   }
 `;
 
@@ -107,14 +99,15 @@ const StyledDropDownDiv = styled.div`
   align-items: end;
   justify-content: end;
   position: fixed;
-  gap: 5rem;
-  padding-bottom: 1rem;
-  top: 0px;
+  gap: 80px;
+  padding-bottom: 16px;
+  top: 0;
   right: 0;
-  width: 100%;
-  height: 290px;
-  background-color: var(--color-primary-2);
+  width: 375px;
+  height: 300px;
+  background-color: var(--color-primary-1);
   border-radius: 0 0 10px 10px;
+  box-shadow: var(--box-shadow-2);
   z-index: 1;
   transform-origin: 100% 0%;
   transition: transform 0.4s ease;
@@ -122,11 +115,11 @@ const StyledDropDownDiv = styled.div`
 `;
 
 const StyledListElements = styled.a`
+  color: var(--color-primary-2);
   display: flex;
-  align-self: self-end;
+  align-self: end;
   -webkit-tap-highlight-color: transparent;
   font-size: 1.563rem;
-  color: #f9f5eb;
   text-decoration: none;
   &:hover {
     transition: all 0.5s ease-in-out;
@@ -134,4 +127,16 @@ const StyledListElements = styled.a`
   }
 `;
 
-export {StyledAnchor,StyledDivBlocker,StyledLogo,StyledBackground,StyledSocalList,StyledNavList,StyledSocialMediaIcon,StyledNavBar,StyledMenuIcon,StyledDropDownDiv,StyledListElements}
+export {
+  StyledAnchor,
+  StyledDivBlocker,
+  StyledLogo,
+  StyledCancelBackground,
+  StyledSocalBlock,
+  StyledNavList,
+  StyledNavBar,
+  StyledMenuIcon,
+  StyledDropDownDiv,
+  StyledListElements,
+  StyledSocialMediaIcon,
+};

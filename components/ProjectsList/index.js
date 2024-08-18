@@ -29,7 +29,7 @@ export default function ProjectsList({
     <StyledUl>
       {searchedProjects.map((project) => (
         <li key={project.id}>
-          <ProjectCard project={project} onToggleBookmark={onToggleBookmark} />
+          <ProjectCard project={project} onToggleBookmark={onToggleBookmark}  />
         </li>
       ))}
     </StyledUl>

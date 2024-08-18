@@ -157,13 +157,14 @@ const StyledButtonsWrapper = styled.div`
 
 const StyledLink = styled(Link)`
   font-size: larger;
-  padding-top: 1rem;
-  color: white;
+  padding-top: 16px;
+  color: var(--color-primary-2);
   text-decoration: none;
-  display: flex;
+  display:flex;
   align-items: center;
   gap: 0.5rem;
-  justify-content: center;
+  margin: 80px auto 0 auto;
+  width: max-content;
 `;
 const StyledDetailsWrapper = styled.div`
   box-shadow: 1px 1px 6px 1px #00000072;
@@ -173,7 +174,7 @@ const StyledDetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1rem auto 1rem auto;
+  margin: 16px auto 16px auto;
   border-radius: 20px;
   color: white;
   padding: 0;
@@ -186,7 +187,7 @@ const StyledDetailsWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1rem auto 1rem auto;
+    margin: 16px auto 16px auto;
     border-radius: 20px;
     color: white;
     padding: 0;

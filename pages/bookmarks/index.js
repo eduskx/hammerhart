@@ -24,9 +24,11 @@ export default function BookmarkPage({ projects, onToggleBookmark }) {
 }
 
 const BookmarkWrapper = styled.div`
+
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
-  padding: 2rem;
+  padding: 100px 16px;
+  height: 100%;
 `;

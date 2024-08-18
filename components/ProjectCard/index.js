@@ -5,19 +5,22 @@ import {
   StyledImageTitleWrapper,
   StyledTitle,
   StyledComplexity,
+  StyledTitleBackground,
 } from "./styles.ProjectCard";
 import BookmarkButton from "../BookmarkButton";
 import Link from "next/link";
 
-export default function ProjectCard({ project, onToggleBookmark }) {
+export default function ProjectCard({ project, onToggleBookmark,}) {
   const { imageUrl, title, complexity } = project;
 
   return (
     <CardWrapper>
-   {/*    <BookmarkButton
-        onToggleBookmark={() => onToggleBookmark(project.id)}
-        isFavorite={project.isFavorite}
-      /> */}
+      {
+        <BookmarkButton
+          onToggleBookmark={() => onToggleBookmark(project.id)}
+          isFavorite={project.isFavorite}
+        />
+      }
       <Link href={`/projects/${project.id}`}>
         <CardContainer color={complexity}>
           <StyledImageTitleWrapper>
@@ -28,7 +31,9 @@ export default function ProjectCard({ project, onToggleBookmark }) {
               height={100}
               priority
             />
-            <StyledTitle>{title}</StyledTitle>
+            <StyledTitleBackground>
+              <StyledTitle>{title}</StyledTitle>
+            </StyledTitleBackground>
           </StyledImageTitleWrapper>
           <StyledComplexity>{complexity}</StyledComplexity>
         </CardContainer>

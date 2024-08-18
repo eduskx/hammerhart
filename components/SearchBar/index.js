@@ -1,40 +1,62 @@
 import styled from "styled-components";
+import SearchIcon from "@/public/svg/Search.svg"
 
 export default function SearchBar({ onSearch }) {
   return (
-    <StyledContainer>
+    <>
       <label htmlFor="searchbar"></label>
-      <StyledSearchBar
-        type="text"
-        id="searchbar"
-        name="searchbar"
-        placeholder="🔎 Search projects"
-        onChange={onSearch}
-      />
-    </StyledContainer>
+      <StyledSearchBarIconWrapper>
+        <StyledSearchBar
+          type="text"
+          id="searchbar"
+          name="searchbar"
+          placeholder="Search..."
+          onChange={onSearch}
+        />
+        <StyledIcon><SearchIcon fill="currentColor"/></StyledIcon>
+      </StyledSearchBarIconWrapper>
+     </>
   );
 }
+const StyledSearchBarIconWrapper = styled.div`
+display:flex;
+position: relative;
+`;
+const StyledIcon = styled.div`
+display: flex;
+position: absolute;
+justify-content: center;
+align-items: center;
+color: var(--color-primary-1);
+right: 0;
+height: 27px;
+width: 27px;
+border-radius: 10px;
+padding: 5px;
+background-color: var(--color-primary-2);
 
-const StyledContainer = styled.div`
-  padding-top: 1rem;
-  padding-bottom: 2rem;
-  display: flex;
-  justify-content: center;
 `;
 
-const StyledSearchBar = styled.input`
-  width: 20rem;
-  height: 2.5rem;
-  border-radius: 5px;
-  border: none;
-  background-color: #eaecef;
-  font-size: 16px;
 
-  &:focus {
-    outline: none;
-    background-color: white;
+
+const StyledSearchBar = styled.input`
+  width: 265px;
+  height: 27px;
+  border-radius: 10px;
+  border: 2px solid var(--color-primary-2);
+  background-color: var(--color-secondary-1);
+  font-size: 0.8rem;
+  padding-left: 10px;
+  
+  &::placeholder{
+color: #536f5f80;
   }
-  &:focus::-webkit-input-placeholder {
-    color: transparent;
+  &:focus{
+    outline-offset: -3px;
+    outline:2px solid var(--color-primary-2);
   }
+  background-image: url("../public/svg/facebook.svg");
+    background-position: 7px 7px;
+    background-repeat: no-repeat;
+  
 `;

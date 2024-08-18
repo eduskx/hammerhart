@@ -2,23 +2,25 @@ import {
   StyledAnchor,
   StyledDivBlocker,
   StyledLogo,
-  StyledBackground,
-  StyledSocalList,
+  StyledCancelBackground,
+  StyledSocalBlock,
   StyledNavList,
   StyledSocialMediaIcon,
   StyledNavBar,
   StyledMenuIcon,
   StyledDropDownDiv,
   StyledListElements,
+ 
 } from "./styles.Header";
-import MenuIcon from "@/public/svg/menuIcon.svg";
-import MenuIconOpen from "@/public/svg/menuIconOpen.svg";
+import MenuIcon from "@/public/svg/menuIcon_new.svg";
+import MenuIconOpen from "@/public/svg/menuIconOpen_new.svg";
 import Facebook from "@/public/svg/facebook.svg";
 import Instagram from "@/public/svg/instagram.svg";
 import X from "@/public/svg/x-icon.svg";
 import Youtube from "@/public/svg/youtube.svg";
 
 import { useState } from "react";
+
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,14 +38,14 @@ export default function Header() {
       <StyledAnchor href="/">
         <StyledLogo />
       </StyledAnchor>
-      <StyledMenuIcon onClick={toggleMenu} isMenuOpen={isMenuOpen}>
+
+      <StyledMenuIcon onClick={toggleMenu} $isMenuOpen={isMenuOpen}>
         {isMenuOpen ? <MenuIconOpen /> : <MenuIcon />}
       </StyledMenuIcon>
-      {isMenuOpen && <StyledBackground onClick={closeMenu}></StyledBackground>}
-      <StyledDropDownDiv
-        $isMenuOpen={isMenuOpen}
-       
-      >
+      {isMenuOpen && (
+        <StyledCancelBackground onClick={closeMenu}></StyledCancelBackground>
+      )}
+      <StyledDropDownDiv $isMenuOpen={isMenuOpen}>
         <StyledNavList>
           <li>
             <StyledListElements href="/">Home</StyledListElements>
@@ -54,40 +56,14 @@ export default function Header() {
             </StyledListElements>
           </li>
         </StyledNavList>
-        <StyledSocalList>
-          <li>
-            <a href="http://www.facebook.com/" target="_blank">
-              <StyledSocialMediaIcon>
-                <Facebook />
-              </StyledSocialMediaIcon>
-            </a>
-          </li>
-          <li>
-            <a href="http://www.instagram.com/" target="_blank">
-              <StyledSocialMediaIcon>
-                <Instagram />
-              </StyledSocialMediaIcon>
-            </a>
-          </li>
-          <li>
-            <a href="http://www.x.com/" target="_blank">
-              <StyledSocialMediaIcon>
-                <X />
-              </StyledSocialMediaIcon>
-            </a>
-          </li>
-          <li>
-            <a href="http://www.youtube.com/" target="_blank">
-              <StyledSocialMediaIcon>
-                <Youtube />
-              </StyledSocialMediaIcon>
-            </a>
-          </li>
-        </StyledSocalList>
+        <StyledSocalBlock>
+          <StyledSocialMediaIcon href="http://www.facebook.com" target="_blank"><Facebook width="100%" /></StyledSocialMediaIcon>
+          <StyledSocialMediaIcon href="http://www.instagram.com" target="_blank"><Instagram width="100%" /></StyledSocialMediaIcon>
+          <StyledSocialMediaIcon href="http://www.x.com" target="_blank"><X width="100%"/></StyledSocialMediaIcon>
+          <StyledSocialMediaIcon href="http://www.youtube.com" target="_blank"><Youtube width="100%"/></StyledSocialMediaIcon>
+        </StyledSocalBlock>
       </StyledDropDownDiv>
-      <StyledDivBlocker></StyledDivBlocker>
+      <StyledDivBlocker />
     </StyledNavBar>
   );
 }
-
-

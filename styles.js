@@ -14,28 +14,29 @@ export default createGlobalStyle`
   *::after {
     box-sizing: border-box;
     font-family: ${rubik.style.fontFamily};
+    font-weight: 500;
   }
-
 
   body {
     font-family: ${rubik.style.fontFamily};
     margin: 0;
-    padding-top: 80px;
+    padding: 0;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: ${grandstander.style.fontFamily};
     word-break: break-word;
-    line-height: 1.4rem;
+    line-height: 1.6rem;
     -webkit-tap-highlight-color: transparent;
   }
- p, ul, ol, a {
+ p, ul, ol, a  {
     margin: 0;
     padding: 0;
     word-break: break-word;
     line-height: 1.4rem;
     -webkit-tap-highlight-color: transparent;
   }
+ 
   
   :root{
 
@@ -44,7 +45,7 @@ export default createGlobalStyle`
     --color-primary-2: #536F5F;
 
     --color-secondary-1: #F9F5EBCC;
-    --color-secondary-2: #A6B2A5;
+    --color-secondary-2: #a6b2a56b;
     
     --color-beginner: #338D39;
     --color-intermediate: #E3D44B;
@@ -52,8 +53,8 @@ export default createGlobalStyle`
 
     /* Shadows */
     --box-shadow-1: 2px -2px 4px 0px rgba(0,0,0,0.4);
-    --box-shadow-2: 0px 4px 4px 0px rgba(0,0,0,0.4)
-    --inner-Shadow-1: inset 0px 2px 2px 0px rgba(0,0,0,0.4);
-    --inner-shadow-2: inset 0px 4px 4px 0px rgba(0,0,0,0.4);
+    --box-shadow-2: 4px 4px 4px 0px rgba(0,0,0,0.4);
+    --inner-shadow-1: inset -4px 4px 4px 0px rgba(0,0,0,0.4);
+    --inner-shadow-2: inset 0px -4px 4px 0px rgba(0,0,0,0.4);
     }
 `;

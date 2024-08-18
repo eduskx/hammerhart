@@ -11,15 +11,13 @@ export default function BookmarkButton({ isFavorite, onToggleBookmark }) {
 }
 
 const StyledButton = styled.button`
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 25%;
+  background: var(--color-secondary-1);
+  border-radius: 10px;
   fill: red;
   border: none;
   position: absolute;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: fit-content;
+  z-index: 1;
+  bottom: 3px;
+  left: 3px;
   cursor: pointer;
 `;

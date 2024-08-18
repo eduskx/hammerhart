@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProjectCard from "../ProjectCard";
 
-import {StyledLink,RandomContainer,Container,StyledHeader} from "./styles.RandomProject"
+import {StyledTitle} from "./styles.RandomProject"
 
 export default function RandomProject({ projects }) {
   const [randomProject, setRandomProject] = useState(null);
@@ -34,7 +34,7 @@ export default function RandomProject({ projects }) {
 
   return (
     <RandomContainer>
-      <StyledHeader>The Project of the day</StyledHeader>;
+      <StyledTitle>The Project of the day</StyledTitle>;
       <Container>
         {randomProject && (
           <StyledLink href={`/projects/${randomProject.id}`}>
