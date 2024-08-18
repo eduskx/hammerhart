@@ -25,12 +25,14 @@ export default function ProjectDetailsPage({
   onDeleteProject,
   onToggleBookmark,
 }) {
+  const [checkedItems, setCheckedItems] = useLocalStorageState(
+    "checkedItems",
+    {}
+  );
+  console.log(checkedItems);
+
   const router = useRouter();
   const { id } = router.query;
-  const [completedSteps, setcompletedSteps] = useLocalStorageState(
-    `completedSteps-${id}`,
-    { defaultValue: [] }
-  );
 
   const projectData = projects.find((project) => project.id === id);
 
@@ -57,11 +59,16 @@ export default function ProjectDetailsPage({
 
   function handleCheckboxChange(event) {
     const newStep = event.target.value;
-
-    if (completedSteps.includes(newStep)) {
-      setcompletedSteps(completedSteps.filter((step) => step !== newStep));
+    if (projectData) {
+      setCheckedItems(
+        [...projectData].map((material) =>
+          material.id === newStep
+            ? { ...material, isChecked: !material.isChecked }
+            : material
+        )
+      );
     } else {
-      setcompletedSteps([...completedSteps, newStep, detailsId]);
+      setCheckedItems([...projectData, { id, isChecked: true }]);
     }
   }
 
@@ -74,7 +81,7 @@ export default function ProjectDetailsPage({
       <StyledDetailsWrapper>
         <StyledImageWrapper>
           <BookmarkButton
-            onToggleBookmark={() => onToggleBookmark(projectData.id)}
+            onToggleBookmark={() => onToggleBookmark(detailsId)}
             isFavorite={projectData.isFavorite}
           />
           <StyledImage
@@ -105,6 +112,14 @@ export default function ProjectDetailsPage({
             <StyledMaterialsList>
               {materials.map((material) => (
                 <StyledListItems key={material.id}>
+                  {projectData && (
+                    <input
+                      type="checkbox"
+                      checked={checkedItems}
+                      onChange={handleCheckboxChange}
+                      value={material.id}
+                    />
+                  )}
                   {material.description}
                 </StyledListItems>
               ))}
@@ -125,14 +140,13 @@ export default function ProjectDetailsPage({
             <StyledInstructionsList>
               {steps.map((step) => (
                 <StyledListItems key={step.id}>
-                  {completedSteps && (
+                  {/* {projectData && (
                     <input
                       type="checkbox"
-                      checked={completedSteps.includes(step.id)}
-                      onChange={handleCheckboxChange}
-                      value={step.id}
+                      checked={checkedItems?.[step.id] || false}
+                      onChange={() => handleCheckboxChange(step.id)}
                     />
-                  )}
+                  )} */}
                   {step.description}
                 </StyledListItems>
               ))}
