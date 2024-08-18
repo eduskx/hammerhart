@@ -7,7 +7,6 @@ import Modal from "@/components/Modal";
 import BookmarkButton from "@/components/BookmarkButton";
 import Collapsible from "react-collapsible";
 import Note from "@/components/Note";
-import useLocalStorageState from "use-local-storage-state";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -24,8 +23,7 @@ export default function ProjectDetailsPage({
   projects,
   onDeleteProject,
   onToggleBookmark,
-  onMaterialCheckbox,
-  onStepCheckbox,
+  onCheckbox,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -96,7 +94,9 @@ export default function ProjectDetailsPage({
                   <input
                     type="checkbox"
                     checked={material.isChecked}
-                    onChange={() => onMaterialCheckbox(material.id, detailsId)}
+                    onChange={() =>
+                      onCheckbox(material.id, detailsId, "materials")
+                    }
                   />
                   {material.description}
                 </StyledListItems>
@@ -121,7 +121,7 @@ export default function ProjectDetailsPage({
                   <input
                     type="checkbox"
                     checked={step.isChecked}
-                    onChange={() => onStepCheckbox(step.id, detailsId)}
+                    onChange={() => onCheckbox(step.id, detailsId, "steps")}
                   />
                   {step.description}
                 </StyledListItems>

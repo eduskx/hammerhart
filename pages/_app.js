@@ -80,44 +80,20 @@ export default function App({ Component, pageProps }) {
     onProjectAction(newProject);
   }
 
-  function handleMaterialCheckbox(materialId, projectId) {
+  function handleCheckbox(itemId, projectId, items) {
     setProjects(
       projects.map((project) => {
         if (project.id === projectId) {
           return {
             ...project,
-            materials: project.materials.map((material) => {
-              if (material.id === materialId) {
+            [items]: project[items].map((item) => {
+              if (item.id === itemId) {
                 return {
-                  ...material,
-                  isChecked: !material.isChecked,
+                  ...item,
+                  isChecked: !item.isChecked,
                 };
               } else {
-                return material;
-              }
-            }),
-          };
-        } else {
-          return project;
-        }
-      })
-    );
-  }
-
-  function handleStepCheckbox(stepId, projectId) {
-    setProjects(
-      projects.map((project) => {
-        if (project.id === projectId) {
-          return {
-            ...project,
-            steps: project.steps.map((step) => {
-              if (step.id === stepId) {
-                return {
-                  ...step,
-                  isChecked: !step.isChecked,
-                };
-              } else {
-                return step;
+                return item;
               }
             }),
           };
@@ -139,8 +115,7 @@ export default function App({ Component, pageProps }) {
         onToggleBookmark={handleToggleBookmark}
         onDeleteProject={handleDeleteProject}
         onProcessFormData={handleProcessFormData}
-        onMaterialCheckbox={handleMaterialCheckbox}
-        onStepCheckbox={handleStepCheckbox}
+        onCheckbox={handleCheckbox}
       />
     </Layout>
   );
