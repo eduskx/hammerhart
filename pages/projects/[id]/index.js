@@ -115,8 +115,8 @@ export default function ProjectDetailsPage({
                   {projectData && (
                     <input
                       type="checkbox"
-                      checked={checkedItems}
-                      onChange={handleCheckboxChange}
+                      checked={checkedItems?.[material.id] || false}
+                      onChange={() => handleCheckboxChange(material.id)}
                       value={material.id}
                     />
                   )}
@@ -140,13 +140,13 @@ export default function ProjectDetailsPage({
             <StyledInstructionsList>
               {steps.map((step) => (
                 <StyledListItems key={step.id}>
-                  {/* {projectData && (
+                  {projectData && (
                     <input
                       type="checkbox"
                       checked={checkedItems?.[step.id] || false}
                       onChange={() => handleCheckboxChange(step.id)}
                     />
-                  )} */}
+                  )}
                   {step.description}
                 </StyledListItems>
               ))}
