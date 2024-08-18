@@ -32,8 +32,6 @@ export default function ProjectDetailsPage({
 
   const projectData = projects.find((project) => project.id === id);
 
-  console.log(projectData);
-
   if (!projectData) {
     return <h1>No project found</h1>;
   }
