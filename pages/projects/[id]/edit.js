@@ -6,6 +6,7 @@ export default function EditPage({
   projects,
   onUpdateProject,
   onProcessFormData,
+  onToggleForm,
 }) {
   const router = useRouter();
   const { id } = router.query;

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modals/DeleteButton";
 import BookmarkButton from "@/components/BookmarkButton";
 import Collapsible from "react-collapsible";
 import Note from "@/components/Note";
