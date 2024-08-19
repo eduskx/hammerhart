@@ -47,7 +47,7 @@ const StyledAddButton = styled.button`
   position: fixed;
   bottom: 10%;
   right: 10%;
-  z-index: 100000;
+  z-index: 111;
   padding: 0.5rem;
   border: 2px solid white;
   border-radius: 50%;

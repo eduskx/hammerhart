@@ -1,4 +1,3 @@
-
 import SearchBar from "@/components/SearchBar";
 import HighlightedProject from "@/components/HighlightedProject";
 import styled from "styled-components";
@@ -6,14 +5,11 @@ import Sliders from "@/public/svg/Sliders.svg";
 import FilterButtons from "@/components/FilterButtons";
 import ProjectsList from "@/components/ProjectsList";
 import { useState } from "react";
-import HighlightedProject from "@/components/HighlitedProject";
 import AddButton from "@/components/Modals/AddButton";
 
 export default function HomePage({
   projects,
-  onAddProject,
   onToggleBookmark,
-  onProcessFormData,
   onSearch,
   searchInput,
 }) {
@@ -27,12 +23,6 @@ export default function HomePage({
   return (
     <>
       <StyledWelcomeSection>
-        {/*      <Form
-          onAddProject={onAddProject}
-          projects={projects}
-          onProcessFormData={onProcessFormData}
-          /> */}
-
         <StyledPattern />
         <StyledWelcomeText>
           Hammerhart
@@ -44,8 +34,8 @@ export default function HomePage({
             Start your Project, today!
           </StyledWelcomeTextSpan>
         </StyledWelcomeText>
-
         <StyledCreateButton>Create a Project +</StyledCreateButton>
+        <AddButton/>
       </StyledWelcomeSection>
       <StyledListSection>
         <StyledPatternBottom />
@@ -76,6 +66,7 @@ export default function HomePage({
           filteredBy={activeFilter}
         />
       </StyledListSection>
+      <AddButton />
     </>
   );
 }
@@ -144,7 +135,7 @@ const StyledPattern = styled.div`
   }
 `;
 const StyledPatternBottom = styled(StyledPattern)`
-background-repeat: repeat;
+  background-repeat: repeat;
   background-image: url("./svg/backgroundImage_green.svg");
 `;
 
