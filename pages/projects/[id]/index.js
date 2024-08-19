@@ -98,9 +98,7 @@ export default function ProjectDetailsPage({
                   <input
                     type="checkbox"
                     checked={material.isChecked}
-                    onChange={() =>
-                      onCheckbox(material.id, detailsId, "materials")
-                    }
+                    onChange={() => onCheckbox(material.id, id, "materials")}
                     aria-checked={material.isChecked}
                     aria-label={`Select ${material.description}`}
                   />
@@ -127,7 +125,7 @@ export default function ProjectDetailsPage({
                   <input
                     type="checkbox"
                     checked={step.isChecked}
-                    onChange={() => onCheckbox(step.id, detailsId, "steps")}
+                    onChange={() => onCheckbox(step.id, id, "steps")}
                     aria-checked={step.isChecked}
                     aria-label={`Select ${step.description}`}
                   />
