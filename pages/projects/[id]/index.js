@@ -24,6 +24,7 @@ export default function ProjectDetailsPage({
   projects,
   onDeleteProject,
   onToggleBookmark,
+  onCheckbox,
   onToggleForm,
   isFormOpen,
   onUpdateProject,
@@ -63,7 +64,7 @@ export default function ProjectDetailsPage({
       <StyledDetailsWrapper>
         <StyledImageWrapper>
           <BookmarkButton
-            onToggleBookmark={() => onToggleBookmark(projectData.id)}
+            onToggleBookmark={() => onToggleBookmark(detailsId)}
             isFavorite={projectData.isFavorite}
           />
           <StyledImage
@@ -94,6 +95,15 @@ export default function ProjectDetailsPage({
             <StyledMaterialsList>
               {materials.map((material) => (
                 <StyledListItems key={material.id}>
+                  <input
+                    type="checkbox"
+                    checked={material.isChecked}
+                    onChange={() =>
+                      onCheckbox(material.id, detailsId, "materials")
+                    }
+                    aria-checked={material.isChecked}
+                    aria-label={`Select ${material.description}`}
+                  />
                   {material.description}
                 </StyledListItems>
               ))}
@@ -114,6 +124,13 @@ export default function ProjectDetailsPage({
             <StyledInstructionsList>
               {steps.map((step) => (
                 <StyledListItems key={step.id}>
+                  <input
+                    type="checkbox"
+                    checked={step.isChecked}
+                    onChange={() => onCheckbox(step.id, detailsId, "steps")}
+                    aria-checked={step.isChecked}
+                    aria-label={`Select ${step.description}`}
+                  />
                   {step.description}
                 </StyledListItems>
               ))}
@@ -234,7 +251,7 @@ const StyledDuration = styled.p`
 
 const StyledMaterialsList = styled.ul`
   list-style-position: inside;
-  list-style-type: circle;
+  list-style-type: none;
   text-align: start;
   padding: 0;
   margin: 0;
@@ -243,6 +260,7 @@ const StyledMaterialsList = styled.ul`
 
 const StyledInstructionsList = styled.ol`
   list-style-position: inside;
+  list-style-type: none;
   padding: 0 1rem;
   margin-bottom: 1rem;
   text-align: start;
