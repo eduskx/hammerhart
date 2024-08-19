@@ -8,6 +8,7 @@ import RandomProject from "@/components/RandomProject";
 
 export default function HomePage({ projects, setNewProjects }) {
   const [searchInput, setSearchInput] = useState("");
+  const [value, setValue] = useState("");
 
   function handleSearch(event) {
     const lowerCasedInput = event.target.value.toLowerCase();
@@ -34,6 +35,7 @@ export default function HomePage({ projects, setNewProjects }) {
       />
       <RandomProject projects={projects} />
       <SearchBar onSearch={handleSearch} />
+
       <FilterList projects={projects} searchInput={searchInput} />
     </>
   );

@@ -1,60 +1,43 @@
 import styled from "styled-components";
-import { useRef, useState } from "react";
-import DynamicArrayInput from "@/components/Form/DynamicArrayInput";
-import DynamicStepsInput from "@/components/Form/DynamicStepsInput";
+import { useState, useRef } from "react";
+import DynamicInputFields from "./DynamicInputFields";
 import Link from "next/link";
+import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
+import { nanoid } from "nanoid";
+import { Editor } from "primereact/editor";
 
 export default function Form({
-  setNewProjects,
-  projects,
+  onToggleForm,
   defaultData,
-  onSubmit,
-  formMaterials,
-  setFormMaterials,
-  formSteps,
-  setFormSteps,
-  isEditMode,
-  id,
+  onEditSubmit,
+  onAddProject,
+  onProcessFormData,
 }) {
+  let formRef = useRef(null);
+
+  const [value, setValue] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
-  const [descriptionCounter, setDescriptionCounter] = useState(
+  const [characterCounter, setCharacterCounter] = useState(
     250 - defaultData?.description.length || 250
   );
 
-  let formRef = useRef(null);
+  const [materialFields, setMaterialFields] = useState(
+    defaultData?.materials || [{ id: nanoid() }]
+  );
+  const [stepFields, setStepFields] = useState(
+    defaultData?.steps || [{ id: nanoid() }]
+  );
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  function handleAddField(setFields) {
+    const newField = { id: nanoid() };
+    setFields((prevFields) => [...prevFields, newField]);
+  }
 
-    const formData = new FormData(event.target);
-
-    const newProject = Object.fromEntries(formData);
-
-    const response = await fetch("api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const { url } = await response.json();
-
-    const highestProjectId = projects.reduce(
-      (prev, current) => (prev.id > current.id ? prev.id : current.id),
-      "0"
+  function handleRemoveField(setFields, idToRemove) {
+    setFields((prevFields) =>
+      prevFields.filter((field) => field.id !== idToRemove)
     );
-
-    newProject.id = `${Number(highestProjectId) + 1}`;
-    newProject.materials = formMaterials;
-    newProject.steps = formSteps;
-    newProject.imageUrl = url;
-
-    // swapped ...projects and newProject because we added toReversed() in list mapping
-    setNewProjects([...projects, newProject]);
-
-    event.target.reset();
-    setFormMaterials([""]);
-    setFormSteps([{ id: "1", description: "" }]);
-    setImagePreview(null);
   }
 
   function handleChangeImage(event) {
@@ -62,20 +45,60 @@ export default function Form({
   }
 
   function handleClearForm() {
-    formRef.reset();
-    setFormMaterials([""]);
-    setFormSteps([{ id: "1", description: "" }]);
+    if (formRef.current) {
+      formRef.current.reset();
+
+      // we need this extra logic to clear all defaultValues in the EditPage
+      const formInputs = formRef.current.elements;
+      formInputs.title.value = "";
+      formInputs.imageUrl.value = "";
+      formInputs.description.value = "";
+      formInputs.duration.value = "";
+      formInputs.complexity.value = "";
+    }
+
+    setMaterialFields([{ id: nanoid() }]);
+    setStepFields([{ id: nanoid() }]);
+    setImagePreview(null);
+    setCharacterCounter(250);
+  }
+
+  async function handleSubmit(event) {
+    await onProcessFormData(event, null, null, onAddProject);
+    handleClearForm();
+  }
+
+  function handleChangeCharactersLeft(event) {
+    setCharacterCounter(250 - event.target.value.length);
+    console.log(
+      "handleChangeCharactersLeft wird aufgerufen: ",
+      characterCounter
+    );
   }
 
   function handleChangeLimitCharacter(event) {
-    setDescriptionCounter(event.target.maxLength - event.target.value.length);
+    const text = document.createElement("div");
+    text.innerHTML = event.htmlValue || "";
+
+    if (text.innerText.length <= 250) {
+      setValue(text.innerText);
+      setCharacterCounter(250 - text.innerText.length);
+      console.log("kleiner als 250");
+    } else {
+      console.log("größer als 250");
+      text.innerText = text.innerText.substring(0, 250);
+      setValue(text.innerText);
+      setCharacterCounter(250 - text.innerText.length);
+      console.log(value);
+    }
   }
 
   return (
-    <StyledForm
-      ref={(element) => (formRef = element)}
-      onSubmit={onSubmit || handleSubmit}
-    >
+    <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
+      <StyledCloseButton type="button" onClick={onToggleForm}>
+        <IoMdClose color="darkred" size={28} />
+      </StyledCloseButton>
+
       <label htmlFor="title">Title</label>
       <StyledInput
         required
@@ -110,7 +133,7 @@ export default function Form({
 
       <DescriptionCounterWrapper>
         <label htmlFor="description">Description</label>
-        <DescriptionCounter>{`${descriptionCounter} Characters left`}</DescriptionCounter>
+        <DescriptionCounter>{`${characterCounter} characters left`}</DescriptionCounter>
       </DescriptionCounterWrapper>
       <StyledTextarea
         id="description"
@@ -118,8 +141,14 @@ export default function Form({
         rows={5}
         cols={30}
         maxLength={250}
-        onChange={handleChangeLimitCharacter}
+        onChange={handleChangeCharactersLeft}
         defaultValue={defaultData?.description}
+      />
+      <Editor
+        value={value}
+        onTextChange={(e) => handleChangeLimitCharacter(e)}
+        maxLength={250}
+        style={{ height: "320px" }}
       />
 
       <label htmlFor="duration">Duration</label>
@@ -146,22 +175,27 @@ export default function Form({
         </StyledDropdown>
       </StyledDropDownWrapper>
 
-      <DynamicArrayInput
-        label="Add Materials"
-        state={formMaterials}
-        setterFunction={setFormMaterials}
+      <DynamicInputFields
+        label="Materials"
+        inputFields={materialFields}
+        onAddField={() => handleAddField(setMaterialFields)}
+        onRemoveField={(idToRemove) =>
+          handleRemoveField(setMaterialFields, idToRemove)
+        }
       />
-      <DynamicStepsInput steps={formSteps} setSteps={setFormSteps} />
+      <DynamicInputFields
+        label="Steps"
+        inputFields={stepFields}
+        onAddField={() => handleAddField(setStepFields)}
+        onRemoveField={(idToRemove) =>
+          handleRemoveField(setStepFields, idToRemove)
+        }
+      />
 
       <StyledButtonWrapper>
-        {!isEditMode && (
-          <StyledClearButton type="button" onClick={handleClearForm}>
-            Clear
-          </StyledClearButton>
-        )}
-        {isEditMode && (
-          <StyledCancelLink href={`/projects/${id}/`}>Cancel</StyledCancelLink>
-        )}
+        <StyledClearButton type="button" onClick={handleClearForm}>
+          Clear
+        </StyledClearButton>
         <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
       </StyledButtonWrapper>
     </StyledForm>
@@ -175,9 +209,9 @@ const DescriptionCounterWrapper = styled.div`
 
 const DescriptionCounter = styled.span`
   display: inline-block;
-  color: ${(prop) => (prop.children === "0 Characters left" ? "red" : "white")};
+  color: ${(prop) => (prop.children === "0 characters left" ? "red" : "white")};
   animation: ${(props) =>
-    props.children === "0 Characters left" ? "shake 0.5s 2" : null};
+    props.children === "0 characters left" ? "shake 0.5s 2" : null};
 
   @keyframes shake {
     10%,
@@ -386,4 +420,12 @@ const StyledCancelLink = styled(Link)`
       transform: translateY(-3px);
     }
   }
+`;
+
+const StyledCloseButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: right;
 `;

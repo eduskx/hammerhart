@@ -4,14 +4,20 @@ import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
 import { SlNote } from "react-icons/sl";
 import { TfiCheck } from "react-icons/tfi";
+import { Editor } from "primereact/editor";
 
 const Note = ({ project }) => {
   const router = useRouter();
   const { id } = router.query;
 
   const [currentNote, setCurrentNote] = useLocalStorageState(`note-${id}`, "");
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [isEditMode, setIsEditMode] = useLocalStorageState(
+    `editMode-${id}`,
+    false
+  );
+  // const [isEditMode, setIsEditMode] = useState(false);
   const textareaFocus = useRef(null);
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     if (isEditMode && textareaFocus.current) {
@@ -23,6 +29,11 @@ const Note = ({ project }) => {
     setCurrentNote(event.target.value);
   };
 
+  const handleTextChange = (event) => {
+    setValue(event.htmlValue);
+    console.log(value);
+  };
+
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
   };
@@ -30,13 +41,19 @@ const Note = ({ project }) => {
   return (
     <StyledNotesWrapper>
       {isEditMode ? (
-        <StyledTextarea
-          ref={textareaFocus}
-          value={currentNote}
-          onChange={handleInputChange}
-          rows="5"
-          cols="50"
-          placeholder="Enter your notes here..."
+        // <StyledTextarea
+        //   ref={textareaFocus}
+        //   value={currentNote}
+        //   onChange={handleInputChange}
+        //   rows="5"
+        //   cols="50"
+        //   placeholder="Enter your notes here..."
+        // />
+
+        <Editor
+          value={value}
+          onTextChange={(e) => handleTextChange(e)}
+          style={{ height: "320px" }}
         />
       ) : (
         <StyledNotesTextField>
@@ -50,6 +67,7 @@ const Note = ({ project }) => {
   );
 };
 export default Note;
+
 const StyledTextarea = styled.textarea`
   all: unset;
   width: 90%;
@@ -77,7 +95,7 @@ const StyledButton = styled.button`
   bottom: 0;
   right: 0.3rem;
   transition: all 0.5s ease;
-  S &:hover {
+  &:hover {
     transform: scale(1.5);
   }
 `;
