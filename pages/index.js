@@ -5,6 +5,8 @@ import { useState } from "react";
 import HighlightedProject from "@/components/HighlightedProject";
 import styled from "styled-components";
 import Sliders from "@/public/svg/Sliders.svg";
+import FilterButtons from "@/components/FilterButtons";
+import ProjectsList from "@/components/ProjectsList";
 
 export default function HomePage({
   projects,
@@ -14,6 +16,13 @@ export default function HomePage({
   onSearch,
   searchInput,
 }) {
+  const [activeFilter, setActiveFilter] = useState("All");
+  const complexities = ["All", "Beginner", "Intermediate", "Advanced"];
+
+  function handleFilterChange(complexity) {
+    setActiveFilter(complexity);
+  }
+
   return (
     <>
       <StyledWelcomeSection>
@@ -49,11 +58,21 @@ export default function HomePage({
             <Sliders fill="currentColor" />
           </StyledFilterToggleButton>
         </StyledToggleSearchWrapper>
-        <FilterList
+        {/* <FilterList
           projects={projects}
           onAddProject={onAddProject}
           onToggleBookmark={onToggleBookmark}
           searchInput={searchInput}
+        /> */}
+        <FilterButtons
+          complexities={complexities}
+          onFilterChange={handleFilterChange}
+        />
+        <ProjectsList
+          projects={projects}
+          onToggleBookmark={onToggleBookmark}
+          searchInput={searchInput}
+          filteredBy={activeFilter}
         />
       </StyledListSection>
     </>

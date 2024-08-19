@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
@@ -11,14 +10,14 @@ const StyledUl = styled.ul`
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
-list-style: none;
- margin-top: 10px;
+  list-style: none;
+  margin-top: 10px;
 `;
 
 const StyledNoSearchResults = styled.p`
-  color: white;
+  color: black;
   padding: 1rem;
   text-align: center;
 `;
 
-export {StyledLink,StyledUl,StyledNoSearchResults}
+export { StyledLink, StyledUl, StyledNoSearchResults };
