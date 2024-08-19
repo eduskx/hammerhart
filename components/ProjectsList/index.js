@@ -1,10 +1,11 @@
 import ProjectCard from "@/components/ProjectCard";
-import {StyledUl,StyledNoSearchResults} from "./styles.ProjectsList.js"
+import { StyledUl, StyledNoSearchResults } from "./styles.ProjectsList.js";
 
 export default function ProjectsList({
   projects,
   onToggleBookmark,
   searchInput,
+  filteredBy,
 }) {
   if (!projects || projects.length === 0) {
     return <h1>No projects found. Please create new ones.</h1>;
@@ -21,15 +22,19 @@ export default function ProjectsList({
     }
   });
 
-  if (searchedProjects.length === 0) {
+  const searchedAndFilteredProjects =
+    filteredBy === "All"
+      ? searchedProjects
+      : searchedProjects.filter((project) => project.complexity === filteredBy);
+
+  if (searchedAndFilteredProjects.length === 0) {
     return <StyledNoSearchResults>No projects found</StyledNoSearchResults>;
   }
-
   return (
     <StyledUl>
-      {searchedProjects.map((project) => (
+      {searchedAndFilteredProjects.map((project) => (
         <li key={project.id}>
-          <ProjectCard project={project} onToggleBookmark={onToggleBookmark}  />
+          <ProjectCard project={project} onToggleBookmark={onToggleBookmark} />
         </li>
       ))}
     </StyledUl>

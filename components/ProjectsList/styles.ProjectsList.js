@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
@@ -17,9 +16,9 @@ list-style: none;
 `;
 
 const StyledNoSearchResults = styled.p`
-  color: white;
+  color: black;
   padding: 1rem;
   text-align: center;
 `;
 
-export {StyledLink,StyledUl,StyledNoSearchResults}
+export { StyledLink, StyledUl, StyledNoSearchResults };
