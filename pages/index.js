@@ -1,4 +1,3 @@
-import Form from "@/components/Form";
 
 import SearchBar from "@/components/SearchBar";
 import HighlightedProject from "@/components/HighlightedProject";
@@ -7,6 +6,9 @@ import Sliders from "@/public/svg/Sliders.svg";
 import FilterButtons from "@/components/FilterButtons";
 import ProjectsList from "@/components/ProjectsList";
 import { useState } from "react";
+import HighlightedProject from "@/components/HighlitedProject";
+import AddButton from "@/components/Modals/AddButton";
+
 export default function HomePage({
   projects,
   onAddProject,

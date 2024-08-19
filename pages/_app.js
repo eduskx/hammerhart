@@ -88,6 +88,30 @@ export default function App({ Component, pageProps }) {
     onProjectAction(newProject);
   }
 
+  function handleCheckbox(itemId, projectId, items) {
+    setProjects(
+      projects.map((project) => {
+        if (project.id === projectId) {
+          return {
+            ...project,
+            [items]: project[items].map((item) => {
+              if (item.id === itemId) {
+                return {
+                  ...item,
+                  isChecked: !item.isChecked,
+                };
+              } else {
+                return item;
+              }
+            }),
+          };
+        } else {
+          return project;
+        }
+      })
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -102,6 +126,7 @@ export default function App({ Component, pageProps }) {
           onProcessFormData={handleProcessFormData}
           onSearch={handleSearch}
           searchInput={searchInput}
+          onCheckbox={handleCheckbox}
         />
       </Layout>
     </>

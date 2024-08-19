@@ -64,6 +64,7 @@ export default function Form({
   async function handleSubmit(event) {
     await onProcessFormData(event, null, null, onAddProject);
     handleClearForm();
+    onToggleForm();
   }
 
   function handleChangeCharactersLeft(event) {
@@ -72,9 +73,11 @@ export default function Form({
 
   return (
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
-      <StyledCloseButton type="button" onClick={onToggleForm}>
-        <IoMdClose color="darkred" size={28} />
-      </StyledCloseButton>
+      <StyledButtonContainer>
+        <StyledCloseButton type="button" onClick={onToggleForm}>
+          <IoMdClose color="darkred" size={28} />
+        </StyledCloseButton>
+      </StyledButtonContainer>
 
       <label htmlFor="title">Title</label>
       <StyledInput
@@ -398,5 +401,10 @@ const StyledCloseButton = styled.button`
   border: none;
   cursor: pointer;
   font-size: 20px;
-  text-align: right;
+  width: fit-content;
+`;
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
 `;
