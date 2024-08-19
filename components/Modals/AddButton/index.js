@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { IoMdAdd } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalContent from "@/components/Modals/AddButton/ModalContent";
 
 export default function AddButton({
@@ -12,12 +12,16 @@ export default function AddButton({
 
   function handleToggleForm() {
     setIsFormOpen(!isFormOpen);
-    if (!isFormOpen) {
+  }
+
+  useEffect(() => {
+    if (isFormOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }
+  }, [isFormOpen]);
+
   return (
     <>
       <StyledAddButton
