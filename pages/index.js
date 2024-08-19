@@ -2,9 +2,8 @@ import Form from "@/components/Form";
 import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
-import HighlightedProject from "@/components/HighlitedProject";
+import HighlightedProject from "@/components/HighlightedProject";
 import styled from "styled-components";
-import BackPattern from "@/public/svg/backgroundImage.svg";
 import Sliders from "@/public/svg/Sliders.svg";
 
 export default function HomePage({
@@ -19,7 +18,7 @@ export default function HomePage({
     const lowerCasedInput = event.target.value.toLowerCase();
     setSearchInput(lowerCasedInput);
   }
-  const stl = { width: "310px", height: "175px" };
+  
   return (
     <>
       <StyledWelcomeSection>
@@ -101,7 +100,7 @@ const StyledCreateButton = styled.button`
   border-radius: 10px;
   box-shadow: var(--box-shadow-2);
   z-index: 1;
-  margin-bottom: 24px;
+  margin-bottom: 50px;
 `;
 const StyledWelcomeTextSpan = styled.span`
   line-height: 1.25;
@@ -109,7 +108,7 @@ const StyledWelcomeTextSpan = styled.span`
   font-weight: 400;
 `;
 const StyledWelcomeText = styled.h1`
-  margin-top: 100px;
+  margin-top: 120px;
   padding: 0 16px 0 16px;
   font-size: 2.5rem;
   display: flex;
@@ -149,6 +148,10 @@ const StyledWelcomeSection = styled.div`
   background-color: var(--color-primary-2);
   box-shadow: var(--inner-shadow-2);
   overflow: hidden;
+  @media screen and (min-width: 640px) {
+    padding: 0 20%;
+    
+  }
   `;
 const StyledListSection = styled(StyledWelcomeSection)`
  height: 100%;

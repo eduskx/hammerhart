@@ -36,7 +36,7 @@ const StyledCancelBackground = styled.div`
   z-index: 1;
 `;
 
-const StyledNavList = styled.ul`
+const StyledMobileNavList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: end;
@@ -45,8 +45,16 @@ const StyledNavList = styled.ul`
   padding-right: 25px;
   z-index: 3;
 `;
+const StyledNavList = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  padding-right: 25px;
+  z-index: 3;
+`;
 
-const StyledSocalBlock = styled.div`
+const StyledSocialBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,6 +88,10 @@ const StyledNavBar = styled.div`
   padding: 0 25px;
   box-shadow: var(--box-shadow-2);
   z-index: 2;
+  @media screen and (min-width: 640px) {
+    padding: 0 20%;
+    
+  }
 `;
 
 const StyledMenuIcon = styled.div`
@@ -103,7 +115,7 @@ const StyledDropDownDiv = styled.div`
   padding-bottom: 16px;
   top: 0;
   right: 0;
-  width: 375px;
+  width: 100%;
   height: 300px;
   background-color: var(--color-primary-1);
   border-radius: 0 0 10px 10px;
@@ -112,6 +124,7 @@ const StyledDropDownDiv = styled.div`
   transform-origin: 100% 0%;
   transition: transform 0.4s ease;
   transform: ${({ $isMenuOpen }) => ($isMenuOpen ? "scaleY(1)" : "scaleY(0)")};
+
 `;
 
 const StyledListElements = styled.a`
@@ -132,11 +145,11 @@ export {
   StyledDivBlocker,
   StyledLogo,
   StyledCancelBackground,
-  StyledSocalBlock,
-  StyledNavList,
+  StyledSocialBlock,
+  StyledMobileNavList,
   StyledNavBar,
   StyledMenuIcon,
   StyledDropDownDiv,
   StyledListElements,
-  StyledSocialMediaIcon,
+  StyledSocialMediaIcon,StyledNavList,
 };

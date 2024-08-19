@@ -8,6 +8,7 @@ export default function App({ Component, pageProps }) {
   const [projects, setProjects] = useLocalStorageState("projects", {
     defaultValue: initialProjects,
   });
+  
 
   function handleAddProject(newProject) {
     setProjects([newProject, ...projects]);
