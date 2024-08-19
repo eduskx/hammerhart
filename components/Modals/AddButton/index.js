@@ -20,7 +20,11 @@ export default function AddButton({
   }
   return (
     <>
-      <StyledAddButton type="button" onClick={handleToggleForm}>
+      <StyledAddButton
+        type="button"
+        $isFormOpen={isFormOpen}
+        onClick={handleToggleForm}
+      >
         <IoMdAdd size={32} />
       </StyledAddButton>
       {isFormOpen && (
@@ -46,4 +50,5 @@ const StyledAddButton = styled.button`
   background-color: #6f5a51;
   color: white;
   cursor: pointer;
+  display: ${({ $isFormOpen }) => ($isFormOpen ? "none" : "inline")};
 `;
