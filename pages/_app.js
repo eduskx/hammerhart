@@ -3,12 +3,19 @@ import initialProjects from "@/lib/projects.js";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import { nanoid } from "nanoid";
+import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
   const [projects, setProjects] = useLocalStorageState("projects", {
     defaultValue: initialProjects,
   });
-  
+
+  const [searchInput, setSearchInput] = useState("");
+
+  function handleSearch(event) {
+    const lowerCasedInput = event.target.value.toLowerCase();
+    setSearchInput(lowerCasedInput);
+  }
 
   function handleAddProject(newProject) {
     setProjects([newProject, ...projects]);
@@ -84,7 +91,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Layout>
+      <Layout onSearch={handleSearch}>
         <Component
           {...pageProps}
           projects={projects}
@@ -93,6 +100,8 @@ export default function App({ Component, pageProps }) {
           onToggleBookmark={handleToggleBookmark}
           onDeleteProject={handleDeleteProject}
           onProcessFormData={handleProcessFormData}
+          onSearch={handleSearch}
+          searchInput={searchInput}
         />
       </Layout>
     </>

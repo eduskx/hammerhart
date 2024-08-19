@@ -11,14 +11,9 @@ export default function HomePage({
   onAddProject,
   onToggleBookmark,
   onProcessFormData,
+  onSearch,
+  searchInput,
 }) {
-  const [searchInput, setSearchInput] = useState("");
-
-  function handleSearch(event) {
-    const lowerCasedInput = event.target.value.toLowerCase();
-    setSearchInput(lowerCasedInput);
-  }
-  
   return (
     <>
       <StyledWelcomeSection>
@@ -28,7 +23,7 @@ export default function HomePage({
           onProcessFormData={onProcessFormData}
           /> */}
 
-          <StyledPatternTop/>
+        <StyledPatternTop />
         <StyledWelcomeText>
           Hammerhart
           <StyledWelcomeTextSpan>
@@ -43,13 +38,13 @@ export default function HomePage({
         <StyledCreateButton>Create a Project +</StyledCreateButton>
       </StyledWelcomeSection>
       <StyledListSection>
-          <StyledPatternBottom/>
+        <StyledPatternBottom />
         <HighlightedProject
           projects={projects}
           onToggleBookmark={onToggleBookmark}
         />
         <StyledToggleSearchWrapper>
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar onSearch={onSearch} />
           <StyledFilterToggleButton>
             <Sliders fill="currentColor" />
           </StyledFilterToggleButton>
@@ -60,8 +55,6 @@ export default function HomePage({
           onToggleBookmark={onToggleBookmark}
           searchInput={searchInput}
         />
-     
-    
       </StyledListSection>
     </>
   );
@@ -123,21 +116,18 @@ const StyledPatternTop = styled.div`
   position: absolute;
   background-image: url("./svg/backgroundImage_new.svg");
   background-repeat: no-repeat;
- background-position: 0% 0%;
+  background-position: 0% 0%;
   height: 200%;
- width: 100%;
-
- `;
- const StyledPatternBottom = styled.div`
+  width: 100%;
+`;
+const StyledPatternBottom = styled.div`
   position: absolute;
   background-image: url("./svg/backgroundImage_new.svg");
- background-repeat: no-repeat;
-background-position: 60% 130%;
- height: 100%;
- width: 100%;
- `;
-
-
+  background-repeat: no-repeat;
+  background-position: 60% 130%;
+  height: 100%;
+  width: 100%;
+`;
 
 const StyledWelcomeSection = styled.div`
   display: flex;
@@ -150,13 +140,10 @@ const StyledWelcomeSection = styled.div`
   overflow: hidden;
   @media screen and (min-width: 640px) {
     padding: 0 20%;
-    
   }
-  `;
-const StyledListSection = styled(StyledWelcomeSection)`
- height: 100%;
-background-color: var(--color-primary-1);
-  padding-bottom: 20px;
-  
 `;
-
+const StyledListSection = styled(StyledWelcomeSection)`
+  height: 100%;
+  background-color: var(--color-primary-1);
+  padding-bottom: 20px;
+`;
