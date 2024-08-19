@@ -15,9 +15,7 @@ const Note = ({ project }) => {
     `editMode-${id}`,
     false
   );
-  // const [isEditMode, setIsEditMode] = useState(false);
   const textareaFocus = useRef(null);
-  const [value, setValue] = useState("");
 
   useEffect(() => {
     if (isEditMode && textareaFocus.current) {
@@ -25,35 +23,34 @@ const Note = ({ project }) => {
     }
   }, [isEditMode]);
 
-  const handleInputChange = (event) => {
-    setCurrentNote(event.target.value);
-  };
-
   const handleTextChange = (event) => {
-    setValue(event.htmlValue);
-    console.log(value);
+    setCurrentNote(event.htmlValue);
+    console.log(event.textValue);
   };
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
   };
 
+  const customToolbar = (
+    <span className="ql-formats">
+      <button className="ql-bold" />
+      <button className="ql-italic" />
+      <button className="ql-underline" />
+      <button className="ql-list" value="ordered" />
+      <select className="ql-color" />
+      <select className="ql-background" />
+    </span>
+  );
+
   return (
     <StyledNotesWrapper>
       {isEditMode ? (
-        // <StyledTextarea
-        //   ref={textareaFocus}
-        //   value={currentNote}
-        //   onChange={handleInputChange}
-        //   rows="5"
-        //   cols="50"
-        //   placeholder="Enter your notes here..."
-        // />
-
         <Editor
-          value={value}
+          value={currentNote}
           onTextChange={(e) => handleTextChange(e)}
           style={{ height: "320px" }}
+          headerTemplate={customToolbar}
         />
       ) : (
         <StyledNotesTextField>

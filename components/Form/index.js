@@ -48,7 +48,6 @@ export default function Form({
     if (formRef.current) {
       formRef.current.reset();
 
-      // we need this extra logic to clear all defaultValues in the EditPage
       const formInputs = formRef.current.elements;
       formInputs.title.value = "";
       formInputs.imageUrl.value = "";
@@ -70,10 +69,6 @@ export default function Form({
 
   function handleChangeCharactersLeft(event) {
     setCharacterCounter(250 - event.target.value.length);
-    console.log(
-      "handleChangeCharactersLeft wird aufgerufen: ",
-      characterCounter
-    );
   }
 
   function handleChangeLimitCharacter(event) {
@@ -83,15 +78,23 @@ export default function Form({
     if (text.innerText.length <= 250) {
       setValue(text.innerText);
       setCharacterCounter(250 - text.innerText.length);
-      console.log("kleiner als 250");
     } else {
-      console.log("größer als 250");
       text.innerText = text.innerText.substring(0, 250);
       setValue(text.innerText);
       setCharacterCounter(250 - text.innerText.length);
-      console.log(value);
     }
   }
+
+  // const customToolbar = (
+  //   <span className="ql-formats">
+  //     <button className="ql-bold" />
+  //     <button className="ql-italic" />
+  //     <button className="ql-underline" /> */
+  //     <button className="ql-list" value="ordered" />
+  //     <button className="ql-list" value="bullet" />
+  //     <button className="ql-link" />
+  //   </span>
+  // );
 
   return (
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
@@ -149,6 +152,7 @@ export default function Form({
         onTextChange={(e) => handleChangeLimitCharacter(e)}
         maxLength={250}
         style={{ height: "320px" }}
+        // headerTemplate={customToolbar}
       />
 
       <label htmlFor="duration">Duration</label>
