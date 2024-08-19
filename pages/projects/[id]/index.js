@@ -97,6 +97,8 @@ export default function ProjectDetailsPage({
                     onChange={() =>
                       onCheckbox(material.id, detailsId, "materials")
                     }
+                    aria-checked={material.isChecked}
+                    aria-label={`Select ${material.description}`}
                   />
                   {material.description}
                 </StyledListItems>
@@ -122,6 +124,8 @@ export default function ProjectDetailsPage({
                     type="checkbox"
                     checked={step.isChecked}
                     onChange={() => onCheckbox(step.id, detailsId, "steps")}
+                    aria-checked={step.isChecked}
+                    aria-label={`Select ${step.description}`}
                   />
                   {step.description}
                 </StyledListItems>
@@ -296,7 +300,6 @@ const StyledCollapsibleWrapper = styled.div`
   }
   .Collapsible__trigger {
     display: flex;
-
 
     color: rgba(58, 58, 58, 1);
     width: 100%;
