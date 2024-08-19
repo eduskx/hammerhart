@@ -13,6 +13,7 @@ const StyledUl = styled.ul`
   gap: 30px;
 list-style: none;
  margin-top: 10px;
+ padding: 0 10%;
 `;
 
 const StyledNoSearchResults = styled.p`

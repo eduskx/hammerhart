@@ -1,7 +1,6 @@
 import Form from "@/components/Form";
 import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
-import { useState } from "react";
 import HighlightedProject from "@/components/HighlightedProject";
 import styled from "styled-components";
 import Sliders from "@/public/svg/Sliders.svg";
@@ -23,7 +22,7 @@ export default function HomePage({
           onProcessFormData={onProcessFormData}
           /> */}
 
-        <StyledPatternTop />
+        <StyledPattern />
         <StyledWelcomeText>
           Hammerhart
           <StyledWelcomeTextSpan>
@@ -92,7 +91,6 @@ const StyledCreateButton = styled.button`
   background-color: var(--color-primary-1);
   border-radius: 10px;
   box-shadow: var(--box-shadow-2);
-  z-index: 1;
   margin-bottom: 50px;
 `;
 const StyledWelcomeTextSpan = styled.span`
@@ -109,38 +107,35 @@ const StyledWelcomeText = styled.h1`
   gap: 25px;
   text-align: center;
   line-height: 1.1;
-  z-index: 1;
 `;
 
-const StyledPatternTop = styled.div`
+const StyledPattern = styled.div`
   position: absolute;
-  background-image: url("./svg/backgroundImage_new.svg");
-  background-repeat: no-repeat;
-  background-position: 0% 0%;
-  height: 200%;
-  width: 100%;
+  background-image: url("./svg/backgroundImage_white.svg");
+  background-repeat: repeat;
+  background-attachment: local;
+  opacity: 0.2;
+  width: 2560px;
+  height: 100vh;
+  @media screen and (min-width: 640px) {
+    width: 2560px;
+    height: 100vh;
+  }
 `;
-const StyledPatternBottom = styled.div`
-  position: absolute;
-  background-image: url("./svg/backgroundImage_new.svg");
-  background-repeat: no-repeat;
-  background-position: 60% 130%;
-  height: 100%;
-  width: 100%;
+const StyledPatternBottom = styled(StyledPattern)`
+background-repeat: repeat;
+  background-image: url("./svg/backgroundImage_green.svg");
 `;
 
 const StyledWelcomeSection = styled.div`
   display: flex;
   position: relative;
-  width: 100vw;
+  width: 100%;
   flex-direction: column;
   color: var(--color-primary-1);
   background-color: var(--color-primary-2);
   box-shadow: var(--inner-shadow-2);
   overflow: hidden;
-  @media screen and (min-width: 640px) {
-    padding: 0 20%;
-  }
 `;
 const StyledListSection = styled(StyledWelcomeSection)`
   height: 100%;

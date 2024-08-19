@@ -6,6 +6,7 @@ import {
   StyledTitle,
   StyledComplexity,
   StyledTitleBackground,
+  StyledShadowDiv,
 } from "./styles.ProjectCard";
 import BookmarkButton from "../BookmarkButton";
 import Link from "next/link";
@@ -22,6 +23,7 @@ export default function ProjectCard({ project, onToggleBookmark,}) {
         />
       }
       <Link href={`/projects/${project.id}`}>
+      <StyledShadowDiv/>
         <CardContainer color={complexity}>
           <StyledImageTitleWrapper>
             <StyledImage

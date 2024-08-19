@@ -28,7 +28,17 @@ const CardContainer = styled.div`
   height: 175px;
   }
 `;
-
+const StyledShadowDiv = styled.div`
+position: absolute;
+border-radius: 10px;
+width: 145px;
+  height: 125px;
+  box-shadow: var(--box-shadow-2);
+  @media screen and (min-width: 640px) {
+    width: 315px;
+  height: 175px;
+  }
+`;
 const CardWrapper = styled.div`
   position: relative;
  `;
@@ -112,4 +122,5 @@ export {
   StyledTitle,
   StyledComplexity,
   StyledTitleBackground,
+  StyledShadowDiv,
 };
