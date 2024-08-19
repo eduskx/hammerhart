@@ -19,11 +19,11 @@ export default createGlobalStyle`
   }
 
 
-  h1, h2, h3, h4, h5, h6, p, ul, ol {
+  h1, h2, h3, h4, h5, h6, p, ul, ol, input {
     margin: 0;
     padding: 0;
     max-width: 100%;
-    word-break: break-all;
+    word-break: break-word;
     line-height: 1.4rem;
   }
 `;
