@@ -3,11 +3,23 @@ import initialProjects from "@/lib/projects.js";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import { nanoid } from "nanoid";
+import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
   const [projects, setProjects] = useLocalStorageState("projects", {
     defaultValue: initialProjects,
   });
+
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  function handleToggleForm() {
+    setIsFormOpen(!isFormOpen);
+    if (!isFormOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }
 
   function handleAddProject(newProject) {
     setProjects([newProject, ...projects]);
@@ -78,6 +90,7 @@ export default function App({ Component, pageProps }) {
     newProject.isFavorite = false;
 
     onProjectAction(newProject);
+    handleToggleForm();
   }
 
   return (
@@ -92,6 +105,8 @@ export default function App({ Component, pageProps }) {
           onToggleBookmark={handleToggleBookmark}
           onDeleteProject={handleDeleteProject}
           onProcessFormData={handleProcessFormData}
+          onToggleForm={handleToggleForm}
+          isFormOpen={isFormOpen}
         />
       </Layout>
     </>
