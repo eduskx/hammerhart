@@ -81,17 +81,19 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <Layout>
-      <GlobalStyle toggleFormModal />
-      <Component
-        {...pageProps}
-        projects={projects}
-        onUpdateProject={handleUpdateProject}
-        onAddProject={handleAddProject}
-        onToggleBookmark={handleToggleBookmark}
-        onDeleteProject={handleDeleteProject}
-        onProcessFormData={handleProcessFormData}
-      />
-    </Layout>
+    <>
+      <GlobalStyle />
+      <Layout>
+        <Component
+          {...pageProps}
+          projects={projects}
+          onUpdateProject={handleUpdateProject}
+          onAddProject={handleAddProject}
+          onToggleBookmark={handleToggleBookmark}
+          onDeleteProject={handleDeleteProject}
+          onProcessFormData={handleProcessFormData}
+        />
+      </Layout>
+    </>
   );
 }

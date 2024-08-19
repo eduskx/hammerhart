@@ -283,6 +283,7 @@ const StyledCollapsibleWrapper = styled.div`
   .Collapsible__trigger {
     display: flex;
 
+
     color: rgba(58, 58, 58, 1);
     width: 100%;
     cursor: pointer;
