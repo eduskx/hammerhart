@@ -65,3 +65,4 @@ const StyledTitle = styled.p`
   font-size: 20px;
   text-align: center;
 `;
+

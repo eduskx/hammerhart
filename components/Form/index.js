@@ -12,6 +12,7 @@ export default function Form({
   onEditSubmit,
   onAddProject,
   onProcessFormData,
+  isEditMode,
 }) {
   let formRef = useRef(null);
 
@@ -26,17 +27,6 @@ export default function Form({
   const [stepFields, setStepFields] = useState(
     defaultData?.steps || [{ id: nanoid() }]
   );
-
-  function handleAddField(setFields) {
-    const newField = { id: nanoid() };
-    setFields((prevFields) => [...prevFields, newField]);
-  }
-
-  function handleRemoveField(setFields, idToRemove) {
-    setFields((prevFields) =>
-      prevFields.filter((field) => field.id !== idToRemove)
-    );
-  }
 
   function handleChangeImage(event) {
     setImagePreview(event.target.files[0]);
@@ -60,16 +50,24 @@ export default function Form({
     setStepFields([{ id: nanoid() }]);
     setImagePreview(null);
     setCharacterCounter(250);
+
+
+  function handleAddField(setFields) {
+    const newField = { id: nanoid() };
+    setFields((prevFields) => [...prevFields, newField]);
+  }
+
+  function handleRemoveField(setFields, idToRemove) {
+    setFields((prevFields) =>
+      prevFields.filter((field) => field.id !== idToRemove)
+    );
+
   }
 
   async function handleSubmit(event) {
     await onProcessFormData(event, null, null, onAddProject);
     handleClearForm();
     onToggleForm();
-  }
-
-  function handleChangeCharactersLeft(event) {
-    setCharacterCounter(event.target.maxLength - event.target.value.length);
   }
 
   async function handleSubmit(event) {
@@ -79,10 +77,39 @@ export default function Form({
 
   function handleChangeCharactersLeft(event) {
     setCharacterCounter(250 - event.target.value.length);
+
+  function handleClearForm() {
+    if (formRef.current) {
+      formRef.current.reset();
+
+      // we need this extra logic to clear all defaultValues in the EditPage
+      const formInputs = formRef.current.elements;
+      formInputs.title.value = "";
+      formInputs.imageUrl.value = "";
+      formInputs.description.value = "";
+      formInputs.duration.value = "";
+      formInputs.complexity.value = "";
+    }
+
+    setMaterialFields([{ id: nanoid() }]);
+    setStepFields([{ id: nanoid() }]);
+    setImagePreview(null);
+    setCharacterCounter(250);
+  }
+
+  async function handleSubmit(event) {
+    await onProcessFormData(event, null, null, onAddProject);
+    handleClearForm();
+  }
+
+  function handleChangeCharactersLeft(event) {
+    setCharacterCounter(event.target.maxLength - event.target.value.length);
   }
 
   return (
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
+      {isEditMode && <StyledEditHeader>Edit project</StyledEditHeader>}
+
       <StyledButtonContainer>
         <StyledCloseButton type="button" onClick={onToggleForm}>
           <IoMdClose color="darkred" size={28} />
@@ -177,9 +204,16 @@ export default function Form({
       />
 
       <StyledButtonWrapper>
-        <StyledClearButton type="button" onClick={handleClearForm}>
-          Clear
-        </StyledClearButton>
+        {isEditMode ? (
+          <StyledCancelButton type="button" onClick={onToggleForm}>
+            Cancel
+          </StyledCancelButton>
+        ) : (
+          <StyledClearButton type="button" onClick={handleClearForm}>
+            Clear
+          </StyledClearButton>
+        )}
+
         <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
       </StyledButtonWrapper>
     </StyledForm>
@@ -381,9 +415,15 @@ const StyledButtonWrapper = styled.div`
   gap: 1rem;
 `;
 
-const StyledCloseButton = styled.button`
-  background-color: transparent;
-  border: none;
+const StyledCancelButton = styled.button`
+  text-decoration: none;
+  all: unset;
+  width: 50%;
+  height: 2rem;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   font-size: 20px;
   text-align: right;
@@ -392,4 +432,23 @@ const StyledCloseButton = styled.button`
 const StyledButtonContainer = styled.div`
   display: flex;
   justify-content: end;
+`;
+
+const StyledCloseButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  width: fit-content;
+`;
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
+const StyledEditHeader = styled.h2`
+  text-align: center;
+  margin-top: 1rem;
+  color: white;
 `;
