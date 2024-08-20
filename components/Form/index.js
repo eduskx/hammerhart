@@ -24,6 +24,7 @@ export default function Form({
   const [materialFields, setMaterialFields] = useState(
     defaultData?.materials || [{ id: nanoid() }]
   );
+
   const [stepFields, setStepFields] = useState(
     defaultData?.steps || [{ id: nanoid() }]
   );
@@ -51,31 +52,69 @@ export default function Form({
     setImagePreview(null);
     setCharacterCounter(250);
 
+
+  function handleAddField(setFields) {
+    const newField = { id: nanoid() };
+    setFields((prevFields) => [...prevFields, newField]);
+  }
+
+  function handleRemoveField(setFields, idToRemove) {
+    setFields((prevFields) =>
+      prevFields.filter((field) => field.id !== idToRemove)
+    );
+  }
+
     function handleAddField(setFields) {
       const newField = { id: nanoid() };
       setFields((prevFields) => [...prevFields, newField]);
     }
 
-    function handleRemoveField(setFields, idToRemove) {
-      setFields((prevFields) =>
-        prevFields.filter((field) => field.id !== idToRemove)
-      );
+  async function handleSubmit(event) {
+    await onProcessFormData(event, null, null, onAddProject);
+    handleClearForm();
+  }
+
+  function handleChangeCharactersLeft(event) {
+    setCharacterCounter(250 - event.target.value.length);
+  }
+
+  function handleClearForm() {
+    if (formRef.current) {
+      formRef.current.reset();
+
+      // we need this extra logic to clear all defaultValues in the EditPage
+      const formInputs = formRef.current.elements;
+      formInputs.title.value = "";
+      formInputs.imageUrl.value = "";
+      formInputs.description.value = "";
+      formInputs.duration.value = "";
+      formInputs.complexity.value = "";
     }
 
-    async function handleSubmit(event) {
-      await onProcessFormData(event, null, null, onAddProject);
-      handleClearForm();
-      onToggleForm();
-    }
+    setMaterialFields([{ id: nanoid() }]);
+    setStepFields([{ id: nanoid() }]);
+    setImagePreview(null);
+    setCharacterCounter(250);
+  }
 
-    async function handleSubmit(event) {
-      await onProcessFormData(event, null, null, onAddProject);
-      handleClearForm();
-    }
+  async function handleSubmit(event) {
+    await onProcessFormData(event, null, null, onAddProject);
+    handleClearForm();
+  }
 
-    function handleChangeCharactersLeft(event) {
-      setCharacterCounter(250 - event.target.value.length);
-    }
+  function handleChangeCharactersLeft(event) {
+    setCharacterCounter(event.target.maxLength - event.target.value.length);
+  }
+
+  return (
+    <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
+      {isEditMode && <StyledEditHeader>Edit project</StyledEditHeader>}
+
+      <StyledButtonContainer>
+        <StyledCloseButton type="button" onClick={onToggleForm}>
+          <IoMdClose color="darkred" size={28} />
+        </StyledCloseButton>
+      </StyledButtonContainer>
 
     function handleClearForm() {
       if (formRef.current) {
@@ -147,19 +186,22 @@ export default function Form({
           )}
         </StyledImagePreviewWrapper>
 
-        <DescriptionCounterWrapper>
-          <label htmlFor="description">Description</label>
-          <DescriptionCounter>{`${characterCounter} characters left`}</DescriptionCounter>
-        </DescriptionCounterWrapper>
-        <StyledTextarea
-          id="description"
-          name="description"
-          rows={5}
-          cols={30}
-          maxLength={250}
-          onChange={handleChangeCharactersLeft}
-          defaultValue={defaultData?.description}
-        />
+      <StyledButtonWrapper>
+        {isEditMode ? (
+          <StyledCancelButton type="button" onClick={onToggleForm}>
+            Cancel
+          </StyledCancelButton>
+        ) : (
+          <StyledClearButton type="button" onClick={handleClearForm}>
+            Clear
+          </StyledClearButton>
+        )}
+
+        <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
+      </StyledButtonWrapper>
+    </StyledForm>
+  );
+}
 
         <label htmlFor="duration">Duration</label>
         <StyledInput
@@ -356,95 +398,36 @@ export default function Form({
     }
   `;
 
-  const StyledDropDownWrapper = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: baseline;
-  `;
+const StyledCancelButton = styled.button`
+  text-decoration: none;
+  all: unset;
+  width: 50%;
+  height: 2rem;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: right;
+`;
 
-  const StyledClearButton = styled.button`
-    all: unset;
-    width: 50%;
-    height: 2rem;
-    display: flex;
-    margin-top: 2rem;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: rgba(58, 58, 58, 1);
-    margin-bottom: 0.5rem;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 2px;
-    &:focus,
-    &:hover {
-      outline: 1px solid white;
-      &:hover {
-        background-color: #e52e2ed4;
-        color: #fff;
-        transform: translateY(-3px);
-      }
-    }
-  `;
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
+`;
 
-  const StyledSubmitButton = styled.button`
-    all: unset;
-    width: 50%;
-    height: 2rem;
-    display: flex;
-    margin-top: 2rem;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: rgba(58, 58, 58, 1);
-    margin-bottom: 0.5rem;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 2px;
-    &:focus,
-    &:hover {
-      outline: 1px solid white;
-      &:hover {
-        background-color: #2ee59d;
-        color: #fff;
-        transform: translateY(-3px);
-      }
-    }
-  `;
+const StyledCloseButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  width: fit-content;
+`;
 
-  const StyledButtonWrapper = styled.div`
-    display: flex;
-    gap: 1rem;
-  `;
-
-  const StyledCancelButton = styled.button`
-    text-decoration: none;
-    all: unset;
-    width: 50%;
-    height: 2rem;
-    display: flex;
-    margin-top: 2rem;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-size: 20px;
-    text-align: right;
-  `;
-
-  const StyledButtonContainer = styled.div`
-    display: flex;
-    justify-content: end;
-  `;
-
-  const StyledCloseButton = styled.button`
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-    width: fit-content;
-  `;
-
-  const StyledEditHeader = styled.h2`
-    text-align: center;
-    margin-top: 1rem;
-    color: white;
-  `;
-}
+const StyledEditHeader = styled.h2`
+  text-align: center;
+  margin-top: 1rem;
+  color: white;
+`;
+  }
