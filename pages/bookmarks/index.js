@@ -1,4 +1,5 @@
 import FilterButtons from "@/components/FilterButtons";
+import { StyledDivBlocker } from "@/components/Header/styles.Header";
 import ProjectCard from "@/components/ProjectCard";
 import SearchBar from "@/components/SearchBar";
 import Sliders from "@/public/svg/Sliders.svg";
@@ -21,6 +22,7 @@ export default function BookmarkPage({
 
   return (
     <>
+      {/* <StyledDivBlocker /> */}
       <BookmarkHeader>My Projects</BookmarkHeader>
 
       <StyledPattern />
