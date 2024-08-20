@@ -5,13 +5,9 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 import DeleteButton from "@/components/Modals/DeleteButton";
 import BookmarkButton from "@/components/BookmarkButton";
-import DeleteButton from "@/components/Modals/DeleteButton";
-import BookmarkButton from "@/components/BookmarkButton";
 import Collapsible from "react-collapsible";
 import Note from "@/components/Note";
 import EditButton from "@/components/Modals/EditButton";
-import EditButton from "@/components/Modals/EditButton";
-
 
 const handleColorType = (color) => {
   switch (color) {
@@ -23,17 +19,6 @@ const handleColorType = (color) => {
       return "#3ecd5e";
   }
 };
-
-export default function ProjectDetailsPage({
-  projects,
-  onDeleteProject,
-  onToggleBookmark,
-  onCheckbox,
-  onToggleForm,
-  isFormOpen,
-  onUpdateProject,
-  onProcessFormData,
-}) {
 
 export default function ProjectDetailsPage({
   projects,
@@ -82,10 +67,6 @@ export default function ProjectDetailsPage({
             onToggleBookmark={() => onToggleBookmark(id)}
             isFavorite={projectData.isFavorite}
           />
-          <BookmarkButton
-            onToggleBookmark={() => onToggleBookmark(id)}
-            isFavorite={projectData.isFavorite}
-          />
           <StyledImage
             src={imageUrl}
             alt={title}
@@ -123,17 +104,6 @@ export default function ProjectDetailsPage({
                   />
                   {material.description}
                 </StyledListItems>
-              {materials.map((material) => (
-                <StyledListItems key={material.id}>
-                  <input
-                    type="checkbox"
-                    checked={material.isChecked}
-                    onChange={() => onCheckbox(material.id, id, "materials")}
-                    aria-checked={material.isChecked}
-                    aria-label={`Select ${material.description}`}
-                  />
-                  {material.description}
-                </StyledListItems>
               ))}
             </StyledMaterialsList>
           )}
@@ -159,13 +129,6 @@ export default function ProjectDetailsPage({
                     aria-checked={step.isChecked}
                     aria-label={`Select ${step.description}`}
                   />
-                  <input
-                    type="checkbox"
-                    checked={step.isChecked}
-                    onChange={() => onCheckbox(step.id, id, "steps")}
-                    aria-checked={step.isChecked}
-                    aria-label={`Select ${step.description}`}
-                  />
                   {step.description}
                 </StyledListItems>
               ))}
@@ -183,19 +146,6 @@ export default function ProjectDetailsPage({
           <Note project={projectData} />
         </StyledCollapsible>
         <StyledButtonsWrapper>
-          <DeleteButton
-            onDelete={() => {
-              onDeleteProject(id);
-              router.push("/");
-            }}
-          />
-          <EditButton
-            onToggleForm={onToggleForm}
-            isFormOpen={isFormOpen}
-            projects={projects}
-            onUpdateProject={onUpdateProject}
-            onProcessFormData={onProcessFormData}
-          />
           <DeleteButton
             onDelete={() => {
               onDeleteProject(id);
@@ -252,7 +202,6 @@ const StyledDetailsWrapper = styled.div`
   padding: 0;
   gap: 1rem;
 
-
   @media screen and (min-width: 640px) {
     box-shadow: 1px 1px 6px 1px #00000072;
     background-color: #a38376;
@@ -301,7 +250,6 @@ const StyledDuration = styled.p`
 const StyledMaterialsList = styled.ul`
   list-style-position: inside;
   list-style-type: none;
-  list-style-type: none;
   text-align: start;
   padding: 0;
   margin: 0;
@@ -313,12 +261,8 @@ const StyledInstructionsList = styled.ol`
   list-style-type: none;
   padding: 0 1rem;
   margin-bottom: 1rem;
-  list-style-type: none;
-  padding: 0 1rem;
-  margin-bottom: 1rem;
   text-align: start;
   color: #ffffff;
-
 
   @media screen and (min-width: 640px) {
     list-style-position: inside;
