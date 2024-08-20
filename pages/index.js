@@ -13,6 +13,7 @@ export default function HomePage({
   isFormOpen,
 }) {
   const [searchInput, setSearchInput] = useState("");
+  const [value, setValue] = useState("");
 
   function handleSearch(event) {
     const lowerCasedInput = event.target.value.toLowerCase();
@@ -38,6 +39,7 @@ export default function HomePage({
         onToggleForm={onToggleForm}
         isFormOpen={isFormOpen}
       />
+
     </>
   );
 }

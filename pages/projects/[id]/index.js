@@ -8,6 +8,9 @@ import BookmarkButton from "@/components/BookmarkButton";
 import Collapsible from "react-collapsible";
 import Note from "@/components/Note";
 import EditButton from "@/components/Modals/EditButton";
+import { Editor } from "primereact/editor";
+import { useRef, useState } from "react";
+
 
 const handleColorType = (color) => {
   switch (color) {

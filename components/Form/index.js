@@ -13,6 +13,7 @@ export default function Form({
   onAddProject,
   onProcessFormData,
   isEditMode,
+
 }) {
   let formRef = useRef(null);
 
@@ -37,10 +38,36 @@ export default function Form({
     setFields((prevFields) =>
       prevFields.filter((field) => field.id !== idToRemove)
     );
-  }
 
   function handleChangeImage(event) {
     setImagePreview(event.target.files[0]);
+  }
+
+  function handleClearForm() {
+    if (formRef.current) {
+      formRef.current.reset();
+
+      // we need this extra logic to clear all defaultValues in the EditPage
+
+      const formInputs = formRef.current.elements;
+      formInputs.title.value = "";
+      formInputs.imageUrl.value = "";
+      formInputs.description.value = "";
+      formInputs.duration.value = "";
+      formInputs.complexity.value = "";
+    }
+
+    setMaterialFields([{ id: nanoid() }]);
+    setStepFields([{ id: nanoid() }]);
+    setImagePreview(null);
+    setCharacterCounter(250);
+
+  }
+
+  async function handleSubmit(event) {
+    await onProcessFormData(event, null, null, onAddProject);
+    handleClearForm();
+    onToggleForm();
   }
 
   function handleClearForm() {
@@ -73,7 +100,9 @@ export default function Form({
 
   return (
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
+
       {isEditMode && <StyledEditHeader>Edit project</StyledEditHeader>}
+
       <StyledButtonContainer>
         <StyledCloseButton type="button" onClick={onToggleForm}>
           <IoMdClose color="darkred" size={28} />
@@ -177,6 +206,9 @@ export default function Form({
             Clear
           </StyledClearButton>
         )}
+        <StyledClearButton type="button" onClick={handleClearForm}>
+          Clear
+        </StyledClearButton>
         <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
       </StyledButtonWrapper>
     </StyledForm>
@@ -387,20 +419,10 @@ const StyledCancelButton = styled.button`
   margin-top: 2rem;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  color: rgba(58, 58, 58, 1);
-  margin-bottom: 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
-    &:hover {
-      background-color: #e52e2ed4;
-      color: #fff;
-      transform: translateY(-3px);
-    }
-  }
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
 `;
 
 const StyledCloseButton = styled.button`
