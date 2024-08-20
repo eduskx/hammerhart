@@ -13,6 +13,8 @@ export default function BookmarkPage({
   activeFilter,
   searchInput,
   onSearch,
+  onToggleDisplayFilter,
+  filterOn,
 }) {
   const bookmarkedProjects = projects.filter(
     (project) => project.isFavorite === true
@@ -27,14 +29,19 @@ export default function BookmarkPage({
 
       <StyledToggleSearchWrapper>
         <SearchBar onSearch={onSearch} />
-        <StyledFilterToggleButton>
-          <Sliders fill="currentColor" />
+        <StyledFilterToggleButton
+          onClick={onToggleDisplayFilter}
+          $filterOn={filterOn}
+        >
+          <StyledSliders fill="currentColor" />
         </StyledFilterToggleButton>
       </StyledToggleSearchWrapper>
 
       <FilterButtons
         complexities={complexities}
         onFilterChange={onFilterChange}
+        activeFilter={activeFilter}
+        $filterOn={filterOn}
       />
 
       <ProjectsList
@@ -47,6 +54,10 @@ export default function BookmarkPage({
     </PageWrapper>
   );
 }
+
+const StyledSliders = styled(Sliders)`
+  transform: ${({ $filterOn }) => ($filterOn ? "none" : "rotate(180deg)")};
+`;
 
 const PageWrapper = styled.section`
   background-color: var(--color-primary-1);
