@@ -66,7 +66,6 @@ const StyledFilterToggleButton = styled.button`
   color: var(--color-primary-1);
   border: none;
   background-color: var(--color-primary-2);
-  border: none;
 `;
 
 const BookmarkHeader = styled.h1`
