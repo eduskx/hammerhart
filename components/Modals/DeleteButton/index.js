@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import ModalContent from "@/components/Modal/ModalContent";
+import ModalContent from "@/components/Modals/DeleteButton/ModalContent";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-export default function Modal({ onDelete }) {
+export default function DeleteButton({ onDelete }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -24,9 +24,9 @@ export default function Modal({ onDelete }) {
   );
 }
 
-const StyledDeleteButton = styled.button`
+export const StyledDeleteButton = styled.button`
   all: unset;
-  width: 3rem;
+  width: 4rem;
   height: 2rem;
   display: flex;
   margin: 0;

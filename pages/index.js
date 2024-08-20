@@ -9,9 +9,10 @@ export default function HomePage({
   onAddProject,
   onToggleBookmark,
   onProcessFormData,
+  onToggleForm,
+  isFormOpen,
 }) {
   const [searchInput, setSearchInput] = useState("");
-  const [value, setValue] = useState("");
 
   function handleSearch(event) {
     const lowerCasedInput = event.target.value.toLowerCase();
@@ -20,27 +21,25 @@ export default function HomePage({
 
   return (
     <>
-      <SearchBar onSearch={handleSearch} />
+      <AddButton
+        onAddProject={onAddProject}
+        onProcessFormData={onProcessFormData}
+        onToggleForm={onToggleForm}
+        isFormOpen={isFormOpen}
+      />
+
       <HighlightedProject
         projects={projects}
         onToggleBookmark={onToggleBookmark}
       />
+      <SearchBar onSearch={handleSearch} />
+
       <FilterList
         projects={projects}
         onAddProject={onAddProject}
         onToggleBookmark={onToggleBookmark}
         searchInput={searchInput}
       />
-      <AddButton
-        onAddProject={onAddProject}
-        projects={projects}
-        onProcessFormData={onProcessFormData}
-      />
-
-      <RandomProject projects={projects} />
-      <SearchBar onSearch={handleSearch} />
-
-      <FilterList projects={projects} searchInput={searchInput} />
     </>
   );
 }
