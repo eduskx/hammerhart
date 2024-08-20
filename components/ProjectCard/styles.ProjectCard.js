@@ -27,6 +27,13 @@ const CardContainer = styled.div`
     width: 315px;
   height: 175px;
   }
+  ${({ $isHighlighted }) =>
+    $isHighlighted &&
+    css`
+      
+      height: 200px;
+      width: 315px;
+    `}
 `;
 const StyledShadowDiv = styled.div`
 position: absolute;

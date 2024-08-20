@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 import useLocalStorageState from "use-local-storage-state";
 import styled from "styled-components";
-import ProjectCard, { CardContainer } from "../ProjectCard";
+import ProjectCard from "../ProjectCard";
 
 export default function HighlightedProject({ projects, onToggleBookmark }) {
   const [randomProject, setRandomProject] = useLocalStorageState(
@@ -48,6 +48,7 @@ export default function HighlightedProject({ projects, onToggleBookmark }) {
       <ProjectCard
         project={randomProject}
         onToggleBookmark={onToggleBookmark}
+        $isHighlighted
       />
     </StyledContainer>
   );
