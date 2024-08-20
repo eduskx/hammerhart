@@ -12,14 +12,10 @@ export default function HomePage({
   onToggleBookmark,
   onSearch,
   searchInput,
+  onFilterChange,
+  complexities,
+  activeFilter,
 }) {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const complexities = ["All", "Beginner", "Intermediate", "Advanced"];
-
-  function handleFilterChange(complexity) {
-    setActiveFilter(complexity);
-  }
-
   return (
     <>
       <StyledWelcomeSection>
@@ -35,7 +31,7 @@ export default function HomePage({
           </StyledWelcomeTextSpan>
         </StyledWelcomeText>
         <StyledCreateButton>Create a Project +</StyledCreateButton>
-        <AddButton/>
+        <AddButton />
       </StyledWelcomeSection>
       <StyledListSection>
         <StyledPatternBottom />
@@ -57,7 +53,7 @@ export default function HomePage({
         /> */}
         <FilterButtons
           complexities={complexities}
-          onFilterChange={handleFilterChange}
+          onFilterChange={onFilterChange}
         />
         <ProjectsList
           projects={projects}
