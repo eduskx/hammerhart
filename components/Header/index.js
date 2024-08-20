@@ -11,7 +11,7 @@ import {
   StyledDropDownDiv,
   StyledListElements,
   StyledSocialMediaIcon,
-  StyledNavList
+  StyledNavList,
 } from "@/components/Header/styles.Header";
 import MenuIcon from "@/public/svg/menuIcon_new.svg";
 import MenuIconOpen from "@/public/svg/menuIconOpen_new.svg";
@@ -20,7 +20,6 @@ import Instagram from "@/public/svg/instagram.svg";
 import XIcon from "@/public/svg/x-icon.svg";
 import Youtube from "@/public/svg/youtube.svg";
 import SearchBar from "../SearchBar";
-
 
 export default function Header({ onSearch }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -59,7 +58,9 @@ export default function Header({ onSearch }) {
             {isMenuOpen ? <MenuIconOpen /> : <MenuIcon />}
           </StyledMenuIcon>
           {isMenuOpen && (
-            <StyledCancelBackground onClick={closeMenu}></StyledCancelBackground>
+            <StyledCancelBackground
+              onClick={closeMenu}
+            ></StyledCancelBackground>
           )}
           <StyledDropDownDiv $isMenuOpen={isMenuOpen}>
             <StyledMobileNavList>
@@ -67,20 +68,31 @@ export default function Header({ onSearch }) {
                 <StyledListElements href="/">Home</StyledListElements>
               </li>
               <li>
-                <StyledListElements href="/bookmarks">My Projects</StyledListElements>
+                <StyledListElements href="/bookmarks">
+                  My Projects
+                </StyledListElements>
               </li>
             </StyledMobileNavList>
             <StyledSocialBlock>
-              <StyledSocialMediaIcon href="http://www.facebook.com" target="_blank">
+              <StyledSocialMediaIcon
+                href="http://www.facebook.com"
+                target="_blank"
+              >
                 <Facebook width="100%" />
               </StyledSocialMediaIcon>
-              <StyledSocialMediaIcon href="http://www.instagram.com" target="_blank">
+              <StyledSocialMediaIcon
+                href="http://www.instagram.com"
+                target="_blank"
+              >
                 <Instagram width="100%" />
               </StyledSocialMediaIcon>
               <StyledSocialMediaIcon href="http://www.x.com" target="_blank">
                 <XIcon width="100%" />
               </StyledSocialMediaIcon>
-              <StyledSocialMediaIcon href="http://www.youtube.com" target="_blank">
+              <StyledSocialMediaIcon
+                href="http://www.youtube.com"
+                target="_blank"
+              >
                 <Youtube width="100%" />
               </StyledSocialMediaIcon>
             </StyledSocialBlock>
@@ -88,9 +100,11 @@ export default function Header({ onSearch }) {
         </>
       ) : (
         <StyledNavList>
-          <SearchBar onSearch={onSearch}/>
+          <SearchBar onSearch={onSearch} />
           <li>
-            <StyledListElements href="/bookmarks">My Projects</StyledListElements>
+            <StyledListElements href="/bookmarks">
+              My Projects
+            </StyledListElements>
           </li>
           <li>
             <StyledListElements href="/">Home</StyledListElements>

@@ -17,6 +17,8 @@ export default function FilterList({
 
   const [activeFilter, setActiveFilter] = useState("All");
 
+  console.log("test", typeof (activeFilter === complexities[1].name));
+
   const filteredProjects =
     activeFilter === "All"
       ? projects

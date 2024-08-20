@@ -88,10 +88,6 @@ const StyledNavBar = styled.div`
   padding: 0 25px;
   box-shadow: var(--box-shadow-2);
   z-index: 111;
-  @media screen and (min-width: 640px) {
-    padding: 0 20%;
-    
-  }
 `;
 
 const StyledMenuIcon = styled.div`
@@ -124,7 +120,6 @@ const StyledDropDownDiv = styled.div`
   transform-origin: 100% 0%;
   transition: transform 0.4s ease;
   transform: ${({ $isMenuOpen }) => ($isMenuOpen ? "scaleY(1)" : "scaleY(0)")};
-
 `;
 
 const StyledListElements = styled.a`
@@ -151,5 +146,6 @@ export {
   StyledMenuIcon,
   StyledDropDownDiv,
   StyledListElements,
-  StyledSocialMediaIcon,StyledNavList,
+  StyledSocialMediaIcon,
+  StyledNavList,
 };

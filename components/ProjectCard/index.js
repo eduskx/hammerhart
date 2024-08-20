@@ -1,18 +1,7 @@
-/* import {
-  CardContainer,
-  CardWrapper,
-  StyledImage,
-  StyledImageTitleWrapper,
-  StyledTitle,
-  StyledComplexity,
-  StyledTitleBackground,
-  StyledShadowDiv,
-} from "./styles.ProjectCard"; */
-
 import Image from "next/image";
 import BookmarkButton from "../BookmarkButton";
 import Link from "next/link";
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -28,6 +17,7 @@ const handleColorType = (color) => {
 export default function ProjectCard({
   project,
   onToggleBookmark,
+  $isHighlighted,
 }) {
   const { imageUrl, title, complexity } = project;
 
@@ -41,7 +31,7 @@ export default function ProjectCard({
       }
       <Link href={`/projects/${project.id}`}>
         <StyledShadowDiv />
-        <CardContainer color={complexity}>
+        <CardContainer color={complexity} $isHighlighted={$isHighlighted}>
           <StyledImageTitleWrapper>
             <StyledImage
               src={imageUrl}
@@ -75,10 +65,10 @@ const CardContainer = styled.div`
     width: 315px;
     height: 175px;
   }
-  ${({ $isHighlighted }) =>
-    $isHighlighted &&
+  ${(props) =>
+    props.$isHighlighted &&
     css`
-      height: 200px;
+      height: 175px;
       width: 315px;
     `}
 `;
