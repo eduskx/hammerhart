@@ -15,7 +15,6 @@ export default function BookmarkPage({
   const bookmarkedProjects = projects.filter(
     (project) => project.isFavorite === true
   );
-
   return (
     <StyledContainer>
       <StyledWrapper>
@@ -35,16 +34,14 @@ export default function BookmarkPage({
     </StyledContainer>
   );
 }
-
 const StyledContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
-  padding: 20px 16px;
+  padding: 100px 16px;
   height: 100%;
 `;
-
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,7 +49,6 @@ const StyledWrapper = styled.div`
   align-items: center;
   gap: 16px;
 `;
-
 const StyledNoSearchResults = styled.p`
   color: black;
   padding-top: 100px;

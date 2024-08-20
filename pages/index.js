@@ -6,6 +6,7 @@ import FilterButtons from "@/components/FilterButtons";
 import ProjectsList from "@/components/ProjectsList";
 import AddButton from "@/components/Modals/AddButton";
 import { useState } from "react";
+
 export default function HomePage({
   projects,
   onToggleBookmark,
@@ -19,7 +20,7 @@ export default function HomePage({
   onAddProject,
   onProcessFormData,
 }) {
-  const [filterOn, setFilterOn] = useState(true);
+  const [filterOn, setFilterOn] = useState(false);
 
   function toogleDisplayFilter() {
     setFilterOn(!filterOn);
@@ -39,8 +40,12 @@ export default function HomePage({
             Start your Project, today!
           </StyledWelcomeTextSpan>
         </StyledWelcomeText>
-        <StyledCreateButton>Create a Project +</StyledCreateButton>
-        <AddButton />
+        <AddButton
+          onAddProject={onAddProject}
+          onProcessFormData={onProcessFormData}
+          onToggleForm={onToggleForm}
+          isFormOpen={isFormOpen}
+        />
       </StyledWelcomeSection>
       <StyledListSection>
         <StyledPatternBottom />
@@ -60,6 +65,7 @@ export default function HomePage({
         <FilterButtons
           complexities={complexities}
           onFilterChange={onFilterChange}
+          activeFilter={activeFilter}
           $filterOn={filterOn}
         />
         <ProjectsList
@@ -69,12 +75,6 @@ export default function HomePage({
           activeFilter={activeFilter}
         />
       </StyledListSection>
-      <AddButton
-        onAddProject={onAddProject}
-        onProcessFormData={onProcessFormData}
-        onToggleForm={onToggleForm}
-        isFormOpen={isFormOpen}
-      />
     </>
   );
 }
@@ -96,6 +96,7 @@ const StyledFilterToggleButton = styled.button`
   border-radius: 10px;
   color: ${({ $filterOn }) =>
     $filterOn ? "var(--color-primary-1)" : "var(--color-primary-2)"};
+  color: var(--color-primary-1);
   border: none;
   background-color: ${({ $filterOn }) =>
     $filterOn ? "var(--color-primary-2)" : "var(--color-primary-1)"};
@@ -103,6 +104,7 @@ const StyledFilterToggleButton = styled.button`
   outline: ${({ $filterOn }) =>
     $filterOn ? "none" : "2px solid var(--color-primary-2)"};
   transform: ${({ $filterOn }) => ($filterOn ? "none" : "translateY(-3px);")};
+  background-color: var(--color-primary-2);
   z-index: 10;
   transition: transform 0.2s ease-in;
   &:focus,
@@ -113,9 +115,27 @@ const StyledFilterToggleButton = styled.button`
     background-color: var(--color-primary-1);
     color: var(--color-primary-2);
   }
+  ${(props) =>
+    props.$filterOn &&
+    `
+  outline-offset: -2px;
+  outline: 2px solid var(--color-primary-2);
+  background-color: var(--color-primary-1);
+  color: var(--color-primary-2);
+  transform: translateY(-3px);
+`}
+  @media screen and (min-width: 1200px) {
+    &:hover {
+      outline-offset: -2px;
+      outline: 2px solid var(--color-primary-2);
+      transform: translateY(-3px);
+      background-color: var(--color-primary-1);
+      color: var(--color-primary-2);
+    }
+  }
 `;
 const StyledSliders = styled(Sliders)`
-  transform: ${({ $filterOn }) => ($filterOn ? "none" : "rotate(180deg);")};
+  transform: ${({ $filterOn }) => ($filterOn ? "none" : "rotate(180deg)")};
 `;
 
 const StyledCreateButton = styled.button`
@@ -131,6 +151,7 @@ const StyledCreateButton = styled.button`
   box-shadow: var(--box-shadow-2);
   margin-bottom: 50px;
 `;
+
 const StyledWelcomeTextSpan = styled.span`
   line-height: 1.25;
   font-size: 1.25rem;
@@ -175,7 +196,12 @@ const StyledWelcomeSection = styled.div`
   background-color: var(--color-primary-2);
   box-shadow: var(--inner-shadow-2);
   overflow: hidden;
+  align-items: center;
+  @media screen and (min-width: 640px) {
+    padding: 0 20%;
+  }
 `;
+
 const StyledListSection = styled(StyledWelcomeSection)`
   height: 100%;
   box-shadow: none;

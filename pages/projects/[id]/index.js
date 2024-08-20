@@ -183,7 +183,7 @@ const StyledLink = styled(Link)`
   padding-top: 16px;
   color: var(--color-primary-2);
   text-decoration: none;
-  display:flex;
+  display: flex;
   align-items: center;
   gap: 0.5rem;
   margin: 80px auto 0 auto;
