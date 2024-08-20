@@ -35,7 +35,7 @@ export default function HomePage({
           </StyledWelcomeTextSpan>
         </StyledWelcomeText>
         <StyledCreateButton>Create a Project +</StyledCreateButton>
-        <AddButton/>
+        <AddButton />
       </StyledWelcomeSection>
       <StyledListSection>
         <StyledPatternBottom />
