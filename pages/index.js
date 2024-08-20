@@ -138,19 +138,19 @@ const StyledSliders = styled(Sliders)`
   transform: ${({ $filterOn }) => ($filterOn ? "none" : "rotate(180deg)")};
 `;
 
-const StyledCreateButton = styled.button`
-  all: unset;
-  cursor: pointer;
-  align-self: center;
-  text-align: center;
-  width: 180px;
-  height: 35px;
-  color: var(--color-primary-2);
-  background-color: var(--color-primary-1);
-  border-radius: 10px;
-  box-shadow: var(--box-shadow-2);
-  margin-bottom: 50px;
-`;
+// const StyledCreateButton = styled.button`
+//   all: unset;
+//   cursor: pointer;
+//   align-self: center;
+//   text-align: center;
+//   width: 180px;
+//   height: 35px;
+//   color: var(--color-primary-2);
+//   background-color: var(--color-primary-1);
+//   border-radius: 10px;
+//   box-shadow: var(--box-shadow-2);
+//   margin-bottom: 50px;
+// `;
 
 const StyledWelcomeTextSpan = styled.span`
   line-height: 1.25;

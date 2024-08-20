@@ -59,13 +59,21 @@ export default function Header({ onSearch }) {
               onClick={closeMenu}
             ></StyledCancelBackground>
           )}
-          <StyledDropDownDiv $isMenuOpen={isMenuOpen}>
+          <StyledDropDownDiv
+            $isMenuOpen={isMenuOpen}
+            isBookmarkPage={isBookmarkPage}
+          >
             <StyledMobileNavList>
               <li>
-                <StyledListElements href="/">Home</StyledListElements>
+                <StyledListElements href="/" isBookmarkPage={isBookmarkPage}>
+                  Home
+                </StyledListElements>
               </li>
               <li>
-                <StyledListElements href="/bookmarks">
+                <StyledListElements
+                  href="/bookmarks"
+                  isBookmarkPage={isBookmarkPage}
+                >
                   My Projects
                 </StyledListElements>
               </li>
@@ -74,21 +82,28 @@ export default function Header({ onSearch }) {
               <StyledSocialMediaIcon
                 href="http://www.facebook.com"
                 target="_blank"
+                isBookmarkPage={isBookmarkPage}
               >
                 <Facebook width="100%" />
               </StyledSocialMediaIcon>
               <StyledSocialMediaIcon
                 href="http://www.instagram.com"
                 target="_blank"
+                isBookmarkPage={isBookmarkPage}
               >
                 <Instagram width="100%" />
               </StyledSocialMediaIcon>
-              <StyledSocialMediaIcon href="http://www.x.com" target="_blank">
+              <StyledSocialMediaIcon
+                href="http://www.x.com"
+                target="_blank"
+                isBookmarkPage={isBookmarkPage}
+              >
                 <XIcon width="100%" />
               </StyledSocialMediaIcon>
               <StyledSocialMediaIcon
                 href="http://www.youtube.com"
                 target="_blank"
+                isBookmarkPage={isBookmarkPage}
               >
                 <Youtube width="100%" />
               </StyledSocialMediaIcon>
@@ -99,12 +114,17 @@ export default function Header({ onSearch }) {
         <StyledNavList>
           <SearchBar onSearch={onSearch} />
           <li>
-            <StyledListElements href="/bookmarks">
+            <StyledListElements
+              href="/bookmarks"
+              isBookmarkPage={isBookmarkPage}
+            >
               My Projects
             </StyledListElements>
           </li>
           <li>
-            <StyledListElements href="/">Home</StyledListElements>
+            <StyledListElements href="/" isBookmarkPage={isBookmarkPage}>
+              Home
+            </StyledListElements>
           </li>
         </StyledNavList>
       )}
@@ -179,7 +199,8 @@ const StyledSocialBlock = styled.div`
 `;
 
 const StyledSocialMediaIcon = styled.a`
-  fill: var(--color-primary-2);
+  fill: ${({ isBookmarkPage }) =>
+    isBookmarkPage ? "var(--color-primary-1)" : "var(--color-primary-2)"};
   display: flex;
   height: 22px;
   &:hover {
@@ -228,17 +249,19 @@ const StyledDropDownDiv = styled.div`
   right: 0;
   width: 100%;
   height: 300px;
-  background-color: var(--color-primary-1);
   border-radius: 0 0 10px 10px;
   box-shadow: var(--box-shadow-2);
   z-index: 1;
   transform-origin: 100% 0%;
   transition: transform 0.4s ease;
   transform: ${({ $isMenuOpen }) => ($isMenuOpen ? "scaleY(1)" : "scaleY(0)")};
+  background-color: ${({ isBookmarkPage }) =>
+    isBookmarkPage ? "var(--color-primary-2)" : "var(--color-primary-1)"};
 `;
 
 const StyledListElements = styled.a`
-  color: var(--color-primary-2);
+  color: ${({ isBookmarkPage }) =>
+    isBookmarkPage ? "var(--color-primary-1)" : "var(--color-primary-2)"};
   display: flex;
   align-self: end;
   -webkit-tap-highlight-color: transparent;

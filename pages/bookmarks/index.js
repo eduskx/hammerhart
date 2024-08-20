@@ -18,7 +18,7 @@ export default function BookmarkPage({
     (project) => project.isFavorite === true
   );
   return (
-    <>
+    <PageWrapper>
       <Layout isBookmark={true} />
 
       <BookmarkHeader>My Projects</BookmarkHeader>
@@ -44,9 +44,13 @@ export default function BookmarkPage({
         activeFilter={activeFilter}
         bookmarkedList
       />
-    </>
+    </PageWrapper>
   );
 }
+
+const PageWrapper = styled.section`
+  background-color: var(--color-primary-1);
+`;
 
 const StyledToggleSearchWrapper = styled.div`
   display: flex;
