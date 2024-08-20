@@ -36,9 +36,6 @@ padding: 5px;
 background-color: var(--color-primary-2);
 
 `;
-
-
-
 const StyledSearchBar = styled.input`
   width: 265px;
   height: 27px;

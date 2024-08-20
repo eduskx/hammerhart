@@ -1,15 +1,17 @@
-import Form from "@/components/Form";
+import EditPage from "@/pages/projects/[id]/edit";
 import styled from "styled-components";
 
 export default function ModalContent({
-  onAddProject,
+  projects,
+  onUpdateProject,
   onProcessFormData,
   onToggleForm,
 }) {
   return (
     <StyledContainer>
-      <Form
-        onAddProject={onAddProject}
+      <EditPage
+        projects={projects}
+        onUpdateProject={onUpdateProject}
         onProcessFormData={onProcessFormData}
         onToggleForm={onToggleForm}
       />

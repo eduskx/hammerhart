@@ -1,5 +1,5 @@
 import FilterButtons from "@/components/FilterButtons";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectsList from "@/components/ProjectsList";
 import SearchBar from "@/components/SearchBar";
 import Sliders from "@/public/svg/Sliders.svg";
 import styled from "styled-components";
@@ -7,75 +7,35 @@ import styled from "styled-components";
 export default function BookmarkPage({
   projects,
   onToggleBookmark,
-  onSearch,
   complexities,
   onFilterChange,
+  activeFilter,
+  searchInput,
+  onSearch,
 }) {
   const bookmarkedProjects = projects.filter(
     (project) => project.isFavorite === true
   );
 
-  if (!bookmarkedProjects || bookmarkedProjects.length === 0) {
-    return <h2>You don't have any bookmarked projects</h2>;
-  }
-
   return (
-    <>
-      <BookmarkHeader>My Projects</BookmarkHeader>
-
-      <StyledPattern />
-
-      <StyledToggleSearchWrapper>
+    <StyledContainer>
+      <StyledWrapper>
         <SearchBar onSearch={onSearch} />
-        <StyledFilterToggleButton>
-          <Sliders fill="currentColor" />
-        </StyledFilterToggleButton>
-      </StyledToggleSearchWrapper>
-
-      <FilterButtons
-        complexities={complexities}
-        onFilterChange={onFilterChange}
+        <FilterButtons
+          complexities={complexities}
+          onFilterChange={onFilterChange}
+        />
+      </StyledWrapper>
+      <ProjectsList
+        projects={bookmarkedProjects}
+        onToggleBookmark={onToggleBookmark}
+        searchInput={searchInput}
+        activeFilter={activeFilter}
+        bookmarkedList
       />
-
-      <BookmarkWrapper>
-        {bookmarkedProjects.map((bookmarkedProject) => (
-          <ProjectCard
-            key={bookmarkedProject.id}
-            project={bookmarkedProject}
-            onToggleBookmark={onToggleBookmark}
-          />
-        ))}
-      </BookmarkWrapper>
-    </>
+    </StyledContainer>
   );
 }
-
-const StyledToggleSearchWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 16px 0;
-`;
-
-const StyledFilterToggleButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 27px;
-  border-radius: 10px;
-  color: var(--color-primary-1);
-  border: none;
-  background-color: var(--color-primary-2);
-  border: none;
-`;
-
-const BookmarkHeader = styled.h1`
-  padding: 100px 16px 0 16px;
-  color: var(--color-primary-2);
-  text-align: center;
-`;
 
 const BookmarkWrapper = styled.div`
   display: flex;
@@ -86,15 +46,16 @@ const BookmarkWrapper = styled.div`
   height: 100%;
 `;
 
-const StyledPattern = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
+const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 100%;
-  background-image: url("./svg/backgroundImage_green.svg");
-  background-repeat: repeat;
-  background-attachment: local;
-  opacity: 0.2;
-  z-index: -1;
+  align-items: center;
+  gap: 16px;
+`;
+
+const StyledNoSearchResults = styled.p`
+  color: black;
+  padding-top: 100px;
+  text-align: center;
 `;
