@@ -17,11 +17,7 @@ export default function App({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    if (isFormOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = isFormOpen ? "hidden" : "auto";
   }, [isFormOpen]);
 
   function handleAddProject(newProject) {
