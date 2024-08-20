@@ -4,17 +4,21 @@ import styled from "styled-components";
 import Sliders from "@/public/svg/Sliders.svg";
 import FilterButtons from "@/components/FilterButtons";
 import ProjectsList from "@/components/ProjectsList";
-import { useState } from "react";
 import AddButton from "@/components/Modals/AddButton";
+import FilterList from "@/components/FilterList";
 
 export default function HomePage({
-  projects,
-  onToggleBookmark,
   onSearch,
   searchInput,
   onFilterChange,
   complexities,
   activeFilter,
+  onProcessFormData,
+  onToggleForm,
+  onToggleBookmark,
+  onAddProject,
+  isFormOpen,
+  projects,
 }) {
   return (
     <>
@@ -45,12 +49,12 @@ export default function HomePage({
             <Sliders fill="currentColor" />
           </StyledFilterToggleButton>
         </StyledToggleSearchWrapper>
-        {/* <FilterList
+        <FilterList
           projects={projects}
           onAddProject={onAddProject}
           onToggleBookmark={onToggleBookmark}
           searchInput={searchInput}
-        /> */}
+        />
         <FilterButtons
           complexities={complexities}
           onFilterChange={onFilterChange}
@@ -62,7 +66,12 @@ export default function HomePage({
           filteredBy={activeFilter}
         />
       </StyledListSection>
-      <AddButton />
+      <AddButton
+        onAddProject={onAddProject}
+        onProcessFormData={onProcessFormData}
+        onToggleForm={onToggleForm}
+        isFormOpen={isFormOpen}
+      />
     </>
   );
 }

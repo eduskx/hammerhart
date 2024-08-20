@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import Form from "@/components/Form";
-import styled from "styled-components";
 
 export default function EditPage({
   projects,
@@ -20,16 +19,14 @@ export default function EditPage({
 
   return (
     <>
-      <StyledHeader>{`Edit project`}</StyledHeader>
       {projectData && (
-        <Form defaultData={projectData} onEditSubmit={handleEditSubmit} />
+        <Form
+          defaultData={projectData}
+          onEditSubmit={handleEditSubmit}
+          onToggleForm={onToggleForm}
+          isEditMode={true}
+        />
       )}
     </>
   );
 }
-
-const StyledHeader = styled.h2`
-  text-align: center;
-  margin-top: 1rem;
-  color: white;
-`;

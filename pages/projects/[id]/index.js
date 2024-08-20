@@ -3,10 +3,11 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
-import Modal from "@/components/Modals/DeleteButton";
+import DeleteButton from "@/components/Modals/DeleteButton";
 import BookmarkButton from "@/components/BookmarkButton";
 import Collapsible from "react-collapsible";
 import Note from "@/components/Note";
+import EditButton from "@/components/Modals/EditButton";
 
 const handleColorType = (color) => {
   switch (color) {
@@ -24,6 +25,10 @@ export default function ProjectDetailsPage({
   onDeleteProject,
   onToggleBookmark,
   onCheckbox,
+  onToggleForm,
+  isFormOpen,
+  onUpdateProject,
+  onProcessFormData,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -42,7 +47,6 @@ export default function ProjectDetailsPage({
     duration,
     materials,
     steps,
-    id: detailsId,
   } = projectData;
 
   const StyledCollapsible = ({ children, ...props }) => (
@@ -60,7 +64,7 @@ export default function ProjectDetailsPage({
       <StyledDetailsWrapper>
         <StyledImageWrapper>
           <BookmarkButton
-            onToggleBookmark={() => onToggleBookmark(detailsId)}
+            onToggleBookmark={() => onToggleBookmark(id)}
             isFavorite={projectData.isFavorite}
           />
           <StyledImage
@@ -94,9 +98,7 @@ export default function ProjectDetailsPage({
                   <input
                     type="checkbox"
                     checked={material.isChecked}
-                    onChange={() =>
-                      onCheckbox(material.id, detailsId, "materials")
-                    }
+                    onChange={() => onCheckbox(material.id, id, "materials")}
                     aria-checked={material.isChecked}
                     aria-label={`Select ${material.description}`}
                   />
@@ -123,7 +125,7 @@ export default function ProjectDetailsPage({
                   <input
                     type="checkbox"
                     checked={step.isChecked}
-                    onChange={() => onCheckbox(step.id, detailsId, "steps")}
+                    onChange={() => onCheckbox(step.id, id, "steps")}
                     aria-checked={step.isChecked}
                     aria-label={`Select ${step.description}`}
                   />
@@ -144,15 +146,19 @@ export default function ProjectDetailsPage({
           <Note project={projectData} />
         </StyledCollapsible>
         <StyledButtonsWrapper>
-          <Modal
+          <DeleteButton
             onDelete={() => {
               onDeleteProject(id);
               router.push("/");
             }}
           />
-          <StyledEditLink href={`/projects/${detailsId}/edit`}>
-            Edit
-          </StyledEditLink>
+          <EditButton
+            onToggleForm={onToggleForm}
+            isFormOpen={isFormOpen}
+            projects={projects}
+            onUpdateProject={onUpdateProject}
+            onProcessFormData={onProcessFormData}
+          />
         </StyledButtonsWrapper>
       </StyledDetailsWrapper>
     </>
@@ -268,25 +274,6 @@ const StyledInstructionsList = styled.ol`
 
 const StyledListItems = styled.li`
   line-height: 1.4rem;
-`;
-
-const StyledEditLink = styled(Link)`
-  text-decoration: none;
-  all: unset;
-  width: 4rem;
-  height: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: rgba(58, 58, 58, 1);
-  margin-bottom: 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
-  }
 `;
 
 const StyledCollapsibleWrapper = styled.div`

@@ -3,7 +3,7 @@ import initialProjects from "@/lib/projects.js";
 import useLocalStorageState from "use-local-storage-state";
 import Layout from "@/components/Layout";
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function App({ Component, pageProps }) {
   const [projects, setProjects] = useLocalStorageState("projects", {
@@ -23,6 +23,15 @@ export default function App({ Component, pageProps }) {
     const lowerCasedInput = event.target.value.toLowerCase();
     setSearchInput(lowerCasedInput);
   }
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  function handleToggleForm() {
+    setIsFormOpen(!isFormOpen);
+  }
+
+  useEffect(() => {
+    document.body.style.overflow = isFormOpen ? "hidden" : "auto";
+  }, [isFormOpen]);
 
   function handleAddProject(newProject) {
     setProjects([newProject, ...projects]);
@@ -93,6 +102,31 @@ export default function App({ Component, pageProps }) {
     newProject.isFavorite = false;
 
     onProjectAction(newProject);
+    handleToggleForm();
+  }
+
+  function handleCheckbox(itemId, projectId, items) {
+    setProjects(
+      projects.map((project) => {
+        if (project.id === projectId) {
+          return {
+            ...project,
+            [items]: project[items].map((item) => {
+              if (item.id === itemId) {
+                return {
+                  ...item,
+                  isChecked: !item.isChecked,
+                };
+              } else {
+                return item;
+              }
+            }),
+          };
+        } else {
+          return project;
+        }
+      })
+    );
   }
 
   function handleCheckbox(itemId, projectId, items) {
@@ -137,6 +171,8 @@ export default function App({ Component, pageProps }) {
           activeFilter={activeFilter}
           complexities={complexities}
           onFilterChange={handleFilterChange}
+          onToggleForm={handleToggleForm}
+          isFormOpen={isFormOpen}
         />
       </Layout>
     </>
