@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { useState, useRef } from "react";
 import DynamicInputFields from "./DynamicInputFields";
-import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
 import { nanoid } from "nanoid";
-import { Editor } from "primereact/editor";
 
 export default function Form({
   onToggleForm,
@@ -16,7 +14,6 @@ export default function Form({
 }) {
   let formRef = useRef(null);
 
-  const [value, setValue] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [characterCounter, setCharacterCounter] = useState(
     250 - defaultData?.description.length || 250
@@ -71,31 +68,6 @@ export default function Form({
     setCharacterCounter(250 - event.target.value.length);
   }
 
-  function handleChangeLimitCharacter(event) {
-    const text = document.createElement("div");
-    text.innerHTML = event.htmlValue || "";
-
-    if (text.innerText.length <= 250) {
-      setValue(text.innerText);
-      setCharacterCounter(250 - text.innerText.length);
-    } else {
-      text.innerText = text.innerText.substring(0, 250);
-      setValue(text.innerText);
-      setCharacterCounter(250 - text.innerText.length);
-    }
-  }
-
-  // const customToolbar = (
-  //   <span className="ql-formats">
-  //     <button className="ql-bold" />
-  //     <button className="ql-italic" />
-  //     <button className="ql-underline" /> */
-  //     <button className="ql-list" value="ordered" />
-  //     <button className="ql-list" value="bullet" />
-  //     <button className="ql-link" />
-  //   </span>
-  // );
-
   return (
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
       <StyledCloseButton type="button" onClick={onToggleForm}>
@@ -146,13 +118,6 @@ export default function Form({
         maxLength={250}
         onChange={handleChangeCharactersLeft}
         defaultValue={defaultData?.description}
-      />
-      <Editor
-        value={value}
-        onTextChange={(e) => handleChangeLimitCharacter(e)}
-        maxLength={250}
-        style={{ height: "320px" }}
-        // headerTemplate={customToolbar}
       />
 
       <label htmlFor="duration">Duration</label>
@@ -399,31 +364,6 @@ const StyledSubmitButton = styled.button`
 const StyledButtonWrapper = styled.div`
   display: flex;
   gap: 1rem;
-`;
-
-const StyledCancelLink = styled(Link)`
-  text-decoration: none;
-  all: unset;
-  width: 50%;
-  height: 2rem;
-  display: flex;
-  margin-top: 2rem;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: rgba(58, 58, 58, 1);
-  margin-bottom: 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
-    &:hover {
-      background-color: #e52e2ed4;
-      color: #fff;
-      transform: translateY(-3px);
-    }
-  }
 `;
 
 const StyledCloseButton = styled.button`

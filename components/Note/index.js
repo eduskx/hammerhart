@@ -5,6 +5,7 @@ import useLocalStorageState from "use-local-storage-state";
 import { SlNote } from "react-icons/sl";
 import { TfiCheck } from "react-icons/tfi";
 import { Editor } from "primereact/editor";
+import parse from "html-react-parser";
 
 const Note = ({ project }) => {
   const router = useRouter();
@@ -54,7 +55,7 @@ const Note = ({ project }) => {
         />
       ) : (
         <StyledNotesTextField>
-          {currentNote || "Enter your notes here..."}
+          {(currentNote && parse(currentNote)) || "Enter your notes here..."}
         </StyledNotesTextField>
       )}
       <StyledButton onClick={toggleEditMode}>
@@ -64,19 +65,6 @@ const Note = ({ project }) => {
   );
 };
 export default Note;
-
-const StyledTextarea = styled.textarea`
-  all: unset;
-  width: 90%;
-  color: rgba(58, 58, 58, 1);
-  resize: none;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
-  }
-`;
 
 const StyledNotesWrapper = styled.div`
   display: flex;
@@ -101,4 +89,5 @@ const StyledNotesTextField = styled.div`
   white-space: pre-wrap;
   width: 100%;
   color: white;
+  padding-left: 20px;
 `;
