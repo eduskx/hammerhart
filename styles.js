@@ -1,11 +1,13 @@
 import { createGlobalStyle } from "styled-components";
 import { Grandstander, Rubik } from "next/font/google";
 
-const grandstander = Grandstander({
+export const grandstander = Grandstander({
   subsets: ["latin"],
+  display: "swap",
 });
-const rubik = Rubik({
+export const rubik = Rubik({
   subsets: ["latin"],
+  display: "swap",
 });
 
 export default createGlobalStyle`
@@ -16,7 +18,9 @@ export default createGlobalStyle`
     font-family: ${rubik.style.fontFamily};
     font-weight: 500;
   }
-
+  html {
+  scroll-behavior: smooth;
+}
   body {
     font-family: ${rubik.style.fontFamily};
     margin: 0;

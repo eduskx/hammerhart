@@ -87,7 +87,7 @@ const StyledNavBar = styled.div`
   border-radius: 0 0 10px 10px;
   padding: 0 25px;
   box-shadow: var(--box-shadow-2);
-  z-index: 2;
+  z-index: 111;
   @media screen and (min-width: 640px) {
     padding: 0 20%;
     
