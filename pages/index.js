@@ -149,11 +149,11 @@ const StyledPattern = styled.div`
   background-attachment: local;
   opacity: 0.2;
   width: 2560px;
-  height: 100vh;
-  @media screen and (min-width: 640px) {
+  height: 100%;
+/*   @media screen and (min-width: 640px) {
     width: 2560px;
-    height: 100vh;
-  }
+    height: 100%;
+  } */
 `;
 const StyledPatternBottom = styled(StyledPattern)`
   background-repeat: repeat;
@@ -164,6 +164,7 @@ const StyledWelcomeSection = styled.div`
   display: flex;
   position: relative;
   width: 100%;
+  height: 100%;
   flex-direction: column;
   color: var(--color-primary-1);
   background-color: var(--color-primary-2);
@@ -171,6 +172,9 @@ const StyledWelcomeSection = styled.div`
   overflow: hidden;
 `;
 const StyledListSection = styled(StyledWelcomeSection)`
-  height: 100vh;
+ height: 100%;
+ box-shadow: none;
   background-color: var(--color-primary-1);
+  overflow:none;
+ 
 `;
