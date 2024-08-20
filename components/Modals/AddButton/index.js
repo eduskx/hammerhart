@@ -5,38 +5,24 @@ import ModalContent from "@/components/Modals/AddButton/ModalContent";
 
 export default function AddButton({
   onAddProject,
-  projects,
   onProcessFormData,
+  onToggleForm,
+  isFormOpen,
 }) {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-
-  function handleToggleForm() {
-    setIsFormOpen(!isFormOpen);
-  }
-
-  useEffect(() => {
-    if (isFormOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [isFormOpen]);
-
   return (
     <>
       <StyledAddButton
         type="button"
         $isFormOpen={isFormOpen}
-        onClick={handleToggleForm}
+        onClick={onToggleForm}
       >
         <IoMdAdd size={32} />
       </StyledAddButton>
       {isFormOpen && (
         <ModalContent
-          onToggleForm={handleToggleForm}
           onAddProject={onAddProject}
-          projects={projects}
           onProcessFormData={onProcessFormData}
+          onToggleForm={onToggleForm}
         />
       )}
     </>

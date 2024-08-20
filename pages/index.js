@@ -9,6 +9,8 @@ export default function HomePage({
   onAddProject,
   onToggleBookmark,
   onProcessFormData,
+  onToggleForm,
+  isFormOpen,
 }) {
   const [searchInput, setSearchInput] = useState("");
 
@@ -32,8 +34,9 @@ export default function HomePage({
       />
       <AddButton
         onAddProject={onAddProject}
-        projects={projects}
         onProcessFormData={onProcessFormData}
+        onToggleForm={onToggleForm}
+        isFormOpen={isFormOpen}
       />
     </>
   );
