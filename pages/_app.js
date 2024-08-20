@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }) {
 
   const [searchInput, setSearchInput] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
+  const [filterOn, setFilterOn] = useState(false);
   const complexities = ["All", "Beginner", "Intermediate", "Advanced"];
 
   function handleFilterChange(complexity) {
@@ -26,6 +27,10 @@ export default function App({ Component, pageProps }) {
 
   function handleToggleForm() {
     setIsFormOpen(!isFormOpen);
+  }
+
+  function handleToggleDisplayFilter() {
+    setFilterOn(!filterOn);
   }
 
   useEffect(() => {
@@ -172,6 +177,8 @@ export default function App({ Component, pageProps }) {
           complexities={complexities}
           activeFilter={activeFilter}
           onFilterChange={handleFilterChange}
+          onToggleDisplayFilter={handleToggleDisplayFilter}
+          filterOn={filterOn}
         />
       </Layout>
     </>

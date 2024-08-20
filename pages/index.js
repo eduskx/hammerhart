@@ -19,13 +19,9 @@ export default function HomePage({
   isFormOpen,
   onAddProject,
   onProcessFormData,
+  onToggleDisplayFilter,
+  filterOn,
 }) {
-  const [filterOn, setFilterOn] = useState(false);
-
-  function toogleDisplayFilter() {
-    setFilterOn(!filterOn);
-  }
-
   return (
     <>
       <StyledWelcomeSection>
@@ -57,7 +53,7 @@ export default function HomePage({
           <SearchBar onSearch={onSearch} />
           <StyledFilterToggleButton
             $filterOn={filterOn}
-            onClick={toogleDisplayFilter}
+            onClick={onToggleDisplayFilter}
           >
             <StyledSliders $filterOn={filterOn} fill="currentColor" />
           </StyledFilterToggleButton>
