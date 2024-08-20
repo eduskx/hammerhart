@@ -5,20 +5,18 @@ import Sliders from "@/public/svg/Sliders.svg";
 import FilterButtons from "@/components/FilterButtons";
 import ProjectsList from "@/components/ProjectsList";
 import AddButton from "@/components/Modals/AddButton";
-
+import { useState } from "react";
 export default function HomePage({
   projects,
   onToggleBookmark,
   onSearch,
   searchInput,
+  complexities,
+  activeFilter,
+  onFilterChange,
 }) {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const complexities = ["All", "Beginner", "Intermediate", "Advanced"];
-  const [filterOn, setFilterOn] = useState(true)
 
-  function handleFilterChange(complexity) {
-    setActiveFilter(complexity);
-  }
+  const [filterOn, setFilterOn] = useState(true)
 
   function toogleDisplayFilter (){
     setFilterOn(!filterOn)
@@ -55,7 +53,7 @@ export default function HomePage({
         </StyledToggleSearchWrapper>
       <FilterButtons
           complexities={complexities}
-          onFilterChange={handleFilterChange}
+          onFilterChange={onFilterChange}
           $filterOn={filterOn}
         />
         <ProjectsList
@@ -93,7 +91,7 @@ const StyledFilterToggleButton = styled.button`
   transform: ${({$filterOn}) => ($filterOn ? "none" : "translateY(-3px);")};
   z-index: 10;
   transition: transform 0.2s ease-in;
-
+&:focus,
 &:hover {
   outline-offset: -2px;
   outline: 2px solid var(--color-primary-2);
@@ -103,7 +101,6 @@ const StyledFilterToggleButton = styled.button`
 }
 `;
 const StyledSliders = styled(Sliders)`
-
 transform: ${({$filterOn}) => ($filterOn ? "none" : "rotate(180deg);")};
 `; 
 

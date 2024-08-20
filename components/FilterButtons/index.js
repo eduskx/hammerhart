@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export default function FilterButtons({ complexities, onFilterChange, $filterOn }) {
+export default function FilterButtons({ complexities, onFilterChange, $filterOn, activeFilter }) {
   return (
     <>
       <StyledButtonList $filterOn={$filterOn}>
         {complexities.map((complexity) => (
           <li key={complexity}>
-            <StyledFilterButton type="button" onClick={() => onFilterChange(complexity)} $isActive={activeFilter === complexity.name}>
+            <StyledFilterButton type="button" onClick={() => onFilterChange(complexity)} $isActive={activeFilter === complexity}>
               {complexity}
             </StyledFilterButton>
           </li>
@@ -43,10 +43,13 @@ transition: transform 0.2s ease-in;
   background-color: var(--color-primary-1);
   color: var(--color-primary-2);
 }
-${(props) => props.$isActive &&`
-
+${(props) => 
+props.$isActive &&
+`
+ outline-offset: -2px;
+  outline: 2px solid var(--color-primary-2);
+  transform: translateY(-3px);
+  background-color: var(--color-primary-1);
+  color: var(--color-primary-2);
 `}
-
-
-
 `;
