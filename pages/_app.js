@@ -12,6 +12,13 @@ export default function App({ Component, pageProps }) {
 
   const [searchInput, setSearchInput] = useState("");
 
+  const [activeFilter, setActiveFilter] = useState("All");
+  const complexities = ["All", "Beginner", "Intermediate", "Advanced"];
+
+  function handleFilterChange(complexity) {
+    setActiveFilter(complexity);
+  }
+
   function handleSearch(event) {
     const lowerCasedInput = event.target.value.toLowerCase();
     setSearchInput(lowerCasedInput);
@@ -127,6 +134,9 @@ export default function App({ Component, pageProps }) {
           onSearch={handleSearch}
           searchInput={searchInput}
           onCheckbox={handleCheckbox}
+          activeFilter={activeFilter}
+          complexities={complexities}
+          onFilterChange={handleFilterChange}
         />
       </Layout>
     </>
