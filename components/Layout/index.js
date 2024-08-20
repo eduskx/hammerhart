@@ -1,18 +1,12 @@
-import styled from "styled-components";
-import Header from "../Header/index.js";
-import Navigation from "../Navigation/index.js";
+import Header from "@/components/Header";
 
-export default function Layout({ children }) {
+const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <StyledMain>{children}</StyledMain>
-      <Navigation />
+      <main>{children}</main>
     </>
   );
-}
+};
 
-const StyledMain = styled.main`
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-`;
+export default Layout;

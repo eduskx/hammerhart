@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useRef } from "react";
 import DynamicInputFields from "./DynamicInputFields";
+import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
 import { nanoid } from "nanoid";
@@ -45,6 +46,8 @@ export default function Form({
     if (formRef.current) {
       formRef.current.reset();
 
+      // we need this extra logic to clear all defaultValues in the EditPage
+
       const formInputs = formRef.current.elements;
       formInputs.title.value = "";
       formInputs.imageUrl.value = "";
@@ -62,6 +65,16 @@ export default function Form({
   async function handleSubmit(event) {
     await onProcessFormData(event, null, null, onAddProject);
     handleClearForm();
+    onToggleForm();
+  }
+
+  function handleChangeCharactersLeft(event) {
+    setCharacterCounter(event.target.maxLength - event.target.value.length);
+  }
+
+  async function handleSubmit(event) {
+    await onProcessFormData(event, null, null, onAddProject);
+    handleClearForm();
   }
 
   function handleChangeCharactersLeft(event) {
@@ -70,9 +83,11 @@ export default function Form({
 
   return (
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
-      <StyledCloseButton type="button" onClick={onToggleForm}>
-        <IoMdClose color="darkred" size={28} />
-      </StyledCloseButton>
+      <StyledButtonContainer>
+        <StyledCloseButton type="button" onClick={onToggleForm}>
+          <IoMdClose color="darkred" size={28} />
+        </StyledCloseButton>
+      </StyledButtonContainer>
 
       <label htmlFor="title">Title</label>
       <StyledInput
@@ -372,4 +387,9 @@ const StyledCloseButton = styled.button`
   cursor: pointer;
   font-size: 20px;
   text-align: right;
+`;
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
 `;
