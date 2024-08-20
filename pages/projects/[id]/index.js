@@ -64,7 +64,7 @@ export default function ProjectDetailsPage({
       <StyledDetailsWrapper>
         <StyledImageWrapper>
           <BookmarkButton
-            onToggleBookmark={() => onToggleBookmark(detailsId)}
+            onToggleBookmark={() => onToggleBookmark(id)}
             isFavorite={projectData.isFavorite}
           />
           <StyledImage
