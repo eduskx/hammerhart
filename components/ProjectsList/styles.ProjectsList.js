@@ -8,6 +8,7 @@ const StyledLink = styled(Link)`
 const StyledUl = styled.ul`
   display: flex;
   flex-wrap: wrap;
+  height: 100%;
   justify-content: center;
   gap: 30px;
 list-style: none;

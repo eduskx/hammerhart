@@ -1,5 +1,6 @@
 import FilterButtons from "@/components/FilterButtons";
-import ProjectCard from "@/components/ProjectCard";
+import { StyledDivBlocker } from "@/components/Header/styles.Header";
+import ProjectsList from "@/components/ProjectsList";
 import SearchBar from "@/components/SearchBar";
 import Sliders from "@/public/svg/Sliders.svg";
 import styled from "styled-components";
@@ -7,20 +8,19 @@ import styled from "styled-components";
 export default function BookmarkPage({
   projects,
   onToggleBookmark,
-  onSearch,
   complexities,
   onFilterChange,
+  activeFilter,
+  searchInput,
+  onSearch,
 }) {
   const bookmarkedProjects = projects.filter(
     (project) => project.isFavorite === true
   );
 
-  if (!bookmarkedProjects || bookmarkedProjects.length === 0) {
-    return <h2>You don't have any bookmarked projects</h2>;
-  }
-
   return (
     <>
+      {/* <StyledDivBlocker /> */}
       <BookmarkHeader>My Projects</BookmarkHeader>
 
       <StyledPattern />
@@ -37,15 +37,13 @@ export default function BookmarkPage({
         onFilterChange={onFilterChange}
       />
 
-      <BookmarkWrapper>
-        {bookmarkedProjects.map((bookmarkedProject) => (
-          <ProjectCard
-            key={bookmarkedProject.id}
-            project={bookmarkedProject}
-            onToggleBookmark={onToggleBookmark}
-          />
-        ))}
-      </BookmarkWrapper>
+      <ProjectsList
+        projects={bookmarkedProjects}
+        onToggleBookmark={onToggleBookmark}
+        searchInput={searchInput}
+        activeFilter={activeFilter}
+        bookmarkedList
+      />
     </>
   );
 }
@@ -75,15 +73,6 @@ const BookmarkHeader = styled.h1`
   padding: 100px 16px 0 16px;
   color: var(--color-primary-2);
   text-align: center;
-`;
-
-const BookmarkWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  padding: 20px 16px;
-  height: 100%;
 `;
 
 const StyledPattern = styled.div`

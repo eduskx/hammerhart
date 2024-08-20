@@ -51,9 +51,14 @@ export default createGlobalStyle`
     --color-secondary-1: #F9F5EBCC;
     --color-secondary-2: #a6b2a56b;
     
-    --color-beginner: #338D39;
-    --color-intermediate: #E3D44B;
-    --color-advanced: #D85757;
+    --color-beginner: #67AC5B;
+    --color-intermediate: #F7C244;
+    --color-advanced: #ED6237;
+
+   /*  Font Colors */
+   --color-font-1:#DDDDDD;
+   --color-font-2:#696057;
+
 
     /* Shadows */
     --box-shadow-1: 2px -2px 4px 0px rgba(0,0,0,0.4);
