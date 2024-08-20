@@ -25,7 +25,7 @@ const StyledModalContentContainer = styled.div`
   background-color: #564647;
   padding: 2rem 4rem;
   margin: auto;
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
   top: 50%;

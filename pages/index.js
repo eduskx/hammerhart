@@ -1,45 +1,42 @@
+import Form from "@/components/Form";
+import Header from "@/components/Header";
+import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
-import HighlightedProject from "@/components/HighlitedProject";
-import AddButton from "@/components/Modals/AddButton";
+import RandomProject from "@/components/RandomProject";
 
-export default function HomePage({
-  projects,
-  onAddProject,
-  onToggleBookmark,
-  onProcessFormData,
-  onToggleForm,
-  isFormOpen,
-}) {
+export default function HomePage({ projects, setNewProjects }) {
   const [searchInput, setSearchInput] = useState("");
+  const [value, setValue] = useState("");
 
   function handleSearch(event) {
     const lowerCasedInput = event.target.value.toLowerCase();
     setSearchInput(lowerCasedInput);
   }
 
+  const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
+    defaultValue: [""],
+  });
+
+  const [formSteps, setFormSteps] = useLocalStorageState("steps", {
+    defaultValue: [{ id: "1", description: "" }],
+  });
   return (
     <>
-      <AddButton
-        onAddProject={onAddProject}
-        onProcessFormData={onProcessFormData}
-        onToggleForm={onToggleForm}
-        isFormOpen={isFormOpen}
-      />
-
-      <HighlightedProject
+      <Header />
+      <Form
+        setNewProjects={setNewProjects}
         projects={projects}
-        onToggleBookmark={onToggleBookmark}
+        formMaterials={formMaterials}
+        setFormMaterials={setFormMaterials}
+        formSteps={formSteps}
+        setFormSteps={setFormSteps}
       />
+      <RandomProject projects={projects} />
       <SearchBar onSearch={handleSearch} />
 
-      <FilterList
-        projects={projects}
-        onAddProject={onAddProject}
-        onToggleBookmark={onToggleBookmark}
-        searchInput={searchInput}
-      />
+      <FilterList projects={projects} searchInput={searchInput} />
     </>
   );
 }
