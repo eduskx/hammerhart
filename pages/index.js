@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Sliders from "@/public/svg/Sliders.svg";
 import FilterButtons from "@/components/FilterButtons";
 import ProjectsList from "@/components/ProjectsList";
-import { useState } from "react";
 import AddButton from "@/components/Modals/AddButton";
 
 export default function HomePage({
@@ -12,14 +11,10 @@ export default function HomePage({
   onToggleBookmark,
   onSearch,
   searchInput,
+  complexities,
+  activeFilter,
+  onFilterChange,
 }) {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const complexities = ["All", "Beginner", "Intermediate", "Advanced"];
-
-  function handleFilterChange(complexity) {
-    setActiveFilter(complexity);
-  }
-
   return (
     <>
       <StyledWelcomeSection>
@@ -35,7 +30,7 @@ export default function HomePage({
           </StyledWelcomeTextSpan>
         </StyledWelcomeText>
         <StyledCreateButton>Create a Project +</StyledCreateButton>
-        <AddButton/>
+        <AddButton />
       </StyledWelcomeSection>
       <StyledListSection>
         <StyledPatternBottom />
@@ -57,13 +52,13 @@ export default function HomePage({
         /> */}
         <FilterButtons
           complexities={complexities}
-          onFilterChange={handleFilterChange}
+          onFilterChange={onFilterChange}
         />
         <ProjectsList
           projects={projects}
           onToggleBookmark={onToggleBookmark}
           searchInput={searchInput}
-          filteredBy={activeFilter}
+          activeFilter={activeFilter}
         />
       </StyledListSection>
       <AddButton />

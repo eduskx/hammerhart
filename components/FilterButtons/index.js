@@ -21,4 +21,5 @@ const StyledButtonList = styled.ul`
   gap: 1rem;
   justify-content: center;
   z-index: 100;
+  list-style: none;
 `;

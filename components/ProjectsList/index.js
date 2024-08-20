@@ -5,10 +5,18 @@ export default function ProjectsList({
   projects,
   onToggleBookmark,
   searchInput,
-  filteredBy,
+  activeFilter,
+  bookmarkedList,
 }) {
+  if (
+    (!projects && bookmarkedList) ||
+    (projects.length === 0 && bookmarkedList)
+  ) {
+    return <h2>You don't have any bookmarked projects</h2>;
+  }
+
   if (!projects || projects.length === 0) {
-    return <h1>No projects found. Please create new ones.</h1>;
+    return <h2>No projects found. Please create new ones.</h2>;
   }
 
   const searchedProjects = projects.filter((project) => {
@@ -23,9 +31,11 @@ export default function ProjectsList({
   });
 
   const searchedAndFilteredProjects =
-    filteredBy === "All"
+    activeFilter === "All"
       ? searchedProjects
-      : searchedProjects.filter((project) => project.complexity === filteredBy);
+      : searchedProjects.filter(
+          (project) => project.complexity === activeFilter
+        );
 
   if (searchedAndFilteredProjects.length === 0) {
     return <StyledNoSearchResults>No projects found</StyledNoSearchResults>;
