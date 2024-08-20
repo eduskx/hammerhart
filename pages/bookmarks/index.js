@@ -17,7 +17,6 @@ export default function BookmarkPage({
   const bookmarkedProjects = projects.filter(
     (project) => project.isFavorite === true
   );
-
   return (
     <>
       <Layout isBookmark={true} />

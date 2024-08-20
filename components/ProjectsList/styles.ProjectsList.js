@@ -11,9 +11,8 @@ const StyledUl = styled.ul`
   height: 100%;
   justify-content: center;
   gap: 30px;
-list-style: none;
- margin-top: 10px;
- padding: 0 5%;
+  list-style: none;
+  margin-top: 10px;
 `;
 
 const StyledNoSearchResults = styled.p`

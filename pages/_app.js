@@ -18,10 +18,6 @@ export default function App({ Component, pageProps }) {
     setActiveFilter(complexity);
   }
 
-  function handleFilterChange(complexity) {
-    setActiveFilter(complexity);
-  }
-
   function handleSearch(event) {
     const lowerCasedInput = event.target.value.toLowerCase();
     setSearchInput(lowerCasedInput);
