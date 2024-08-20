@@ -50,7 +50,7 @@ const Note = ({ project }) => {
         <Editor
           value={currentNote}
           onTextChange={(e) => handleTextChange(e)}
-          style={{ height: "320px" }}
+          style={{ width: "550px", height: "320px" }}
           headerTemplate={customToolbar}
         />
       ) : (
