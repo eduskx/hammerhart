@@ -19,6 +19,7 @@
     "formidable": "^3.5.1",
     "html-react-parser": "^5.1.12",
     "install": "^0.13.0",
+    "nanoid": "^5.0.7",
     "next": "13.4.8",
     "next-images": "^1.8.5",
     "npm": "^10.8.2",

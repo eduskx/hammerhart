@@ -1,12 +1,17 @@
-import Form from "@/components/Form";
-import Header from "@/components/Header";
-import useLocalStorageState from "use-local-storage-state";
 import FilterList from "@/components/FilterList";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
-import RandomProject from "@/components/RandomProject";
+import HighlightedProject from "@/components/HighlitedProject";
+import AddButton from "@/components/Modals/AddButton";
 
-export default function HomePage({ projects, setNewProjects }) {
+export default function HomePage({
+  projects,
+  onAddProject,
+  onToggleBookmark,
+  onProcessFormData,
+  onToggleForm,
+  isFormOpen,
+}) {
   const [searchInput, setSearchInput] = useState("");
   const [value, setValue] = useState("");
 
@@ -15,28 +20,25 @@ export default function HomePage({ projects, setNewProjects }) {
     setSearchInput(lowerCasedInput);
   }
 
-  const [formMaterials, setFormMaterials] = useLocalStorageState("materials", {
-    defaultValue: [""],
-  });
-
-  const [formSteps, setFormSteps] = useLocalStorageState("steps", {
-    defaultValue: [{ id: "1", description: "" }],
-  });
   return (
     <>
-      <Header />
-      <Form
-        setNewProjects={setNewProjects}
-        projects={projects}
-        formMaterials={formMaterials}
-        setFormMaterials={setFormMaterials}
-        formSteps={formSteps}
-        setFormSteps={setFormSteps}
-      />
-      <RandomProject projects={projects} />
       <SearchBar onSearch={handleSearch} />
-
-      <FilterList projects={projects} searchInput={searchInput} />
+      <HighlightedProject
+        projects={projects}
+        onToggleBookmark={onToggleBookmark}
+      />
+      <FilterList
+        projects={projects}
+        onAddProject={onAddProject}
+        onToggleBookmark={onToggleBookmark}
+        searchInput={searchInput}
+      />
+      <AddButton
+        onAddProject={onAddProject}
+        onProcessFormData={onProcessFormData}
+        onToggleForm={onToggleForm}
+        isFormOpen={isFormOpen}
+      />
     </>
   );
 }
