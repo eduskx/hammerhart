@@ -87,9 +87,9 @@ const StyledButton = styled.button`
   ${(props) =>
     props.$isActive &&
     `
-    outline: 2px solid white;
-    transform: translateY(-3px);
-  `}
+      outline: 2px solid white;
+      transform: translateY(-3px);
+    `}
 `;
 
 const StyledEmptyMessage = styled.h1`
