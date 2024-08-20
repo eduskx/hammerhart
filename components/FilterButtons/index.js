@@ -33,13 +33,6 @@ const StyledButtonList = styled.ul`
   list-style-type: none;
 `;
 
-const StyledButton = styled.button`
-  background-color: var(--color-primary-2);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 4px 8px;
-`;
 const StyledFilterButton = styled.button`
   all: unset;
   justify-content: center;
