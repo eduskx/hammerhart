@@ -12,6 +12,7 @@ export default function Form({
   onEditSubmit,
   onAddProject,
   onProcessFormData,
+  isEditMode,
 }) {
   let formRef = useRef(null);
 
@@ -64,7 +65,6 @@ export default function Form({
   async function handleSubmit(event) {
     await onProcessFormData(event, null, null, onAddProject);
     handleClearForm();
-    onToggleForm();
   }
 
   function handleChangeCharactersLeft(event) {
@@ -73,6 +73,7 @@ export default function Form({
 
   return (
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
+      {isEditMode && <StyledEditHeader>Edit project</StyledEditHeader>}
       <StyledButtonContainer>
         <StyledCloseButton type="button" onClick={onToggleForm}>
           <IoMdClose color="darkred" size={28} />
@@ -167,9 +168,15 @@ export default function Form({
       />
 
       <StyledButtonWrapper>
-        <StyledClearButton type="button" onClick={handleClearForm}>
-          Clear
-        </StyledClearButton>
+        {isEditMode ? (
+          <StyledCancelButton type="button" onClick={onToggleForm}>
+            Cancel
+          </StyledCancelButton>
+        ) : (
+          <StyledClearButton type="button" onClick={handleClearForm}>
+            Clear
+          </StyledClearButton>
+        )}
         <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
       </StyledButtonWrapper>
     </StyledForm>
@@ -371,7 +378,7 @@ const StyledButtonWrapper = styled.div`
   gap: 1rem;
 `;
 
-const StyledCancelLink = styled(Link)`
+const StyledCancelButton = styled.button`
   text-decoration: none;
   all: unset;
   width: 50%;
@@ -407,4 +414,10 @@ const StyledCloseButton = styled.button`
 const StyledButtonContainer = styled.div`
   display: flex;
   justify-content: end;
+`;
+
+const StyledEditHeader = styled.h2`
+  text-align: center;
+  margin-top: 1rem;
+  color: white;
 `;

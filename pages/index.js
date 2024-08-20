@@ -14,6 +14,10 @@ export default function HomePage({
   complexities,
   activeFilter,
   onFilterChange,
+  onToggleForm,
+  isFormOpen,
+  onAddProject,
+  onProcessFormData
 }) {
 
   const [filterOn, setFilterOn] = useState(true)
@@ -63,7 +67,12 @@ export default function HomePage({
           activeFilter={activeFilter}
         />
       </StyledListSection>
-      <AddButton />
+      <AddButton
+        onAddProject={onAddProject}
+        onProcessFormData={onProcessFormData}
+        onToggleForm={onToggleForm}
+        isFormOpen={isFormOpen}
+      />
     </>
   );
 }
@@ -164,6 +173,4 @@ const StyledWelcomeSection = styled.div`
 const StyledListSection = styled(StyledWelcomeSection)`
   height: 100vh;
   background-color: var(--color-primary-1);
-  
-  
 `;
