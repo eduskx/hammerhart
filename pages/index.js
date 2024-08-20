@@ -15,9 +15,14 @@ export default function HomePage({
 }) {
   const [activeFilter, setActiveFilter] = useState("All");
   const complexities = ["All", "Beginner", "Intermediate", "Advanced"];
+  const [filterOn, setFilterOn] = useState(true)
 
   function handleFilterChange(complexity) {
     setActiveFilter(complexity);
+  }
+
+  function toogleDisplayFilter (){
+    setFilterOn(!filterOn)
   }
 
   return (
@@ -45,19 +50,14 @@ export default function HomePage({
         />
         <StyledToggleSearchWrapper>
           <SearchBar onSearch={onSearch} />
-          <StyledFilterToggleButton>
-            <Sliders fill="currentColor" />
+          <StyledFilterToggleButton $filterOn={filterOn} onClick={toogleDisplayFilter}>
+            <StyledSliders $filterOn={filterOn} fill="currentColor" />
           </StyledFilterToggleButton>
         </StyledToggleSearchWrapper>
-        {/* <FilterList
-          projects={projects}
-          onAddProject={onAddProject}
-          onToggleBookmark={onToggleBookmark}
-          searchInput={searchInput}
-        /> */}
-        <FilterButtons
+      <FilterButtons
           complexities={complexities}
           onFilterChange={handleFilterChange}
+          $filterOn={filterOn}
         />
         <ProjectsList
           projects={projects}
@@ -86,11 +86,27 @@ const StyledFilterToggleButton = styled.button`
   width: 30px;
   height: 27px;
   border-radius: 10px;
-  color: var(--color-primary-1);
+  color: ${({$filterOn}) => ($filterOn ? "var(--color-primary-1)" : "var(--color-primary-2)")};
   border: none;
-  background-color: var(--color-primary-2);
-  border: none;
+  background-color: ${({$filterOn}) => ($filterOn ? "var(--color-primary-2)" : "var(--color-primary-1)")};
+  outline-offset: ${({$filterOn}) => ($filterOn ? "none" : "-2px")};;
+  outline: ${({$filterOn}) => ($filterOn ? "none" : "2px solid var(--color-primary-2)")};
+  transform: ${({$filterOn}) => ($filterOn ? "none" : "translateY(-3px);")};
+  z-index: 10;
+  transition: transform 0.2s ease-in;
+
+&:hover {
+  outline-offset: -2px;
+  outline: 2px solid var(--color-primary-2);
+  transform: translateY(-3px);
+  background-color: var(--color-primary-1);
+  color: var(--color-primary-2);
+}
 `;
+const StyledSliders = styled(Sliders)`
+
+transform: ${({$filterOn}) => ($filterOn ? "none" : "rotate(180deg);")};
+`; 
 
 const StyledCreateButton = styled.button`
   all: unset;
@@ -150,7 +166,8 @@ const StyledWelcomeSection = styled.div`
   overflow: hidden;
 `;
 const StyledListSection = styled(StyledWelcomeSection)`
-  height: 100%;
+  height: 100vh;
   background-color: var(--color-primary-1);
-  padding-bottom: 20px;
+  
+  
 `;
