@@ -123,12 +123,17 @@ export default function Form({
           )}
         </StyledImagePreviewWrapper>
 
-        <label htmlFor="duration">Duration</label>
+        <StyledImageContainer>
+          <StyledTitle>Upload Image</StyledTitle>
+        </StyledImageContainer>
+
+        <label htmlFor="duration"></label>
         <StyledTextInput
           required
           id="duration"
           name="duration"
           type="text"
+          placeholder="Duration"
           defaultValue={defaultData?.duration}
         />
 
@@ -195,11 +200,12 @@ export default function Form({
 
 const StyledForm = styled.form`
   @media screen and (min-width: 640px) {
+    width: 640px;
   }
   color: var(--color-font-light);
   background: var(--color-primary-2);
   border-radius: 30px 30px 0 0;
-  width: 375px;
+  width: 100vw;
   height: 90vh;
   box-shadow: 1px 1px 6px 1px #00000072;
   display: flex;
@@ -269,6 +275,22 @@ const StyledTextInput = styled.input`
   &::-ms-input-placeholder {
     /* Edge 12 -18 */
     color: var(--color-font-1);
+  }
+`;
+
+const StyledImageContainer = styled.div`
+  width: 100%;
+  height: 100px;
+  background-color: var(--color-secondary-3);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  &:focus,
+  &:hover {
+    outline: 1px solid var(--color-primary-1);
   }
 `;
 
