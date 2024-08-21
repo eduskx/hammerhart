@@ -24,7 +24,7 @@ export default function HomePage({
   return (
     <>
       <StyledWelcomeSection>
-        <StyledPattern />
+      
        <StyledWelcomeHighlightWrapper>
           <StyledWelcomeAddButtonWrapper>
             <StyledWelcomeText>
@@ -52,7 +52,7 @@ export default function HomePage({
        </StyledWelcomeHighlightWrapper>
       </StyledWelcomeSection>
       <StyledListSection>
-        <StyledPatternBottom />
+       
         <HighlightedProject
           $isDesktop
           projects={projects}
@@ -201,19 +201,6 @@ const StyledWelcomeText = styled.h1`
     text-align: start;
     font-size: 4rem;
   }
-`;
-
-const StyledPattern = styled.div`
-  position: absolute;
-  background-image: url("./svg/backgroundImage_white.svg");
-  background-repeat: repeat;
-  background-attachment: fixed;
-  opacity: 0.2;
-  width: 100vw;
-  height: 100%;
-`;
-const StyledPatternBottom = styled(StyledPattern)`
-  background-image: url("./svg/backgroundImage_green.svg");
 `;
 
 const StyledWelcomeSection = styled.div`

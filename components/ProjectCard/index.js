@@ -99,6 +99,10 @@ const StyledShadowDiv = styled.div`
     width: 260px;
     height: 175px;
   }
+  @media screen and (min-width: 1275px) {
+    width: 315px;
+    height: 175px;
+  }
   ${(props) =>
     props.$isHighlighted &&
     css`
@@ -109,8 +113,8 @@ const StyledShadowDiv = styled.div`
     height: 340px;
   }
       @media screen and (min-width: 1275px) {
-    width: 460px;
-    height: 140px;
+        width: 560px;
+        height: 340px;
   }
     `}
 `;

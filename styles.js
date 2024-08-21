@@ -24,6 +24,7 @@ export default createGlobalStyle`
     font-family: ${rubik.style.fontFamily};
     margin: 0;
     padding: 0;
+    background-color: var(--color-primary-1);
   }
 
   h1, h2, h3, h4, h5, h6 {
