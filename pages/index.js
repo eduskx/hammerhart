@@ -123,12 +123,13 @@ const StyledWelcomeAddButtonWrapper = styled.div`
 const StyledProjectsTitle = styled.h2`
   color: var(--color-primary-2);
   align-self: start;
+  
 `;
 const StyledProjectsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 30px 5% 16px 5%;
+  padding: 30px 10% 16px 10%;
   width: 100%;
   gap: 16px;
   @media screen and (min-width: 640px) {

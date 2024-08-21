@@ -23,7 +23,7 @@ export default function SearchBar({ onSearch, $isNotMobile }) {
 const StyledSearchBarIconWrapper = styled.div`
   display: flex;
   position: relative;
-  width: 150px;
+  width: 130px;
   @media screen and (min-width: 640px) {
     width: 200px;
   }
@@ -49,7 +49,7 @@ const StyledIcon = styled.div`
   background-color: var(--color-primary-2);
 `;
 const StyledSearchBar = styled.input`
-  width: 150px;
+  width: 130px;
   height: 27px;
   border-radius: 10px;
   border: 2px solid var(--color-primary-2);
