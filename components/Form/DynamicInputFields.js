@@ -12,7 +12,7 @@ export default function DynamicInputFields({
   return (
     <>
       {inputFields.map((field, index) => (
-        <StyledMaterialsWrapper key={field.id}>
+        <StyledWrapper key={field.id}>
           <label htmlFor={field.id}></label>
           <StyledTextInput
             required
@@ -26,75 +26,53 @@ export default function DynamicInputFields({
             type="button"
             onClick={() => onRemoveField(field.id || index)}
           >
-            <FaRegTrashAlt />
+            <FaRegTrashAlt size={20} />
           </StyledDeleteButton>
-        </StyledMaterialsWrapper>
+        </StyledWrapper>
       ))}
       <StyledAddButton type="button" onClick={onAddField}>
-        <MdAdd />
+        <MdAdd size={22} />
       </StyledAddButton>
     </>
   );
 }
 
-const StyledTitle = styled.p`
-  padding-top: 1rem;
-`;
-
-const StyledMaterialsWrapper = styled.div`
-  width: 100%;
+const StyledWrapper = styled.div`
   display: flex;
+  align-items: center;
   padding-bottom: 8px;
 `;
 
-const StyledDeleteButton = styled.button`
-  all: unset;
-  width: 3rem;
-  height: 2rem;
-  display: flex;
-  margin: 0;
-
-  justify-content: center;
-  align-items: center;
+const StyledAddButton = styled.button`
+  background-color: var(--color-secondary-3);
+  color: var(--color-font-light);
+  width: fit-content;
+  padding: 0 8px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
   cursor: pointer;
-  color: rgba(58, 58, 58, 1);
-  margin-bottom: 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
   &:focus,
   &:hover {
-    outline: 1px solid white;
-
+    outline: 1px solid var(--color-primary-1);
     &:hover {
-      background-color: #e52e2ed4;
-      color: #fff;
-      transform: translateY(-3px);
+      background-color: var(--color-primary-1);
+      color: var(--color-primary-2);
     }
   }
 `;
-const StyledAddButton = styled.button`
-  all: unset;
-  width: 100%;
-  height: 2rem;
-  display: flex;
-  margin: 0;
 
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: rgba(58, 58, 58, 1);
-  margin-bottom: 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
+const StyledDeleteButton = styled(StyledAddButton)`
+  margin-left: 8px;
+  padding: 4px 12px;
+  width: fit-content;
+  border-radius: 10px;
   &:focus,
   &:hover {
-    outline: 1px solid white;
-
+    outline: 1px solid var(--color-advanced);
     &:hover {
-      background-color: #2e8de5d4;
-      box-shadow: 0px 15px 20px rgba(6, 45, 61, 0.4);
-      color: #fff;
-      transform: translateY(-3px);
+      background-color: var(--color-advanced);
+      color: var(--color-primary-1);
     }
   }
 `;

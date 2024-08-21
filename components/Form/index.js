@@ -5,6 +5,7 @@ import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
 import { nanoid } from "nanoid";
+import { grandstander } from "@/styles";
 
 export default function Form({
   onToggleForm,
@@ -131,55 +132,57 @@ export default function Form({
           defaultValue={defaultData?.duration}
         />
 
-        <StyledDropDownWrapper>
-          <label htmlFor="complexity"></label>
-          <StyledDropdown
-            required
-            id="complexity"
-            name="complexity"
-            defaultValue={defaultData?.complexity}
-          >
-            <option value="">Please select a complexity level</option>
-            <option value="Beginner">Beginner</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="Advanced">Advanced</option>
-          </StyledDropdown>
-        </StyledDropDownWrapper>
+        <label htmlFor="complexity"></label>
+        <StyledDropdown
+          required
+          id="complexity"
+          name="complexity"
+          defaultValue={defaultData?.complexity}
+        >
+          <StyledOption value="">Please select a complexity level</StyledOption>
+          <StyledOption value="Beginner">Beginner</StyledOption>
+          <StyledOption value="Intermediate">Intermediate</StyledOption>
+          <StyledOption value="Advanced">Advanced</StyledOption>
+        </StyledDropdown>
 
-        <StyledHeader>Materials</StyledHeader>
-        <DynamicInputFields
-          label="Material"
-          inputFields={materialFields}
-          onAddField={() => handleAddField(setMaterialFields)}
-          onRemoveField={(idToRemove) =>
-            handleRemoveField(setMaterialFields, idToRemove)
-          }
-        />
+        <StyledDynamicInputWrapper>
+          <StyledTitle>Materials</StyledTitle>
+          <DynamicInputFields
+            label="Material"
+            inputFields={materialFields}
+            onAddField={() => handleAddField(setMaterialFields)}
+            onRemoveField={(idToRemove) =>
+              handleRemoveField(setMaterialFields, idToRemove)
+            }
+          />
+        </StyledDynamicInputWrapper>
 
-        <StyledHeader>Steps</StyledHeader>
-        <DynamicInputFields
-          label="Step"
-          inputFields={stepFields}
-          onAddField={() => handleAddField(setStepFields)}
-          onRemoveField={(idToRemove) =>
-            handleRemoveField(setStepFields, idToRemove)
-          }
-        />
+        <StyledDynamicInputWrapper>
+          <StyledTitle>Steps</StyledTitle>
+          <DynamicInputFields
+            label="Step"
+            inputFields={stepFields}
+            onAddField={() => handleAddField(setStepFields)}
+            onRemoveField={(idToRemove) =>
+              handleRemoveField(setStepFields, idToRemove)
+            }
+          />
+        </StyledDynamicInputWrapper>
 
-        <DescriptionCounterWrapper>
+        <DescriptionWrapper>
           <label htmlFor="description"></label>
-          <DescriptionCounter>{`${characterCounter} characters left`}</DescriptionCounter>
-        </DescriptionCounterWrapper>
-        <StyledTextarea
-          id="description"
-          name="description"
-          placeholder="Description"
-          rows={5}
-          cols={30}
-          maxLength={250}
-          onChange={handleChangeCharactersLeft}
-          defaultValue={defaultData?.description}
-        />
+          <StyledTextarea
+            id="description"
+            name="description"
+            placeholder="Description"
+            rows={7}
+            cols={30}
+            maxLength={250}
+            onChange={handleChangeCharactersLeft}
+            defaultValue={defaultData?.description}
+          />
+          <StyledDescriptionCounter>{`${characterCounter} characters left`}</StyledDescriptionCounter>
+        </DescriptionWrapper>
       </StyledMainContainer>
 
       {/* Footer section */}
@@ -196,7 +199,7 @@ const StyledForm = styled.form`
   color: var(--color-font-light);
   background: var(--color-primary-2);
   border-radius: 30px 30px 0 0;
-  width: 350px;
+  width: 375px;
   height: 90vh;
   box-shadow: 1px 1px 6px 1px #00000072;
   display: flex;
@@ -248,6 +251,8 @@ const StyledMainContainer = styled.main`
 `;
 
 const StyledTextInput = styled.input`
+  min-height: 35px;
+  width: 80%;
   background-color: var(--color-secondary-3);
   color: var(--color-font-light);
   border: none;
@@ -255,29 +260,109 @@ const StyledTextInput = styled.input`
   border-radius: 10px;
   &:focus,
   &:hover {
-    outline: 1px solid white;
+    outline: 1px solid var(--color-primary-1);
   }
   &::placeholder {
-    color: var(--color-font-light);
+    color: var(--color-font-1);
     opacity: 1; /* Firefox */
   }
   &::-ms-input-placeholder {
     /* Edge 12 -18 */
-    color: var(--color-font-light);
+    color: var(--color-font-1);
   }
 `;
 
-const StyledTextarea = styled.textarea`
-  all: unset;
-  width: 100%;
-  word-wrap: break-word;
-  color: rgba(58, 58, 58, 1);
-  resize: none;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
+const StyledDropdown = styled.select`
+  margin: 16px 0;
+  padding: 8px;
+  width: fit-content;
+  border: none;
+  color: var(--color-font-light);
+  background: var(--color-secondary-3);
+  border-radius: 10px;
   &:focus,
   &:hover {
-    outline: 1px solid white;
+    outline: 1px solid var(--color-primary-1);
+  }
+`;
+
+const StyledOption = styled.option`
+  background-color: var(--color-primary-2);
+  color: var(--color-font-light);
+`;
+
+const StyledTitle = styled.p`
+  color: var(--color-primary-1);
+  font-size: 20px;
+  font-family: ${grandstander.style.fontFamily};
+  padding-bottom: 8px;
+`;
+
+const StyledDynamicInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
+`;
+
+const DescriptionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledTextarea = styled.textarea`
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  border: none;
+  background-color: var(--color-secondary-3);
+  color: var(--color-font-light);
+  word-wrap: break-word;
+  resize: none;
+  border-radius: 10px;
+  padding: 8px;
+  &:focus,
+  &:hover {
+    outline: 1px solid var(--color-primary-1);
+  }
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  &::placeholder {
+    color: var(--color-font-1);
+    opacity: 1; /* Firefox */
+  }
+  &::-ms-input-placeholder {
+    /* Edge 12 -18 */
+    color: var(--color-font-1);
+  }
+`;
+
+const StyledDescriptionCounter = styled.p`
+  color: ${(prop) =>
+    prop.children === "0 characters left"
+      ? "var(--color-font-1)"
+      : "var(--color-primary-1)"};
+  animation: ${(props) =>
+    props.children === "0 characters left" ? "shake 0.5s" : null};
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    20%,
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+    40%,
+    60% {
+      transform: translate3d(4px, 0, 0);
+    }
   }
 `;
 
@@ -309,41 +394,6 @@ const StyledSubmitButton = styled.button`
 `;
 
 // ////////////////////////////////////////////////////////////
-
-const DescriptionCounterWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const DescriptionCounter = styled.span`
-  display: inline-block;
-  color: ${(prop) => (prop.children === "0 characters left" ? "red" : "white")};
-  animation: ${(props) =>
-    props.children === "0 characters left" ? "shake 0.5s 2" : null};
-
-  @keyframes shake {
-    10%,
-    90% {
-      transform: translate3d(-1px, 0, 0);
-    }
-
-    20%,
-    80% {
-      transform: translate3d(2px, 0, 0);
-    }
-
-    30%,
-    50%,
-    70% {
-      transform: translate3d(-4px, 0, 0);
-    }
-
-    40%,
-    60% {
-      transform: translate3d(4px, 0, 0);
-    }
-  }
-`;
 
 const StyledImagePreviewWrapper = styled.div`
   display: flex;
@@ -377,27 +427,6 @@ const StyledImageUploadLabel = styled.label`
   &:hover {
     outline: 1px solid white;
   }
-`;
-
-const StyledDropdown = styled.select`
-  width: 100%;
-  margin-left: 0.5rem;
-  margin-top: 0.5rem;
-  height: 28px;
-  border: none;
-  color: rgba(58, 58, 58, 1);
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
-  }
-`;
-
-const StyledDropDownWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: baseline;
 `;
 
 export { StyledTextInput };
