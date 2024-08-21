@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useState, useRef } from "react";
 import DynamicInputFields from "./DynamicInputFields";
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
 import { nanoid } from "nanoid";
+import { IoMdImages } from "react-icons/io";
 
 export default function Form({
   onToggleForm,
@@ -14,6 +15,9 @@ export default function Form({
   isEditMode,
 }) {
   let formRef = useRef(null);
+
+  const $secondDesign = false;
+  const $thirdDesign = false;
 
   const [imagePreview, setImagePreview] = useState(null);
   const [characterCounter, setCharacterCounter] = useState(
@@ -86,7 +90,7 @@ export default function Form({
       </StyledHeaderContainer>
 
       {/* Main section */}
-      <StyledMainContainer>
+      <StyledMainContainer $secondDesign={$secondDesign}>
         <label htmlFor="title"></label>
         <StyledTextInput
           required
@@ -96,14 +100,19 @@ export default function Form({
           placeholder="Project title"
           defaultValue={defaultData?.title}
           maxLength={50}
+          $thirdDesign={$thirdDesign}
         />
 
         {/* Image Upload */}
-        <StyledImagePreviewWrapper>
-          <StyledImageUploadLabel htmlFor="imageUrl">
-            <Image src="/upload.svg" alt="upload_icon" width={20} height={20} />
-            <span>Upload Image</span>
-          </StyledImageUploadLabel>
+
+        <StyledImageContainer $thirdDesign={$thirdDesign}>
+          <StyledImageLabel
+            htmlFor="imageUrl"
+            $imageUploaded={imagePreview ? true : false}
+          >
+            <IoMdImages size={32} />
+          </StyledImageLabel>
+
           <StyledImageUploadInput
             id="imageUrl"
             name="imageUrl"
@@ -112,17 +121,13 @@ export default function Form({
             onChange={handleChangeImage}
           />
           {imagePreview && (
-            <StyledImagePreview
+            <StyledPreviewImage
+              alt="preview image"
               src={URL.createObjectURL(imagePreview)}
-              alt="Preview of uploaded image"
-              width={100}
-              height={150}
-            ></StyledImagePreview>
+              width={0}
+              height={0}
+            />
           )}
-        </StyledImagePreviewWrapper>
-
-        <StyledImageContainer>
-          <StyledTitle>Upload Image</StyledTitle>
         </StyledImageContainer>
 
         <label htmlFor="duration"></label>
@@ -133,6 +138,7 @@ export default function Form({
           type="text"
           placeholder="Duration"
           defaultValue={defaultData?.duration}
+          $thirdDesign={$thirdDesign}
         />
 
         <label htmlFor="complexity"></label>
@@ -141,15 +147,24 @@ export default function Form({
           id="complexity"
           name="complexity"
           defaultValue={defaultData?.complexity}
+          $thirdDesign={$thirdDesign}
         >
-          <StyledOption value="">Please select a complexity level</StyledOption>
-          <StyledOption value="Beginner">Beginner</StyledOption>
-          <StyledOption value="Intermediate">Intermediate</StyledOption>
-          <StyledOption value="Advanced">Advanced</StyledOption>
+          <StyledOption $thirdDesign={$thirdDesign} value="">
+            Please select a complexity level
+          </StyledOption>
+          <StyledOption $thirdDesign={$thirdDesign} value="Beginner">
+            Beginner
+          </StyledOption>
+          <StyledOption $thirdDesign={$thirdDesign} value="Intermediate">
+            Intermediate
+          </StyledOption>
+          <StyledOption $thirdDesign={$thirdDesign} value="Advanced">
+            Advanced
+          </StyledOption>
         </StyledDropdown>
 
         <StyledDynamicInputWrapper>
-          <StyledTitle>Materials</StyledTitle>
+          <StyledTitle $thirdDesign={$thirdDesign}>Materials</StyledTitle>
           <DynamicInputFields
             label="Material"
             inputFields={materialFields}
@@ -183,6 +198,7 @@ export default function Form({
             maxLength={250}
             onChange={handleChangeCharactersLeft}
             defaultValue={defaultData?.description}
+            $thirdDesign={$thirdDesign}
           />
           <StyledDescriptionCounter>{`${characterCounter} characters left`}</StyledDescriptionCounter>
         </DescriptionWrapper>
@@ -218,7 +234,7 @@ const StyledHeaderContainer = styled.div`
   align-items: center;
   padding: 24px 16px 16px 16px;
   background: var(--color-primary-2);
-  height: 10%;
+  height: 80px;
   box-shadow: var(--box-shadow-2);
   z-index: 2;
 `;
@@ -239,54 +255,112 @@ const StyledCloseButton = styled.div`
 `;
 
 const StyledMainContainer = styled.main`
-  height: 80%;
+  height: 100%;
   padding: 16px;
-  background: var(--color-primary-2);
-  /* overflow-y: scroll;
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
+  background: var(--color-primary-1);
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
-  } */
+  }
+  ${(props) =>
+    props.$secondDesign &&
+    css`
+      background-color: var(--color-primary-3);
+    `}
 `;
 
 const StyledTextInput = styled.input`
   min-height: 35px;
   width: 80%;
-  background-color: var(--color-secondary-3);
-  color: var(--color-font-light);
-  border: none;
+  background-color: var(--color-primary-1);
+  color: var(--color-primary-2);
+  border: 2px solid var(--color-primary-2);
   padding: 8px;
   border-radius: 10px;
-  &:focus,
-  &:hover {
-    outline: 1px solid var(--color-primary-1);
+  &:focus {
+    border: 3px solid var(--color-primary-2);
   }
   &::placeholder {
-    color: var(--color-font-1);
+    color: var(--color-font-2);
     opacity: 1; /* Firefox */
   }
   &::-ms-input-placeholder {
     /* Edge 12 -18 */
-    color: var(--color-font-1);
+    color: var(--color-font-2);
   }
+  ${(props) =>
+    props.$thirdDesign &&
+    css`
+      background-color: var(--color-primary-2);
+      color: var(--color-primary-1);
+      &::placeholder {
+        color: var(--color-font-1);
+        opacity: 1; /* Firefox */
+      }
+      &::-ms-input-placeholder {
+        /* Edge 12 -18 */
+        color: var(--color-font-1);
+      }
+    `}
 `;
 
 const StyledImageContainer = styled.div`
-  width: 100%;
-  height: 100px;
-  background-color: var(--color-secondary-3);
-  margin-bottom: 16px;
+  width: 60%;
+  height: 200px;
+  background: var(--color-primary-1);
+  color: var(--color-primary-2);
+  margin: 16px 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 2px solid var(--color-primary-2);
   border-radius: 10px;
-  cursor: pointer;
+  position: relative;
+  overflow: hidden;
   &:focus,
   &:hover {
-    outline: 1px solid var(--color-primary-1);
+    border: 2px dashed var(--color-primary-2);
   }
+  ${(props) =>
+    props.$thirdDesign &&
+    css`
+      background-color: var(--color-primary-2);
+      color: var(--color-primary-1);
+      &::placeholder {
+        color: var(--color-font-1);
+        opacity: 1; /* Firefox */
+      }
+      &::-ms-input-placeholder {
+        /* Edge 12 -18 */
+        color: var(--color-font-1);
+      }
+    `}
+`;
+
+const StyledImageLabel = styled.label`
+  position: absolute;
+  cursor: pointer;
+  ${(props) =>
+    props.$imageUploaded &&
+    css`
+      background-color: var(--color-secondary-1);
+      color: var(--color-primary-2);
+      padding: 4px;
+      border-radius: 10px;
+    `}
+`;
+
+const StyledImageUploadInput = styled.input`
+  display: none;
+`;
+
+const StyledPreviewImage = styled(Image)`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 `;
 
 const StyledDropdown = styled.select`
@@ -294,22 +368,50 @@ const StyledDropdown = styled.select`
   padding: 8px;
   width: fit-content;
   border: none;
-  color: var(--color-font-light);
-  background: var(--color-secondary-3);
+  color: var(--color-primary-2);
+  background: var(--color-primary-1);
   border-radius: 10px;
-  &:focus,
-  &:hover {
-    outline: 1px solid var(--color-primary-1);
+  border: 2px solid var(--color-primary-2);
+  &:focus {
+    border: 3px solid var(--color-primary-2);
   }
+  ${(props) =>
+    props.$thirdDesign &&
+    css`
+      background-color: var(--color-primary-2);
+      color: var(--color-primary-1);
+      &::placeholder {
+        color: var(--color-font-1);
+        opacity: 1; /* Firefox */
+      }
+      &::-ms-input-placeholder {
+        /* Edge 12 -18 */
+        color: var(--color-font-1);
+      }
+    `}
 `;
 
 const StyledOption = styled.option`
-  background-color: var(--color-primary-2);
-  color: var(--color-font-light);
+  background-color: var(--color-primary-1);
+  color: var(--color-primary-2);
+  ${(props) =>
+    props.$thirdDesign &&
+    css`
+      background-color: var(--color-primary-2);
+      color: var(--color-primary-1);
+      &::placeholder {
+        color: var(--color-font-1);
+        opacity: 1; /* Firefox */
+      }
+      &::-ms-input-placeholder {
+        /* Edge 12 -18 */
+        color: var(--color-font-1);
+      }
+    `}
 `;
 
 const StyledTitle = styled.h3`
-  color: var(--color-primary-1);
+  color: var(--color-primary-2);
   font-size: 20px;
   padding-bottom: 8px;
 `;
@@ -330,28 +432,42 @@ const StyledTextarea = styled.textarea`
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   border: none;
-  background-color: var(--color-secondary-3);
-  color: var(--color-font-light);
+  background-color: var(--color-primary-1);
+  color: var(--color-primary-2);
   word-wrap: break-word;
   resize: none;
   border-radius: 10px;
+  border: 2px solid var(--color-primary-2);
   padding: 8px;
-  &:focus,
-  &:hover {
-    outline: 1px solid var(--color-primary-1);
+  &:focus {
+    border: 3px solid var(--color-primary-2);
   }
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
   }
   &::placeholder {
-    color: var(--color-font-1);
+    color: var(--color-font-2);
     opacity: 1; /* Firefox */
   }
   &::-ms-input-placeholder {
     /* Edge 12 -18 */
-    color: var(--color-font-1);
+    color: var(--color-font-2);
   }
+  ${(props) =>
+    props.$thirdDesign &&
+    css`
+      background-color: var(--color-primary-2);
+      color: var(--color-primary-1);
+      &::placeholder {
+        color: var(--color-font-1);
+        opacity: 1; /* Firefox */
+      }
+      &::-ms-input-placeholder {
+        /* Edge 12 -18 */
+        color: var(--color-font-1);
+      }
+    `}
 `;
 
 const StyledDescriptionCounter = styled.p`
@@ -387,9 +503,9 @@ const StyledFooterContainer = styled.div`
   justify-content: center;
   padding: 16px;
   background: var(--color-primary-2);
-  height: 10%;
   z-index: 2;
   box-shadow: var(--box-shadow-1);
+  height: 80px;
 `;
 
 const StyledSubmitButton = styled.button`
@@ -419,32 +535,6 @@ const StyledImagePreviewWrapper = styled.div`
   align-items: stretch;
   justify-content: space-between;
   margin: 1rem 0;
-`;
-
-const StyledImagePreview = styled(Image)`
-  border-radius: 3px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  width: 50%;
-`;
-
-const StyledImageUploadInput = styled.input`
-  display: none;
-`;
-
-const StyledImageUploadLabel = styled.label`
-  align-self: flex-end;
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-  padding: 0.1rem;
-  color: #000;
-  background: rgba(255, 255, 255, 0.5);
-  user-select: none;
-  cursor: pointer;
-  border-radius: 2px;
-  &:hover {
-    outline: 1px solid white;
-  }
 `;
 
 export { StyledTextInput };

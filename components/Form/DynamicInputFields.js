@@ -9,6 +9,7 @@ export default function DynamicInputFields({
   onAddField,
   onRemoveField,
 }) {
+  const $thirdDesign = false;
   return (
     <>
       {inputFields.map((field, index) => (
@@ -21,6 +22,7 @@ export default function DynamicInputFields({
             name={`${label}`}
             placeholder={`${label} ${index + 1}`}
             defaultValue={field?.description || ""}
+            $thirdDesign={$thirdDesign}
           />
           <StyledDeleteButton
             type="button"
@@ -44,8 +46,8 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledAddButton = styled.button`
-  background-color: var(--color-secondary-3);
-  color: var(--color-font-light);
+  background-color: var(--color-primary-2);
+  color: var(--color-primary-1);
   width: fit-content;
   padding: 0 8px;
   border: none;
@@ -54,7 +56,7 @@ const StyledAddButton = styled.button`
   cursor: pointer;
   &:focus,
   &:hover {
-    outline: 1px solid var(--color-primary-1);
+    outline: 2px solid var(--color-primary-2);
     &:hover {
       background-color: var(--color-primary-1);
       color: var(--color-primary-2);
