@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
+import { StyledTextInput } from ".";
 
 export default function DynamicInputFields({
   label,
@@ -10,15 +11,15 @@ export default function DynamicInputFields({
 }) {
   return (
     <>
-      <StyledTitle>{label}</StyledTitle>
       {inputFields.map((field, index) => (
         <StyledMaterialsWrapper key={field.id}>
           <label htmlFor={field.id}></label>
-          <StyledInput
+          <StyledTextInput
             required
             id={field.id}
             type="text"
             name={`${label}`}
+            placeholder={`${label} ${index + 1}`}
             defaultValue={field?.description || ""}
           />
           <StyledDeleteButton
@@ -43,8 +44,9 @@ const StyledTitle = styled.p`
 const StyledMaterialsWrapper = styled.div`
   width: 100%;
   display: flex;
-  transition: all 0.3s ease 0s;
+  padding-bottom: 8px;
 `;
+
 const StyledDeleteButton = styled.button`
   all: unset;
   width: 3rem;
@@ -94,19 +96,5 @@ const StyledAddButton = styled.button`
       color: #fff;
       transform: translateY(-3px);
     }
-  }
-`;
-const StyledInput = styled.input`
-  all: unset;
-  width: 100%;
-
-  color: rgba(58, 58, 58, 1);
-  margin-bottom: 0.5rem;
-  margin-right: 1rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
   }
 `;

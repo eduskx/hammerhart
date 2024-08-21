@@ -73,115 +73,242 @@ export default function Form({
 
   return (
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
-      {isEditMode && <StyledEditHeader>Edit project</StyledEditHeader>}
-      <StyledButtonContainer>
+      {/* Header section */}
+      <StyledHeaderContainer>
         <StyledCloseButton type="button" onClick={onToggleForm}>
-          <IoMdClose color="darkred" size={28} />
+          <IoMdClose color="#F9F5EBCC" size={32} />
         </StyledCloseButton>
-      </StyledButtonContainer>
 
-      <label htmlFor="title">Title</label>
-      <StyledInput
-        required
-        id="title"
-        name="title"
-        type="text"
-        defaultValue={defaultData?.title}
-        maxLength={50}
-      />
-
-      <StyledImagePreviewWrapper>
-        <StyledImageUploadLabel htmlFor="imageUrl">
-          <Image src="/upload.svg" alt="upload_icon" width={20} height={20} />
-          <span>Upload Image</span>
-        </StyledImageUploadLabel>
-        <StyledImageUploadInput
-          id="imageUrl"
-          name="imageUrl"
-          type="file"
-          accept="image/*"
-          onChange={handleChangeImage}
-        />
-        {imagePreview && (
-          <StyledImagePreview
-            src={URL.createObjectURL(imagePreview)}
-            alt="Preview of uploaded image"
-            width={100}
-            height={150}
-          ></StyledImagePreview>
-        )}
-      </StyledImagePreviewWrapper>
-
-      <DescriptionCounterWrapper>
-        <label htmlFor="description">Description</label>
-        <DescriptionCounter>{`${characterCounter} characters left`}</DescriptionCounter>
-      </DescriptionCounterWrapper>
-      <StyledTextarea
-        id="description"
-        name="description"
-        rows={5}
-        cols={30}
-        maxLength={250}
-        onChange={handleChangeCharactersLeft}
-        defaultValue={defaultData?.description}
-      />
-
-      <label htmlFor="duration">Duration</label>
-      <StyledInput
-        required
-        id="duration"
-        name="duration"
-        type="text"
-        defaultValue={defaultData?.duration}
-      />
-
-      <StyledDropDownWrapper>
-        <label htmlFor="complexity">Complexity: </label>
-        <StyledDropdown
-          required
-          id="complexity"
-          name="complexity"
-          defaultValue={defaultData?.complexity}
-        >
-          <option value="">Please select a complexity level</option>
-          <option value="Beginner">Beginner</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Advanced">Advanced</option>
-        </StyledDropdown>
-      </StyledDropDownWrapper>
-
-      <DynamicInputFields
-        label="Materials"
-        inputFields={materialFields}
-        onAddField={() => handleAddField(setMaterialFields)}
-        onRemoveField={(idToRemove) =>
-          handleRemoveField(setMaterialFields, idToRemove)
-        }
-      />
-      <DynamicInputFields
-        label="Steps"
-        inputFields={stepFields}
-        onAddField={() => handleAddField(setStepFields)}
-        onRemoveField={(idToRemove) =>
-          handleRemoveField(setStepFields, idToRemove)
-        }
-      />
-
-      <StyledButtonWrapper>
         {isEditMode ? (
-          <StyledCancelButton type="button" onClick={onToggleForm}>
-            Cancel
-          </StyledCancelButton>
+          <StyledHeader>Edit project</StyledHeader>
         ) : (
-          <StyledClearButton type="button" onClick={handleClearForm}>
-            Clear
-          </StyledClearButton>
+          <StyledHeader>Create a project</StyledHeader>
         )}
+      </StyledHeaderContainer>
+
+      {/* Main section */}
+      <StyledMainContainer>
+        <label htmlFor="title"></label>
+        <StyledTextInput
+          required
+          id="title"
+          name="title"
+          type="text"
+          placeholder="Project title"
+          defaultValue={defaultData?.title}
+          maxLength={50}
+        />
+
+        {/* Image Upload */}
+        <StyledImagePreviewWrapper>
+          <StyledImageUploadLabel htmlFor="imageUrl">
+            <Image src="/upload.svg" alt="upload_icon" width={20} height={20} />
+            <span>Upload Image</span>
+          </StyledImageUploadLabel>
+          <StyledImageUploadInput
+            id="imageUrl"
+            name="imageUrl"
+            type="file"
+            accept="image/*"
+            onChange={handleChangeImage}
+          />
+          {imagePreview && (
+            <StyledImagePreview
+              src={URL.createObjectURL(imagePreview)}
+              alt="Preview of uploaded image"
+              width={100}
+              height={150}
+            ></StyledImagePreview>
+          )}
+        </StyledImagePreviewWrapper>
+
+        <label htmlFor="duration">Duration</label>
+        <StyledTextInput
+          required
+          id="duration"
+          name="duration"
+          type="text"
+          defaultValue={defaultData?.duration}
+        />
+
+        <StyledDropDownWrapper>
+          <label htmlFor="complexity"></label>
+          <StyledDropdown
+            required
+            id="complexity"
+            name="complexity"
+            defaultValue={defaultData?.complexity}
+          >
+            <option value="">Please select a complexity level</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </StyledDropdown>
+        </StyledDropDownWrapper>
+
+        <StyledHeader>Materials</StyledHeader>
+        <DynamicInputFields
+          label="Material"
+          inputFields={materialFields}
+          onAddField={() => handleAddField(setMaterialFields)}
+          onRemoveField={(idToRemove) =>
+            handleRemoveField(setMaterialFields, idToRemove)
+          }
+        />
+
+        <StyledHeader>Steps</StyledHeader>
+        <DynamicInputFields
+          label="Step"
+          inputFields={stepFields}
+          onAddField={() => handleAddField(setStepFields)}
+          onRemoveField={(idToRemove) =>
+            handleRemoveField(setStepFields, idToRemove)
+          }
+        />
+
+        <DescriptionCounterWrapper>
+          <label htmlFor="description"></label>
+          <DescriptionCounter>{`${characterCounter} characters left`}</DescriptionCounter>
+        </DescriptionCounterWrapper>
+        <StyledTextarea
+          id="description"
+          name="description"
+          placeholder="Description"
+          rows={5}
+          cols={30}
+          maxLength={250}
+          onChange={handleChangeCharactersLeft}
+          defaultValue={defaultData?.description}
+        />
+      </StyledMainContainer>
+
+      {/* Footer section */}
+      <StyledFooterContainer>
         <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
-      </StyledButtonWrapper>
+      </StyledFooterContainer>
     </StyledForm>
   );
 }
+
+const StyledForm = styled.form`
+  @media screen and (min-width: 640px) {
+  }
+  color: var(--color-font-light);
+  background: var(--color-primary-2);
+  border-radius: 30px 30px 0 0;
+  width: 350px;
+  height: 90vh;
+  box-shadow: 1px 1px 6px 1px #00000072;
+  display: flex;
+  flex-direction: column;
+  z-index: 150;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  transform: translate(calc(50vw - 50%));
+`;
+
+const StyledHeaderContainer = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px 16px 16px;
+  border-radius: 30px 30px 0 0;
+  background: var(--color-primary-2);
+  border-bottom: 1px solid white;
+`;
+
+const StyledHeader = styled.h2`
+  color: var(--color-font-light);
+  margin: 0;
+  width: 100%;
+  text-align: center;
+`;
+
+const StyledCloseButton = styled.div`
+  cursor: pointer;
+  position: fixed;
+  right: 0;
+  top: 8px;
+  padding-right: 16px;
+`;
+
+const StyledMainContainer = styled.main`
+  height: 80%;
+  padding: 16px;
+  background: #536f5f;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+`;
+
+const StyledTextInput = styled.input`
+  background-color: var(--color-secondary-3);
+  color: var(--color-font-light);
+  border: none;
+  padding: 8px;
+  border-radius: 10px;
+  &:focus,
+  &:hover {
+    outline: 1px solid white;
+  }
+  &::placeholder {
+    color: var(--color-font-light);
+    opacity: 1; /* Firefox */
+  }
+  &::-ms-input-placeholder {
+    /* Edge 12 -18 */
+    color: var(--color-font-light);
+  }
+`;
+
+const StyledTextarea = styled.textarea`
+  all: unset;
+  width: 100%;
+  word-wrap: break-word;
+  color: rgba(58, 58, 58, 1);
+  resize: none;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  &:focus,
+  &:hover {
+    outline: 1px solid white;
+  }
+`;
+
+const StyledFooterContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  background: var(--color-primary-2);
+  border-top: 1px solid white;
+`;
+
+const StyledSubmitButton = styled.button`
+  background-color: var(--color-secondary-3);
+  color: var(--color-font-light);
+  width: 33%;
+  padding: 16px;
+  border: none;
+  border-radius: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  &:focus,
+  &:hover {
+    outline: 1px solid var(--color-primary-1);
+    &:hover {
+      background-color: var(--color-primary-1);
+      color: var(--color-primary-2);
+    }
+  }
+`;
+
+// ////////////////////////////////////////////////////////////
 
 const DescriptionCounterWrapper = styled.div`
   display: flex;
@@ -218,47 +345,6 @@ const DescriptionCounter = styled.span`
   }
 `;
 
-const StyledTextarea = styled.textarea`
-  all: unset;
-  width: 100%;
-  word-wrap: break-word;
-  color: rgba(58, 58, 58, 1);
-  resize: none;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
-  }
-`;
-
-const StyledForm = styled.form`
-  @media screen and (min-width: 640px) {
-    color: white;
-    display: table;
-    margin: 1rem auto 1rem auto;
-    width: 450px;
-    padding: 2rem;
-    background: #a48476;
-    box-shadow: 1px 1px 6px 1px #00000072;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-  }
-  color: white;
-  display: table;
-  margin: 1rem auto 1rem auto;
-  width: 350px;
-  padding: 2rem;
-  background: #a48476;
-  box-shadow: 1px 1px 6px 1px #00000072;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-`;
-
 const StyledImagePreviewWrapper = styled.div`
   display: flex;
   flex-direction: row-reverse;
@@ -293,17 +379,6 @@ const StyledImageUploadLabel = styled.label`
   }
 `;
 
-const StyledInput = styled.input`
-  all: unset;
-  color: rgba(58, 58, 58, 1);
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
-  }
-`;
-
 const StyledDropdown = styled.select`
   width: 100%;
   margin-left: 0.5rem;
@@ -325,99 +400,4 @@ const StyledDropDownWrapper = styled.div`
   align-items: baseline;
 `;
 
-const StyledClearButton = styled.button`
-  all: unset;
-  width: 50%;
-  height: 2rem;
-  display: flex;
-  margin-top: 2rem;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: rgba(58, 58, 58, 1);
-  margin-bottom: 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
-    &:hover {
-      background-color: #e52e2ed4;
-      color: #fff;
-      transform: translateY(-3px);
-    }
-  }
-`;
-
-const StyledSubmitButton = styled.button`
-  all: unset;
-  width: 50%;
-  height: 2rem;
-  display: flex;
-  margin-top: 2rem;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: rgba(58, 58, 58, 1);
-  margin-bottom: 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
-    &:hover {
-      background-color: #2ee59d;
-      color: #fff;
-      transform: translateY(-3px);
-    }
-  }
-`;
-
-const StyledButtonWrapper = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
-const StyledCancelButton = styled.button`
-  text-decoration: none;
-  all: unset;
-  width: 50%;
-  height: 2rem;
-  display: flex;
-  margin-top: 2rem;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: rgba(58, 58, 58, 1);
-  margin-bottom: 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
-    &:hover {
-      background-color: #e52e2ed4;
-      color: #fff;
-      transform: translateY(-3px);
-    }
-  }
-`;
-
-const StyledCloseButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-  width: fit-content;
-`;
-
-const StyledButtonContainer = styled.div`
-  display: flex;
-  justify-content: end;
-`;
-
-const StyledEditHeader = styled.h2`
-  text-align: center;
-  margin-top: 1rem;
-  color: white;
-`;
+export { StyledTextInput };
