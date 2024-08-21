@@ -1,11 +1,11 @@
 import SearchBar from "@/components/SearchBar";
 import HighlightedProject from "@/components/HighlightedProject";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Sliders from "@/public/svg/Sliders.svg";
 import FilterButtons from "@/components/FilterButtons";
 import ProjectsList from "@/components/ProjectsList";
 import AddButton from "@/components/Modals/AddButton";
-import { useState } from "react";
+
 
 export default function HomePage({
   projects,
@@ -19,14 +19,10 @@ export default function HomePage({
   isFormOpen,
   onAddProject,
   onProcessFormData,
+  onToggleDisplayFilter,
+  filterOn
 }) {
-  const [filterOn, setFilterOn] = useState(false);
-
-  function toogleDisplayFilter() {
-    setFilterOn(!filterOn);
-  }
-
-  return (
+return (
     <>
       <StyledWelcomeSection>
         <StyledPattern />
@@ -54,10 +50,10 @@ export default function HomePage({
           onToggleBookmark={onToggleBookmark}
         />
         <StyledToggleSearchWrapper>
-          <SearchBar onSearch={onSearch} />
+          <SearchBar onSearch={onSearch} $isNotMobile />
           <StyledFilterToggleButton
             $filterOn={filterOn}
-            onClick={toogleDisplayFilter}
+            onClick={onToggleDisplayFilter}
           >
             <StyledSliders $filterOn={filterOn} fill="currentColor" />
           </StyledFilterToggleButton>
@@ -66,7 +62,7 @@ export default function HomePage({
           complexities={complexities}
           onFilterChange={onFilterChange}
           activeFilter={activeFilter}
-          $filterOn={filterOn}
+          filterOn={filterOn}
         />
         <ProjectsList
           projects={projects}
@@ -101,14 +97,15 @@ const StyledFilterToggleButton = styled.button`
   transition: transform 0.2s ease-in;
   ${(props) =>
     props.$filterOn &&
-    `
-  outline-offset: -2px;
-  outline: 2px solid var(--color-primary-2);
-  background-color: var(--color-primary-1);
-  color: var(--color-primary-2);
-  transform: translateY(-3px);
-`}
-  @media screen and (min-width: 1200px) {
+    css`
+      outline-offset: -2px;
+      outline: 2px solid var(--color-primary-2);
+      background-color: var(--color-primary-1);
+      color: var(--color-primary-2);
+      transform: translateY(-3px);
+    `}
+  
+    @media screen and (min-width: 1200px) {
     &:hover {
       outline-offset: -2px;
       outline: 2px solid var(--color-primary-2);
@@ -121,21 +118,6 @@ const StyledFilterToggleButton = styled.button`
 const StyledSliders = styled(Sliders)`
   transform: ${({ $filterOn }) => ($filterOn ? "none" : "rotate(180deg)")};
 `;
-
-const StyledCreateButton = styled.button`
-  all: unset;
-  cursor: pointer;
-  align-self: center;
-  text-align: center;
-  width: 180px;
-  height: 35px;
-  color: var(--color-primary-2);
-  background-color: var(--color-primary-1);
-  border-radius: 10px;
-  box-shadow: var(--box-shadow-2);
-  margin-bottom: 50px;
-`;
-
 const StyledWelcomeTextSpan = styled.span`
   line-height: 1.25;
   font-size: 1.25rem;
@@ -150,6 +132,9 @@ const StyledWelcomeText = styled.h1`
   gap: 25px;
   text-align: center;
   line-height: 1.1;
+  @media screen and (min-width: 640px) {
+    text-align: start;
+  }
 `;
 
 const StyledPattern = styled.div`
@@ -160,10 +145,6 @@ const StyledPattern = styled.div`
   opacity: 0.2;
   width: 2560px;
   height: 100%;
-  /*   @media screen and (min-width: 640px) {
-    width: 2560px;
-    height: 100%;
-  } */
 `;
 const StyledPatternBottom = styled(StyledPattern)`
   background-repeat: repeat;
@@ -181,8 +162,9 @@ const StyledWelcomeSection = styled.div`
   box-shadow: var(--inner-shadow-2);
   overflow: hidden;
   align-items: center;
-  @media screen and (min-width: 640px) {
-    padding: 0 20%;
+  
+  @media screen and (min-width: 1200px) {
+    padding: 0 5%;
   }
 `;
 
@@ -190,5 +172,4 @@ const StyledListSection = styled(StyledWelcomeSection)`
   height: 100%;
   box-shadow: none;
   background-color: var(--color-primary-1);
-  overflow: none;
 `;

@@ -133,6 +133,10 @@ const StyledListElements = styled.a`
     transition: all 0.5s ease-in-out;
     transform: scale(1.1);
   }
+  @media screen and (min-width: 640px) {
+    font-size: 1.1rem;
+   
+  }
 `;
 
 export {

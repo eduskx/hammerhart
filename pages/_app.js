@@ -11,6 +11,11 @@ export default function App({ Component, pageProps }) {
   });
 
   const [isFormOpen, setIsFormOpen] = useState(false);
+  
+
+  function handleToggleDisplayFilter() {
+    setFilterOn(!filterOn);
+  }
 
   function handleToggleForm() {
     setIsFormOpen(!isFormOpen);
@@ -22,6 +27,7 @@ export default function App({ Component, pageProps }) {
 
   const [searchInput, setSearchInput] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
+  const [filterOn, setFilterOn] = useState(false);
   const complexities = ["All", "Beginner", "Intermediate", "Advanced"];
 
   function handleFilterChange(complexity) {
@@ -129,31 +135,7 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-  function handleCheckbox(itemId, projectId, items) {
-    setProjects(
-      projects.map((project) => {
-        if (project.id === projectId) {
-          return {
-            ...project,
-            [items]: project[items].map((item) => {
-              if (item.id === itemId) {
-                return {
-                  ...item,
-                  isChecked: !item.isChecked,
-                };
-              } else {
-                return item;
-              }
-            }),
-          };
-        } else {
-          return project;
-        }
-      })
-    );
-  }
-
-  return (
+return (
     <>
       <GlobalStyle />
       <Layout onSearch={handleSearch}>
@@ -173,6 +155,8 @@ export default function App({ Component, pageProps }) {
           complexities={complexities}
           activeFilter={activeFilter}
           onFilterChange={handleFilterChange}
+          onToggleDisplayFilter={handleToggleDisplayFilter}
+          filterOn={filterOn}
         />
       </Layout>
     </>

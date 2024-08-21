@@ -47,6 +47,8 @@ export default createGlobalStyle`
     /* Colors */
     --color-primary-1: #F9F5EB;
     --color-primary-2: #536F5F;
+    --color-primary-3: #324339;
+
 
     --color-secondary-1: #F9F5EBCC;
     --color-secondary-2: #a6b2a56b;
@@ -55,9 +57,12 @@ export default createGlobalStyle`
     --color-intermediate: #F7C244;
     --color-advanced: #ED6237;
 
+    --color-bookmark: #ff6f61;
+
    /*  Font Colors */
    --color-font-1:#DDDDDD;
    --color-font-2:#696057;
+   --color-font-3:#403A34;
 
 
     /* Shadows */

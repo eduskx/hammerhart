@@ -1,14 +1,14 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 export default function FilterButtons({
   complexities,
   onFilterChange,
-  $filterOn,
+  filterOn,
   activeFilter,
 }) {
   return (
     <>
-      <StyledButtonList $filterOn={$filterOn}>
+      <StyledButtonList $filterOn={filterOn}>
         {complexities.map((complexity) => (
           <li key={complexity}>
             <StyledFilterButton
@@ -27,7 +27,7 @@ export default function FilterButtons({
 
 const StyledButtonList = styled.ul`
   display: ${({ $filterOn }) => ($filterOn ? "flex" : "none")};
-  gap: 1rem;
+  gap: 16px;
   justify-content: center;
   z-index: 100;
   list-style-type: none;
@@ -55,7 +55,7 @@ const StyledFilterButton = styled.button`
   }
   ${(props) =>
     props.$isActive &&
-    `
+    css`
   outline-offset: -2px;
   outline: 2px solid var(--color-primary-2);
   transform: translateY(-3px);
