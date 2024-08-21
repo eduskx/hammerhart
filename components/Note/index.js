@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
 import { SlNote } from "react-icons/sl";
@@ -7,7 +6,7 @@ import { TfiCheck } from "react-icons/tfi";
 import { Editor } from "primereact/editor";
 import parse from "html-react-parser";
 
-const Note = ({ project }) => {
+const Note = ({}) => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -16,17 +15,9 @@ const Note = ({ project }) => {
     `editMode-${id}`,
     false
   );
-  const textareaFocus = useRef(null);
-
-  useEffect(() => {
-    if (isEditMode && textareaFocus.current) {
-      textareaFocus.current.focus();
-    }
-  }, [isEditMode]);
 
   const handleTextChange = (event) => {
     setCurrentNote(event.htmlValue);
-    console.log(event.textValue);
   };
 
   const toggleEditMode = () => {
@@ -49,7 +40,7 @@ const Note = ({ project }) => {
       {isEditMode ? (
         <Editor
           value={currentNote}
-          onTextChange={(e) => handleTextChange(e)}
+          onTextChange={(event) => handleTextChange(event)}
           style={{ width: "550px", height: "320px" }}
           headerTemplate={customToolbar}
         />
