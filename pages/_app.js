@@ -25,6 +25,7 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleDeleteProject(id) {
+    localStorage.removeItem(`note-${id}`);
     setProjects(projects.filter((project) => project.id !== id));
   }
 
