@@ -153,7 +153,7 @@ const StyledMobileNavList = styled.ul`
 const StyledNavList = styled.ul`
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 20px;
   list-style: none;
  z-index: 3;
 `;

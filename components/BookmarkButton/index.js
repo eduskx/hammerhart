@@ -19,7 +19,6 @@ const StyledButton = styled.button`
   align-items: center;
   background-color: var(--color-secondary-1);
   border-radius: 10px;
-  
   border: none;
   position: absolute;
   z-index: 1;
