@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { useState, useRef } from "react";
 import DynamicInputFields from "./DynamicInputFields";
-import Link from "next/link";
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
 import { nanoid } from "nanoid";
-import { grandstander } from "@/styles";
 
 export default function Form({
   onToggleForm,
@@ -76,15 +74,15 @@ export default function Form({
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
       {/* Header section */}
       <StyledHeaderContainer>
-        <StyledCloseButton type="button" onClick={onToggleForm}>
-          <IoMdClose color="#F9F5EBCC" size={32} />
-        </StyledCloseButton>
-
         {isEditMode ? (
           <StyledHeader>Edit project</StyledHeader>
         ) : (
           <StyledHeader>Create a project</StyledHeader>
         )}
+
+        <StyledCloseButton type="button" onClick={onToggleForm}>
+          <IoMdClose color="#F9F5EBCC" size={32} />
+        </StyledCloseButton>
       </StyledHeaderContainer>
 
       {/* Main section */}
@@ -203,29 +201,26 @@ const StyledForm = styled.form`
     width: 640px;
   }
   color: var(--color-font-light);
-  background: var(--color-primary-2);
   border-radius: 30px 30px 0 0;
   width: 100vw;
-  height: 90vh;
-  box-shadow: 1px 1px 6px 1px #00000072;
+  height: 90%;
   display: flex;
   flex-direction: column;
   z-index: 150;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  transform: translate(calc(50vw - 50%));
+  overflow: hidden;
+  position: relative;
 `;
 
 const StyledHeaderContainer = styled.div`
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 24px 16px 16px 16px;
-  border-radius: 30px 30px 0 0;
   background: var(--color-primary-2);
-  border-bottom: 1px solid white;
+  height: 10%;
+  box-shadow: var(--box-shadow-2);
+  z-index: 2;
 `;
 
 const StyledHeader = styled.h2`
@@ -237,7 +232,7 @@ const StyledHeader = styled.h2`
 
 const StyledCloseButton = styled.div`
   cursor: pointer;
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 8px;
   padding-right: 16px;
@@ -246,14 +241,14 @@ const StyledCloseButton = styled.div`
 const StyledMainContainer = styled.main`
   height: 80%;
   padding: 16px;
-  background: #536f5f;
-  overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  background: var(--color-primary-2);
+  /* overflow-y: scroll;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
-  }
+  } */
 `;
 
 const StyledTextInput = styled.input`
@@ -313,10 +308,9 @@ const StyledOption = styled.option`
   color: var(--color-font-light);
 `;
 
-const StyledTitle = styled.p`
+const StyledTitle = styled.h3`
   color: var(--color-primary-1);
   font-size: 20px;
-  font-family: ${grandstander.style.fontFamily};
   padding-bottom: 8px;
 `;
 
@@ -393,7 +387,9 @@ const StyledFooterContainer = styled.div`
   justify-content: center;
   padding: 16px;
   background: var(--color-primary-2);
-  border-top: 1px solid white;
+  height: 10%;
+  z-index: 2;
+  box-shadow: var(--box-shadow-1);
 `;
 
 const StyledSubmitButton = styled.button`

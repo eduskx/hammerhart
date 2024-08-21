@@ -25,4 +25,7 @@ const StyledContainer = styled.div`
   top: 0;
   z-index: 1000;
   background-color: hsl(0, 0%, 0%, 60%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 `;

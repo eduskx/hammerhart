@@ -25,13 +25,13 @@ export default function HomePage({
     <>
       <StyledWelcomeSection>
         <StyledPattern />
-       <StyledWelcomeHighlightWrapper>
+        <StyledWelcomeHighlightWrapper>
           <StyledWelcomeAddButtonWrapper>
             <StyledWelcomeText>
               Hammerhart
               <StyledWelcomeTextSpan>
-                Your “Do-It-Yourself” App for Planning, Creating and Sharing your
-                Vision.
+                Your “Do-It-Yourself” App for Planning, Creating and Sharing
+                your Vision.
               </StyledWelcomeTextSpan>
               <StyledWelcomeTextSpan>
                 Start your Project, today!
@@ -49,7 +49,7 @@ export default function HomePage({
             projects={projects}
             onToggleBookmark={onToggleBookmark}
           />
-       </StyledWelcomeHighlightWrapper>
+        </StyledWelcomeHighlightWrapper>
       </StyledWelcomeSection>
       <StyledListSection>
         <StyledPatternBottom />
@@ -91,11 +91,11 @@ export default function HomePage({
 }
 
 const StyledWelcomeHighlightWrapper = styled.div`
-width: 100%;
-display:flex;
-align-items: center;
-justify-content: space-between;
-padding: 150px 10% 30px 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 150px 10% 30px 10%;
 `;
 
 const StyledDivider = styled.div`
@@ -112,7 +112,7 @@ const StyledWelcomeAddButtonWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 30px;
-  
+
   @media screen and (min-width: 640px) {
     align-items: start;
   }
@@ -205,7 +205,7 @@ const StyledWelcomeText = styled.h1`
 
 const StyledPattern = styled.div`
   position: absolute;
-  background-image: url("./svg/backgroundImage_white.svg");
+  /* background-image: url("./svg/backgroundImage_white.svg"); */
   background-repeat: repeat;
   background-attachment: fixed;
   opacity: 0.2;
@@ -213,7 +213,7 @@ const StyledPattern = styled.div`
   height: 100%;
 `;
 const StyledPatternBottom = styled(StyledPattern)`
-  background-image: url("./svg/backgroundImage_green.svg");
+  /* background-image: url("./svg/backgroundImage_green.svg"); */
 `;
 
 const StyledWelcomeSection = styled.div`
