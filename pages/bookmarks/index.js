@@ -55,10 +55,12 @@ export default function BookmarkPage({
 }
 
 const PageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 120px;
+  @media screen and (min-width: 640px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 120px;
+  }
 `;
 
 const SeperatorLine = styled.hr`
@@ -92,6 +94,10 @@ const StyledToggleSearchWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
+  padding: 16px 0;
+  @media screen and (min-width: 640px) {
+    padding: 0;
+  }
 `;
 
 const StyledFilterToggleButton = styled.button`

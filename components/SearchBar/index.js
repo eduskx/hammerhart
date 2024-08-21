@@ -33,6 +33,7 @@ const StyledSearchBarIconWrapper = styled.div`
         display: none;
       }
     `}
+  display: flex;
   position: relative;
 `;
 const StyledIcon = styled.div`
