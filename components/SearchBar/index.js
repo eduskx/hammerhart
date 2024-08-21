@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import SearchIcon from "@/public/svg/search.svg"
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ onSearch, $isNotMobile }) {
   return (
     <>
       <label htmlFor="searchbar"></label>
-      <StyledSearchBarIconWrapper>
+      <StyledSearchBarIconWrapper $isNotMobile={$isNotMobile}>
         <StyledSearchBar
           type="text"
           id="searchbar"
@@ -21,6 +21,15 @@ export default function SearchBar({ onSearch }) {
 const StyledSearchBarIconWrapper = styled.div`
 display:flex;
 position: relative;
+${(props) =>
+    props.$isNotMobile &&
+    css`
+        @media screen and (min-width: 640px) {
+    display: none;
+   
+  }
+    `}
+
 `;
 const StyledIcon = styled.div`
 display: flex;
@@ -44,7 +53,6 @@ const StyledSearchBar = styled.input`
   background-color: var(--color-secondary-1);
   font-size: 0.8rem;
   padding-left: 10px;
-  
   &::placeholder{
 color: #536f5f80;
   }
@@ -52,8 +60,8 @@ color: #536f5f80;
     outline-offset: -3px;
     outline:2px solid var(--color-primary-2);
   }
-  background-image: url("../public/svg/facebook.svg");
-    background-position: 7px 7px;
-    background-repeat: no-repeat;
-  
+  @media screen and (min-width: 640px) {
+    width: 200px;
+   
+  }
 `;
