@@ -3,12 +3,12 @@ import styled from "styled-components";
 export default function FilterButtons({
   complexities,
   onFilterChange,
-  $filterOn,
+  filterOn,
   activeFilter,
 }) {
   return (
     <>
-      <StyledButtonList $filterOn={$filterOn}>
+      <StyledButtonList $filterOn={filterOn}>
         {complexities.map((complexity) => (
           <li key={complexity}>
             <StyledFilterButton

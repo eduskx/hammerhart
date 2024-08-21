@@ -133,30 +133,6 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-  function handleCheckbox(itemId, projectId, items) {
-    setProjects(
-      projects.map((project) => {
-        if (project.id === projectId) {
-          return {
-            ...project,
-            [items]: project[items].map((item) => {
-              if (item.id === itemId) {
-                return {
-                  ...item,
-                  isChecked: !item.isChecked,
-                };
-              } else {
-                return item;
-              }
-            }),
-          };
-        } else {
-          return project;
-        }
-      })
-    );
-  }
-
   return (
     <>
       <GlobalStyle />

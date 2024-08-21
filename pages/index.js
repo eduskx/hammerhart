@@ -62,7 +62,7 @@ export default function HomePage({
           complexities={complexities}
           onFilterChange={onFilterChange}
           activeFilter={activeFilter}
-          $filterOn={filterOn}
+          filterOn={filterOn}
         />
         <ProjectsList
           projects={projects}
@@ -172,10 +172,6 @@ const StyledPattern = styled.div`
   opacity: 0.2;
   width: 2560px;
   height: 100%;
-  /*   @media screen and (min-width: 640px) {
-    width: 2560px;
-    height: 100%;
-  } */
 `;
 const StyledPatternBottom = styled(StyledPattern)`
   background-repeat: repeat;

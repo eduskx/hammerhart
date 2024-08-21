@@ -20,30 +20,28 @@ export default function BookmarkPage({
     (project) => project.isFavorite === true
   );
   return (
-    <PageWrapper>
+    <>
       <Layout isBookmark={true} />
 
-      <BookmarkHeader>My Projects</BookmarkHeader>
+      <UpperWrapper>
+        <BookmarkHeader>My Projects</BookmarkHeader>
+        <StyledPattern />
 
-      <StyledPattern />
+        <StyledToggleSearchWrapper>
+          <SearchBar onSearch={onSearch} $isNotMobile />
+          <StyledFilterToggleButton onClick={onToggleDisplayFilter}>
+            <StyledSliders fill="currentColor" />
+          </StyledFilterToggleButton>
+        </StyledToggleSearchWrapper>
 
-      <StyledToggleSearchWrapper>
-        <SearchBar onSearch={onSearch} />
-        <StyledFilterToggleButton
-          onClick={onToggleDisplayFilter}
-          $filterOn={filterOn}
-        >
-          <StyledSliders fill="currentColor" />
-        </StyledFilterToggleButton>
-      </StyledToggleSearchWrapper>
-
-      <FilterButtons
-        complexities={complexities}
-        onFilterChange={onFilterChange}
-        activeFilter={activeFilter}
-        $filterOn={filterOn}
-      />
-
+        <FilterButtons
+          complexities={complexities}
+          onFilterChange={onFilterChange}
+          activeFilter={activeFilter}
+          filterOn={filterOn}
+        />
+      </UpperWrapper>
+      <SeperatorLine />
       <ProjectsList
         projects={bookmarkedProjects}
         onToggleBookmark={onToggleBookmark}
@@ -51,16 +49,26 @@ export default function BookmarkPage({
         activeFilter={activeFilter}
         bookmarkedList
       />
-    </PageWrapper>
+    </>
   );
 }
 
-const StyledSliders = styled(Sliders)`
-  transform: ${({ $filterOn }) => ($filterOn ? "none" : "rotate(180deg)")};
+const SeperatorLine = styled.hr`
+  height: 2px;
+  width: 90%;
 `;
 
-const PageWrapper = styled.section`
-  background-color: var(--color-primary-1);
+const UpperWrapper = styled.section`
+  @media screen and (min-width: 640px) {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    /* padding-left: 10px; */
+  }
+`;
+
+const StyledSliders = styled(Sliders)`
+  transform: ${({ $filterOn }) => ($filterOn ? "none" : "rotate(180deg)")};
 `;
 
 const StyledToggleSearchWrapper = styled.div`
@@ -81,12 +89,19 @@ const StyledFilterToggleButton = styled.button`
   color: var(--color-primary-1);
   border: none;
   background-color: var(--color-primary-2);
+  @media screen and (min-width: 640px) {
+    display: none;
+  }
 `;
 
 const BookmarkHeader = styled.h1`
   padding: 100px 16px 0 16px;
   color: var(--color-primary-2);
   text-align: center;
+  @media screen and (min-width: 768px) {
+    text-align: start;
+    padding: 0;
+  }
 `;
 
 const StyledPattern = styled.div`
@@ -98,6 +113,7 @@ const StyledPattern = styled.div`
   background-image: url("./svg/backgroundImage_green.svg");
   background-repeat: repeat;
   background-attachment: local;
-  opacity: 0.2;
+  background-color: var(--color-primary-1);
+  opacity: 0.4;
   z-index: -1;
 `;
