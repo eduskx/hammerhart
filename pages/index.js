@@ -24,7 +24,6 @@ export default function HomePage({
   return (
     <>
       <StyledWelcomeSection>
-        <StyledPattern />
         <StyledWelcomeHighlightWrapper>
           <StyledWelcomeAddButtonWrapper>
             <StyledWelcomeText>
@@ -52,7 +51,6 @@ export default function HomePage({
         </StyledWelcomeHighlightWrapper>
       </StyledWelcomeSection>
       <StyledListSection>
-        <StyledPatternBottom />
         <HighlightedProject
           $isDesktop
           projects={projects}
@@ -128,7 +126,7 @@ const StyledProjectsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 30px 5% 16px 5%;
+  padding: 30px 10% 16px 10%;
   width: 100%;
   gap: 16px;
   @media screen and (min-width: 640px) {
@@ -201,19 +199,6 @@ const StyledWelcomeText = styled.h1`
     text-align: start;
     font-size: 4rem;
   }
-`;
-
-const StyledPattern = styled.div`
-  position: absolute;
-  /* background-image: url("./svg/backgroundImage_white.svg"); */
-  background-repeat: repeat;
-  background-attachment: fixed;
-  opacity: 0.2;
-  width: 100vw;
-  height: 100%;
-`;
-const StyledPatternBottom = styled(StyledPattern)`
-  /* background-image: url("./svg/backgroundImage_green.svg"); */
 `;
 
 const StyledWelcomeSection = styled.div`
