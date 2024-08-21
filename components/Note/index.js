@@ -26,12 +26,12 @@ const Note = ({}) => {
 
   const customToolbar = (
     <span className="ql-formats">
-      <button className="ql-bold" />
-      <button className="ql-italic" />
-      <button className="ql-underline" />
-      <button className="ql-list" value="ordered" />
-      <select className="ql-color" />
-      <select className="ql-background" />
+      <button className="ql-bold" aria-label="bold" />
+      <button className="ql-italic" aria-label="italic" />
+      <button className="ql-underline" aria-label="underline" />
+      <button className="ql-list" aria-label="list" value="ordered" />
+      <select className="ql-color" aria-label="color" />
+      <select className="ql-background" aria-label="background-color" />
     </span>
   );
 
