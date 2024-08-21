@@ -11,7 +11,6 @@ export default function App({ Component, pageProps }) {
   });
 
   const [isFormOpen, setIsFormOpen] = useState(false);
-  
 
   function handleToggleDisplayFilter() {
     setFilterOn(!filterOn);
@@ -75,23 +74,24 @@ export default function App({ Component, pageProps }) {
 
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
+    console.log(newProject);
 
     // convert materials and steps to [{id: "1", description: ""}, ...]
-    const materialsArray = formData.getAll("Materials");
+    const materialsArray = formData.getAll("Material");
     const materials = materialsArray.map((material, index) => ({
       id: (index + 1).toString(),
       description: material,
     }));
     newProject.materials = materials;
-    delete newProject.Materials;
+    delete newProject.Material;
 
-    const stepsArray = formData.getAll("Steps");
+    const stepsArray = formData.getAll("Step");
     const steps = stepsArray.map((step, index) => ({
       id: (index + 1).toString(),
       description: step,
     }));
     newProject.steps = steps;
-    delete newProject.Steps;
+    delete newProject.Step;
 
     // for image upload
     if (projectData?.imageUrl) {
@@ -135,7 +135,7 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-return (
+  return (
     <>
       <GlobalStyle />
       <Layout onSearch={handleSearch}>
