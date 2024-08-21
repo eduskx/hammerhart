@@ -22,35 +22,44 @@ export default function BookmarkPage({
   return (
     <>
       <Layout isBookmark={true} />
-      <UpperWrapper>
-        <BookmarkHeader>My Projects</BookmarkHeader>
-        <StyledPattern />
+      <PageWrapper>
+        <UpperWrapper>
+          <BookmarkHeader>My Projects</BookmarkHeader>
+          <StyledPattern />
 
-        <StyledToggleSearchWrapper>
-          <SearchBar onSearch={onSearch} $isNotMobile />
-          <StyledFilterToggleButton onClick={onToggleDisplayFilter}>
-            <StyledSliders fill="currentColor" />
-          </StyledFilterToggleButton>
-        </StyledToggleSearchWrapper>
+          <StyledToggleSearchWrapper>
+            <SearchBar onSearch={onSearch} $isNotMobile />
+            <StyledFilterToggleButton onClick={onToggleDisplayFilter}>
+              <StyledSliders fill="currentColor" />
+            </StyledFilterToggleButton>
+          </StyledToggleSearchWrapper>
 
-        <FilterButtons
-          complexities={complexities}
-          onFilterChange={onFilterChange}
+          <FilterButtons
+            complexities={complexities}
+            onFilterChange={onFilterChange}
+            activeFilter={activeFilter}
+            filterOn={filterOn}
+          />
+        </UpperWrapper>
+        <SeperatorLine />
+        <ProjectsList
+          projects={bookmarkedProjects}
+          onToggleBookmark={onToggleBookmark}
+          searchInput={searchInput}
           activeFilter={activeFilter}
-          filterOn={filterOn}
+          bookmarkedList
         />
-      </UpperWrapper>
-      <SeperatorLine />
-      <ProjectsList
-        projects={bookmarkedProjects}
-        onToggleBookmark={onToggleBookmark}
-        searchInput={searchInput}
-        activeFilter={activeFilter}
-        bookmarkedList
-      />
+      </PageWrapper>
     </>
   );
 }
+
+const PageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 120px;
+`;
 
 const SeperatorLine = styled.hr`
   display: none;
@@ -67,9 +76,10 @@ const SeperatorLine = styled.hr`
 const UpperWrapper = styled.section`
   @media screen and (min-width: 640px) {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: flex-end;
-    margin-top: 100px;
+    gap: 30px;
+    width: 85%;
   }
 `;
 
@@ -82,7 +92,6 @@ const StyledToggleSearchWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 16px 0;
 `;
 
 const StyledFilterToggleButton = styled.button`
@@ -95,9 +104,6 @@ const StyledFilterToggleButton = styled.button`
   color: var(--color-primary-1);
   border: none;
   background-color: var(--color-primary-2);
-  @media screen and (min-width: 640px) {
-    display: none;
-  }
 `;
 
 const BookmarkHeader = styled.h1`
