@@ -1,10 +1,15 @@
 import { useEffect, useRef } from "react";
 
 import useLocalStorageState from "use-local-storage-state";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import ProjectCard from "../ProjectCard";
 
-export default function HighlightedProject({ projects, onToggleBookmark }) {
+export default function HighlightedProject({
+  projects,
+  onToggleBookmark,
+  $isDesktop,
+  $isDesktopOn,
+}) {
   const [randomProject, setRandomProject] = useLocalStorageState(
     "randomProject",
     { defaultValue: null }
@@ -43,8 +48,8 @@ export default function HighlightedProject({ projects, onToggleBookmark }) {
   }
 
   return (
-    <StyledContainer>
-      <StyledTitle>Highlighted Project</StyledTitle>
+    <StyledContainer $isDesktop={$isDesktop} $isDesktopOn={$isDesktopOn}>
+      <StyledTitle $isDesktop={$isDesktop}>Highlighted Project</StyledTitle>
       <ProjectCard
         project={randomProject}
         onToggleBookmark={onToggleBookmark}
@@ -56,11 +61,37 @@ export default function HighlightedProject({ projects, onToggleBookmark }) {
 
 const StyledContainer = styled.div`
   display: flex;
-  align-items: center;
   flex-direction: column;
+  @media screen and (min-width: 1275px) {
+    margin-bottom: 26px;
+  }
+  ${(props) =>
+    props.$isDesktop &&
+    css`
+      @media screen and (min-width: 1275px) {
+        display: none;
+        margin-right: 10%;
+      }
+    `}
+  ${(props) =>
+    props.$isDesktopOn &&
+    css`
+      @media screen and (max-width: 1275px) {
+        display: none;
+        
+      }
+    `}
 `;
 
 const StyledTitle = styled.h2`
   color: var(--color-primary-2);
-  text-align: center;
+  text-align: start;
+  padding: 30px 0 15px 0;
+
+  ${(props) => props.$isDesktop && css``}
+
+  @media screen and (min-width: 1275px) {
+    padding: 0 0 15px 0;
+    color: var(--color-primary-1);
+  }
 `;

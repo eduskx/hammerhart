@@ -8,16 +8,19 @@ const StyledLink = styled(Link)`
 const StyledUl = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  height: 100%;
   justify-content: center;
   gap: 30px;
   list-style: none;
-  margin-top: 10px;
+  margin-top: 30px;
+  padding-bottom: 30px;
+  @media screen and (min-width: 1275px) {
+    padding: 0 10% 30px 10%;
+  }
 `;
 
 const StyledNoSearchResults = styled.p`
   color: black;
-  padding: 1rem;
+  padding: 16px;
   text-align: center;
 `;
 

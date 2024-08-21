@@ -24,7 +24,6 @@ export default createGlobalStyle`
     font-family: ${rubik.style.fontFamily};
     margin: 0;
     padding: 0;
-
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -32,6 +31,8 @@ export default createGlobalStyle`
     word-break: break-word;
     line-height: 1.6rem;
     -webkit-tap-highlight-color: transparent;
+    padding: 0;
+    margin:  0;
   }
  p, ul, ol, a  {
     margin: 0;
