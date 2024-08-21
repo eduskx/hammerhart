@@ -22,7 +22,6 @@ export default function BookmarkPage({
   return (
     <>
       <Layout isBookmark={true} />
-
       <UpperWrapper>
         <BookmarkHeader>My Projects</BookmarkHeader>
         <StyledPattern />
@@ -54,8 +53,15 @@ export default function BookmarkPage({
 }
 
 const SeperatorLine = styled.hr`
-  height: 2px;
-  width: 90%;
+  display: none;
+  @media screen and (min-width: 640px) {
+    display: inherit;
+    height: 5px;
+    background-color: var(--color-primary-2);
+    width: 85%;
+    margin-bottom: 40px;
+    border-radius: 10px;
+  }
 `;
 
 const UpperWrapper = styled.section`
@@ -63,7 +69,7 @@ const UpperWrapper = styled.section`
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    /* padding-left: 10px; */
+    margin-top: 100px;
   }
 `;
 
@@ -99,8 +105,9 @@ const BookmarkHeader = styled.h1`
   color: var(--color-primary-2);
   text-align: center;
   @media screen and (min-width: 768px) {
-    text-align: start;
+    text-align: center;
     padding: 0;
+    margin: 0;
   }
 `;
 
