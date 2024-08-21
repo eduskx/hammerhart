@@ -27,7 +27,7 @@ export default function FilterButtons({
 
 const StyledButtonList = styled.ul`
   display: ${({ $filterOn }) => ($filterOn ? "flex" : "none")};
-  gap: 16px;
+  gap: 10px;
   justify-content: center;
   z-index: 100;
   list-style-type: none;
@@ -38,7 +38,7 @@ const StyledFilterButton = styled.button`
   justify-content: center;
   align-items: center;
   color: var(--color-primary-1);
-  height: 27px;
+  height: 25px;
   width: fit-content;
   font-size: 0.7rem;
   padding: 0 10px;

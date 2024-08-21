@@ -31,6 +31,8 @@ export default createGlobalStyle`
     word-break: break-word;
     line-height: 1.6rem;
     -webkit-tap-highlight-color: transparent;
+    padding: 0;
+    margin:  0;
   }
  p, ul, ol, a  {
     margin: 0;

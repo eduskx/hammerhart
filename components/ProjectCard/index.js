@@ -39,7 +39,9 @@ export default function ProjectCard({
               alt={title}
               width={100}
               height={100}
+              unoptimized={true}
               priority
+        
             />
             <StyledTitleBackground $isHighlighted={$isHighlighted}>
               <StyledTitle $isHighlighted={$isHighlighted}>{title}</StyledTitle>
@@ -65,7 +67,11 @@ const CardContainer = styled.div`
   height: 125px;
   box-shadow: var(--inner-shadow-1);
   @media screen and (min-width: 640px) {
-    width: 280px;
+    width: 260px;
+    height: 175px;
+  }
+  @media screen and (min-width: 1275px) {
+    width: 315px;
     height: 175px;
   }
   ${(props) =>
@@ -73,6 +79,14 @@ const CardContainer = styled.div`
     css`
       height: 175px;
       width: 315px;
+      @media screen and (min-width: 640px) {
+    width: 550px;
+    height: 340px;
+  }
+  @media screen and (min-width: 1275px) {
+    width: 560px;
+    height: 340px;
+  }
     `}
 `;
 const StyledShadowDiv = styled.div`
@@ -82,7 +96,7 @@ const StyledShadowDiv = styled.div`
   height: 125px;
   box-shadow: var(--box-shadow-2);
   @media screen and (min-width: 640px) {
-    width: 280px;
+    width: 260px;
     height: 175px;
   }
   ${(props) =>
@@ -90,6 +104,14 @@ const StyledShadowDiv = styled.div`
     css`
       height: 175px;
       width: 315px;
+      @media screen and (min-width: 640px) {
+    width: 550px;
+    height: 340px;
+  }
+      @media screen and (min-width: 1275px) {
+    width: 460px;
+    height: 140px;
+  }
     `}
 `;
 const CardWrapper = styled.div`
@@ -136,7 +158,7 @@ const StyledComplexity = styled.p`
   display: flex;
   position: absolute;
   align-items: center;
-  padding: 5px 5px;
+  padding: 10px 5px 8px 5px;
   bottom: 5px;
   right: 5px;
   font-size: 0.6rem;
