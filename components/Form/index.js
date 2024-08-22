@@ -108,12 +108,21 @@ export default function Form({
               Your current image is still selected!
             </StyledImageNote>
           )}
-          <StyledImageLabel
-            htmlFor="imageUrl"
-            $imageUploaded={imagePreview ? true : false}
-          >
-            <IoMdImages size={32} />
-          </StyledImageLabel>
+
+          {!imagePreview && (
+            <StyledImageLabel
+              htmlFor="imageUrl"
+              $imageUploaded={imagePreview ? true : false}
+            >
+              <IoMdImages size={32} />
+            </StyledImageLabel>
+          )}
+
+          {imagePreview && (
+            <StyledDeleteImageButton type="button" onClick>
+              <IoMdClose size={32} />
+            </StyledDeleteImageButton>
+          )}
 
           <StyledImageUploadInput
             id="imageUrl"
@@ -226,6 +235,25 @@ export default function Form({
   );
 }
 
+const StyledDeleteImageButton = styled.button`
+  background-color: var(--color-secondary-1);
+  color: var(--color-primary-2);
+  padding: 4px;
+  border-radius: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    color: var(--color-advanced);
+    background-color: var(--color-secondary-1);
+  }
+`;
+
 const StyledDivider = styled.div``;
 
 const StyledForm = styled.form`
@@ -327,11 +355,14 @@ const StyledImageContainer = styled.div`
 const StyledImageLabel = styled.label`
   position: absolute;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${(props) =>
     props.$imageUploaded &&
     css`
-      background-color: var(--color-secondary-1);
-      color: var(--color-primary-2);
+      background-color: var(--color-primary-2);
+      color: var(--color-primary-1);
       padding: 4px;
       border-radius: 10px;
     `}
