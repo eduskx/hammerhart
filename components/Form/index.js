@@ -43,6 +43,8 @@ export default function Form({
     setImagePreview(event.target.files[0]);
   }
 
+  console.log(defaultData?.imageUrl);
+
   function handleClearForm() {
     if (formRef.current) {
       formRef.current.reset();
@@ -103,10 +105,13 @@ export default function Form({
         {/* Image Upload */}
         <StyledTitle>Upload Image</StyledTitle>
         <StyledImageContainer $imageUploaded={imagePreview ? true : false}>
-          {isEditMode && !imagePreview && (
-            <StyledImageNote>
-              Your current image is still selected!
-            </StyledImageNote>
+          {isEditMode && !imagePreview && defaultData?.imageUrl && (
+            <StyledPreviewImage
+              alt="preview image"
+              src={defaultData.imageUrl}
+              width={100}
+              height={100}
+            />
           )}
           <StyledImageLabel
             htmlFor="imageUrl"
