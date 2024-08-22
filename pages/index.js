@@ -157,6 +157,7 @@ const StyledFilterToggleButton = styled.button`
   background-color: var(--color-primary-2);
   z-index: 10;
   transition: transform 0.2s ease-in;
+  cursor: pointer;
   ${(props) =>
     props.$filterOn &&
     css`

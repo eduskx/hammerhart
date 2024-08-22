@@ -12,10 +12,6 @@ export default function App({ Component, pageProps }) {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
 
-  function handleToggleDisplayFilter() {
-    setFilterOn(!filterOn);
-  }
-
   function handleToggleForm() {
     setIsFormOpen(!isFormOpen);
   }
@@ -37,6 +33,18 @@ export default function App({ Component, pageProps }) {
     const lowerCasedInput = event.target.value.toLowerCase();
     setSearchInput(lowerCasedInput);
   }
+
+  function handleToggleForm() {
+    setIsFormOpen(!isFormOpen);
+  }
+
+  function handleToggleDisplayFilter() {
+    setFilterOn(!filterOn);
+  }
+
+  useEffect(() => {
+    document.body.style.overflow = isFormOpen ? "hidden" : "auto";
+  }, [isFormOpen]);
 
   function handleAddProject(newProject) {
     setProjects([newProject, ...projects]);
