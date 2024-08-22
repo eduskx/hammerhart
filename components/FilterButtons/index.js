@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
 export default function FilterButtons({
   complexities,
@@ -7,21 +7,19 @@ export default function FilterButtons({
   activeFilter,
 }) {
   return (
-    <>
-      <StyledButtonList $filterOn={filterOn}>
-        {complexities.map((complexity) => (
-          <li key={complexity}>
-            <StyledFilterButton
-              type="button"
-              onClick={() => onFilterChange(complexity)}
-              $isActive={activeFilter === complexity}
-            >
-              {complexity}
-            </StyledFilterButton>
-          </li>
-        ))}
-      </StyledButtonList>
-    </>
+    <StyledButtonList $filterOn={filterOn}>
+      {complexities.map((complexity) => (
+        <li key={complexity}>
+          <StyledFilterButton
+            type="button"
+            onClick={() => onFilterChange(complexity)}
+            $isActive={activeFilter === complexity}
+          >
+            {complexity}
+          </StyledFilterButton>
+        </li>
+      ))}
+    </StyledButtonList>
   );
 }
 
@@ -56,10 +54,10 @@ const StyledFilterButton = styled.button`
   ${(props) =>
     props.$isActive &&
     css`
-  outline-offset: -2px;
-  outline: 2px solid var(--color-primary-2);
-  transform: translateY(-3px);
-  background-color: var(--color-primary-1);
-  color: var(--color-primary-2);
-`}
+      outline-offset: -2px;
+      outline: 2px solid var(--color-primary-2);
+      transform: translateY(-3px);
+      background-color: var(--color-primary-1);
+      color: var(--color-primary-2);
+    `}
 `;
