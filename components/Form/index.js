@@ -111,11 +111,15 @@ export default function Form({
               src={defaultData.imageUrl}
               width={100}
               height={100}
+              unoptimized={true}
             />
           )}
+
           <StyledImageLabel
             htmlFor="imageUrl"
-            $imageUploaded={imagePreview ? true : false}
+            $imageUploaded={
+              imagePreview || defaultData?.imageUrl ? true : false
+            }
           >
             <IoMdImages size={32} />
           </StyledImageLabel>
