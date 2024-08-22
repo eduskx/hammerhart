@@ -24,14 +24,13 @@ export default function HomePage({
   return (
     <>
       <StyledWelcomeSection>
-      
-       <StyledWelcomeHighlightWrapper>
+        <StyledWelcomeHighlightWrapper>
           <StyledWelcomeAddButtonWrapper>
             <StyledWelcomeText>
               Hammerhart
               <StyledWelcomeTextSpan>
-                Your “Do-It-Yourself” App for Planning, Creating and Sharing your
-                Vision.
+                Your “Do-It-Yourself” App for Planning, Creating and Sharing
+                your Vision.
               </StyledWelcomeTextSpan>
               <StyledWelcomeTextSpan>
                 Start your Project, today!
@@ -49,10 +48,9 @@ export default function HomePage({
             projects={projects}
             onToggleBookmark={onToggleBookmark}
           />
-       </StyledWelcomeHighlightWrapper>
+        </StyledWelcomeHighlightWrapper>
       </StyledWelcomeSection>
       <StyledListSection>
-       
         <HighlightedProject
           $isDesktop
           projects={projects}
@@ -91,11 +89,11 @@ export default function HomePage({
 }
 
 const StyledWelcomeHighlightWrapper = styled.div`
-width: 100%;
-display:flex;
-align-items: center;
-justify-content: space-between;
-padding: 150px 10% 30px 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 150px 10% 30px 10%;
 `;
 
 const StyledDivider = styled.div`
@@ -112,7 +110,7 @@ const StyledWelcomeAddButtonWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 30px;
-  
+
   @media screen and (min-width: 640px) {
     align-items: start;
   }
@@ -123,7 +121,6 @@ const StyledWelcomeAddButtonWrapper = styled.div`
 const StyledProjectsTitle = styled.h2`
   color: var(--color-primary-2);
   align-self: start;
-  
 `;
 const StyledProjectsWrapper = styled.div`
   display: flex;
@@ -160,6 +157,7 @@ const StyledFilterToggleButton = styled.button`
   background-color: var(--color-primary-2);
   z-index: 10;
   transition: transform 0.2s ease-in;
+  cursor: pointer;
   ${(props) =>
     props.$filterOn &&
     css`

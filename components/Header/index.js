@@ -6,12 +6,17 @@ import Instagram from "@/public/svg/instagram.svg";
 import XIcon from "@/public/svg/x-icon.svg";
 import Youtube from "@/public/svg/youtube.svg";
 import SearchBar from "../SearchBar";
-import HammerhartLogo from "@/public/svg/hammerhart_logo.svg";
+import { useRouter } from "next/router";
 import styled from "styled-components";
+import HammerhartLogo from "@/public/svg/hammerhart_logo.svg";
 
 export default function Header({ onSearch }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  const router = useRouter();
+
+  const isBookmarkPage = router.pathname === "/bookmarks";
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -29,19 +34,23 @@ export default function Header({ onSearch }) {
   function toggleMenu() {
     setIsMenuOpen((prev) => !prev);
   }
-  
+
   function closeMenu() {
     setIsMenuOpen(false);
   }
   return (
     <StyledNavBar>
       <StyledAnchor href="/">
-        <StyledLogo />
+        <StyledLogo isBookmarkPage={isBookmarkPage} />
       </StyledAnchor>
 
       {isMobile ? (
         <>
-          <StyledMenuIcon onClick={toggleMenu} $isMenuOpen={isMenuOpen}>
+          <StyledMenuIcon
+            onClick={toggleMenu}
+            $isMenuOpen={isMenuOpen}
+            isBookmarkPage={isBookmarkPage}
+          >
             {isMenuOpen ? <MenuIconOpen /> : <MenuIcon />}
           </StyledMenuIcon>
           {isMenuOpen && (
@@ -49,13 +58,21 @@ export default function Header({ onSearch }) {
               onClick={closeMenu}
             ></StyledCancelBackground>
           )}
-          <StyledDropDownDiv $isMenuOpen={isMenuOpen}>
+          <StyledDropDownDiv
+            $isMenuOpen={isMenuOpen}
+            isBookmarkPage={isBookmarkPage}
+          >
             <StyledMobileNavList>
               <li>
-                <StyledListElements href="/">Home</StyledListElements>
+                <StyledListElements href="/" isBookmarkPage={isBookmarkPage}>
+                  Home
+                </StyledListElements>
               </li>
               <li>
-                <StyledListElements href="/bookmarks">
+                <StyledListElements
+                  href="/bookmarks"
+                  isBookmarkPage={isBookmarkPage}
+                >
                   My Projects
                 </StyledListElements>
               </li>
@@ -64,21 +81,28 @@ export default function Header({ onSearch }) {
               <StyledSocialMediaIcon
                 href="http://www.facebook.com"
                 target="_blank"
+                isBookmarkPage={isBookmarkPage}
               >
                 <Facebook width="100%" />
               </StyledSocialMediaIcon>
               <StyledSocialMediaIcon
                 href="http://www.instagram.com"
                 target="_blank"
+                isBookmarkPage={isBookmarkPage}
               >
                 <Instagram width="100%" />
               </StyledSocialMediaIcon>
-              <StyledSocialMediaIcon href="http://www.x.com" target="_blank">
+              <StyledSocialMediaIcon
+                href="http://www.x.com"
+                target="_blank"
+                isBookmarkPage={isBookmarkPage}
+              >
                 <XIcon width="100%" />
               </StyledSocialMediaIcon>
               <StyledSocialMediaIcon
                 href="http://www.youtube.com"
                 target="_blank"
+                isBookmarkPage={isBookmarkPage}
               >
                 <Youtube width="100%" />
               </StyledSocialMediaIcon>
@@ -89,20 +113,24 @@ export default function Header({ onSearch }) {
         <StyledNavList>
           <SearchBar onSearch={onSearch} />
           <li>
-            <StyledListElements href="/bookmarks">
+            <StyledListElements
+              href="/bookmarks"
+              isBookmarkPage={isBookmarkPage}
+            >
               My Projects
             </StyledListElements>
           </li>
           <li>
-            <StyledListElements href="/">Home</StyledListElements>
+            <StyledListElements href="/" isBookmarkPage={isBookmarkPage}>
+              Home
+            </StyledListElements>
           </li>
         </StyledNavList>
       )}
-      <StyledDivBlocker />
+      <StyledDivBlocker isBookmarkPage={isBookmarkPage} />
     </StyledNavBar>
   );
 }
-
 
 const StyledAnchor = styled.a`
   line-height: 0;
@@ -114,20 +142,21 @@ const StyledDivBlocker = styled.div`
   top: 0;
   width: 100%;
   height: 80px;
-  background-color: var(--color-primary-1);
+  background-color: ${({ isBookmarkPage }) =>
+    isBookmarkPage ? "var(--color-primary-2)" : "var(--color-primary-1)"};
   border-radius: 0 0 10px 10px;
   z-index: 1;
 `;
 
 const StyledLogo = styled(HammerhartLogo)`
-  fill: var(--color-primary-2);
+  fill: ${({ isBookmarkPage }) =>
+    isBookmarkPage ? "var(--color-primary-1)" : "var(--color-primary-2)"};
   width: 80px;
   -webkit-tap-highlight-color: transparent;
   &:hover {
     transition: all 0.5s ease;
     transform: scale(1.1);
   }
-  
 `;
 
 const StyledCancelBackground = styled.div`
@@ -144,7 +173,7 @@ const StyledMobileNavList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: end;
-  gap: 1rem;
+  gap: 16px;
   list-style: none;
   padding-right: 25px;
   z-index: 3;
@@ -154,7 +183,7 @@ const StyledNavList = styled.ul`
   align-items: center;
   gap: 20px;
   list-style: none;
- z-index: 3;
+  z-index: 3;
 `;
 
 const StyledSocialBlock = styled.div`
@@ -168,7 +197,8 @@ const StyledSocialBlock = styled.div`
 `;
 
 const StyledSocialMediaIcon = styled.a`
-  fill: var(--color-primary-2);
+  fill: ${({ isBookmarkPage }) =>
+    isBookmarkPage ? "var(--color-primary-1)" : "var(--color-primary-2)"};
   display: flex;
   height: 22px;
   &:hover {
@@ -186,16 +216,17 @@ const StyledNavBar = styled.div`
   top: 0;
   width: 100%;
   height: 80px;
-  background-color: var(--color-primary-1);
+  background-color: ${({ isBookmarkPage }) =>
+    isBookmarkPage ? "var(--color-primary-2)" : "var(--color-primary-1)"};
   border-radius: 0 0 10px 10px;
   padding: 0 10%;
   box-shadow: var(--box-shadow-2);
   z-index: 111;
-
 `;
 
 const StyledMenuIcon = styled.div`
-  fill: var(--color-primary-2);
+  fill: ${({ isBookmarkPage }) =>
+    isBookmarkPage ? "var(--color-primary-1)" : "var(--color-primary-2)"};
   width: 30px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -217,17 +248,19 @@ const StyledDropDownDiv = styled.div`
   right: 0;
   width: 100%;
   height: 300px;
-  background-color: var(--color-primary-1);
   border-radius: 0 0 10px 10px;
   box-shadow: var(--box-shadow-2);
   z-index: 1;
   transform-origin: 100% 0%;
   transition: transform 0.4s ease;
   transform: ${({ $isMenuOpen }) => ($isMenuOpen ? "scaleY(1)" : "scaleY(0)")};
+  background-color: ${({ isBookmarkPage }) =>
+    isBookmarkPage ? "var(--color-primary-2)" : "var(--color-primary-1)"};
 `;
 
 const StyledListElements = styled.a`
-  color: var(--color-primary-2);
+  color: ${({ isBookmarkPage }) =>
+    isBookmarkPage ? "var(--color-primary-1)" : "var(--color-primary-2)"};
   display: flex;
   align-self: end;
   -webkit-tap-highlight-color: transparent;
