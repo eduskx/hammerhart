@@ -74,7 +74,13 @@ export default function App({ Component, pageProps }) {
 
     const formData = new FormData(event.target);
     const newProject = Object.fromEntries(formData);
-    console.log(newProject);
+
+    // combine durationNumber and durationString into durtaion
+
+    const duration = `${formData.get("durationNumber")} ${formData.get(
+      "durationString"
+    )}`;
+    newProject.duration = duration;
 
     // convert materials and steps to [{id: "1", description: ""}, ...]
     const materialsArray = formData.getAll("Material");
@@ -109,6 +115,7 @@ export default function App({ Component, pageProps }) {
 
     onProjectAction(newProject);
     handleToggleForm();
+    console.log(newProject);
   }
 
   function handleCheckbox(itemId, projectId, items) {

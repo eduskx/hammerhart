@@ -52,7 +52,8 @@ export default function Form({
       formInputs.title.value = "";
       formInputs.imageUrl.value = "";
       formInputs.description.value = "";
-      formInputs.duration.value = "";
+      formInputs.durationNumber.value = "";
+      formInputs.durationString.value = "";
       formInputs.complexity.value = "";
     }
 
@@ -126,15 +127,28 @@ export default function Form({
           )}
         </StyledImageContainer>
 
-        <StyledLabel htmlFor="duration">Duration *</StyledLabel>
-        <StyledTextInput
-          required
-          id="duration"
-          name="duration"
-          type="text"
-          placeholder="Example: 1 day"
-          defaultValue={defaultData?.duration}
-        />
+        <StyledDurationWrapper>
+          <StyledLabel htmlFor="durationNumber">Duration *</StyledLabel>
+          <StyledDurationInput
+            required
+            id="durationNumber"
+            name="durationNumber"
+            type="number"
+            placeholder="99"
+            defaultValue={defaultData?.durationNumber}
+          />
+          <StyledDurationDropdown
+            required
+            id="durationString"
+            name="durationString"
+            defaultValue={defaultData?.durationString}
+          >
+            <StyledOption value="">Please select a time interval</StyledOption>
+            <StyledOption value="minutes">Minutes</StyledOption>
+            <StyledOption value="hours">Hours</StyledOption>
+            <StyledOption value="days">Days</StyledOption>
+          </StyledDurationDropdown>
+        </StyledDurationWrapper>
 
         <StyledComplexityWrapper>
           <StyledLabel htmlFor="complexity">Complexity *</StyledLabel>
@@ -327,13 +341,20 @@ const StyledPreviewImage = styled(Image)`
   height: 100%;
 `;
 
-const StyledComplexityWrapper = styled.div`
+const StyledDurationWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-bottom: 24px;
+  flex-wrap: wrap;
+`;
+
+const StyledDurationInput = styled(StyledTextInput)`
+  width: 15%;
+  text-align: center;
+  height: 37px;
+  border-radius: 10px 0 0 10px;
 `;
 
 const StyledDropdown = styled.select`
+  align-self: flex-start;
   padding: 8px;
   width: fit-content;
   border: none;
@@ -347,12 +368,23 @@ const StyledDropdown = styled.select`
   }
 `;
 
+const StyledDurationDropdown = styled(StyledDropdown)`
+  border-radius: 0 10px 10px 0;
+`;
+
+const StyledComplexityWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+`;
+
 const StyledOption = styled.option`
   background-color: var(--color-primary-1);
   color: var(--color-primary-2);
 `;
 
 const StyledTitle = styled.h3`
+  width: 100%;
   color: var(--color-primary-2);
   font-size: 18px;
 `;
