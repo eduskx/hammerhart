@@ -180,8 +180,8 @@ const StyledDetailsWrapper = styled.div`
   }
 `;
 const StyledImage = styled(Image)`
-  width: 100%;
-  height: 100%;
+width: 100%;
+height: 100%;
   border-radius: 10px;
   overflow: hidden;
   object-fit: cover;
@@ -190,15 +190,16 @@ const StyledImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
-  width: 100%;
-  height: 50%;
+  width: 90%;
+  height: 300px;
   @media screen and (min-width: 640px) {
-    width: 80%;
-    height: 100%;
+    width: 90%;
+    height: 300px;
   }
   @media screen and (min-width: 1000px) {
-    width: 80%;
+    width: 90%;
     height: 300px;
+    
   }
 `;
 const Styledtitle = styled.h2`
@@ -330,9 +331,12 @@ const StyledCollapsibleWrapper = styled.div`
 `;
 
 const DetailsDeleteEditButtonWrapper = styled.div`
+  display: flex;
   position: fixed;
-  width: 100%;
+width: 100%;
   height: 80px;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px 10px 0 0;
   bottom: 0;
   background-color: var(--color-primary-2);
@@ -341,6 +345,6 @@ const DetailsDeleteEditButtonWrapper = styled.div`
 `;
 const StyledButtonsWrapper = styled.div`
   display: flex;
-  gap: 1rem;
-  padding-bottom: 1rem;
+  gap: 2rem;
+ 
 `;

@@ -60,7 +60,7 @@ export default createGlobalStyle`
     --color-intermediate: #F7C244;
     --color-advanced: #ED6237;
 
-    --color-bookmark: #ff6f61;
+    --color-alert: #ff6f61;
 
   
    

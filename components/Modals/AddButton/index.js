@@ -45,4 +45,13 @@ const StyledAddButton = styled.button`
   box-shadow: var(--box-shadow-2);
   margin-bottom: 50px;
   z-index: 110;
+  transition: all ease-in .2s;
+  &:focus,
+  &:hover {
+    color: var(--color-primary-1);
+  background: var(--color-primary-2);
+  outline-offset: -2px;
+  outline: 2px solid var(--color-primary-1);
+  transform: scale(1.2);
+  }
 `;
