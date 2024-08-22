@@ -26,14 +26,13 @@ export default function Header({ onSearch }) {
     }
   }, []);
 
-  const toggleMenu = useCallback(() => {
+  function toggleMenu() {
     setIsMenuOpen((prev) => !prev);
-  }, []);
-
-  const closeMenu = useCallback(() => {
+  }
+  
+  function closeMenu() {
     setIsMenuOpen(false);
-  }, []);
-
+  }
   return (
     <StyledNavBar>
       <StyledAnchor href="/">

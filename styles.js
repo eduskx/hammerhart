@@ -1,11 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 import { Grandstander, Rubik } from "next/font/google";
 
-export const grandstander = Grandstander({
+const grandstander = Grandstander({
   subsets: ["latin"],
   display: "swap",
 });
-export const rubik = Rubik({
+const rubik = Rubik({
   subsets: ["latin"],
   display: "swap",
 });

@@ -1,7 +1,5 @@
 import HeartFilled from "@/public/svg/HeartFilled.svg";
 import Heart from "@/public/svg/Heart.svg";
-import HammerSmashed from "@/public/svg/hammerSmashed.svg";
-import Hammer from "@/public/svg/hammer.svg";
 import styled, {css} from "styled-components";
 
 

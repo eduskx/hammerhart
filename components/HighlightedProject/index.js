@@ -78,7 +78,6 @@ const StyledContainer = styled.div`
     css`
       @media screen and (max-width: 1275px) {
         display: none;
-        
       }
     `}
 `;

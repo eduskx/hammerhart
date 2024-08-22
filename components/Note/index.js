@@ -1,46 +1,52 @@
 import { useRouter } from "next/router";
-import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
 import { SlNote } from "react-icons/sl";
 import { TfiCheck } from "react-icons/tfi";
+import { Editor } from "primereact/editor";
+import parse from "html-react-parser";
 
-export default function Note ({ project }){
+const Note = ({}) => {
   const router = useRouter();
   const { id } = router.query;
 
   const [currentNote, setCurrentNote] = useLocalStorageState(`note-${id}`, "");
-  const [isEditMode, setIsEditMode] = useState(false);
-  const textareaFocus = useRef(null);
+  const [isEditMode, setIsEditMode] = useLocalStorageState(
+    `editMode-${id}`,
+    false
+  );
 
-  useEffect(() => {
-    if (isEditMode && textareaFocus.current) {
-      textareaFocus.current.focus();
-    }
-  }, [isEditMode]);
-
-  const handleInputChange = (event) => {
-    setCurrentNote(event.target.value);
+  const handleTextChange = (event) => {
+    setCurrentNote(event.htmlValue);
   };
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
   };
 
+  const customToolbar = (
+    <span className="ql-formats">
+      <button className="ql-bold" aria-label="bold" />
+      <button className="ql-italic" aria-label="italic" />
+      <button className="ql-underline" aria-label="underline" />
+      <button className="ql-list" aria-label="list" value="ordered" />
+      <select className="ql-color" aria-label="color" />
+      <select className="ql-background" aria-label="background-color" />
+    </span>
+  );
+
   return (
     <StyledNotesWrapper>
       {isEditMode ? (
-        <StyledTextarea
-          ref={textareaFocus}
+        <Editor
           value={currentNote}
-          onChange={handleInputChange}
-          rows="5"
-          cols="50"
-          placeholder="Enter your notes here..."
+          onTextChange={(event) => handleTextChange(event)}
+          style={{ width: "550px", height: "320px" }}
+          headerTemplate={customToolbar}
         />
       ) : (
         <StyledNotesTextField>
-          {currentNote || "Enter your notes here..."}
+          {(currentNote && parse(currentNote)) || "Enter your notes here..."}
         </StyledNotesTextField>
       )}
       <StyledButton onClick={toggleEditMode}>
@@ -49,19 +55,7 @@ export default function Note ({ project }){
     </StyledNotesWrapper>
   );
 };
-
-const StyledTextarea = styled.textarea`
-  all: unset;
-  width: 90%;
-  color: rgba(58, 58, 58, 1);
-  resize: none;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
-  &:hover {
-    outline: 1px solid white;
-  }
-`;
+export default Note;
 
 const StyledNotesWrapper = styled.div`
   display: flex;
@@ -86,4 +80,5 @@ const StyledNotesTextField = styled.div`
   white-space: pre-wrap;
   width: 100%;
   color: white;
+  padding-left: 20px;
 `;
