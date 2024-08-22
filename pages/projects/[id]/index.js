@@ -147,22 +147,23 @@ export default function ProjectDetailsPage({
         >
           <Note project={projectData} />
         </StyledCollapsible>
-        <StyledButtonsWrapper>
-          <DeleteButton
-            onDelete={() => {
-              onDeleteProject(id);
-              router.push("/");
-            }}
-          />
-          <EditButton
-            onToggleForm={onToggleForm}
-            isFormOpen={isFormOpen}
-            projects={projects}
-            onUpdateProject={onUpdateProject}
-            onProcessFormData={onProcessFormData}
-          />
-        </StyledButtonsWrapper>
-        <div></div>
+        <DetailsDeleteEditButtonWrapper>
+          <StyledButtonsWrapper>
+            <DeleteButton
+              onDelete={() => {
+                onDeleteProject(id);
+                router.push("/");
+              }}
+            />
+            <EditButton
+              onToggleForm={onToggleForm}
+              isFormOpen={isFormOpen}
+              projects={projects}
+              onUpdateProject={onUpdateProject}
+              onProcessFormData={onProcessFormData}
+            />
+          </StyledButtonsWrapper>
+        </DetailsDeleteEditButtonWrapper>
       </StyledDetailsWrapper>
     </>
   );
@@ -260,12 +261,6 @@ const StyledDuration = styled.p`
   color: var(--color-primary-2);
 `;
 
-const StyledButtonsWrapper = styled.div`
-  display: flex;
-  gap: 1rem;
-  padding-bottom: 1rem;
-`;
-
 const StyledCheckboxWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -329,4 +324,19 @@ const StyledCollapsibleWrapper = styled.div`
     list-style-type: none;
     padding: 20px 0;
   }
+`;
+
+const DetailsDeleteEditButtonWrapper = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  border-radius: 10px 10px 0 0;
+  bottom: 0;
+  background-color: var(--color-primary-2);
+  z-index: 3;
+`;
+const StyledButtonsWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1rem;
 `;
