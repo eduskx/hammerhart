@@ -11,14 +11,14 @@ export default function App({ Component, pageProps }) {
   });
 
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   function handleToggleForm() {
     setIsFormOpen(!isFormOpen);
   }
-
-  useEffect(() => {
-    document.body.style.overflow = isFormOpen ? "hidden" : "auto";
-  }, [isFormOpen]);
+  function handleToggleDeleteModal() {
+    setIsDeleteOpen(!isDeleteOpen);
+  }
 
   const [searchInput, setSearchInput] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
@@ -43,8 +43,9 @@ export default function App({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    document.body.style.overflow = isFormOpen ? "hidden" : "auto";
-  }, [isFormOpen]);
+    document.body.style.overflow =
+      isFormOpen || isDeleteOpen ? "hidden" : "auto";
+  }, [isFormOpen, isDeleteOpen]);
 
   function handleAddProject(newProject) {
     setProjects([newProject, ...projects]);
@@ -53,6 +54,7 @@ export default function App({ Component, pageProps }) {
   function handleDeleteProject(id) {
     localStorage.removeItem(`note-${id}`);
     setProjects(projects.filter((project) => project.id !== id));
+    setIsDeleteOpen(false);
   }
 
   function handleUpdateProject(updatedProject) {
@@ -165,6 +167,8 @@ export default function App({ Component, pageProps }) {
           onFilterChange={handleFilterChange}
           onToggleDisplayFilter={handleToggleDisplayFilter}
           filterOn={filterOn}
+          isDeleteOpen={isDeleteOpen}
+          onToggleDeleteModal={handleToggleDeleteModal}
         />
       </Layout>
     </>

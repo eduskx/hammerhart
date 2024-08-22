@@ -1,22 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import ModalContent from "@/components/Modals/DeleteButton/ModalContent";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-export default function DeleteButton({ onDelete }) {
-  const [showModal, setShowModal] = useState(false);
+export default function DeleteButton({
+  onDelete,
+  isDeleteOpen,
+  onToggleDeleteModal,
+}) {
+  // const [isModalOpen, setisModalOpen] = useState(false);
+  // useEffect(() => {
+  //   document.body.style.overflow = isModalOpen ? "hidden" : "auto";
+  // }, [isModalOpen]);
+
+  // function handleToggleModal() {
+  //   setisModalOpen(!isModalOpen);
+  // }
 
   return (
     <>
-      <StyledDeleteButton onClick={() => setShowModal(true)}>
+      <StyledDeleteButton onClick={onToggleDeleteModal}>
         <FaRegTrashAlt />
       </StyledDeleteButton>
-      {showModal &&
+      {isDeleteOpen &&
         createPortal(
           <ModalContent
-            onClose={() => setShowModal(false)}
             onDelete={onDelete}
+            isDeleteOpen={isDeleteOpen}
+            onToggleDeleteModal={onToggleDeleteModal}
           />,
           document.body
         )}
