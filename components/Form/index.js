@@ -18,11 +18,11 @@ export default function Form({
 
   const [imagePreview, setImagePreview] = useState(null);
 
-  useEffect(() => {
-    if (defaultData?.imageUrl) {
-      setImagePreview(defaultData.imageUrl);
-    }
-  }, [defaultData]);
+  // useEffect(() => {
+  //   if (defaultData?.imageUrl) {
+  //     setImagePreview(defaultData.imageUrl);
+  //   }
+  // }, [defaultData]);
 
   const [characterCounter, setCharacterCounter] = useState(
     250 - defaultData?.description.length || 250
@@ -80,11 +80,6 @@ export default function Form({
     setCharacterCounter(event.target.maxLength - event.target.value.length);
   }
 
-  function handleDeleteImage() {
-    setImagePreview(null);
-    console.log("handleDelete", imagePreview);
-  }
-
   return (
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
       {/* Header section */}
@@ -121,11 +116,9 @@ export default function Form({
               imagePreview || defaultData?.imageUrl ? true : false
             }
           >
-            {!imagePreview && (
-              <StyledImageLabel htmlFor="imageUrl">
-                <IoMdImages size={32} />
-              </StyledImageLabel>
-            )}
+            <StyledImageLabel htmlFor="imageUrl">
+              <IoMdImages size={32} />
+            </StyledImageLabel>
 
             <StyledImageUploadInput
               id="imageUrl"
@@ -144,7 +137,7 @@ export default function Form({
                 unoptimized={true}
               />
             )}
-            {imagePreview && !isEditMode && (
+            {imagePreview && (
               <StyledPreviewImage
                 alt="preview image"
                 src={URL.createObjectURL(imagePreview)}
@@ -153,21 +146,7 @@ export default function Form({
                 unoptimized={true}
               />
             )}
-            {/* {isEditMode && !imagePreview && defaultData?.imageUrl && (
-              <StyledPreviewImage
-                alt="preview image"
-                src={imagePreview || defaultData.imageUrl}
-                width={0}
-                height={0}
-                unoptimized={true}
-              />
-            )} */}
           </StyledImageContainer>
-          {imagePreview && (
-            <StyledDeleteImageButton type="button" onClick={handleDeleteImage}>
-              <FaRegTrashAlt size={16} /> Delete Image
-            </StyledDeleteImageButton>
-          )}
         </StyledImageInputWrapper>
 
         <StyledDurationWrapper>

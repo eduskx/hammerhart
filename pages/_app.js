@@ -116,7 +116,6 @@ export default function App({ Component, pageProps }) {
 
     onProjectAction(newProject);
     handleToggleForm();
-    console.log(newProject);
   }
 
   function handleCheckbox(itemId, projectId, items) {
