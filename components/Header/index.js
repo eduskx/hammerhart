@@ -1,100 +1,136 @@
+import { useState, useEffect, useCallback } from "react";
+import MenuIcon from "@/public/svg/menuIcon_new.svg";
+import MenuIconOpen from "@/public/svg/menuIconOpen_new.svg";
+import Facebook from "@/public/svg/facebook.svg";
+import Instagram from "@/public/svg/instagram.svg";
+import XIcon from "@/public/svg/x-icon.svg";
+import Youtube from "@/public/svg/youtube.svg";
+import SearchBar from "../SearchBar";
+import HammerhartLogo from "@/public/svg/hammerhart_logo.svg";
 import styled from "styled-components";
-import MenuIcon from "@/public/image/menuIcon.svg";
-import MenuIconOpen from "@/public/image/menuIconOpen.svg";
-import Facebook from "@/public/image/facebook.svg";
-import Instagram from "@/public/image/instagram.svg";
-import X from "@/public/image/x-icon.svg";
-import Youtube from "@/public/image/youtube.svg";
-import HammerhartLogo from "@/public/image/hammerhart_logo.svg";
-import { useState } from "react";
 
-export default function Header() {
+export default function Header({ onSearch }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsMobile(window.innerWidth <= 640);
+
+      function handleResize() {
+        setIsMobile(window.innerWidth <= 640);
+      }
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
 
   function toggleMenu() {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prev) => !prev);
   }
-
+  
   function closeMenu() {
     setIsMenuOpen(false);
   }
-
   return (
     <StyledNavBar>
       <StyledAnchor href="/">
         <StyledLogo />
       </StyledAnchor>
-      <StyledMenuIcon onClick={toggleMenu}>
-        {isMenuOpen ? <MenuIconOpen /> : <MenuIcon />}
-      </StyledMenuIcon>
-      <StyledBackground $isMenuOpen={isMenuOpen} onClick={closeMenu}>
-      </StyledBackground>
-        <StyledDropDownDiv $isMenuOpen={isMenuOpen} onClick={(event) => event.stopPropagation()}>
-          <StyledNavList>
-            <li>
-              <StyledListElements href="/">Home</StyledListElements>
-            </li>
-            <li>
-              <StyledListElements href="/bookmarks">
-                My Projects
-              </StyledListElements>
-            </li>
-          </StyledNavList>
-          <StyledSocalList>
-            <li>
-              <a href="http://www.facebook.com/" target="_blank">
-                <StyledSocialMediaIcon>
-                  <Facebook />
-                </StyledSocialMediaIcon>
-              </a>
-            </li>
-            <li>
-              <a href="http://www.instagram.com/" target="_blank">
-                <StyledSocialMediaIcon>
-                  <Instagram />
-                </StyledSocialMediaIcon>
-              </a>
-            </li>
-            <li>
-              <a href="http://www.x.com/" target="_blank">
-                <StyledSocialMediaIcon>
-                  <X />
-                </StyledSocialMediaIcon>
-              </a>
-            </li>
-            <li>
-              <a href="http://www.youtube.com/" target="_blank">
-                <StyledSocialMediaIcon>
-                  <Youtube />
-                </StyledSocialMediaIcon>
-              </a>
-            </li>
-          </StyledSocalList>
-        </StyledDropDownDiv>
-        <StyledDivBlocker></StyledDivBlocker>
+
+      {isMobile ? (
+        <>
+          <StyledMenuIcon onClick={toggleMenu} $isMenuOpen={isMenuOpen}>
+            {isMenuOpen ? <MenuIconOpen /> : <MenuIcon />}
+          </StyledMenuIcon>
+          {isMenuOpen && (
+            <StyledCancelBackground
+              onClick={closeMenu}
+            ></StyledCancelBackground>
+          )}
+          <StyledDropDownDiv $isMenuOpen={isMenuOpen}>
+            <StyledMobileNavList>
+              <li>
+                <StyledListElements href="/">Home</StyledListElements>
+              </li>
+              <li>
+                <StyledListElements href="/bookmarks">
+                  My Projects
+                </StyledListElements>
+              </li>
+            </StyledMobileNavList>
+            <StyledSocialBlock>
+              <StyledSocialMediaIcon
+                href="http://www.facebook.com"
+                target="_blank"
+              >
+                <Facebook width="100%" />
+              </StyledSocialMediaIcon>
+              <StyledSocialMediaIcon
+                href="http://www.instagram.com"
+                target="_blank"
+              >
+                <Instagram width="100%" />
+              </StyledSocialMediaIcon>
+              <StyledSocialMediaIcon href="http://www.x.com" target="_blank">
+                <XIcon width="100%" />
+              </StyledSocialMediaIcon>
+              <StyledSocialMediaIcon
+                href="http://www.youtube.com"
+                target="_blank"
+              >
+                <Youtube width="100%" />
+              </StyledSocialMediaIcon>
+            </StyledSocialBlock>
+          </StyledDropDownDiv>
+        </>
+      ) : (
+        <StyledNavList>
+          <SearchBar onSearch={onSearch} />
+          <li>
+            <StyledListElements href="/bookmarks">
+              My Projects
+            </StyledListElements>
+          </li>
+          <li>
+            <StyledListElements href="/">Home</StyledListElements>
+          </li>
+        </StyledNavList>
+      )}
+      <StyledDivBlocker />
     </StyledNavBar>
   );
 }
 
+
+const StyledAnchor = styled.a`
+  line-height: 0;
+  z-index: 2;
+`;
 const StyledDivBlocker = styled.div`
   position: fixed;
   right: 0;
   top: 0;
   width: 100%;
   height: 80px;
-  background-color: #536f5f;
+  background-color: var(--color-primary-1);
   border-radius: 0 0 10px 10px;
   z-index: 1;
 `;
 
-
-const StyledAnchor = styled.a`
-  display: block;
-  font-size: 0;
-  z-index: 2;
+const StyledLogo = styled(HammerhartLogo)`
+  fill: var(--color-primary-2);
+  width: 80px;
+  -webkit-tap-highlight-color: transparent;
+  &:hover {
+    transition: all 0.5s ease;
+    transform: scale(1.1);
+  }
+  
 `;
 
-const StyledBackground = styled.div`
+const StyledCancelBackground = styled.div`
   position: fixed;
   top: 0;
   right: 0;
@@ -102,71 +138,69 @@ const StyledBackground = styled.div`
   height: 100vh;
   background-color: transparent;
   z-index: 1;
-  display: ${({$isMenuOpen}) => (!$isMenuOpen ? "none" : "block")};
 `;
 
-const StyledNavList = styled.ul`
+const StyledMobileNavList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: end;
   gap: 1rem;
   list-style: none;
-  padding-right: 1.563rem;
+  padding-right: 25px;
+  z-index: 3;
+`;
+const StyledNavList = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+ z-index: 3;
+`;
+
+const StyledSocialBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  -webkit-tap-highlight-color: transparent;
+  padding-right: 25px;
   z-index: 3;
 `;
 
-const StyledSocalList = styled(StyledNavList)`
-  flex-direction: row;
-  width: 100100%;
-  padding-right: 1.563rem;
-  gap: 2rem;
-  -webkit-tap-highlight-color: transparent;
-  list-style: none;
-  justify-content: end;
-  align-items: center;
-`;
-
-const StyledSocialMediaIcon = styled.div`
-  &:hover {
-    transition: all 0.5s ease;
-    transform: scale(1.3);
-  }
-`;
-
-const StyledNavBar = styled.div`
+const StyledSocialMediaIcon = styled.a`
+  fill: var(--color-primary-2);
   display: flex;
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: 100%;
-  height: 80px;
-  background-color: #536f5f;
-  border-radius: 0 0 10px 10px;
-  align-items: center;
-  padding: 16px 25px;
-  justify-content: space-between;
-  filter: drop-shadow(0px 4px 4px #00000049);
-  z-index: 110;
-`;
-
-const StyledLogo = styled(HammerhartLogo)`
-  width: 5rem;
-  -webkit-tap-highlight-color: transparent;
-  z-index: 2;
+  height: 22px;
   &:hover {
     transition: all 0.5s ease;
     transform: scale(1.1);
   }
 `;
 
+const StyledNavBar = styled.div`
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: space-between;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background-color: var(--color-primary-1);
+  border-radius: 0 0 10px 10px;
+  padding: 0 10%;
+  box-shadow: var(--box-shadow-2);
+  z-index: 111;
+
+`;
+
 const StyledMenuIcon = styled.div`
-  display: block;
-  font-size: 0;
+  fill: var(--color-primary-2);
+  width: 30px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   z-index: 2;
   &:hover {
-    transition: all 0.5s ease;
     transform: scale(1.1);
   }
 `;
@@ -177,49 +211,33 @@ const StyledDropDownDiv = styled.div`
   align-items: end;
   justify-content: end;
   position: fixed;
-  gap: 5rem;
-  padding-bottom: 1rem;
+  gap: 80px;
+  padding-bottom: 16px;
   top: 0;
   right: 0;
   width: 100%;
-  height: 290px;
-  background-color: #536f5f;
+  height: 300px;
+  background-color: var(--color-primary-1);
   border-radius: 0 0 10px 10px;
+  box-shadow: var(--box-shadow-2);
   z-index: 1;
-  animation: ${({ $isMenuOpen }) => ($isMenuOpen ? 'fadeInNav' : 'fadeOutNav')} 0.4s ease-in-out 0s 1 normal forwards;
-
-  @keyframes fadeInNav {
-    0% {
-      transform: scaleY(0);
-      transform-origin: 100% 0%;
-    }
-    100% {
-      transform: scaleY(1);
-      transform-origin: 100% 0%;
-    }
-  }
-
-  @keyframes fadeOutNav {
-    0% {
-      transform: scaleY(1);
-      transform-origin: 100% 0%;
-    }
-    100% {
-      transform: scaleY(0);
-      transform-origin: 100% 0%;
-    }
-  }
+  transform-origin: 100% 0%;
+  transition: transform 0.4s ease;
+  transform: ${({ $isMenuOpen }) => ($isMenuOpen ? "scaleY(1)" : "scaleY(0)")};
 `;
 
 const StyledListElements = styled.a`
+  color: var(--color-primary-2);
   display: flex;
-  align-self: self-end;
+  align-self: end;
   -webkit-tap-highlight-color: transparent;
   font-size: 1.563rem;
-  color: #f9f5eb;
   text-decoration: none;
   &:hover {
     transition: all 0.5s ease-in-out;
     transform: scale(1.1);
+  }
+  @media screen and (min-width: 640px) {
+    font-size: 1.1rem;
   }
 `;

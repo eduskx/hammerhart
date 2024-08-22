@@ -57,11 +57,10 @@ export default function ProjectDetailsPage({
 
   return (
     <>
-      <StyledLink href="/">
-        <FaArrowLeftLong /> Back
-      </StyledLink>
-
       <StyledDetailsWrapper>
+        <StyledLink href="/">
+          <FaArrowLeftLong /> Back
+        </StyledLink>
         <StyledImageWrapper>
           <BookmarkButton
             onToggleBookmark={() => onToggleBookmark(id)}
@@ -78,6 +77,8 @@ export default function ProjectDetailsPage({
             {complexity}
           </StyledComplexityTag>
         </StyledImageWrapper>
+      </StyledDetailsWrapper>
+      <div>
         <Styledtitle>{title}</Styledtitle>
         <StyledDescription>{description}</StyledDescription>
         <StyledDuration>Duration: {duration}</StyledDuration>
@@ -160,7 +161,7 @@ export default function ProjectDetailsPage({
             onProcessFormData={onProcessFormData}
           />
         </StyledButtonsWrapper>
-      </StyledDetailsWrapper>
+      </div>
     </>
   );
 }
@@ -180,41 +181,25 @@ const StyledButtonsWrapper = styled.div`
 
 const StyledLink = styled(Link)`
   font-size: larger;
-  padding-top: 1rem;
-  color: white;
+  padding-top: 16px;
+  color: var(--color-primary-2);
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  justify-content: center;
+  margin: 80px auto 0 auto;
+  width: max-content;
 `;
 const StyledDetailsWrapper = styled.div`
-  box-shadow: 1px 1px 6px 1px #00000072;
-  background: rgb(44, 150, 164);
-  background-color: #a38376;
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1rem auto 1rem auto;
-  border-radius: 20px;
-  color: white;
-  padding: 0;
-  gap: 1rem;
+  position: relative;
+  box-shadow: var(--box-shadow-2);
+  background-color: var(--color-primary-2);
+  width: 100%;
+  height: 100%;
+ 
 
   @media screen and (min-width: 640px) {
-    box-shadow: 1px 1px 6px 1px #00000072;
-    background-color: #a38376;
-    width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 1rem auto 1rem auto;
-    border-radius: 20px;
-    color: white;
-    padding: 0;
-    gap: 1rem;
-  }
+}
 `;
 
 const StyledDescription = styled.p`
@@ -224,7 +209,7 @@ const StyledDescription = styled.p`
 
 const StyledImage = styled(Image)`
   width: 100%;
-  border-radius: 10px 10px 0 0;
+  border-radius: 10px;
   object-fit: cover;
 `;
 const StyledImageWrapper = styled.div`
@@ -233,13 +218,35 @@ const StyledImageWrapper = styled.div`
 `;
 
 const StyledComplexityTag = styled.p`
+  display: flex;
   position: absolute;
-  bottom: 0.4rem;
-  right: 0rem;
-  padding: 5px;
-  margin: 0;
-  background-color: ${({ color }) => handleColorType(color)};
-  border-radius: 10px 0px 0 0px;
+  align-items: center;
+  padding: 10px 5px 8px 5px;
+  bottom: 5px;
+  right: 5px;
+  font-size: 0.6rem;
+  height: 18px;
+  border-radius: 25px;
+  outline: 1px solid var(--color-primary-2);
+  outline-offset: -1px;
+  background-color: var(--color-secondary-1);
+  color: var(--color-primary-2);
+  backdrop-filter: blur(5px);
+  ${(props) =>
+    props.$isHighlighted &&
+    css`
+      padding: 10px 10px;
+      outline: 2px solid var(--color-primary-2);
+      outline-offset: -2px;
+      height: 25px;
+      font-size: 0.8rem;
+    `}
+  @media screen and (min-width: 640px) {
+    font-size: 0.8rem;
+    padding: 10px 10px;
+    outline: 2px solid var(--color-primary-2);
+    outline-offset: -1px;
+  }
 `;
 
 const StyledDuration = styled.p`
