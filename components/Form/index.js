@@ -103,6 +103,11 @@ export default function Form({
         {/* Image Upload */}
         <StyledTitle>Upload Image</StyledTitle>
         <StyledImageContainer $imageUploaded={imagePreview ? true : false}>
+          {isEditMode && !imagePreview && (
+            <StyledImageNote>
+              Your current image is still selected!
+            </StyledImageNote>
+          )}
           <StyledImageLabel
             htmlFor="imageUrl"
             $imageUploaded={imagePreview ? true : false}
@@ -143,7 +148,7 @@ export default function Form({
             name="durationString"
             defaultValue={defaultData?.durationString}
           >
-            <StyledOption value="">Please select a time interval</StyledOption>
+            <StyledOption value="">Please select a duration</StyledOption>
             <StyledOption value="minutes">Minutes</StyledOption>
             <StyledOption value="hours">Hours</StyledOption>
             <StyledOption value="days">Days</StyledOption>
@@ -166,6 +171,23 @@ export default function Form({
             <StyledOption value="Advanced">Advanced</StyledOption>
           </StyledDropdown>
         </StyledComplexityWrapper>
+
+        <DescriptionWrapper>
+          <StyledDescriptionLabel htmlFor="description">
+            Description
+          </StyledDescriptionLabel>
+          <StyledDescriptionCounter>{`${characterCounter} characters left`}</StyledDescriptionCounter>
+          <StyledTextarea
+            id="description"
+            name="description"
+            placeholder="Enter description..."
+            rows={7}
+            cols={30}
+            maxLength={250}
+            onChange={handleChangeCharactersLeft}
+            defaultValue={defaultData?.description}
+          />
+        </DescriptionWrapper>
 
         <StyledDynamicInputWrapper>
           <StyledTitle>
@@ -194,21 +216,6 @@ export default function Form({
             }
           />
         </StyledDynamicInputWrapper>
-
-        <DescriptionWrapper>
-          <StyledLabel htmlFor="description">Description</StyledLabel>
-          <StyledTextarea
-            id="description"
-            name="description"
-            placeholder="Enter description..."
-            rows={7}
-            cols={30}
-            maxLength={250}
-            onChange={handleChangeCharactersLeft}
-            defaultValue={defaultData?.description}
-          />
-          <StyledDescriptionCounter>{`${characterCounter} characters left`}</StyledDescriptionCounter>
-        </DescriptionWrapper>
       </StyledMainContainer>
 
       {/* Footer section */}
@@ -351,6 +358,11 @@ const StyledDurationInput = styled(StyledTextInput)`
   text-align: center;
   height: 37px;
   border-radius: 10px 0 0 10px;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 const StyledDropdown = styled.select`
@@ -389,7 +401,16 @@ const StyledTitle = styled.h3`
   font-size: 18px;
 `;
 
+const StyledImageNote = styled(StyledTitle)`
+  text-align: center;
+  margin-top: -80px;
+`;
+
 const StyledLabel = styled(StyledTitle)``;
+
+const StyledDescriptionLabel = styled(StyledLabel)`
+  width: 50%;
+`;
 
 const StyledDynamicInputWrapper = styled.div`
   display: flex;
@@ -399,8 +420,8 @@ const StyledDynamicInputWrapper = styled.div`
 
 const DescriptionWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  padding-top: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
 `;
 
 const StyledTextarea = styled.textarea`
@@ -435,6 +456,9 @@ const StyledTextarea = styled.textarea`
 `;
 
 const StyledDescriptionCounter = styled.p`
+  width: 50%;
+  text-align: right;
+  font-size: 14px;
   color: ${(prop) =>
     prop.children === "0 characters left"
       ? "var(--color-primary-2-light)"
