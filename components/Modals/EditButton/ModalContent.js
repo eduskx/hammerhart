@@ -26,7 +26,8 @@ const StyledContainer = styled.div`
   bottom: 0;
   top: 0;
   z-index: 1000;
-  background-color: hsl(0, 0%, 0%, 60%);
-  overflow-y: auto;
-  padding: 4rem 0;
+  background-color: hsl(0, 0%, 0%, 80%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
