@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import DynamicInputFields from "./DynamicInputFields";
 import { IoMdClose, IoMdImages } from "react-icons/io";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -17,6 +17,13 @@ export default function Form({
   let formRef = useRef(null);
 
   const [imagePreview, setImagePreview] = useState(null);
+
+  useEffect(() => {
+    if (defaultData?.imageUrl) {
+      setImagePreview(defaultData.imageUrl);
+    }
+  }, [defaultData]);
+
   const [characterCounter, setCharacterCounter] = useState(
     250 - defaultData?.description.length || 250
   );
@@ -41,6 +48,7 @@ export default function Form({
 
   function handleChangeImage(event) {
     setImagePreview(event.target.files[0]);
+    console.log("handleChange", imagePreview);
   }
 
   function handleClearForm() {
@@ -74,6 +82,7 @@ export default function Form({
 
   function handleDeleteImage() {
     setImagePreview(null);
+    console.log("handleDelete", imagePreview);
   }
 
   return (
@@ -117,6 +126,7 @@ export default function Form({
                 <IoMdImages size={32} />
               </StyledImageLabel>
             )}
+
             <StyledImageUploadInput
               id="imageUrl"
               name="imageUrl"
@@ -125,26 +135,35 @@ export default function Form({
               onChange={handleChangeImage}
             />
 
-            {imagePreview && (
+            {!imagePreview && isEditMode && defaultData?.imageUrl && (
+              <StyledPreviewImage
+                alt="preview image"
+                src={defaultData.imageUrl}
+                width={0}
+                height={0}
+                unoptimized={true}
+              />
+            )}
+            {imagePreview && !isEditMode && (
               <StyledPreviewImage
                 alt="preview image"
                 src={URL.createObjectURL(imagePreview)}
                 width={0}
                 height={0}
-              />
-            )}
-            {isEditMode && !imagePreview && defaultData?.imageUrl && (
-              <StyledPreviewImage
-                alt="preview image"
-                src={defaultData.imageUrl}
-                width={100}
-                height={100}
                 unoptimized={true}
               />
             )}
+            {/* {isEditMode && !imagePreview && defaultData?.imageUrl && (
+              <StyledPreviewImage
+                alt="preview image"
+                src={imagePreview || defaultData.imageUrl}
+                width={0}
+                height={0}
+                unoptimized={true}
+              />
+            )} */}
           </StyledImageContainer>
-          {(imagePreview ||
-            (isEditMode && !imagePreview && defaultData?.imageUrl)) && (
+          {imagePreview && (
             <StyledDeleteImageButton type="button" onClick={handleDeleteImage}>
               <FaRegTrashAlt size={16} /> Delete Image
             </StyledDeleteImageButton>
