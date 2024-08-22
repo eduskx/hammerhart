@@ -7,11 +7,11 @@ export default function ModalContent({ onClose, onDelete }) {
         Are you sure you want to delete this project?
       </StyledConfirmationText>
       <StyledButtonsContainer>
-        <StyledButton type="button" onClick={onDelete}>
-          Delete
-        </StyledButton>
         <StyledButton type="button" onClick={onClose}>
           Cancel
+        </StyledButton>
+        <StyledButton type="button" onClick={onDelete}>
+          Delete
         </StyledButton>
       </StyledButtonsContainer>
     </StyledModalContentContainer>
