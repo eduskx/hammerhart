@@ -43,8 +43,6 @@ export default function Form({
     setImagePreview(event.target.files[0]);
   }
 
-  console.log(defaultData?.imageUrl);
-
   function handleClearForm() {
     if (formRef.current) {
       formRef.current.reset();
