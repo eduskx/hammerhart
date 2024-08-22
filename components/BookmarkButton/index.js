@@ -1,12 +1,20 @@
 import HeartFilled from "@/public/svg/HeartFilled.svg";
 import Heart from "@/public/svg/Heart.svg";
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
-
-export default function BookmarkButton({ isFavorite, onToggleBookmark, $isHighlighted }) {
+export default function BookmarkButton({
+  isFavorite,
+  onToggleBookmark,
+  $isHighlighted,
+  $isDetail,
+}) {
   return (
-    <StyledButton onClick={onToggleBookmark} >
-      {isFavorite ? <StyledHeartFilled $isHighlighted={$isHighlighted}/> : <StyledHeart $isHighlighted={$isHighlighted} />}
+    <StyledButton onClick={onToggleBookmark} $isDetail={$isDetail}>
+      {isFavorite ? (
+        <StyledHeartFilled $isHighlighted={$isHighlighted} />
+      ) : (
+        <StyledHeart $isHighlighted={$isHighlighted} />
+      )}
     </StyledButton>
   );
 }
@@ -24,6 +32,14 @@ const StyledButton = styled.button`
   left: 3px;
   cursor: pointer;
 
+  ${(props) =>
+    props.$isDetail &&
+    css`
+      bottom: 100%;
+      left: 10%;
+      top: 3px;
+      right: 3px;
+    `}
 `;
 
 const StyledHeartFilled = styled(HeartFilled)`
@@ -41,7 +57,7 @@ const StyledHeart = styled(Heart)`
   width: 25px;
   height: 25px;
   opacity: 0.6;
- ${(props) =>
+  ${(props) =>
     props.$isHighlighted &&
     css`
       height: 30px;

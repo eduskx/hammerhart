@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { FaArrowLeftLong } from "react-icons/fa6";
+import { RiArrowGoBackFill } from "react-icons/ri";
 import styled from "styled-components";
 import DeleteButton from "@/components/Modals/DeleteButton";
 import BookmarkButton from "@/components/BookmarkButton";
@@ -12,11 +12,11 @@ import EditButton from "@/components/Modals/EditButton";
 const handleColorType = (color) => {
   switch (color) {
     case "Intermediate":
-      return "#f9b234";
+      return "var(--color-intermediate)";
     case "Advanced":
-      return "#e44002";
+      return "var(--color-advanced)";
     default:
-      return "#3ecd5e";
+      return "var(--color-beginner)";
   }
 };
 
@@ -58,13 +58,14 @@ export default function ProjectDetailsPage({
   return (
     <>
       <StyledDetailsWrapper>
-        <StyledLink href="/">
-          <FaArrowLeftLong /> Back
-        </StyledLink>
+        {/*     <StyledLink href="/">
+          <RiArrowGoBackFill /> Back
+        </StyledLink> */}
         <StyledImageWrapper>
           <BookmarkButton
             onToggleBookmark={() => onToggleBookmark(id)}
             isFavorite={projectData.isFavorite}
+            $isDetail
           />
           <StyledImage
             src={imageUrl}
@@ -73,19 +74,21 @@ export default function ProjectDetailsPage({
             height={200}
             priority
           />
+          <Styledtitle>{title}</Styledtitle>
+        </StyledImageWrapper>
+
+        <StyledDescription>{description}</StyledDescription>
+        <StyledDivider />
+        <StyledDurationComplexityWrapper>
+          <StyledDuration>Duration: {duration}</StyledDuration>
           <StyledComplexityTag color={complexity}>
             {complexity}
           </StyledComplexityTag>
-        </StyledImageWrapper>
-      </StyledDetailsWrapper>
-      <div>
-        <Styledtitle>{title}</Styledtitle>
-        <StyledDescription>{description}</StyledDescription>
-        <StyledDuration>Duration: {duration}</StyledDuration>
-
+        </StyledDurationComplexityWrapper>
+        <StyledDivider />
         <StyledCollapsible
-          trigger="Materials ▼"
-          triggerWhenOpen="Materials ▲"
+          trigger="MATERIALS NEEDED:"
+          triggerWhenOpen="MATERIALS NEEDED:"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
@@ -95,7 +98,7 @@ export default function ProjectDetailsPage({
           ) : (
             <StyledMaterialsList>
               {materials.map((material) => (
-                <StyledListItems key={material.id}>
+                <li key={material.id}>
                   <input
                     type="checkbox"
                     checked={material.isChecked}
@@ -104,15 +107,15 @@ export default function ProjectDetailsPage({
                     aria-label={`Select ${material.description}`}
                   />
                   {material.description}
-                </StyledListItems>
+                </li>
               ))}
             </StyledMaterialsList>
           )}
         </StyledCollapsible>
-
+        <StyledDivider />
         <StyledCollapsible
-          trigger="Instructions ▼"
-          triggerWhenOpen="Instructions ▲"
+          trigger="INSTRUCTIONS"
+          triggerWhenOpen="INSTRUCTIONS"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
@@ -122,7 +125,7 @@ export default function ProjectDetailsPage({
           ) : (
             <StyledInstructionsList>
               {steps.map((step) => (
-                <StyledListItems key={step.id}>
+                <li key={step.id}>
                   <input
                     type="checkbox"
                     checked={step.isChecked}
@@ -131,15 +134,15 @@ export default function ProjectDetailsPage({
                     aria-label={`Select ${step.description}`}
                   />
                   {step.description}
-                </StyledListItems>
+                </li>
               ))}
             </StyledInstructionsList>
           )}
         </StyledCollapsible>
 
         <StyledCollapsible
-          trigger="Notes ▼"
-          triggerWhenOpen="Notes ▲"
+          trigger="ENTER YOUR NOTES BELOW:"
+          triggerWhenOpen="ENTER YOUR NOTES BELOW:"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
@@ -161,16 +164,92 @@ export default function ProjectDetailsPage({
             onProcessFormData={onProcessFormData}
           />
         </StyledButtonsWrapper>
-      </div>
+      </StyledDetailsWrapper>
     </>
   );
 }
+const StyledDetailsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 120px 10%;
 
-const Styledtitle = styled.h1`
+  @media screen and (min-width: 640px) {
+  }
+`;
+const StyledImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  object-fit: cover;
+`;
+const StyledImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 160px;
+`;
+const Styledtitle = styled.h2`
+  position: absolute;
+  text-align: center;
+  max-width: 80%;
+  bottom: -20px;
+  color: var(--color-primary-1);
+  background-color: var(--color-primary-2);
+  border-radius: 10px;
+  border: 2px solid var(--color-primary-1);
   font-size: 1.5rem;
+  padding: 13px 15px 8px 15px;
   @media screen and (min-width: 640px) {
     font-size: 2rem;
   }
+`;
+const StyledDescription = styled.p`
+  text-align: center;
+  font-weight: 400;
+  width: 80%;
+  padding-top: 40px;
+  color: var(--color-primary-2);
+`;
+
+const StyledDivider = styled.div`
+  height: 3px;
+  width: 90%;
+  margin: 30px 0;
+  background-color: var(--color-secondary-3);
+  border-radius: 10px;
+`;
+const StyledDurationComplexityWrapper = styled.div`
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+`;
+const StyledComplexityTag = styled.p`
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  padding: 15px 10px 13px 10px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: ${({ color }) => handleColorType(color)};
+  color: var(--color-primary-1);
+  @media screen and (min-width: 640px) {
+  }
+`;
+const StyledDuration = styled.p`
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  padding: 15px 10px 13px 10px;
+  height: 20px;
+  border-radius: 10px;
+  outline-offset: -2px;
+  outline: 2px solid var(--color-primary-2);
+  color: var(--color-primary-2);
 `;
 
 const StyledButtonsWrapper = styled.div`
@@ -178,89 +257,12 @@ const StyledButtonsWrapper = styled.div`
   gap: 1rem;
   padding-bottom: 1rem;
 `;
-
-const StyledLink = styled(Link)`
-  font-size: larger;
-  padding-top: 16px;
-  color: var(--color-primary-2);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 80px auto 0 auto;
-  width: max-content;
-`;
-const StyledDetailsWrapper = styled.div`
-  position: relative;
-  box-shadow: var(--box-shadow-2);
-  background-color: var(--color-primary-2);
-  width: 100%;
-  height: 100%;
- 
-
-  @media screen and (min-width: 640px) {
-}
-`;
-
-const StyledDescription = styled.p`
-  text-align: center;
-  width: 90%;
-`;
-
-const StyledImage = styled(Image)`
-  width: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-`;
-const StyledImageWrapper = styled.div`
-  position: relative;
-  width: 100%;
-`;
-
-const StyledComplexityTag = styled.p`
-  display: flex;
-  position: absolute;
-  align-items: center;
-  padding: 10px 5px 8px 5px;
-  bottom: 5px;
-  right: 5px;
-  font-size: 0.6rem;
-  height: 18px;
-  border-radius: 25px;
-  outline: 1px solid var(--color-primary-2);
-  outline-offset: -1px;
-  background-color: var(--color-secondary-1);
-  color: var(--color-primary-2);
-  backdrop-filter: blur(5px);
-  ${(props) =>
-    props.$isHighlighted &&
-    css`
-      padding: 10px 10px;
-      outline: 2px solid var(--color-primary-2);
-      outline-offset: -2px;
-      height: 25px;
-      font-size: 0.8rem;
-    `}
-  @media screen and (min-width: 640px) {
-    font-size: 0.8rem;
-    padding: 10px 10px;
-    outline: 2px solid var(--color-primary-2);
-    outline-offset: -1px;
-  }
-`;
-
-const StyledDuration = styled.p`
-  align-self: self-end;
-  padding-right: 2rem;
-`;
-
 const StyledMaterialsList = styled.ul`
   list-style-position: inside;
   list-style-type: none;
   text-align: start;
   padding: 0;
   margin: 0;
-  color: #ffffff;
 `;
 
 const StyledInstructionsList = styled.ol`
@@ -269,7 +271,6 @@ const StyledInstructionsList = styled.ol`
   padding: 0 1rem;
   margin-bottom: 1rem;
   text-align: start;
-  color: #ffffff;
 
   @media screen and (min-width: 640px) {
     list-style-position: inside;
@@ -278,34 +279,26 @@ const StyledInstructionsList = styled.ol`
   }
 `;
 
-const StyledListItems = styled.li`
-  line-height: 1.4rem;
-`;
-
 const StyledCollapsibleWrapper = styled.div`
-  border-radius: 2px;
-  color: rgba(58, 58, 58, 1);
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid #ccc;
-  width: 95%;
+width: 100%;
 
-  &:hover {
-    outline: 1px solid white;
-  }
+
   .Collapsible__trigger {
     display: flex;
-
-    color: rgba(58, 58, 58, 1);
+    font-weight: 700;
+    color: var(--color-primary-2);
     width: 100%;
     cursor: pointer;
-    padding-left: 0.5rem;
+
 
     -webkit-tap-highlight-color: transparent;
   }
   .Collapsible__contentOuter {
-    background-color: #a38376;
+   
   }
   .Collapsible__contentInner {
-    padding: 0.5rem;
+  
+    color: var(--color-primary-2);
+    font-weight: 400;
   }
 `;

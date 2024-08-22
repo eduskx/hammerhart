@@ -27,7 +27,7 @@ export default createGlobalStyle`
     background-color: var(--color-primary-1);
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h4, h5, h6,.Collapsible__trigger {
     font-family: ${grandstander.style.fontFamily};
     word-break: break-word;
     line-height: 1.6rem;
@@ -54,6 +54,7 @@ export default createGlobalStyle`
 
     --color-secondary-1: #F9F5EBCC;
     --color-secondary-2: #a6b2a56b;
+    --color-secondary-3:#696057;
     
     --color-beginner: #67AC5B;
     --color-intermediate: #F7C244;
@@ -61,10 +62,8 @@ export default createGlobalStyle`
 
     --color-bookmark: #ff6f61;
 
-   /*  Font Colors */
-   --color-font-1:#DDDDDD;
-   --color-font-2:#696057;
-   --color-font-3:#403A34;
+  
+   
 
 
     /* Shadows */
