@@ -1,7 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import SearchIcon from "@/public/svg/search.svg";
 import { useRouter } from "next/router";
-import css from "styled-jsx/css";
 
 export default function SearchBar({ onSearch, $isNotMobile }) {
   const router = useRouter();
@@ -26,15 +25,19 @@ export default function SearchBar({ onSearch, $isNotMobile }) {
   );
 }
 const StyledSearchBarIconWrapper = styled.div`
-  ${({ $isNotMobile }) =>
-    $isNotMobile &&
+  display: flex;
+  position: relative;
+  width: 130px;
+  @media screen and (min-width: 640px) {
+    width: 200px;
+  }
+  ${(props) =>
+    props.$isNotMobile &&
     css`
       @media screen and (min-width: 640px) {
         display: none;
       }
     `}
-  display: flex;
-  position: relative;
 `;
 const StyledIcon = styled.div`
   display: flex;
@@ -48,9 +51,20 @@ const StyledIcon = styled.div`
   border-radius: 10px;
   padding: 5px;
   background-color: var(--color-primary-2);
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-primary-1);
+  right: 0;
+  height: 27px;
+  width: 27px;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: var(--color-primary-2);
 `;
 const StyledSearchBar = styled.input`
-  width: 265px;
+  width: 130px;
   height: 27px;
   border-radius: 10px;
   border: 2px solid var(--color-primary-2);
@@ -62,10 +76,11 @@ const StyledSearchBar = styled.input`
     color: #536f5f80;
   }
   &:focus {
+  &:focus {
     outline-offset: -3px;
     outline: 2px solid var(--color-primary-2);
   }
-  background-image: url("../public/svg/facebook.svg");
-  background-position: 7px 7px;
-  background-repeat: no-repeat;
+  @media screen and (min-width: 640px) {
+    width: 200px;
+  }
 `;

@@ -1,11 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 import { Grandstander, Rubik } from "next/font/google";
 
-export const grandstander = Grandstander({
+const grandstander = Grandstander({
   subsets: ["latin"],
   display: "swap",
 });
-export const rubik = Rubik({
+const rubik = Rubik({
   subsets: ["latin"],
   display: "swap",
 });
@@ -24,7 +24,7 @@ export default createGlobalStyle`
     font-family: ${rubik.style.fontFamily};
     margin: 0;
     padding: 0;
-
+    background-color: var(--color-primary-1);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -32,6 +32,8 @@ export default createGlobalStyle`
     word-break: break-word;
     line-height: 1.6rem;
     -webkit-tap-highlight-color: transparent;
+    padding: 0;
+    margin:  0;
   }
  p, ul, ol, a  {
     margin: 0;
@@ -47,6 +49,8 @@ export default createGlobalStyle`
     /* Colors */
     --color-primary-1: #F9F5EB;
     --color-primary-2: #536F5F;
+    --color-primary-3: #324339;
+
 
     --color-secondary-1: #F9F5EBCC;
     --color-secondary-2: #a6b2a56b;
@@ -55,9 +59,12 @@ export default createGlobalStyle`
     --color-intermediate: #F7C244;
     --color-advanced: #ED6237;
 
+    --color-bookmark: #ff6f61;
+
    /*  Font Colors */
    --color-font-1:#DDDDDD;
    --color-font-2:#696057;
+   --color-font-3:#403A34;
 
 
     /* Shadows */

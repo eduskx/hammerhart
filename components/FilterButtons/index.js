@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export default function FilterButtons({
   complexities,
@@ -7,27 +7,25 @@ export default function FilterButtons({
   activeFilter,
 }) {
   return (
-    <>
-      <StyledButtonList $filterOn={filterOn}>
-        {complexities.map((complexity) => (
-          <li key={complexity}>
-            <StyledFilterButton
-              type="button"
-              onClick={() => onFilterChange(complexity)}
-              $isActive={activeFilter === complexity}
-            >
-              {complexity}
-            </StyledFilterButton>
-          </li>
-        ))}
-      </StyledButtonList>
-    </>
+    <StyledButtonList $filterOn={filterOn}>
+      {complexities.map((complexity) => (
+        <li key={complexity}>
+          <StyledFilterButton
+            type="button"
+            onClick={() => onFilterChange(complexity)}
+            $isActive={activeFilter === complexity}
+          >
+            {complexity}
+          </StyledFilterButton>
+        </li>
+      ))}
+    </StyledButtonList>
   );
 }
 
 const StyledButtonList = styled.ul`
   display: ${({ $filterOn }) => ($filterOn ? "flex" : "none")};
-  gap: 1rem;
+  gap: 10px;
   justify-content: center;
   z-index: 100;
   list-style-type: none;
@@ -38,7 +36,7 @@ const StyledFilterButton = styled.button`
   justify-content: center;
   align-items: center;
   color: var(--color-primary-1);
-  height: 27px;
+  height: 25px;
   width: fit-content;
   font-size: 0.7rem;
   padding: 0 10px;
@@ -55,11 +53,11 @@ const StyledFilterButton = styled.button`
   }
   ${(props) =>
     props.$isActive &&
-    `
-  outline-offset: -2px;
-  outline: 2px solid var(--color-primary-2);
-  transform: translateY(-3px);
-  background-color: var(--color-primary-1);
-  color: var(--color-primary-2);
-`}
+    css`
+      outline-offset: -2px;
+      outline: 2px solid var(--color-primary-2);
+      transform: translateY(-3px);
+      background-color: var(--color-primary-1);
+      color: var(--color-primary-2);
+    `}
 `;

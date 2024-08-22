@@ -35,6 +35,7 @@ const StyledAddButton = styled.button`
   cursor: pointer;
   justify-content: center;
   align-items: center;
+  margin-top: 30px;
   gap: 4px;
   width: 180px;
   height: 35px;

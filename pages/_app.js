@@ -10,6 +10,16 @@ export default function App({ Component, pageProps }) {
     defaultValue: initialProjects,
   });
 
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  function handleToggleForm() {
+    setIsFormOpen(!isFormOpen);
+  }
+
+  useEffect(() => {
+    document.body.style.overflow = isFormOpen ? "hidden" : "auto";
+  }, [isFormOpen]);
+
   const [searchInput, setSearchInput] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
   const [filterOn, setFilterOn] = useState(false);
@@ -23,7 +33,6 @@ export default function App({ Component, pageProps }) {
     const lowerCasedInput = event.target.value.toLowerCase();
     setSearchInput(lowerCasedInput);
   }
-  const [isFormOpen, setIsFormOpen] = useState(false);
 
   function handleToggleForm() {
     setIsFormOpen(!isFormOpen);
