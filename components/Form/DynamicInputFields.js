@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdAdd } from "react-icons/md";
-import { StyledTextInput } from ".";
 
 export default function DynamicInputFields({
   label,
@@ -9,20 +8,18 @@ export default function DynamicInputFields({
   onAddField,
   onRemoveField,
 }) {
-  const $thirdDesign = false;
   return (
     <>
       {inputFields.map((field, index) => (
         <StyledWrapper key={field.id}>
           <label htmlFor={field.id}></label>
-          <StyledTextInput
+          <StyledDynamicInput
             required
             id={field.id}
             type="text"
             name={`${label}`}
             placeholder={`${label} ${index + 1}`}
             defaultValue={field?.description || ""}
-            $thirdDesign={$thirdDesign}
           />
           <StyledDeleteButton
             type="button"
@@ -41,40 +38,55 @@ export default function DynamicInputFields({
 
 const StyledWrapper = styled.div`
   display: flex;
-  align-items: center;
-  padding-bottom: 8px;
+`;
+
+const StyledDynamicInput = styled.input`
+  min-height: 35px;
+  width: 100%;
+  background-color: var(--color-primary-1);
+  color: var(--color-primary-2);
+  border: 2px solid var(--color-primary-2);
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  &:focus {
+    outline-offset: -3px;
+    outline: 2px solid var(--color-primary-2);
+  }
+  &::placeholder {
+    color: var(--color-primary-2-light);
+    opacity: 1; /* Firefox */
+  }
+  &::-ms-input-placeholder {
+    /* Edge 12 -18 */
+    color: var(--color-primary-2-light);
+  }
 `;
 
 const StyledAddButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: var(--color-primary-2);
   color: var(--color-primary-1);
-  width: fit-content;
-  padding: 0 8px;
+  width: 45px;
+  height: 35px;
   border: none;
   border-radius: 10px;
-  font-size: 18px;
   cursor: pointer;
-  &:focus,
-  &:hover {
-    outline: 2px solid var(--color-primary-2);
+  @media screen and (min-width: 1200px) {
     &:hover {
-      background-color: var(--color-primary-1);
-      color: var(--color-primary-2);
+      outline-offset: -3px;
+      outline: 2px solid var(--color-primary-2);
+      &:hover {
+        background-color: var(--color-primary-1);
+        color: var(--color-primary-2);
+      }
     }
   }
 `;
 
 const StyledDeleteButton = styled(StyledAddButton)`
+  margin-top: 0;
   margin-left: 8px;
-  padding: 4px 12px;
-  width: fit-content;
-  border-radius: 10px;
-  &:focus,
-  &:hover {
-    outline: 1px solid var(--color-advanced);
-    &:hover {
-      background-color: var(--color-advanced);
-      color: var(--color-primary-1);
-    }
-  }
 `;

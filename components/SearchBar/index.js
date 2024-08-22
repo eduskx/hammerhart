@@ -57,7 +57,7 @@ const StyledSearchBar = styled.input`
   font-size: 0.8rem;
   padding-left: 10px;
   &::placeholder {
-    color: #536f5f80;
+    color: var(--color-primary-2-light);
   }
   &:focus {
     outline-offset: -3px;

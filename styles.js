@@ -27,7 +27,7 @@ export default createGlobalStyle`
     background-color: var(--color-primary-1);
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h4, h5, h6, label {
     font-family: ${grandstander.style.fontFamily};
     word-break: break-word;
     line-height: 1.6rem;
@@ -54,6 +54,7 @@ export default createGlobalStyle`
     /* Colors */
     --color-primary-1: #F9F5EB;
     --color-primary-2: #536F5F;
+    --color-primary-2-light: #536f5f80;
     --color-primary-3: #324339;
 
 
@@ -73,9 +74,12 @@ export default createGlobalStyle`
    --color-font-3:#403A34;
    --color-font-light: #F5EEDC;
 
+
     /* Shadows */
     --box-shadow-1: 2px -2px 4px 0px rgba(0,0,0,0.4);
     --box-shadow-2: 4px 4px 4px 0px rgba(0,0,0,0.4);
+    --box-shadow-form-1: 0px 2px 2px 1px rgba(0,0,0,0.4);
+    --box-shadow-form-2: 0px -2px 2px 1px rgba(0,0,0,0.4);
     --inner-shadow-1: inset -4px 4px 4px 0px rgba(0,0,0,0.4);
     --inner-shadow-2: inset 0px -4px 4px 0px rgba(0,0,0,0.4);
     }

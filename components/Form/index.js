@@ -16,9 +16,6 @@ export default function Form({
 }) {
   let formRef = useRef(null);
 
-  const $secondDesign = false;
-  const $thirdDesign = false;
-
   const [imagePreview, setImagePreview] = useState(null);
   const [characterCounter, setCharacterCounter] = useState(
     250 - defaultData?.description.length || 250
@@ -90,22 +87,21 @@ export default function Form({
       </StyledHeaderContainer>
 
       {/* Main section */}
-      <StyledMainContainer $secondDesign={$secondDesign}>
-        <label htmlFor="title"></label>
+      <StyledMainContainer>
+        <StyledLabel htmlFor="title">Project Title *</StyledLabel>
         <StyledTextInput
           required
           id="title"
           name="title"
           type="text"
-          placeholder="Project title"
+          placeholder="Enter project title..."
           defaultValue={defaultData?.title}
           maxLength={50}
-          $thirdDesign={$thirdDesign}
         />
 
         {/* Image Upload */}
-
-        <StyledImageContainer $thirdDesign={$thirdDesign}>
+        <StyledTitle>Upload Image</StyledTitle>
+        <StyledImageContainer $imageUploaded={imagePreview ? true : false}>
           <StyledImageLabel
             htmlFor="imageUrl"
             $imageUploaded={imagePreview ? true : false}
@@ -130,41 +126,37 @@ export default function Form({
           )}
         </StyledImageContainer>
 
-        <label htmlFor="duration"></label>
+        <StyledLabel htmlFor="duration">Duration *</StyledLabel>
         <StyledTextInput
           required
           id="duration"
           name="duration"
           type="text"
-          placeholder="Duration"
+          placeholder="Example: 1 day"
           defaultValue={defaultData?.duration}
-          $thirdDesign={$thirdDesign}
         />
 
-        <label htmlFor="complexity"></label>
-        <StyledDropdown
-          required
-          id="complexity"
-          name="complexity"
-          defaultValue={defaultData?.complexity}
-          $thirdDesign={$thirdDesign}
-        >
-          <StyledOption $thirdDesign={$thirdDesign} value="">
-            Please select a complexity level
-          </StyledOption>
-          <StyledOption $thirdDesign={$thirdDesign} value="Beginner">
-            Beginner
-          </StyledOption>
-          <StyledOption $thirdDesign={$thirdDesign} value="Intermediate">
-            Intermediate
-          </StyledOption>
-          <StyledOption $thirdDesign={$thirdDesign} value="Advanced">
-            Advanced
-          </StyledOption>
-        </StyledDropdown>
+        <StyledComplexityWrapper>
+          <StyledLabel htmlFor="complexity">Complexity *</StyledLabel>
+          <StyledDropdown
+            required
+            id="complexity"
+            name="complexity"
+            defaultValue={defaultData?.complexity}
+          >
+            <StyledOption value="">
+              Please select a complexity level
+            </StyledOption>
+            <StyledOption value="Beginner">Beginner</StyledOption>
+            <StyledOption value="Intermediate">Intermediate</StyledOption>
+            <StyledOption value="Advanced">Advanced</StyledOption>
+          </StyledDropdown>
+        </StyledComplexityWrapper>
 
         <StyledDynamicInputWrapper>
-          <StyledTitle $thirdDesign={$thirdDesign}>Materials</StyledTitle>
+          <StyledTitle>
+            {materialFields.length === 0 ? "Materials" : "Materials *"}
+          </StyledTitle>
           <DynamicInputFields
             label="Material"
             inputFields={materialFields}
@@ -176,7 +168,9 @@ export default function Form({
         </StyledDynamicInputWrapper>
 
         <StyledDynamicInputWrapper>
-          <StyledTitle>Steps</StyledTitle>
+          <StyledTitle>
+            {stepFields.length === 0 ? "Steps" : "Steps *"}
+          </StyledTitle>
           <DynamicInputFields
             label="Step"
             inputFields={stepFields}
@@ -188,17 +182,16 @@ export default function Form({
         </StyledDynamicInputWrapper>
 
         <DescriptionWrapper>
-          <label htmlFor="description"></label>
+          <StyledLabel htmlFor="description">Description</StyledLabel>
           <StyledTextarea
             id="description"
             name="description"
-            placeholder="Description"
+            placeholder="Enter description..."
             rows={7}
             cols={30}
             maxLength={250}
             onChange={handleChangeCharactersLeft}
             defaultValue={defaultData?.description}
-            $thirdDesign={$thirdDesign}
           />
           <StyledDescriptionCounter>{`${characterCounter} characters left`}</StyledDescriptionCounter>
         </DescriptionWrapper>
@@ -212,19 +205,20 @@ export default function Form({
   );
 }
 
+const StyledDivider = styled.div``;
+
 const StyledForm = styled.form`
-  @media screen and (min-width: 640px) {
-    width: 640px;
-  }
-  color: var(--color-font-light);
-  border-radius: 30px 30px 0 0;
-  width: 100vw;
+  color: var(--color-primary-2);
+  border-radius: 30px;
   height: 90%;
   display: flex;
   flex-direction: column;
   z-index: 150;
   overflow: hidden;
-  position: relative;
+  position: absolute;
+  margin-bottom: 8px;
+  width: 95vw;
+  max-width: 500px;
 `;
 
 const StyledHeaderContainer = styled.div`
@@ -235,7 +229,7 @@ const StyledHeaderContainer = styled.div`
   padding: 24px 16px 16px 16px;
   background: var(--color-primary-2);
   height: 80px;
-  box-shadow: var(--box-shadow-2);
+  box-shadow: var(--box-shadow-form-1);
   z-index: 2;
 `;
 
@@ -256,7 +250,7 @@ const StyledCloseButton = styled.div`
 
 const StyledMainContainer = styled.main`
   height: 100%;
-  padding: 16px;
+  padding: 16px 48px;
   background: var(--color-primary-1);
   overflow-y: scroll;
   scrollbar-width: none;
@@ -265,78 +259,48 @@ const StyledMainContainer = styled.main`
     width: 0;
     height: 0;
   }
-  ${(props) =>
-    props.$secondDesign &&
-    css`
-      background-color: var(--color-primary-3);
-    `}
 `;
 
 const StyledTextInput = styled.input`
   min-height: 35px;
-  width: 80%;
+  width: 100%;
   background-color: var(--color-primary-1);
   color: var(--color-primary-2);
   border: 2px solid var(--color-primary-2);
   padding: 8px;
   border-radius: 10px;
+  margin-bottom: 24px;
   &:focus {
-    border: 3px solid var(--color-primary-2);
+    outline-offset: -3px;
+    outline: 2px solid var(--color-primary-2);
   }
   &::placeholder {
-    color: var(--color-font-2);
+    color: var(--color-primary-2-light);
     opacity: 1; /* Firefox */
   }
   &::-ms-input-placeholder {
     /* Edge 12 -18 */
-    color: var(--color-font-2);
+    color: var(--color-primary-2-light);
   }
-  ${(props) =>
-    props.$thirdDesign &&
-    css`
-      background-color: var(--color-primary-2);
-      color: var(--color-primary-1);
-      &::placeholder {
-        color: var(--color-font-1);
-        opacity: 1; /* Firefox */
-      }
-      &::-ms-input-placeholder {
-        /* Edge 12 -18 */
-        color: var(--color-font-1);
-      }
-    `}
 `;
 
 const StyledImageContainer = styled.div`
-  width: 60%;
+  width: 100%;
   height: 200px;
   background: var(--color-primary-1);
   color: var(--color-primary-2);
-  margin: 16px 0;
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--color-primary-2);
+  border: 2px dashed var(--color-primary-2);
   border-radius: 10px;
   position: relative;
   overflow: hidden;
-  &:focus,
-  &:hover {
-    border: 2px dashed var(--color-primary-2);
-  }
   ${(props) =>
-    props.$thirdDesign &&
+    props.$imageUploaded &&
     css`
-      background-color: var(--color-primary-2);
-      color: var(--color-primary-1);
-      &::placeholder {
-        color: var(--color-font-1);
-        opacity: 1; /* Firefox */
-      }
-      &::-ms-input-placeholder {
-        /* Edge 12 -18 */
-        color: var(--color-font-1);
-      }
+      border: 2px solid var(--color-primary-2);
     `}
 `;
 
@@ -363,8 +327,13 @@ const StyledPreviewImage = styled(Image)`
   height: 100%;
 `;
 
+const StyledComplexityWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+`;
+
 const StyledDropdown = styled.select`
-  margin: 16px 0;
   padding: 8px;
   width: fit-content;
   border: none;
@@ -373,61 +342,37 @@ const StyledDropdown = styled.select`
   border-radius: 10px;
   border: 2px solid var(--color-primary-2);
   &:focus {
-    border: 3px solid var(--color-primary-2);
+    outline-offset: -3px;
+    outline: 2px solid var(--color-primary-2);
   }
-  ${(props) =>
-    props.$thirdDesign &&
-    css`
-      background-color: var(--color-primary-2);
-      color: var(--color-primary-1);
-      &::placeholder {
-        color: var(--color-font-1);
-        opacity: 1; /* Firefox */
-      }
-      &::-ms-input-placeholder {
-        /* Edge 12 -18 */
-        color: var(--color-font-1);
-      }
-    `}
 `;
 
 const StyledOption = styled.option`
   background-color: var(--color-primary-1);
   color: var(--color-primary-2);
-  ${(props) =>
-    props.$thirdDesign &&
-    css`
-      background-color: var(--color-primary-2);
-      color: var(--color-primary-1);
-      &::placeholder {
-        color: var(--color-font-1);
-        opacity: 1; /* Firefox */
-      }
-      &::-ms-input-placeholder {
-        /* Edge 12 -18 */
-        color: var(--color-font-1);
-      }
-    `}
 `;
 
 const StyledTitle = styled.h3`
   color: var(--color-primary-2);
-  font-size: 20px;
-  padding-bottom: 8px;
+  font-size: 18px;
 `;
+
+const StyledLabel = styled(StyledTitle)``;
 
 const StyledDynamicInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 16px;
+  margin-bottom: 16px;
 `;
 
 const DescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding-top: 8px;
 `;
 
 const StyledTextarea = styled.textarea`
+  width: 100%;
   overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -440,41 +385,28 @@ const StyledTextarea = styled.textarea`
   border: 2px solid var(--color-primary-2);
   padding: 8px;
   &:focus {
-    border: 3px solid var(--color-primary-2);
+    outline-offset: -3px;
+    outline: 2px solid var(--color-primary-2);
   }
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
   }
   &::placeholder {
-    color: var(--color-font-2);
+    color: var(--color-primary-2-light);
     opacity: 1; /* Firefox */
   }
   &::-ms-input-placeholder {
     /* Edge 12 -18 */
-    color: var(--color-font-2);
+    color: var(--color-primary-2-light);
   }
-  ${(props) =>
-    props.$thirdDesign &&
-    css`
-      background-color: var(--color-primary-2);
-      color: var(--color-primary-1);
-      &::placeholder {
-        color: var(--color-font-1);
-        opacity: 1; /* Firefox */
-      }
-      &::-ms-input-placeholder {
-        /* Edge 12 -18 */
-        color: var(--color-font-1);
-      }
-    `}
 `;
 
 const StyledDescriptionCounter = styled.p`
   color: ${(prop) =>
     prop.children === "0 characters left"
-      ? "var(--color-font-1)"
-      : "var(--color-primary-1)"};
+      ? "var(--color-primary-2-light)"
+      : "var(--color-primary-2)"};
   animation: ${(props) =>
     props.children === "0 characters left" ? "shake 0.5s" : null};
   @keyframes shake {
@@ -504,7 +436,7 @@ const StyledFooterContainer = styled.div`
   padding: 16px;
   background: var(--color-primary-2);
   z-index: 2;
-  box-shadow: var(--box-shadow-1);
+  box-shadow: var(--box-shadow-form-2);
   height: 80px;
 `;
 
@@ -526,15 +458,3 @@ const StyledSubmitButton = styled.button`
     }
   }
 `;
-
-// ////////////////////////////////////////////////////////////
-
-const StyledImagePreviewWrapper = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: stretch;
-  justify-content: space-between;
-  margin: 1rem 0;
-`;
-
-export { StyledTextInput };
