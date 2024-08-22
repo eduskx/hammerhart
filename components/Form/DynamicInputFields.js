@@ -74,14 +74,12 @@ const StyledAddButton = styled.button`
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  @media screen and (min-width: 1200px) {
+  &:hover {
+    outline-offset: -3px;
+    outline: 2px solid var(--color-primary-2);
     &:hover {
-      outline-offset: -3px;
-      outline: 2px solid var(--color-primary-2);
-      &:hover {
-        background-color: var(--color-primary-1);
-        color: var(--color-primary-2);
-      }
+      background-color: var(--color-primary-1);
+      color: var(--color-primary-2);
     }
   }
 `;

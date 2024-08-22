@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 import { useState, useRef } from "react";
 import DynamicInputFields from "./DynamicInputFields";
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose, IoMdImages } from "react-icons/io";
+import { FaRegTrashAlt } from "react-icons/fa";
 import Image from "next/image";
 import { nanoid } from "nanoid";
-import { IoMdImages } from "react-icons/io";
 
 export default function Form({
   onToggleForm,
@@ -72,6 +72,10 @@ export default function Form({
     setCharacterCounter(event.target.maxLength - event.target.value.length);
   }
 
+  function handleDeleteImage() {
+    setImagePreview(null);
+  }
+
   return (
     <StyledForm ref={formRef} onSubmit={onEditSubmit || handleSubmit}>
       {/* Header section */}
@@ -101,73 +105,75 @@ export default function Form({
         />
 
         {/* Image Upload */}
-        <StyledTitle>Upload Image</StyledTitle>
-        <StyledImageContainer $imageUploaded={imagePreview ? true : false}>
-          {isEditMode && !imagePreview && defaultData?.imageUrl && (
-            <StyledPreviewImage
-              alt="preview image"
-              src={defaultData.imageUrl}
-              width={100}
-              height={100}
-              unoptimized={true}
+        <StyledImageInputWrapper>
+          <StyledTitle>Upload Image</StyledTitle>
+          <StyledImageContainer
+            $imageUploaded={
+              imagePreview || defaultData?.imageUrl ? true : false
+            }
+          >
+            {!imagePreview && (
+              <StyledImageLabel htmlFor="imageUrl">
+                <IoMdImages size={32} />
+              </StyledImageLabel>
+            )}
+            <StyledImageUploadInput
+              id="imageUrl"
+              name="imageUrl"
+              type="file"
+              accept="image/*"
+              onChange={handleChangeImage}
             />
-          )}
 
-          {!imagePreview && (
-            <StyledImageLabel
-              htmlFor="imageUrl"
-              $imageUploaded={
-                imagePreview || defaultData?.imageUrl ? true : false
-              }
-            >
-              <IoMdImages size={32} />
-            </StyledImageLabel>
-          )}
-
-          {imagePreview && (
-            <StyledDeleteImageButton type="button" onClick>
-              <IoMdClose size={32} />
+            {imagePreview && (
+              <StyledPreviewImage
+                alt="preview image"
+                src={URL.createObjectURL(imagePreview)}
+                width={0}
+                height={0}
+              />
+            )}
+            {isEditMode && !imagePreview && defaultData?.imageUrl && (
+              <StyledPreviewImage
+                alt="preview image"
+                src={defaultData.imageUrl}
+                width={100}
+                height={100}
+                unoptimized={true}
+              />
+            )}
+          </StyledImageContainer>
+          {(imagePreview ||
+            (isEditMode && !imagePreview && defaultData?.imageUrl)) && (
+            <StyledDeleteImageButton type="button" onClick={handleDeleteImage}>
+              <FaRegTrashAlt size={16} /> Delete Image
             </StyledDeleteImageButton>
           )}
-
-          <StyledImageUploadInput
-            id="imageUrl"
-            name="imageUrl"
-            type="file"
-            accept="image/*"
-            onChange={handleChangeImage}
-          />
-          {imagePreview && (
-            <StyledPreviewImage
-              alt="preview image"
-              src={URL.createObjectURL(imagePreview)}
-              width={0}
-              height={0}
-            />
-          )}
-        </StyledImageContainer>
+        </StyledImageInputWrapper>
 
         <StyledDurationWrapper>
           <StyledLabel htmlFor="durationNumber">Duration *</StyledLabel>
-          <StyledDurationInput
-            required
-            id="durationNumber"
-            name="durationNumber"
-            type="number"
-            placeholder="99"
-            defaultValue={defaultData?.durationNumber}
-          />
-          <StyledDurationDropdown
-            required
-            id="durationString"
-            name="durationString"
-            defaultValue={defaultData?.durationString}
-          >
-            <StyledOption value="">Please select a duration</StyledOption>
-            <StyledOption value="minutes">Minutes</StyledOption>
-            <StyledOption value="hours">Hours</StyledOption>
-            <StyledOption value="days">Days</StyledOption>
-          </StyledDurationDropdown>
+          <div style={{ height: "fit-content" }}>
+            <StyledDurationInput
+              required
+              id="durationNumber"
+              name="durationNumber"
+              type="number"
+              placeholder="99"
+              defaultValue={defaultData?.durationNumber}
+            />
+            <StyledDurationDropdown
+              required
+              id="durationString"
+              name="durationString"
+              defaultValue={defaultData?.durationString}
+            >
+              <StyledOption value="">Please select a duration</StyledOption>
+              <StyledOption value="minutes">Minutes</StyledOption>
+              <StyledOption value="hours">Hours</StyledOption>
+              <StyledOption value="days">Days</StyledOption>
+            </StyledDurationDropdown>
+          </div>
         </StyledDurationWrapper>
 
         <StyledComplexityWrapper>
@@ -240,25 +246,6 @@ export default function Form({
     </StyledForm>
   );
 }
-
-const StyledDeleteImageButton = styled.button`
-  background-color: var(--color-secondary-1);
-  color: var(--color-primary-2);
-  padding: 4px;
-  border-radius: 10px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:hover {
-    color: var(--color-advanced);
-    background-color: var(--color-secondary-1);
-  }
-`;
 
 const StyledDivider = styled.div``;
 
@@ -338,12 +325,18 @@ const StyledTextInput = styled.input`
   }
 `;
 
+const StyledImageInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+`;
+
 const StyledImageContainer = styled.div`
   width: 100%;
   height: 200px;
   background: var(--color-primary-1);
   color: var(--color-primary-2);
-  margin-bottom: 24px;
+  margin-bottom: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -354,8 +347,29 @@ const StyledImageContainer = styled.div`
   ${(props) =>
     props.$imageUploaded &&
     css`
-      border: 2px solid var(--color-primary-2);
+      border: 3px solid var(--color-primary-2);
     `}
+`;
+
+const StyledDeleteImageButton = styled.button`
+  background-color: var(--color-primary-2);
+  color: var(--color-primary-1);
+  border-radius: 10px;
+  z-index: 0;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 4px;
+  &:hover {
+    color: var(--color-font-2);
+    background-color: var(--color-secondary-1);
+    outline-offset: -3px;
+    outline: 2px solid var(--color-primary-2);
+  }
 `;
 
 const StyledImageLabel = styled.label`
@@ -364,14 +378,15 @@ const StyledImageLabel = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${(props) =>
-    props.$imageUploaded &&
-    css`
-      background-color: var(--color-primary-2);
-      color: var(--color-primary-1);
-      padding: 4px;
-      border-radius: 10px;
-    `}
+  padding: 4px;
+  border-radius: 10px;
+  background-color: var(--color-primary-2);
+  color: var(--color-primary-1);
+  &:hover {
+    background-color: var(--color-primary-1);
+    color: var(--color-primary-2);
+    border: 2px solid var(--color-primary-2);
+  }
 `;
 
 const StyledImageUploadInput = styled.input`
@@ -385,14 +400,14 @@ const StyledPreviewImage = styled(Image)`
 `;
 
 const StyledDurationWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  margin-bottom: 26px;
 `;
 
 const StyledDurationInput = styled(StyledTextInput)`
   width: 15%;
   text-align: center;
   height: 37px;
+  margin-bottom: 0;
   border-radius: 10px 0 0 10px;
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
@@ -405,7 +420,6 @@ const StyledDropdown = styled.select`
   align-self: flex-start;
   padding: 8px;
   width: fit-content;
-  border: none;
   color: var(--color-primary-2);
   background: var(--color-primary-1);
   border-radius: 10px;
