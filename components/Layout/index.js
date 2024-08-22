@@ -1,10 +1,9 @@
 import Header from "@/components/Header";
 
-
-const Layout = ({ children }) => {
+const Layout = ({ children, onSearch }) => {
   return (
     <>
-      <Header/>
+      <Header onSearch={onSearch} />
       <main>{children}</main>
     </>
   );

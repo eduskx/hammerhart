@@ -5,9 +5,18 @@ export default function ProjectsList({
   projects,
   onToggleBookmark,
   searchInput,
+  activeFilter,
+  bookmarkedList,
 }) {
+  if (
+    (!projects && bookmarkedList) ||
+    (projects.length === 0 && bookmarkedList)
+  ) {
+    return <h2>You don't have any bookmarked projects</h2>;
+  }
+
   if (!projects || projects.length === 0) {
-    return <h1>No projects found. Please create new ones.</h1>;
+    return <h2>No projects found. Please create new ones.</h2>;
   }
 
   const searchedProjects = projects.filter((project) => {
@@ -21,13 +30,19 @@ export default function ProjectsList({
     }
   });
 
-  if (searchedProjects.length === 0) {
+  const searchedAndFilteredProjects =
+    activeFilter === "All"
+      ? searchedProjects
+      : searchedProjects.filter(
+          (project) => project.complexity === activeFilter
+        );
+
+  if (searchedAndFilteredProjects.length === 0) {
     return <StyledNoSearchResults>No projects found</StyledNoSearchResults>;
   }
-
   return (
     <StyledUl>
-      {searchedProjects.map((project) => (
+      {searchedAndFilteredProjects.map((project) => (
         <li key={project.id}>
           <ProjectCard project={project} onToggleBookmark={onToggleBookmark} />
         </li>
@@ -36,18 +51,22 @@ export default function ProjectsList({
   );
 }
 
+
 const StyledUl = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 30px;
   list-style: none;
-  padding: 2rem;
-  margin: 0;
+  margin-top: 30px;
+  padding-bottom: 30px;
+  @media screen and (min-width: 1275px) {
+    padding: 0 10% 30px 10%;
+  }
 `;
 
 const StyledNoSearchResults = styled.p`
-  color: white;
-  padding: 1rem;
+  color: black;
+  padding: 16px;
   text-align: center;
 `;

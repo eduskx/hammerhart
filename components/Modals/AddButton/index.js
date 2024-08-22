@@ -16,7 +16,7 @@ export default function AddButton({
         $isFormOpen={isFormOpen}
         onClick={onToggleForm}
       >
-        <IoMdAdd size={32} />
+        Create a Project <IoMdAdd size={28} />
       </StyledAddButton>
       {isFormOpen && (
         <ModalContent
@@ -30,15 +30,19 @@ export default function AddButton({
 }
 
 const StyledAddButton = styled.button`
-  position: fixed;
-  bottom: 10%;
-  right: 10%;
-  z-index: 100000;
-  padding: 0.5rem;
-  border: 2px solid white;
-  border-radius: 50%;
-  background-color: #6f5a51;
-  color: white;
+  all: unset;
+  display: flex;
   cursor: pointer;
-  display: ${({ $isFormOpen }) => ($isFormOpen ? "none" : "inline")};
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  gap: 4px;
+  width: 180px;
+  height: 35px;
+  color: var(--color-primary-2);
+  background-color: var(--color-primary-1);
+  border-radius: 10px;
+  box-shadow: var(--box-shadow-2);
+  margin-bottom: 50px;
+  z-index: 110;
 `;
