@@ -43,6 +43,7 @@ const StyledFilterButton = styled.button`
   border-radius: 10px;
   background-color: var(--color-primary-2);
   transition: transform 0.2s ease-in;
+  cursor: pointer;
   &:focus,
   &:hover {
     outline-offset: -2px;

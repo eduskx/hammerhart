@@ -1,9 +1,8 @@
 import FilterButtons from "@/components/FilterButtons";
-import Layout from "@/components/Layout";
 import ProjectsList from "@/components/ProjectsList";
 import SearchBar from "@/components/SearchBar";
 import Sliders from "@/public/svg/Sliders.svg";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export default function BookmarkPage({
   projects,
@@ -20,16 +19,16 @@ export default function BookmarkPage({
     (project) => project.isFavorite === true
   );
   return (
-    <>
-      <Layout isBookmark={true} />
-      <PageWrapper>
-        <UpperWrapper>
-          <BookmarkHeader>My Projects</BookmarkHeader>
-          <StyledPattern />
-
+    <StyledPageWrapper>
+      <StyledUpperWrapper>
+        <StyledProjectsWrapper>
           <StyledToggleSearchWrapper>
+            <StyledBookmarkHeader>My Projects</StyledBookmarkHeader>
             <SearchBar onSearch={onSearch} $isNotMobile />
-            <StyledFilterToggleButton onClick={onToggleDisplayFilter}>
+            <StyledFilterToggleButton
+              onClick={onToggleDisplayFilter}
+              $filterOn={filterOn}
+            >
               <StyledSliders fill="currentColor" />
             </StyledFilterToggleButton>
           </StyledToggleSearchWrapper>
@@ -40,48 +39,62 @@ export default function BookmarkPage({
             activeFilter={activeFilter}
             filterOn={filterOn}
           />
-        </UpperWrapper>
-        <SeperatorLine />
-        <ProjectsList
-          projects={bookmarkedProjects}
-          onToggleBookmark={onToggleBookmark}
-          searchInput={searchInput}
-          activeFilter={activeFilter}
-          bookmarkedList
-        />
-      </PageWrapper>
-    </>
+        </StyledProjectsWrapper>
+      </StyledUpperWrapper>
+      <StyledDivider />
+      <ProjectsList
+        projects={bookmarkedProjects}
+        onToggleBookmark={onToggleBookmark}
+        searchInput={searchInput}
+        activeFilter={activeFilter}
+        bookmarkedList
+      />
+    </StyledPageWrapper>
   );
 }
 
-const PageWrapper = styled.div`
+const StyledProjectsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 100px;
+  @media screen and (min-width: 640px) {
+    flex-direction: row;
+    padding-top: 0;
+  }
+  @media screen and (min-width: 1275px) {
+    flex-direction: row;
+  }
+`;
+
+const StyledPageWrapper = styled.div`
   @media screen and (min-width: 640px) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 120px;
+    margin-top: 140px;
   }
 `;
 
-const SeperatorLine = styled.hr`
-  display: none;
-  @media screen and (min-width: 640px) {
-    display: inherit;
-    height: 5px;
-    background-color: var(--color-primary-2);
-    width: 85%;
-    margin-bottom: 40px;
-    border-radius: 10px;
-  }
+const StyledDivider = styled.div`
+  display: inherit;
+  height: 3px;
+  background-color: var(--color-primary-2);
+  width: 80%;
+  margin-bottom: 40px;
+  border-radius: 6px;
+  margin: 5px 10%;
 `;
 
-const UpperWrapper = styled.section`
+const StyledUpperWrapper = styled.section`
   @media screen and (min-width: 640px) {
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
     gap: 30px;
-    width: 85%;
+    width: 100%;
+    padding: 0 10%;
   }
 `;
 
@@ -110,29 +123,28 @@ const StyledFilterToggleButton = styled.button`
   color: var(--color-primary-1);
   border: none;
   background-color: var(--color-primary-2);
-`;
-
-const BookmarkHeader = styled.h1`
-  padding: 100px 16px 0 16px;
-  color: var(--color-primary-2);
-  text-align: center;
-  @media screen and (min-width: 768px) {
-    text-align: center;
-    padding: 0;
-    margin: 0;
+  cursor: pointer;
+  ${(props) =>
+    props.$filterOn &&
+    css`
+      outline-offset: -2px;
+      outline: 2px solid var(--color-primary-2);
+      background-color: var(--color-primary-1);
+      color: var(--color-primary-2);
+      transform: translateY(-3px);
+    `}
+  @media screen and (min-width: 1275px) {
+    &:hover {
+      outline-offset: -2px;
+      outline: 2px solid var(--color-primary-2);
+      transform: translateY(-3px);
+      background-color: var(--color-primary-1);
+      color: var(--color-primary-2);
+    }
   }
 `;
 
-const StyledPattern = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("./svg/backgroundImage_green.svg");
-  background-repeat: repeat;
-  background-attachment: local;
-  background-color: var(--color-primary-1);
-  opacity: 0.4;
-  z-index: -1;
+const StyledBookmarkHeader = styled.h1`
+  color: var(--color-primary-2);
+  white-space: nowrap;
 `;

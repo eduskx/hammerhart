@@ -152,27 +152,12 @@ const StyledFilterToggleButton = styled.button`
   width: 30px;
   height: 27px;
   border-radius: 10px;
-  color: ${({ $filterOn }) =>
-    $filterOn ? "var(--color-primary-1)" : "var(--color-primary-2)"};
   color: var(--color-primary-1);
   border: none;
-  background-color: ${({ $filterOn }) =>
-    $filterOn ? "var(--color-primary-2)" : "var(--color-primary-1)"};
-  outline-offset: ${({ $filterOn }) => ($filterOn ? "none" : "-2px")};
-  outline: ${({ $filterOn }) =>
-    $filterOn ? "none" : "2px solid var(--color-primary-2)"};
-  transform: ${({ $filterOn }) => ($filterOn ? "none" : "translateY(-3px);")};
   background-color: var(--color-primary-2);
   z-index: 10;
   transition: transform 0.2s ease-in;
-  &:focus,
-  &:hover {
-    outline-offset: -2px;
-    outline: 2px solid var(--color-primary-2);
-    transform: translateY(-3px);
-    background-color: var(--color-primary-1);
-    color: var(--color-primary-2);
-  }
+  cursor: pointer;
   ${(props) =>
     props.$filterOn &&
     css`

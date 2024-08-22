@@ -173,7 +173,7 @@ const StyledMobileNavList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: end;
-  gap: 1rem;
+  gap: 16px;
   list-style: none;
   padding-right: 25px;
   z-index: 3;
@@ -181,9 +181,8 @@ const StyledMobileNavList = styled.ul`
 const StyledNavList = styled.ul`
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 20px;
   list-style: none;
-  padding-right: 25px;
   z-index: 3;
 `;
 
@@ -217,9 +216,10 @@ const StyledNavBar = styled.div`
   top: 0;
   width: 100%;
   height: 80px;
-  background-color: var(--color-primary-1);
+  background-color: ${({ isBookmarkPage }) =>
+    isBookmarkPage ? "var(--color-primary-2)" : "var(--color-primary-1)"};
   border-radius: 0 0 10px 10px;
-  padding: 0 25px;
+  padding: 0 10%;
   box-shadow: var(--box-shadow-2);
   z-index: 111;
 `;
@@ -269,5 +269,8 @@ const StyledListElements = styled.a`
   &:hover {
     transition: all 0.5s ease-in-out;
     transform: scale(1.1);
+  }
+  @media screen and (min-width: 640px) {
+    font-size: 1.1rem;
   }
 `;
