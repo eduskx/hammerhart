@@ -7,7 +7,7 @@ export default function BookmarkPage({ projects, onToggleBookmark }) {
   );
 
   if (!bookmarkedProjects || bookmarkedProjects.length === 0) {
-    return <h1>You don&apos;t have any bookmarked projects</h1>;
+    return <h1>You don't have any bookmarked projects</h1>;
   }
 
   return (

@@ -42,7 +42,7 @@ export default function FilterList({
       </StyledButtonWrapper>
       {filteredProjects.length === 0 ? (
         <StyledEmptyMessage>
-          &quot;No {activeFilter} projects available!&quot;
+          "No {activeFilter} projects available!";
         </StyledEmptyMessage>
       ) : (
         <ProjectsList

@@ -31,7 +31,7 @@ export default function HighlightedProject({ projects, onToggleBookmark }) {
     );
     setRandomProject(updatedProject);
     randomProjectRef.current = updatedProject;
-  }, [projects, setRandomProject]);
+  }, [projects]);
 
   if (!randomProject) {
     return <StyledTitle>Highlighted Project is not available</StyledTitle>;
