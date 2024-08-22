@@ -237,7 +237,6 @@ const StyledForm = styled.form`
   z-index: 150;
   overflow: hidden;
   position: absolute;
-  margin-bottom: 8px;
   width: 95vw;
   max-width: 500px;
 `;

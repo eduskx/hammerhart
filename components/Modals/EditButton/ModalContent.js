@@ -29,5 +29,5 @@ const StyledContainer = styled.div`
   background-color: hsl(0, 0%, 0%, 80%);
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
 `;
