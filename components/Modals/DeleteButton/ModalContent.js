@@ -8,7 +8,7 @@ export default function ModalContent({ onClose, onDelete }) {
       </StyledConfirmationText>
       <StyledButtonsContainer>
         <StyledButton type="button" onClick={onClose}>
-          Cancel
+          No
         </StyledButton>
         <StyledButton type="button" onClick={onDelete}>
           Yes
