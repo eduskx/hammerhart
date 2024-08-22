@@ -1,7 +1,5 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { RiArrowGoBackFill } from "react-icons/ri";
 import styled from "styled-components";
 import DeleteButton from "@/components/Modals/DeleteButton";
 import BookmarkButton from "@/components/BookmarkButton";
@@ -58,9 +56,6 @@ export default function ProjectDetailsPage({
   return (
     <>
       <StyledDetailsWrapper>
-        {/*     <StyledLink href="/">
-          <RiArrowGoBackFill /> Back
-        </StyledLink> */}
         <StyledImageWrapper>
           <BookmarkButton
             onToggleBookmark={() => onToggleBookmark(id)}
@@ -76,7 +71,6 @@ export default function ProjectDetailsPage({
           />
           <Styledtitle>{title}</Styledtitle>
         </StyledImageWrapper>
-
         <StyledDescription>{description}</StyledDescription>
         <StyledDivider />
         <StyledDurationComplexityWrapper>
@@ -87,8 +81,8 @@ export default function ProjectDetailsPage({
         </StyledDurationComplexityWrapper>
         <StyledDivider />
         <StyledCollapsible
-          trigger="MATERIALS NEEDED:"
-          triggerWhenOpen="MATERIALS NEEDED:"
+          trigger="MATERIALS NEEDED ▼"
+          triggerWhenOpen="MATERIALS NEEDED ▲"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
@@ -96,26 +90,28 @@ export default function ProjectDetailsPage({
           {materials.length === 0 ? (
             <h2>No Materials found. Please add new ones.</h2>
           ) : (
-            <StyledMaterialsList>
+            <ul>
               {materials.map((material) => (
-                <li key={material.id}>
-                  <input
+                <StyledCheckboxWrapper key={material.id}>
+                  <StyledCheckbox
                     type="checkbox"
                     checked={material.isChecked}
                     onChange={() => onCheckbox(material.id, id, "materials")}
                     aria-checked={material.isChecked}
                     aria-label={`Select ${material.description}`}
                   />
-                  {material.description}
-                </li>
+                  <StyledLabel htmlFor={`material-${material.id}`}>
+                    {material.description}
+                  </StyledLabel>
+                </StyledCheckboxWrapper>
               ))}
-            </StyledMaterialsList>
+            </ul>
           )}
         </StyledCollapsible>
         <StyledDivider />
         <StyledCollapsible
-          trigger="INSTRUCTIONS"
-          triggerWhenOpen="INSTRUCTIONS"
+          trigger="INSTRUCTIONS ▼"
+          triggerWhenOpen="INSTRUCTIONS ▲"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
@@ -123,20 +119,22 @@ export default function ProjectDetailsPage({
           {steps.length === 0 ? (
             <h2>No Instructions found. Please add new ones.</h2>
           ) : (
-            <StyledInstructionsList>
+            <ol>
               {steps.map((step) => (
-                <li key={step.id}>
-                  <input
+                <StyledCheckboxWrapper key={step.id}>
+                  <StyledCheckbox
                     type="checkbox"
                     checked={step.isChecked}
                     onChange={() => onCheckbox(step.id, id, "steps")}
                     aria-checked={step.isChecked}
                     aria-label={`Select ${step.description}`}
                   />
-                  {step.description}
-                </li>
+                  <StyledLabel htmlFor={`step-${step.id}`}>
+                    {step.description}
+                  </StyledLabel>
+                </StyledCheckboxWrapper>
               ))}
-            </StyledInstructionsList>
+            </ol>
           )}
         </StyledCollapsible>
 
@@ -164,6 +162,7 @@ export default function ProjectDetailsPage({
             onProcessFormData={onProcessFormData}
           />
         </StyledButtonsWrapper>
+        <div></div>
       </StyledDetailsWrapper>
     </>
   );
@@ -177,6 +176,7 @@ const StyledDetailsWrapper = styled.div`
   padding: 120px 10%;
 
   @media screen and (min-width: 640px) {
+    padding: 120px 10%;
   }
 `;
 const StyledImage = styled(Image)`
@@ -191,7 +191,15 @@ const StyledImageWrapper = styled.div`
   justify-content: center;
   position: relative;
   width: 100%;
-  height: 160px;
+  height: 50%;
+  @media screen and (min-width: 640px) {
+    width: 80%;
+    height: 100%;
+  }
+  @media screen and (min-width: 1000px) {
+    width: 80%;
+    height: 300px;
+  }
 `;
 const Styledtitle = styled.h2`
   position: absolute;
@@ -202,7 +210,7 @@ const Styledtitle = styled.h2`
   background-color: var(--color-primary-2);
   border-radius: 10px;
   border: 2px solid var(--color-primary-1);
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding: 13px 15px 8px 15px;
   @media screen and (min-width: 640px) {
     font-size: 2rem;
@@ -257,48 +265,68 @@ const StyledButtonsWrapper = styled.div`
   gap: 1rem;
   padding-bottom: 1rem;
 `;
-const StyledMaterialsList = styled.ul`
-  list-style-position: inside;
-  list-style-type: none;
-  text-align: start;
-  padding: 0;
-  margin: 0;
+
+const StyledCheckboxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 `;
 
-const StyledInstructionsList = styled.ol`
-  list-style-position: inside;
-  list-style-type: none;
-  padding: 0 1rem;
-  margin-bottom: 1rem;
-  text-align: start;
+const StyledCheckbox = styled.input`
+  /* Hide the default checkbox but keep it visible for debugging */
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--color-secondary-2);
+  border-radius: 10px;
+  background-color: var(--color-primary-1);
+  margin-right: 15px;
+  cursor: pointer;
+  position: relative;
+  padding: 13px;
 
-  @media screen and (min-width: 640px) {
-    list-style-position: inside;
-    padding: 0;
-    text-align: start;
+  &:checked {
+    background-color: var(--color-primary-1);
+    border-color: var(--color-primary-2);
+  }
+
+  &:checked::after {
+    content: "✔";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary-2);
+    font-size: 2rem;
+    position: absolute;
+    top: -13px;
+    left: 5px;
   }
 `;
 
-const StyledCollapsibleWrapper = styled.div`
-width: 100%;
+const StyledLabel = styled.label`
+  font-size: 1rem;
+  color: var(--color-primary-2);
+  cursor: pointer;
+`;
 
+const StyledCollapsibleWrapper = styled.div`
+  width: 90%;
+  color: var(--color-primary-2);
+  -webkit-tap-highlight-color: transparent;
 
   .Collapsible__trigger {
     display: flex;
     font-weight: 700;
-    color: var(--color-primary-2);
+    font-size: 1.3rem;
     width: 100%;
     cursor: pointer;
-
-
-    -webkit-tap-highlight-color: transparent;
   }
   .Collapsible__contentOuter {
-   
+    list-style-type: none;
+    text-align: start;
   }
   .Collapsible__contentInner {
-  
-    color: var(--color-primary-2);
-    font-weight: 400;
+    list-style-type: none;
+    padding: 20px 0;
   }
 `;

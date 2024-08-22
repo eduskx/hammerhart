@@ -27,7 +27,7 @@ export default createGlobalStyle`
     background-color: var(--color-primary-1);
   }
 
-  h1, h2, h3, h4, h5, h6,.Collapsible__trigger {
+  h1, h2, h3, h4, h5, h6,.Collapsible__trigger,.Collapsible__contentInner  {
     font-family: ${grandstander.style.fontFamily};
     word-break: break-word;
     line-height: 1.6rem;
@@ -54,7 +54,7 @@ export default createGlobalStyle`
 
     --color-secondary-1: #F9F5EBCC;
     --color-secondary-2: #a6b2a56b;
-    --color-secondary-3:#696057;
+    --color-secondary-3: #696057;
     
     --color-beginner: #67AC5B;
     --color-intermediate: #F7C244;
