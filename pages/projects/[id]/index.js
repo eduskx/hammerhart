@@ -93,7 +93,7 @@ export default function ProjectDetailsPage({
             <ul>
               {materials.map((material) => (
                 <StyledCheckboxWrapper key={material.id}>
-                  <StyledCheckbox
+                  <StyledCheckboxMaterial
                     type="checkbox"
                     checked={material.isChecked}
                     onChange={() => onCheckbox(material.id, id, "materials")}
@@ -122,7 +122,7 @@ export default function ProjectDetailsPage({
             <ol>
               {steps.map((step) => (
                 <StyledCheckboxWrapper key={step.id}>
-                  <StyledCheckbox
+                  <StyledCheckboxSteps
                     type="checkbox"
                     checked={step.isChecked}
                     onChange={() => onCheckbox(step.id, id, "steps")}
@@ -137,7 +137,6 @@ export default function ProjectDetailsPage({
             </ol>
           )}
         </StyledCollapsible>
-
         <StyledCollapsible
           trigger="ENTER YOUR NOTES BELOW:"
           triggerWhenOpen="ENTER YOUR NOTES BELOW:"
@@ -267,7 +266,7 @@ const StyledCheckboxWrapper = styled.div`
   cursor: pointer;
 `;
 
-const StyledCheckbox = styled.input`
+const StyledCheckboxMaterial = styled.input`
   /* Hide the default checkbox but keep it visible for debugging */
   appearance: none;
   width: 30px;
@@ -297,11 +296,13 @@ const StyledCheckbox = styled.input`
     left: 5px;
   }
 `;
-
+const StyledCheckboxSteps = styled(StyledCheckboxMaterial)``;
 const StyledLabel = styled.label`
   font-size: 1rem;
+  font-weight: 400;
   color: var(--color-primary-2);
   cursor: pointer;
+  padding: 3px;
 `;
 
 const StyledCollapsibleWrapper = styled.div`
@@ -319,10 +320,12 @@ const StyledCollapsibleWrapper = styled.div`
   .Collapsible__contentOuter {
     list-style-type: none;
     text-align: start;
+    
   }
   .Collapsible__contentInner {
     list-style-type: none;
     padding: 20px 0;
+   
   }
 `;
 
@@ -334,6 +337,7 @@ const DetailsDeleteEditButtonWrapper = styled.div`
   bottom: 0;
   background-color: var(--color-primary-2);
   z-index: 3;
+  box-shadow: var(--box-shadow-1);
 `;
 const StyledButtonsWrapper = styled.div`
   display: flex;

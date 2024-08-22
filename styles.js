@@ -53,7 +53,7 @@ export default createGlobalStyle`
 
 
     --color-secondary-1: #F9F5EBCC;
-    --color-secondary-2: #a6b2a56b;
+    --color-secondary-2: #75837481;
     --color-secondary-3: #696057;
     
     --color-beginner: #67AC5B;
@@ -67,8 +67,8 @@ export default createGlobalStyle`
 
 
     /* Shadows */
-    --box-shadow-1: 2px -2px 4px 0px rgba(0,0,0,0.4);
-    --box-shadow-2: 4px 4px 4px 0px rgba(0,0,0,0.4);
+    --box-shadow-1: 0px -4px 4px 0px rgba(0,0,0,0.4);
+    --box-shadow-2: 0px 4px 4px 0px rgba(0,0,0,0.4);
     --inner-shadow-1: inset -4px 4px 4px 0px rgba(0,0,0,0.4);
     --inner-shadow-2: inset 0px -4px 4px 0px rgba(0,0,0,0.4);
     }

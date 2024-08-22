@@ -35,8 +35,8 @@ const StyledButton = styled.button`
   ${(props) =>
     props.$isDetail &&
     css`
-      bottom: 100%;
-      left: 10%;
+   bottom:unset;
+   left:unset;
       top: 3px;
       right: 3px;
     `}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect,} from "react";
 import MenuIcon from "@/public/svg/menuIcon_new.svg";
 import MenuIconOpen from "@/public/svg/menuIconOpen_new.svg";
 import Facebook from "@/public/svg/facebook.svg";
@@ -15,7 +15,6 @@ export default function Header({ onSearch }) {
   const [isMobile, setIsMobile] = useState(false);
 
   const router = useRouter();
-  const { id } = router.query;
 
   const isBookmarkPage = router.pathname === "/bookmarks";
   const isDetailsPage = router.pathname.includes("/projects");
@@ -43,7 +42,10 @@ export default function Header({ onSearch }) {
   return (
     <StyledNavBar>
       <StyledAnchor href="/">
-        <StyledLogo $isBookmarkPage={isBookmarkPage} $isDetailsPage={isDetailsPage} />
+        <StyledLogo
+          $isBookmarkPage={isBookmarkPage}
+          $isDetailsPage={isDetailsPage}
+        />
       </StyledAnchor>
 
       {isMobile ? (
@@ -63,18 +65,24 @@ export default function Header({ onSearch }) {
           )}
           <StyledDropDownDiv
             $isMenuOpen={isMenuOpen}
-            $isBookmarkPage={isBookmarkPage}$isDetailsPage={isDetailsPage}
+            $isBookmarkPage={isBookmarkPage}
+            $isDetailsPage={isDetailsPage}
           >
             <StyledMobileNavList>
               <li>
-                <StyledListElements href="/" $isBookmarkPage={isBookmarkPage}$isDetailsPage={isDetailsPage}>
+                <StyledListElements
+                  href="/"
+                  $isBookmarkPage={isBookmarkPage}
+                  $isDetailsPage={isDetailsPage}
+                >
                   Home
                 </StyledListElements>
               </li>
               <li>
                 <StyledListElements
                   href="/bookmarks"
-                  $isBookmarkPage={isBookmarkPage}$isDetailsPage={isDetailsPage}
+                  $isBookmarkPage={isBookmarkPage}
+                  $isDetailsPage={isDetailsPage}
                 >
                   My Projects
                 </StyledListElements>
@@ -84,28 +92,32 @@ export default function Header({ onSearch }) {
               <StyledSocialMediaIcon
                 href="http://www.facebook.com"
                 target="_blank"
-                $isBookmarkPage={isBookmarkPage}$isDetailsPage={isDetailsPage}
+                $isBookmarkPage={isBookmarkPage}
+                $isDetailsPage={isDetailsPage}
               >
                 <Facebook width="100%" />
               </StyledSocialMediaIcon>
               <StyledSocialMediaIcon
                 href="http://www.instagram.com"
                 target="_blank"
-                $isBookmarkPage={isBookmarkPage}$isDetailsPage={isDetailsPage}
+                $isBookmarkPage={isBookmarkPage}
+                $isDetailsPage={isDetailsPage}
               >
                 <Instagram width="100%" />
               </StyledSocialMediaIcon>
               <StyledSocialMediaIcon
                 href="http://www.x.com"
                 target="_blank"
-                $isBookmarkPage={isBookmarkPage}$isDetailsPage={isDetailsPage}
+                $isBookmarkPage={isBookmarkPage}
+                $isDetailsPage={isDetailsPage}
               >
                 <XIcon width="100%" />
               </StyledSocialMediaIcon>
               <StyledSocialMediaIcon
                 href="http://www.youtube.com"
                 target="_blank"
-                $isBookmarkPage={isBookmarkPage}$isDetailsPage={isDetailsPage}
+                $isBookmarkPage={isBookmarkPage}
+                $isDetailsPage={isDetailsPage}
               >
                 <Youtube width="100%" />
               </StyledSocialMediaIcon>
@@ -114,23 +126,31 @@ export default function Header({ onSearch }) {
         </>
       ) : (
         <StyledNavList>
-          <SearchBar onSearch={onSearch}$isDetailsPage={isDetailsPage} />
+          <SearchBar onSearch={onSearch} isDetailsPage={isDetailsPage} />
           <li>
             <StyledListElements
               href="/bookmarks"
-              $isBookmarkPage={isBookmarkPage}$isDetailsPage={isDetailsPage}
+              $isBookmarkPage={isBookmarkPage}
+              $isDetailsPage={isDetailsPage}
             >
               My Projects
             </StyledListElements>
           </li>
           <li>
-            <StyledListElements href="/" $isBookmarkPage={isBookmarkPage} $isDetailsPage={isDetailsPage}>
+            <StyledListElements
+              href="/"
+              $isBookmarkPage={isBookmarkPage}
+              $isDetailsPage={isDetailsPage}
+            >
               Home
             </StyledListElements>
           </li>
         </StyledNavList>
       )}
-      <StyledDivBlocker $isBookmarkPage={isBookmarkPage} $isDetailsPage={isDetailsPage}/>
+      <StyledDivBlocker
+        $isBookmarkPage={isBookmarkPage}
+        $isDetailsPage={isDetailsPage}
+      />
     </StyledNavBar>
   );
 }
@@ -146,14 +166,18 @@ const StyledDivBlocker = styled.div`
   width: 100%;
   height: 80px;
   background-color: ${({ $isBookmarkPage, $isDetailsPage }) =>
-    $isBookmarkPage || $isDetailsPage ? "var(--color-primary-2)" : "var(--color-primary-1)"};
+    $isBookmarkPage || $isDetailsPage
+      ? "var(--color-primary-2)"
+      : "var(--color-primary-1)"};
   border-radius: 0 0 10px 10px;
   z-index: 1;
 `;
 
 const StyledLogo = styled(HammerhartLogo)`
-  fill: ${({ $isBookmarkPage,$isDetailsPage }) =>
-    $isBookmarkPage || $isDetailsPage ? "var(--color-primary-1)" : "var(--color-primary-2)"};
+  fill: ${({ $isBookmarkPage, $isDetailsPage }) =>
+    $isBookmarkPage || $isDetailsPage
+      ? "var(--color-primary-1)"
+      : "var(--color-primary-2)"};
   width: 80px;
   -webkit-tap-highlight-color: transparent;
   &:hover {
@@ -200,8 +224,10 @@ const StyledSocialBlock = styled.div`
 `;
 
 const StyledSocialMediaIcon = styled.a`
-  fill: ${({ $isBookmarkPage,$isDetailsPage }) =>
-    $isBookmarkPage || $isDetailsPage ? "var(--color-primary-1)" : "var(--color-primary-2)"};
+  fill: ${({ $isBookmarkPage, $isDetailsPage }) =>
+    $isBookmarkPage || $isDetailsPage
+      ? "var(--color-primary-1)"
+      : "var(--color-primary-2)"};
   display: flex;
   height: 22px;
   &:hover {
@@ -219,8 +245,10 @@ const StyledNavBar = styled.div`
   top: 0;
   width: 100%;
   height: 80px;
-  background-color: ${({ $isBookmarkPage,$isDetailsPage }) =>
-    $isBookmarkPage || $isDetailsPage ? "var(--color-primary-2)" : "var(--color-primary-1)"};
+  background-color: ${({ $isBookmarkPage, $isDetailsPage }) =>
+    $isBookmarkPage || $isDetailsPage
+      ? "var(--color-primary-2)"
+      : "var(--color-primary-1)"};
   border-radius: 0 0 10px 10px;
   padding: 0 10%;
   box-shadow: var(--box-shadow-2);
@@ -228,8 +256,10 @@ const StyledNavBar = styled.div`
 `;
 
 const StyledMenuIcon = styled.div`
-  fill: ${({ $isBookmarkPage,$isDetailsPage }) =>
-    $isBookmarkPage || $isDetailsPage ? "var(--color-primary-1)" : "var(--color-primary-2)"};
+  fill: ${({ $isBookmarkPage, $isDetailsPage }) =>
+    $isBookmarkPage || $isDetailsPage
+      ? "var(--color-primary-1)"
+      : "var(--color-primary-2)"};
   width: 30px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -257,13 +287,17 @@ const StyledDropDownDiv = styled.div`
   transform-origin: 100% 0%;
   transition: transform 0.4s ease;
   transform: ${({ $isMenuOpen }) => ($isMenuOpen ? "scaleY(1)" : "scaleY(0)")};
-  background-color: ${({ $isBookmarkPage,$isDetailsPage }) =>
-    $isBookmarkPage || $isDetailsPage ? "var(--color-primary-2)" : "var(--color-primary-1)"};
+  background-color: ${({ $isBookmarkPage, $isDetailsPage }) =>
+    $isBookmarkPage || $isDetailsPage
+      ? "var(--color-primary-2)"
+      : "var(--color-primary-1)"};
 `;
 
 const StyledListElements = styled.a`
-  color: ${({ $isBookmarkPage,$isDetailsPage }) =>
-    $isBookmarkPage || $isDetailsPage ? "var(--color-primary-1)" : "var(--color-primary-2)"};
+  color: ${({ $isBookmarkPage, $isDetailsPage }) =>
+    $isBookmarkPage || $isDetailsPage
+      ? "var(--color-primary-1)"
+      : "var(--color-primary-2)"};
   display: flex;
   align-self: end;
   -webkit-tap-highlight-color: transparent;

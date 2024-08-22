@@ -2,14 +2,18 @@ import styled, { css } from "styled-components";
 import SearchIcon from "@/public/svg/search.svg";
 import { useRouter } from "next/router";
 
-export default function SearchBar({ onSearch, $isNotMobile }) {
+export default function SearchBar({ onSearch, $isNotMobile, isDetailsPage }) {
   const router = useRouter();
 
   const isBookmarkPage = router.pathname === "/bookmarks";
+ 
   return (
     <>
       <label htmlFor="searchbar"></label>
-      <StyledSearchBarIconWrapper $isNotMobile={$isNotMobile}>
+      <StyledSearchBarIconWrapper
+        $isNotMobile={$isNotMobile}
+        $isDetailsPage={isDetailsPage}
+      >
         <StyledSearchBar
           type="text"
           id="searchbar"
@@ -33,7 +37,7 @@ const StyledSearchBarIconWrapper = styled.div`
   position: relative;
   width: 130px;
   @media screen and (min-width: 640px) {
-    width: 200px;
+  width: 200px;
   }
   ${(props) =>
     props.$isNotMobile &&
