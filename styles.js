@@ -27,7 +27,7 @@ export default createGlobalStyle`
     background-color: var(--color-primary-1);
   }
 
-  h1, h2, h3, h4, h5, h6, label {
+  h1, h2, h3, h4, h5, h6,.Collapsible__trigger,.Collapsible__contentInner  {
     font-family: ${grandstander.style.fontFamily};
     word-break: break-word;
     line-height: 1.6rem;
@@ -42,11 +42,6 @@ export default createGlobalStyle`
     line-height: 1.4rem;
     -webkit-tap-highlight-color: transparent;
   }
-
-  button {
-    font-family: ${grandstander.style.fontFamily};
-  }
-
  
   
   :root{
@@ -59,25 +54,23 @@ export default createGlobalStyle`
 
 
     --color-secondary-1: #F9F5EBCC;
-    --color-secondary-2: #a6b2a56b;
-    --color-secondary-3: #88A29379;
+    --color-secondary-2: #75837481;
+    --color-secondary-3: #696057;
     
     --color-beginner: #67AC5B;
     --color-intermediate: #F7C244;
     --color-advanced: #ED6237;
 
-    --color-bookmark: #ff6f61;
+    --color-alert: #ff6f61;
 
-   /*  Font Colors */
-   --color-font-1:#DDDDDD;
-   --color-font-2:#696057;
-   --color-font-3:#403A34;
+  
+   
    --color-font-light: #F5EEDC;
 
 
     /* Shadows */
-    --box-shadow-1: 2px -2px 4px 0px rgba(0,0,0,0.4);
-    --box-shadow-2: 4px 4px 4px 0px rgba(0,0,0,0.4);
+    --box-shadow-1: 0px -4px 4px 0px rgba(0,0,0,0.4);
+    --box-shadow-2: 0px 4px 4px 0px rgba(0,0,0,0.4);
     --box-shadow-form-1: 0px 2px 2px 1px rgba(0,0,0,0.4);
     --box-shadow-form-2: 0px -2px 2px 1px rgba(0,0,0,0.4);
     --inner-shadow-1: inset -4px 4px 4px 0px rgba(0,0,0,0.4);

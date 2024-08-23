@@ -6,10 +6,15 @@ export default function SearchBar({ onSearch, $isNotMobile }) {
   const router = useRouter();
 
   const isBookmarkPage = router.pathname === "/bookmarks";
+  const isDetailsPage = router.pathname.includes("/projects");
+
   return (
     <>
       <label htmlFor="searchbar"></label>
-      <StyledSearchBarIconWrapper $isNotMobile={$isNotMobile}>
+      <StyledSearchBarIconWrapper
+        $isNotMobile={$isNotMobile}
+        $isDetailsPage={isDetailsPage}
+      >
         <StyledSearchBar
           type="text"
           id="searchbar"
@@ -17,9 +22,11 @@ export default function SearchBar({ onSearch, $isNotMobile }) {
           placeholder="Search..."
           onChange={onSearch}
           $isBookmarkPage={isBookmarkPage}
+          $isDetailsPage={isDetailsPage}
         />
         <StyledIcon
           $isBookmarkPage={isBookmarkPage}
+          $isDetailsPage={isDetailsPage}
           $isNotMobile={$isNotMobile}
         >
           <SearchIcon fill="currentColor" />
@@ -56,7 +63,7 @@ const StyledIcon = styled.div`
   padding: 5px;
   background-color: var(--color-primary-2);
   ${(props) =>
-    props.$isBookmarkPage &&
+    (props.$isBookmarkPage || props.$isDetailsPage) &&
     css`
       @media screen and (min-width: 640px) {
         outline-offset: -2px;
@@ -75,7 +82,7 @@ const StyledSearchBar = styled.input`
   font-size: 0.8rem;
   padding-left: 10px;
   ${(props) =>
-    props.$isBookmarkPage &&
+    (props.$isBookmarkPage || props.$isDetailsPage) &&
     css`
       @media screen and (min-width: 640px) {
         outline-offset: -2px;

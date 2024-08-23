@@ -29,18 +29,25 @@ export default function EditButton({
 const StyledEditButton = styled.button`
   text-decoration: none;
   all: unset;
-  width: 4rem;
-  height: 2rem;
+  width: 80px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.3rem;
   cursor: pointer;
-  color: rgba(58, 58, 58, 1);
-  margin-bottom: 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
+  color: var(--color-primary-2);
+  background: var(--color-primary-1);
+  border-radius: 10px;
+  box-shadow: var(--box-shadow-2);
+  transition: all ease-in .2s;
   &:focus,
   &:hover {
-    outline: 1px solid white;
+    color: var(--color-primary-1);
+  background: var(--color-primary-2);
+  outline-offset: -2px;
+  outline: 2px solid var(--color-primary-1);
+  transform: scale(1.2);
+z-index: 112;
   }
 `;

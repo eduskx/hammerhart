@@ -1,7 +1,5 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { FaArrowLeftLong } from "react-icons/fa6";
 import styled from "styled-components";
 import DeleteButton from "@/components/Modals/DeleteButton";
 import BookmarkButton from "@/components/BookmarkButton";
@@ -12,11 +10,11 @@ import EditButton from "@/components/Modals/EditButton";
 const handleColorType = (color) => {
   switch (color) {
     case "Intermediate":
-      return "#f9b234";
+      return "var(--color-intermediate)";
     case "Advanced":
-      return "#e44002";
+      return "var(--color-advanced)";
     default:
-      return "#3ecd5e";
+      return "var(--color-beginner)";
   }
 };
 
@@ -29,6 +27,8 @@ export default function ProjectDetailsPage({
   isFormOpen,
   onUpdateProject,
   onProcessFormData,
+  onToggleDeleteModal,
+  isDeleteOpen,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -58,13 +58,11 @@ export default function ProjectDetailsPage({
   return (
     <>
       <StyledDetailsWrapper>
-        <StyledLink href="/">
-          <FaArrowLeftLong /> Back
-        </StyledLink>
         <StyledImageWrapper>
           <BookmarkButton
             onToggleBookmark={() => onToggleBookmark(id)}
             isFavorite={projectData.isFavorite}
+            $isDetail
           />
           <StyledImage
             src={imageUrl}
@@ -73,19 +71,20 @@ export default function ProjectDetailsPage({
             height={200}
             priority
           />
+          <Styledtitle>{title}</Styledtitle>
+        </StyledImageWrapper>
+        <StyledDescription>{description}</StyledDescription>
+        <StyledDivider />
+        <StyledDurationComplexityWrapper>
+          <StyledDuration>Duration: {duration}</StyledDuration>
           <StyledComplexityTag color={complexity}>
             {complexity}
           </StyledComplexityTag>
-        </StyledImageWrapper>
-      </StyledDetailsWrapper>
-      <div>
-        <Styledtitle>{title}</Styledtitle>
-        <StyledDescription>{description}</StyledDescription>
-        <StyledDuration>Duration: {duration}</StyledDuration>
-
+        </StyledDurationComplexityWrapper>
+        <StyledDivider />
         <StyledCollapsible
-          trigger="Materials ▼"
-          triggerWhenOpen="Materials ▲"
+          trigger="MATERIALS NEEDED ▼"
+          triggerWhenOpen="MATERIALS NEEDED ▲"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
@@ -93,26 +92,28 @@ export default function ProjectDetailsPage({
           {materials.length === 0 ? (
             <h2>No Materials found. Please add new ones.</h2>
           ) : (
-            <StyledMaterialsList>
+            <ul>
               {materials.map((material) => (
-                <StyledListItems key={material.id}>
-                  <input
+                <StyledCheckboxWrapper key={material.id}>
+                  <StyledCheckboxMaterial
                     type="checkbox"
                     checked={material.isChecked}
                     onChange={() => onCheckbox(material.id, id, "materials")}
                     aria-checked={material.isChecked}
                     aria-label={`Select ${material.description}`}
                   />
-                  {material.description}
-                </StyledListItems>
+                  <StyledLabel htmlFor={`material-${material.id}`}>
+                    {material.description}
+                  </StyledLabel>
+                </StyledCheckboxWrapper>
               ))}
-            </StyledMaterialsList>
+            </ul>
           )}
         </StyledCollapsible>
-
+        <StyledDivider />
         <StyledCollapsible
-          trigger="Instructions ▼"
-          triggerWhenOpen="Instructions ▲"
+          trigger="INSTRUCTIONS ▼"
+          triggerWhenOpen="INSTRUCTIONS ▲"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
@@ -120,192 +121,232 @@ export default function ProjectDetailsPage({
           {steps.length === 0 ? (
             <h2>No Instructions found. Please add new ones.</h2>
           ) : (
-            <StyledInstructionsList>
+            <ol>
               {steps.map((step) => (
-                <StyledListItems key={step.id}>
-                  <input
+                <StyledCheckboxWrapper key={step.id}>
+                  <StyledCheckboxSteps
                     type="checkbox"
                     checked={step.isChecked}
                     onChange={() => onCheckbox(step.id, id, "steps")}
                     aria-checked={step.isChecked}
                     aria-label={`Select ${step.description}`}
                   />
-                  {step.description}
-                </StyledListItems>
+                  <StyledLabel htmlFor={`step-${step.id}`}>
+                    {step.description}
+                  </StyledLabel>
+                </StyledCheckboxWrapper>
               ))}
-            </StyledInstructionsList>
+            </ol>
           )}
         </StyledCollapsible>
-
         <StyledCollapsible
-          trigger="Notes ▼"
-          triggerWhenOpen="Notes ▲"
+          trigger="ENTER YOUR NOTES BELOW:"
+          triggerWhenOpen="ENTER YOUR NOTES BELOW:"
           transitionTime={100}
           easing="ease-in-out"
           open={true}
         >
           <Note project={projectData} />
         </StyledCollapsible>
-        <StyledButtonsWrapper>
-          <DeleteButton
-            onDelete={() => {
-              onDeleteProject(id);
-              router.push("/");
-            }}
-          />
-          <EditButton
-            onToggleForm={onToggleForm}
-            isFormOpen={isFormOpen}
-            projects={projects}
-            onUpdateProject={onUpdateProject}
-            onProcessFormData={onProcessFormData}
-          />
-        </StyledButtonsWrapper>
-      </div>
+        <DetailsDeleteEditButtonWrapper>
+          <StyledButtonsWrapper>
+            <DeleteButton
+              onDelete={() => {
+                onDeleteProject(id);
+                router.push("/");
+              }}
+              isDeleteOpen={isDeleteOpen}
+              onToggleDeleteModal={onToggleDeleteModal}
+            />
+            <EditButton
+              onToggleForm={onToggleForm}
+              isFormOpen={isFormOpen}
+              projects={projects}
+              onUpdateProject={onUpdateProject}
+              onProcessFormData={onProcessFormData}
+            />
+          </StyledButtonsWrapper>
+        </DetailsDeleteEditButtonWrapper>
+      </StyledDetailsWrapper>
     </>
   );
 }
+const StyledDetailsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 120px 10%;
 
-const Styledtitle = styled.h1`
-  font-size: 1.5rem;
+  @media screen and (min-width: 640px) {
+    padding: 120px 10%;
+  }
+`;
+const StyledImage = styled(Image)`
+width: 100%;
+height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  object-fit: cover;
+`;
+const StyledImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 90%;
+  height: 300px;
+  @media screen and (min-width: 640px) {
+    width: 90%;
+    height: 300px;
+  }
+  @media screen and (min-width: 1000px) {
+    width: 90%;
+    height: 300px;
+    
+  }
+`;
+const Styledtitle = styled.h2`
+  position: absolute;
+  text-align: center;
+  max-width: 80%;
+  bottom: -20px;
+  color: var(--color-primary-1);
+  background-color: var(--color-primary-2);
+  border-radius: 10px;
+  border: 2px solid var(--color-primary-1);
+  font-size: 1rem;
+  padding: 13px 15px 8px 15px;
   @media screen and (min-width: 640px) {
     font-size: 2rem;
   }
 `;
-
-const StyledButtonsWrapper = styled.div`
-  display: flex;
-  gap: 1rem;
-  padding-bottom: 1rem;
-`;
-
-const StyledLink = styled(Link)`
-  font-size: larger;
-  padding-top: 16px;
-  color: var(--color-primary-2);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 80px auto 0 auto;
-  width: max-content;
-`;
-const StyledDetailsWrapper = styled.div`
-  position: relative;
-  box-shadow: var(--box-shadow-2);
-  background-color: var(--color-primary-2);
-  width: 100%;
-  height: 100%;
- 
-
-  @media screen and (min-width: 640px) {
-}
-`;
-
 const StyledDescription = styled.p`
   text-align: center;
+  font-weight: 400;
+  width: 80%;
+  padding-top: 40px;
+  color: var(--color-primary-2);
+`;
+
+const StyledDivider = styled.div`
+  height: 3px;
   width: 90%;
-`;
-
-const StyledImage = styled(Image)`
-  width: 100%;
+  margin: 30px 0;
+  background-color: var(--color-secondary-3);
   border-radius: 10px;
-  object-fit: cover;
 `;
-const StyledImageWrapper = styled.div`
-  position: relative;
-  width: 100%;
+const StyledDurationComplexityWrapper = styled.div`
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
 `;
-
 const StyledComplexityTag = styled.p`
   display: flex;
-  position: absolute;
   align-items: center;
-  padding: 10px 5px 8px 5px;
-  bottom: 5px;
-  right: 5px;
-  font-size: 0.6rem;
-  height: 18px;
-  border-radius: 25px;
-  outline: 1px solid var(--color-primary-2);
-  outline-offset: -1px;
-  background-color: var(--color-secondary-1);
-  color: var(--color-primary-2);
-  backdrop-filter: blur(5px);
-  ${(props) =>
-    props.$isHighlighted &&
-    css`
-      padding: 10px 10px;
-      outline: 2px solid var(--color-primary-2);
-      outline-offset: -2px;
-      height: 25px;
-      font-size: 0.8rem;
-    `}
+  font-weight: 400;
+  padding: 15px 10px 13px 10px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: ${({ color }) => handleColorType(color)};
+  color: var(--color-primary-1);
   @media screen and (min-width: 640px) {
-    font-size: 0.8rem;
-    padding: 10px 10px;
-    outline: 2px solid var(--color-primary-2);
-    outline-offset: -1px;
   }
 `;
-
 const StyledDuration = styled.p`
-  align-self: self-end;
-  padding-right: 2rem;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  padding: 15px 10px 13px 10px;
+  height: 20px;
+  border-radius: 10px;
+  outline-offset: -2px;
+  outline: 2px solid var(--color-primary-2);
+  color: var(--color-primary-2);
 `;
 
-const StyledMaterialsList = styled.ul`
-  list-style-position: inside;
-  list-style-type: none;
-  text-align: start;
-  padding: 0;
-  margin: 0;
-  color: #ffffff;
+const StyledCheckboxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 `;
 
-const StyledInstructionsList = styled.ol`
-  list-style-position: inside;
-  list-style-type: none;
-  padding: 0 1rem;
-  margin-bottom: 1rem;
-  text-align: start;
-  color: #ffffff;
+const StyledCheckboxMaterial = styled.input`
+  /* Hide the default checkbox but keep it visible for debugging */
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--color-secondary-2);
+  border-radius: 10px;
+  background-color: var(--color-primary-1);
+  margin-right: 15px;
+  cursor: pointer;
+  position: relative;
+  padding: 13px;
 
-  @media screen and (min-width: 640px) {
-    list-style-position: inside;
-    padding: 0;
-    text-align: start;
+  &:checked {
+    background-color: var(--color-primary-1);
+    border-color: var(--color-primary-2);
+  }
+
+  &:checked::after {
+    content: "✔";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary-2);
+    font-size: 2rem;
+    position: absolute;
+    top: -13px;
+    left: 5px;
   }
 `;
-
-const StyledListItems = styled.li`
-  line-height: 1.4rem;
+const StyledCheckboxSteps = styled(StyledCheckboxMaterial)``;
+const StyledLabel = styled.label`
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-primary-2);
+  cursor: pointer;
+  padding: 3px;
 `;
 
 const StyledCollapsibleWrapper = styled.div`
-  border-radius: 2px;
-  color: rgba(58, 58, 58, 1);
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid #ccc;
-  width: 95%;
+  width: 90%;
+  color: var(--color-primary-2);
+  -webkit-tap-highlight-color: transparent;
 
-  &:hover {
-    outline: 1px solid white;
-  }
   .Collapsible__trigger {
     display: flex;
-
-    color: rgba(58, 58, 58, 1);
+    font-weight: 700;
+    font-size: 1.3rem;
     width: 100%;
     cursor: pointer;
-    padding-left: 0.5rem;
-
-    -webkit-tap-highlight-color: transparent;
   }
   .Collapsible__contentOuter {
-    background-color: #a38376;
+    list-style-type: none;
+    text-align: start;
   }
   .Collapsible__contentInner {
-    padding: 0.5rem;
+    list-style-type: none;
+    padding: 20px 0;
   }
+`;
+
+const DetailsDeleteEditButtonWrapper = styled.div`
+  display: flex;
+  position: fixed;
+width: 100%;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px 10px 0 0;
+  bottom: 0;
+  background-color: var(--color-primary-2);
+  z-index: 111;
+  box-shadow: var(--box-shadow-1);
+`;
+const StyledButtonsWrapper = styled.div`
+  display: flex;
+  gap: 2rem;
+ 
 `;

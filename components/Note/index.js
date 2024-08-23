@@ -38,15 +38,14 @@ const Note = ({}) => {
   return (
     <StyledNotesWrapper>
       {isEditMode ? (
-        <Editor
+        <StyledEditor
           value={currentNote}
           onTextChange={(event) => handleTextChange(event)}
-          style={{ width: "550px", height: "320px" }}
           headerTemplate={customToolbar}
         />
       ) : (
         <StyledNotesTextField>
-          {(currentNote && parse(currentNote)) || "Enter your notes here..."}
+          {(currentNote && parse(currentNote)) || "..."}
         </StyledNotesTextField>
       )}
       <StyledButton onClick={toggleEditMode}>
@@ -57,19 +56,44 @@ const Note = ({}) => {
 };
 export default Note;
 
+
+const StyledEditor = styled(Editor)`
+width: 100%;
+height: 100%;
+
+p{
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-primary-2);
+}
+.ql-container.ql-snow {
+  border-radius: 0 0 10px 10px;
+  background-color: var( --color-secondary-2);
+}
+.ql-toolbar.ql-snow{
+  border-radius: 10px 10px 0 0;
+  background-color: var( --color-secondary-2);
+}
+`;
+
 const StyledNotesWrapper = styled.div`
   display: flex;
   word-break: break-all;
   position: relative;
+  width: 100%;
+  max-height: 200px;
+  
+
+  
 `;
 
 const StyledButton = styled.button`
   all: unset;
-  color: white;
+  color: var(--color-primary-2);
   cursor: pointer;
   position: absolute;
   bottom: 0;
-  right: 0.3rem;
+  right: 5px;
   transition: all 0.5s ease;
   &:hover {
     transform: scale(1.5);
@@ -79,6 +103,14 @@ const StyledButton = styled.button`
 const StyledNotesTextField = styled.div`
   white-space: pre-wrap;
   width: 100%;
-  color: white;
-  padding-left: 20px;
+  min-height: 100px;
+  color: var(--color-primay-2
+    );
+  padding:10px;
+  background-color: var( --color-secondary-2);
+  border-radius: 10px;
+
+  p{
+    font-weight: 400;
+  }
 `;

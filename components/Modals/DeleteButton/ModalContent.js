@@ -1,58 +1,74 @@
 import styled from "styled-components";
 
-export default function ModalContent({ onClose, onDelete }) {
+export default function ModalContent({ onDelete, onToggleDeleteModal }) {
   return (
-    <StyledModalContentContainer>
-      <StyledConfirmationText>
-        Are you sure you want to delete this project?
-      </StyledConfirmationText>
-      <StyledButtonsContainer>
-        <StyledButton type="button" onClick={onClose}>
-          No
-        </StyledButton>
-        <StyledButton type="button" onClick={onDelete}>
-          Yes
-        </StyledButton>
-      </StyledButtonsContainer>
-    </StyledModalContentContainer>
+    <StyledContainer>
+      <StyledContentWrapper>
+        <StyledConfirmationText>
+          Are you sure you want to delete this project?
+        </StyledConfirmationText>
+        <StyledButtonWrapper>
+          <StyledButton type="button" onClick={onToggleDeleteModal}>
+            No
+          </StyledButton>
+          <StyledButton type="button" onClick={onDelete}>
+            Yes
+          </StyledButton>
+        </StyledButtonWrapper>
+      </StyledContentWrapper>
+    </StyledContainer>
   );
 }
 
-const StyledModalContentContainer = styled.div`
-  border-radius: 10px;
-  width: fit-content;
-  text-align: center;
-  background-color: #564647;
-  padding: 2rem 4rem;
-  margin: auto;
+const StyledContainer = styled.div`
   position: fixed;
+  top: 0;
   left: 0;
-  right: 0;
-  top: 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background-color: hsl(0, 0%, 0%, 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const StyledConfirmationText = styled.p`
-  color: white;
-  font-size: 18px;
-  padding-bottom: 1rem;
-`;
-
-const StyledButtonsContainer = styled.div`
+const StyledButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 40px;
+  margin-top: 32px;
+`;
+
+const StyledConfirmationText = styled.h2`
+  width: 80%;
+  text-align: center;
+  color: var(--color-primary-1);
+`;
+
+const StyledContentWrapper = styled.div`
+  background-color: var(--color-primary-3);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 32px;
+  padding: 64px 0;
 `;
 
 const StyledButton = styled.button`
-  font-size: 16px;
-  cursor: pointer;
   border: none;
-  width: 4rem;
-  height: 2rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  &:focus,
+  color: var(--color-primary-1);
+  background-color: var(--color-secondary-2);
+  border-radius: 10px;
+  padding: 8px 32px;
+  font-size: 18px;
+  cursor: pointer;
   &:hover {
-    outline: 1px solid white;
+    color: var(--color-primary-2);
+    background-color: var(--color-primary-1);
+    outline-offset: -3px;
+    outline: 2px solid var(--color-primary-1);
   }
 `;

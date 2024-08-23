@@ -245,7 +245,7 @@ export default function Form({
   );
 }
 
-const StyledDivider = styled.div``;
+
 
 const StyledForm = styled.form`
   color: var(--color-primary-2);
@@ -545,13 +545,13 @@ const StyledFooterContainer = styled.div`
 `;
 
 const StyledSubmitButton = styled.button`
-  background-color: var(--color-secondary-3);
+  background-color: var(--color-secondary-2);
   color: var(--color-font-light);
   width: 33%;
-  padding: 16px;
+  padding: 13px 16px 15px 16px;
   border: none;
   border-radius: 20px;
-  font-size: 18px;
+  font-size: 1.3rem;
   cursor: pointer;
   &:focus,
   &:hover {
