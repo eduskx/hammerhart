@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import ModalContent from "@/components/Modals/DeleteButton/ModalContent";
 import styled from "styled-components";
@@ -9,15 +8,6 @@ export default function DeleteButton({
   isDeleteOpen,
   onToggleDeleteModal,
 }) {
-  // const [isModalOpen, setisModalOpen] = useState(false);
-  // useEffect(() => {
-  //   document.body.style.overflow = isModalOpen ? "hidden" : "auto";
-  // }, [isModalOpen]);
-
-  // function handleToggleModal() {
-  //   setisModalOpen(!isModalOpen);
-  // }
-
   return (
     <>
       <StyledDeleteButton onClick={onToggleDeleteModal}>
@@ -50,13 +40,13 @@ export const StyledDeleteButton = styled.button`
   background: var(--color-primary-1);
   border-radius: 10px;
   box-shadow: var(--box-shadow-2);
-  transition: all ease-in .2s;
-  
+  transition: all ease-in 0.2s;
+
   &:hover {
     color: var(--color-primary-1);
-  background: var(--color-alert);
-  outline-offset: -2px;
-  outline: 2px solid var(--color-primary-1);
-  transform: scale(1.2);
+    background: var(--color-alert);
+    outline-offset: -2px;
+    outline: 2px solid var(--color-primary-1);
+    transform: scale(1.2);
   }
 `;

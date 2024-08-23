@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
-export default function ModalContent({
-  onDelete,
-  onToggleDeleteModal,
-  isDeleteOpen,
-}) {
+export default function ModalContent({ onDelete, onToggleDeleteModal }) {
   return (
     <StyledContainer>
       <StyledContentWrapper>
@@ -68,6 +64,7 @@ const StyledButton = styled.button`
   border-radius: 10px;
   padding: 8px 32px;
   font-size: 18px;
+  cursor: pointer;
   &:hover {
     color: var(--color-primary-2);
     background-color: var(--color-primary-1);
