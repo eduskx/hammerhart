@@ -48,6 +48,6 @@ const StyledEditButton = styled.button`
   outline-offset: -2px;
   outline: 2px solid var(--color-primary-1);
   transform: scale(1.2);
-
+z-index: 112;
   }
 `;

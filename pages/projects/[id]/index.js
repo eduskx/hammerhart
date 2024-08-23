@@ -342,7 +342,7 @@ width: 100%;
   border-radius: 10px 10px 0 0;
   bottom: 0;
   background-color: var(--color-primary-2);
-  z-index: 3;
+  z-index: 111;
   box-shadow: var(--box-shadow-1);
 `;
 const StyledButtonsWrapper = styled.div`
