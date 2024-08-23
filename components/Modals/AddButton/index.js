@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { IoMdAdd } from "react-icons/io";
-import { useEffect, useState } from "react";
 import ModalContent from "@/components/Modals/AddButton/ModalContent";
 
 export default function AddButton({
@@ -54,4 +53,5 @@ const StyledAddButton = styled.button`
   outline: 2px solid var(--color-primary-1);
   transform: scale(1.2);
   }
+  -webkit-tap-highlight-color: transparent;
 `;

@@ -41,7 +41,6 @@ export default function ProjectCard({
               height={100}
               unoptimized={true}
               priority
-        
             />
             <StyledTitleBackground $isHighlighted={$isHighlighted}>
               <StyledTitle $isHighlighted={$isHighlighted}>{title}</StyledTitle>
@@ -80,13 +79,13 @@ const CardContainer = styled.div`
       height: 175px;
       width: 315px;
       @media screen and (min-width: 640px) {
-    width: 550px;
-    height: 340px;
-  }
-  @media screen and (min-width: 1275px) {
-    width: 560px;
-    height: 340px;
-  }
+        width: 550px;
+        height: 340px;
+      }
+      @media screen and (min-width: 1275px) {
+        width: 560px;
+        height: 340px;
+      }
     `}
 `;
 const StyledShadowDiv = styled.div`
@@ -109,13 +108,13 @@ const StyledShadowDiv = styled.div`
       height: 175px;
       width: 315px;
       @media screen and (min-width: 640px) {
-    width: 550px;
-    height: 340px;
-  }
+        width: 550px;
+        height: 340px;
+      }
       @media screen and (min-width: 1275px) {
         width: 560px;
         height: 340px;
-  }
+      }
     `}
 `;
 const CardWrapper = styled.div`

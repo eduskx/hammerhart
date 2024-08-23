@@ -91,7 +91,7 @@ const StyledSearchBar = styled.input`
     `}
 
   &::placeholder {
-    color: #536f5f80;
+    color: var(--color-primary-2-light);
   }
   &:focus {
     outline-offset: -3px;
