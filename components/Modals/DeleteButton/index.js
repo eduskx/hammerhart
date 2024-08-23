@@ -1,22 +1,24 @@
-import { useState } from "react";
 import { createPortal } from "react-dom";
 import ModalContent from "@/components/Modals/DeleteButton/ModalContent";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-export default function DeleteButton({ onDelete }) {
-  const [showModal, setShowModal] = useState(false);
-
+export default function DeleteButton({
+  onDelete,
+  isDeleteOpen,
+  onToggleDeleteModal,
+}) {
   return (
     <>
-      <StyledDeleteButton onClick={() => setShowModal(true)}>
+      <StyledDeleteButton onClick={onToggleDeleteModal}>
         <FaRegTrashAlt />
       </StyledDeleteButton>
-      {showModal &&
+      {isDeleteOpen &&
         createPortal(
           <ModalContent
-            onClose={() => setShowModal(false)}
             onDelete={onDelete}
+            isDeleteOpen={isDeleteOpen}
+            onToggleDeleteModal={onToggleDeleteModal}
           />,
           document.body
         )}
@@ -38,13 +40,13 @@ export const StyledDeleteButton = styled.button`
   background: var(--color-primary-1);
   border-radius: 10px;
   box-shadow: var(--box-shadow-2);
-  transition: all ease-in .2s;
-  
+  transition: all ease-in 0.2s;
+
   &:hover {
     color: var(--color-primary-1);
-  background: var(--color-alert);
-  outline-offset: -2px;
-  outline: 2px solid var(--color-primary-1);
-  transform: scale(1.2);
+    background: var(--color-alert);
+    outline-offset: -2px;
+    outline: 2px solid var(--color-primary-1);
+    transform: scale(1.2);
   }
 `;

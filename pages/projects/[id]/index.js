@@ -27,6 +27,8 @@ export default function ProjectDetailsPage({
   isFormOpen,
   onUpdateProject,
   onProcessFormData,
+  onToggleDeleteModal,
+  isDeleteOpen,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -153,6 +155,8 @@ export default function ProjectDetailsPage({
                 onDeleteProject(id);
                 router.push("/");
               }}
+              isDeleteOpen={isDeleteOpen}
+              onToggleDeleteModal={onToggleDeleteModal}
             />
             <EditButton
               onToggleForm={onToggleForm}
@@ -321,12 +325,10 @@ const StyledCollapsibleWrapper = styled.div`
   .Collapsible__contentOuter {
     list-style-type: none;
     text-align: start;
-    
   }
   .Collapsible__contentInner {
     list-style-type: none;
     padding: 20px 0;
-   
   }
 `;
 
