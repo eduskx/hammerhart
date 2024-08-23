@@ -2,11 +2,12 @@ import styled, { css } from "styled-components";
 import SearchIcon from "@/public/svg/search.svg";
 import { useRouter } from "next/router";
 
-export default function SearchBar({ onSearch, $isNotMobile, isDetailsPage }) {
+export default function SearchBar({ onSearch, $isNotMobile }) {
   const router = useRouter();
 
   const isBookmarkPage = router.pathname === "/bookmarks";
- 
+  const isDetailsPage = router.pathname.includes("/projects");
+
   return (
     <>
       <label htmlFor="searchbar"></label>
@@ -21,9 +22,11 @@ export default function SearchBar({ onSearch, $isNotMobile, isDetailsPage }) {
           placeholder="Search..."
           onChange={onSearch}
           $isBookmarkPage={isBookmarkPage}
+          $isDetailsPage={isDetailsPage}
         />
         <StyledIcon
           $isBookmarkPage={isBookmarkPage}
+          $isDetailsPage={isDetailsPage}
           $isNotMobile={$isNotMobile}
         >
           <SearchIcon fill="currentColor" />
@@ -37,7 +40,7 @@ const StyledSearchBarIconWrapper = styled.div`
   position: relative;
   width: 130px;
   @media screen and (min-width: 640px) {
-  width: 200px;
+    width: 200px;
   }
   ${(props) =>
     props.$isNotMobile &&
@@ -60,7 +63,7 @@ const StyledIcon = styled.div`
   padding: 5px;
   background-color: var(--color-primary-2);
   ${(props) =>
-    props.$isBookmarkPage &&
+    (props.$isBookmarkPage || props.$isDetailsPage) &&
     css`
       @media screen and (min-width: 640px) {
         outline-offset: -2px;
@@ -79,7 +82,7 @@ const StyledSearchBar = styled.input`
   font-size: 0.8rem;
   padding-left: 10px;
   ${(props) =>
-    props.$isBookmarkPage &&
+    (props.$isBookmarkPage || props.$isDetailsPage) &&
     css`
       @media screen and (min-width: 640px) {
         outline-offset: -2px;
