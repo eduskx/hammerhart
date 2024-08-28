@@ -1,29 +1,26 @@
-# DIY Hub
+# 🛠️ Hammerhart - Your DIY Hub!
+Hammerhart is a web app that my colleagues and I developed during our intensive coding bootcamp at "neue fische."
+The app is designed for all DIY enthusiasts and hobbyists who want to discover new projects and manage their own ideas.
+The main idea behind Hammerhart was to create a platform that allows users to manage their DIY projects easily and clearly.
+The app offers an intuitive user interface and enables seamless management for all your projects — from creating and editing to deleting projects.
 
-## Description
+## Key Features
+**➕ Create own projects:** Users can create their own DIY projects by adding titles, descriptions, materials, step-by-step instructions, and more. This allows for complete documentation and presentation of their creative work.
+<br>
 
-The DIY Hub enables users to create, organise, and plan their DIY projects. It provides a platform for users to track their progress, organise materials, and store detailed information about each project.
+**♥️ Favorite projects:** The favorites feature allows users to mark their favorite projects so they can easily find and revisit them. This way, they can always keep track of the most inspiring ideas.
+<br>
 
-### Main Features
+**🕒 Track progess:** Users can track the progress of their projects step by step by marking materials and tasks with a simple checkbox. This feature supports a structured and efficient workflow.
+<br>
 
-- **Projects List:** Browse a well-organised collection of DIY projects.
-- **Project Details:** View detailed information about each project.
-- **Create Project:** Add new projects, enriching the projects catalogue.
-- **Delete Project:** Remove outdated or unwanted projects.
-- **Update Project:** Update and modify existing projects.
-- **Bookmark Project:** Save and showcase your favourite projects.
-- **Filter Projects:** Filter projects by various criteria.
+**📝 Individual notes:** Personal notes can be added to each project to capture important details, thoughts, or ideas. This feature helps document the creative process and ensures that no important information is forgotten.
+<br>
 
-### Additional Features Inspiration
+## Team
 
-These features are optional and should serve as a conversation starter for upcoming features of the app.
+[Eduard Lisovskij](https://github.com/eduskx) <br>
+[Kevin Stein](https://github.com/Kevin-Stein) <br>
+[Moritz Biehl](https://github.com/MoritzBhl) <br>
+[Sükran Sari](https://github.com/SukranSari) <br>
 
-- **Upload Project Images:** Add images to projects to provide visual aids and inspiration.
-- **Add Project Notes:** Include private notes to projects to keep track of ideas, modifications, and personal insights.
-- **Track Progress:** Monitor the progress of projects with status updates (e.g., planning, in progress, completed).
-- **Search Projects:** Use a search bar to quickly find projects by name or keyword.
-- **Rate Projects:** Rate projects on a scale from 1 to 5 stars.
-
-## Notes
-
-- You can find some example data in the [assets folder](./assets/) to get you started.
