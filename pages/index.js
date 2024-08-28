@@ -29,11 +29,10 @@ export default function HomePage({
             <StyledWelcomeText>
               Hammerhart
               <StyledWelcomeTextSpan>
-                Your “Do-It-Yourself” App for Planning, Creating and Sharing
-                your Vision.
+                Your DIY app for planning, creating and sharing your vision.
               </StyledWelcomeTextSpan>
               <StyledWelcomeTextSpan>
-                Start your Project, today!
+                Start your own project today!
               </StyledWelcomeTextSpan>
             </StyledWelcomeText>
             <AddButton
