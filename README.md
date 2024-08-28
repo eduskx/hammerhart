@@ -1,7 +1,7 @@
 # 🛠️ Hammerhart - Your DIY Hub!
-Hammerhart is a web app that my colleagues and I developed during our intensive coding bootcamp at "neue fische." <br>
-The app is designed for all DIY enthusiasts and hobbyists who want to discover new projects and manage their own ideas. <br>
-The main idea behind Hammerhart was to create a platform that allows users to manage their DIY projects easily and clearly. <br>
+Hammerhart is a web app that my colleagues and I developed during our intensive coding bootcamp at "neue fische."
+The app is designed for all DIY enthusiasts and hobbyists who want to discover new projects and manage their own ideas.
+The main idea behind Hammerhart was to create a platform that allows users to manage their DIY projects easily and clearly.
 The app offers an intuitive user interface and enables seamless management for all your projects — from creating and editing to deleting projects.
 
 ## Key Features
