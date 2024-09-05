@@ -5,6 +5,7 @@ import Sliders from "@/public/svg/Sliders.svg";
 import FilterButtons from "@/components/FilterButtons";
 import ProjectsList from "@/components/ProjectsList";
 import AddButton from "@/components/Modals/AddButton";
+import Head from "next/head";
 
 export default function HomePage({
   projects,
@@ -23,66 +24,73 @@ export default function HomePage({
 }) {
   return (
     <>
-      <StyledWelcomeSection>
-        <StyledWelcomeHighlightWrapper>
-          <StyledWelcomeAddButtonWrapper>
-            <StyledWelcomeText>
-              Hammerhart
-              <StyledWelcomeTextSpan>
-                Your DIY app for planning, creating and sharing your vision.
-              </StyledWelcomeTextSpan>
-              <StyledWelcomeTextSpan>
-                Start your own project today!
-              </StyledWelcomeTextSpan>
-            </StyledWelcomeText>
-            <AddButton
-              onAddProject={onAddProject}
-              onProcessFormData={onProcessFormData}
-              onToggleForm={onToggleForm}
-              isFormOpen={isFormOpen}
+      <Head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hammerhart</title>
+      </Head>
+      <main>
+        <StyledWelcomeSection>
+          <StyledWelcomeHighlightWrapper>
+            <StyledWelcomeAddButtonWrapper>
+              <StyledWelcomeText>
+                Hammerhart
+                <StyledWelcomeTextSpan>
+                  Your DIY app for planning, creating and sharing your vision.
+                </StyledWelcomeTextSpan>
+                <StyledWelcomeTextSpan>
+                  Start your own project today!
+                </StyledWelcomeTextSpan>
+              </StyledWelcomeText>
+              <AddButton
+                onAddProject={onAddProject}
+                onProcessFormData={onProcessFormData}
+                onToggleForm={onToggleForm}
+                isFormOpen={isFormOpen}
+              />
+            </StyledWelcomeAddButtonWrapper>
+            <HighlightedProject
+              $isDesktopOn
+              projects={projects}
+              onToggleBookmark={onToggleBookmark}
             />
-          </StyledWelcomeAddButtonWrapper>
+          </StyledWelcomeHighlightWrapper>
+        </StyledWelcomeSection>
+        <StyledListSection>
           <HighlightedProject
-            $isDesktopOn
+            $isDesktop
             projects={projects}
             onToggleBookmark={onToggleBookmark}
           />
-        </StyledWelcomeHighlightWrapper>
-      </StyledWelcomeSection>
-      <StyledListSection>
-        <HighlightedProject
-          $isDesktop
-          projects={projects}
-          onToggleBookmark={onToggleBookmark}
-        />
-        <StyledProjectsWrapper>
-          <StyledToggleSearchWrapper>
-            <StyledProjectsTitle>Projects</StyledProjectsTitle>
+          <StyledProjectsWrapper>
             <StyledToggleSearchWrapper>
-              <SearchBar onSearch={onSearch} $isNotMobile />
-              <StyledFilterToggleButton
-                $filterOn={filterOn}
-                onClick={onToggleDisplayFilter}
-              >
-                <StyledSliders $filterOn={filterOn} fill="currentColor" />
-              </StyledFilterToggleButton>
+              <StyledProjectsTitle>Projects</StyledProjectsTitle>
+              <StyledToggleSearchWrapper>
+                <SearchBar onSearch={onSearch} $isNotMobile />
+                <StyledFilterToggleButton
+                  $filterOn={filterOn}
+                  onClick={onToggleDisplayFilter}
+                >
+                  <StyledSliders $filterOn={filterOn} fill="currentColor" />
+                </StyledFilterToggleButton>
+              </StyledToggleSearchWrapper>
             </StyledToggleSearchWrapper>
-          </StyledToggleSearchWrapper>
-          <FilterButtons
-            complexities={complexities}
-            onFilterChange={onFilterChange}
+            <FilterButtons
+              complexities={complexities}
+              onFilterChange={onFilterChange}
+              activeFilter={activeFilter}
+              filterOn={filterOn}
+            />
+          </StyledProjectsWrapper>
+          <StyledDivider />
+          <ProjectsList
+            projects={projects}
+            onToggleBookmark={onToggleBookmark}
+            searchInput={searchInput}
             activeFilter={activeFilter}
-            filterOn={filterOn}
           />
-        </StyledProjectsWrapper>
-        <StyledDivider />
-        <ProjectsList
-          projects={projects}
-          onToggleBookmark={onToggleBookmark}
-          searchInput={searchInput}
-          activeFilter={activeFilter}
-        />
-      </StyledListSection>
+        </StyledListSection>
+      </main>
     </>
   );
 }
